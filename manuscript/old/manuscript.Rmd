@@ -1,0 +1,71 @@
+---
+title: "Main"
+author: "Emi"
+date: "06/10/2020"
+output: pdf_document
+bibliography: capitalEffectsBibDB.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction
+
+Desde la GFC hay nuevas regulaciones de capital. <!--- read ADRIAN KIFF SHIN 2018 Liquidity leverage and regulation 10 after the GFC --->
+
+<!--- TODO: add new models here --->
+
+En modelos est'aticos, mayores niveles de capital implican mayores costos. Bancos mejor capitalizados deben pagar un mayor costo por el capital. Los depósitos osn una fuente de financiameinto mas barata debido a los servicios de liquidez que proveen a los depositantes. Un banco minimizador de costos debe entonces mazimizar su nivel de apalancamiento.
+
+En modelos que incluyen crisis el efecto del apalancamiento sobre los beneficios es variable.
+
+Son beneficiuosas?
+
+Es necesario enforzarlas?
+
+[@BergerBouwman2013] find that for small banks higher capital enhances profits at all times whereas for medium an dlarg bank it does only during crises. This suggest that the chosen level of capital is suboptimal at least for small banks. This is in line with [@Begenau2020] who using a general equilibrium model calibrated for the US suggest that higher level of capital would instead increase profits.
+
+[@AiyarCalomirisWieladek] find that small banks in the Euroarea do react to change in capital requirements and tightening of monetary policy whereas big banks only react to capital requirement changes. The reaction si the reduciton in lending.l
+
+En las últimas tres décadas, el sistema financiero argentino ha sido fuertemente golpeado por crisis de distinta índole (bancarias, de mercado, etc), lo que ha promovido el cierre de numerosas entidades bancarias y reducido el crecimiento del sistema bancario. Por este motivo, se ha decidido aplicar el modelo de [@BergerBouwman2013] a la Argentina para determinar cuál es el grado de influencia que manifestó el capital en la performance. Se puede observar que, en el año 1999, el número de bancos en la Argentina era superior al actual. En función de lo explicado, el objetivo de esta investigación es determinar cómo incide el ratio de capital de cada banco con anterioridad a las crisis (o períodos normales) sobre su performance (medida a través de la variación en la participación de mercado), durante las crisis (o tiempos normales). Este análisis se aplicó a los bancos existentes en la Argentina en el período comprendido entre 1999 y 2014. El análisis se enfoca exclusivamente en ese lapso de tiempo, y por lo tanto incluye dos recesiones económicas. La primera de ellas, es en los años 2001 y 2002 y abarca tanto a la crisis económica argentina, que Gerchunoff y Llach llaman "Nuestra Gran Depresión" ([@GerchunoffLlach2007]) como a la Explosión de la burbuja ".com" y el atentado terrorista del 11 de septiembre en Estados Unidos. (Berger & Bouwman, 2013) Si bien esta última no tuvo su origen en la Argentina, produjo repercusiones en nuestro país. La segunda recesión abarca al año 2008, e incluye a la "Crisis del Campo" en la Argentina, que a su vez coincide temporalmente con la Subprime Lending Crisis cuyos efectos se sintieron en la Argentina en el año mencionado. Para lograr este fin, se utilizó información anual contable, específicamente, el saldo de las cuentas incluidas en el manual del Banco Central de la República Argentina (en adelante, BCRA) de cada banco existente en la Argentina entre el período 1999-2014. Los datos han sido obtenidos de dos informes de entidades financieras publicados por el BCRA en marzo de 2005 y enero de 2015 y de los balances de los diferentes bancos. Además, se recopiló y utilizó información no contable. Este trabajo se encuentra estructurado de la siguiente manera. En la sección 2, se desarrolla el marco teórico relevante para el trabajo. Luego, en la sección 3, se define la metodología aplicable y se explican las variables y los datos utilizados. En la sección 4, se exponen los resultados obtenidos a partir de la investigación, y a continuación, en la sección 5, las conclusiones. Se incluye en la sección 6, además, la explicación de cada crisis considerada para el análisis.
+
+# Theoretical model
+
+## Partial equilibrium
+
+ruan probability
+
+# Methodology
+
+# Results
+
+## Baseline model
+
+$$
+\% \Delta Marketshare^{(i)}_{t-1 \rightarrow t} = \alpha + \beta_{KN} ( \text{Capital}^{(i)}_{t-1} \times N_{t}) + \beta_{KC} ( \text{Capital}^{(i)}_{t-1} \times C_{t})
+$$
+
+# Survival analysis
+
+A firm leverage determines its survival probability: a realization of a loss greater than equity defines bankruptcy. A firm or bank must thus adjust its leverage given the distrubtion of potential losses. <!--# Basically here I'm describing the Value-at-Risk concepto, righ? -->[@AdrianShin2013] suggest a way of making this adjustmen is through the Value-at-Risk.
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

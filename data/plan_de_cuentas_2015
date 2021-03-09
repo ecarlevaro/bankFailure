@@ -1,0 +1,2059 @@
+130000 Préstamos
+131000 En pesos - Residentes en el país
+131100 Sector público no financiero - Capitales
+131109 Adelantos en cuenta corriente
+131112 Otros adelantos
+131115 Documentos a sola firma
+131119 Títulos de crédito descontados
+131118 Documentos descontados
+131121 Documentos comprados
+131108 Hipotecarios sobre la vivienda
+131111 Con otras garantías hipotecarias
+131113 Prendarios sobre automotores
+131114 Con otras garantías prendarias
+131133 Créditos documentarios
+131136 De títulos públicos
+131138 De títulos privados
+131140 Préstamos garantizados - Decreto 1387/01
+131143 Pagarés emitidos por el Gobierno Nacional
+131141 Otros préstamos
+131191 (Intereses documentados)
+131192 (Cobros no aplicados)
+131196 (Regularizadora de préstamos garantizados y pagarés emitidos por el Gobierno
+Nacional)
+131204 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+adelantos
+131205 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+documentos
+131209 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos hipotecarios sobre la vivienda
+131210 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías hipotecarias
+131211 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos prendarios sobre automotores
+131212 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías prendarias
+131201 Sector público no financiero - Intereses compensatorios devengados a cobrar por otros
+préstamos
+131213 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos garantizados - Decreto 1387/01
+131215 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+pagarés emitidos por el Gobierno Nacional
+131202 Sector público no financiero - Intereses punitorios devengados a cobrar
+131203 Sector público no financiero - Diferencias de cotización devengadas a cobrar
+131254 Sector público no financiero - Ajustes devengados a cobrar por adelantos con cláusula
+CER
+131255 Sector público no financiero - Ajustes devengados a cobrar por documentos con
+cláusula CER
+131259 Sector público no financiero - Ajustes devengados a cobrar por préstamos hipotecarios
+sobre la vivienda con cláusula CER
+131260 Sector público no financiero- Ajustes devengados a cobrar por préstamos con otras
+garantías hipotecarias con cláusula CER
+131261 Sector público no financiero - Ajustes devengados a cobrar por préstamos prendarios
+sobre automotores con cláusula CER
+131262 Sector público no financiero - Ajustes devengados a cobrar por préstamos con otras
+garantías prendarias con cláusula CER
+131263 Sector público no financiero - Ajustes devengados a cobrar por préstamos
+garantizados con cláusula CER
+131251 Sector público no financiero - Ajustes devengados a cobrar por otros préstamos con
+cláusula CER
+131304 Sector público no financiero - (Previsión por riesgo de desvalorización)
+131400 Sector financiero - Capitales
+131403 Corresponsalía - Nuestra cuenta
+131406 Corresponsalía - Su cuenta
+131409 Adelantos en cuenta corriente
+131412 Otros adelantos
+131415 Documentos a sola firma
+131419 Títulos de créditos descontados
+131418 Documentos descontados
+131421 Documentos comprados
+131436 De títulos públicos
+131438 De títulos privados
+131442 Interfinancieros a entidades locales
+131443 Interfinancieros a entidades locales -En títulos públicos
+131444 Interfinancieros a entidades locales - En títulos privados
+131441 Otros préstamos
+131491 (Intereses documentados )
+131492 (Cobros no aplicados)
+131504 Sector financiero - Intereses compensatorios devengados a cobrar por adelantos
+131505 Sector financiero - Intereses compensatorios devengados a cobrar por documentos
+131506 Sector financiero - Intereses compensatorios devengados a cobrar por préstamos
+interfinancieros a entidades locales
+131501 Sector financiero - Intereses compensatorios devengados a cobrar por otros préstamos
+131502 Sector financiero - Intereses punitorios devengados a cobrar
+131554 Sector financiero – Ajustes devengados a cobrar por adelantos con
+cláusula CER
+131555 Sector financiero – Ajustes devengados a cobrar por documentos con
+cláusula CER
+131556 Sector financiero – Ajustes devengados a cobrar por préstamos interfinancieros con
+cláusula CER
+131551 Sector financiero – Ajustes devengados a cobrar por otros préstamos con
+cláusula CER
+131503 Sector financiero - Diferencias de cotización devengadas a cobrar
+131601 Sector financiero - (Previsión por riesgo de incobrabilidad)
+131604 Sector financiero - (Previsión por riesgo de desvalorización)
+131605 Sector financiero - (Previsión por intereses y accesorios devengados de deudas en
+situación irregular)
+131700 Sector privado no financiero - Capitales
+131709 Adelantos en cuenta corriente
+131712 Otros adelantos
+131715 Documentos a sola firma
+131719 Títulos de créditos descontados
+131718 Documentos descontados
+131721 Documentos comprados
+131708 Hipotecarios sobre la vivienda
+131711 Con otras garantías hipotecarias
+131713 Prendarios sobre automotores
+131714 Con otras garantías prendarias
+131731 Personales
+131732 Personales de monto reducido
+131733 Créditos documentarios
+131736 De títulos públicos
+131738 De títulos privados
+131742 De tarjetas de crédito
+131739 A Instituciones de Microcréditos
+131740 Para microemprendedores
+131741 Otros préstamos
+131793 (Intereses documentados por préstamos personales)
+131791 (Otros intereses documentados)
+131792 (Cobros no aplicados)
+131804 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+adelantos
+131805 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+documentos
+131809 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos hipotecarios sobre la vivienda
+131810 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías hipotecarias
+131811 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos prendarios sobre automotores
+131812 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías prendarias
+131808 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos personales
+131813 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos de tarjetas de crédito
+131814 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos a Instituciones de Microcréditos
+131815 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos para microemprendedores
+131801 Sector privado no financiero - Intereses compensatorios devengados a cobrar por otros
+préstamos
+131802 Sector privado no financiero - Intereses punitorios devengados a cobrar
+131854 Sector privado no financiero - Ajustes devengados a cobrar por adelantos con cláusula
+CER
+131855 Sector privado no financiero – Ajustes devengados a cobrar por documentos con cláusula
+CER
+131859 Sector privado no financiero – Ajustes devengados a cobrar por préstamos hipotecarios
+sobre la vivienda con cláusula CER
+131860 Sector privado no financiero – Ajustes devengados a cobrar por préstamos con otras
+garantías hipotecarias con cláusula CER
+131861 Sector privado no financiero – Ajustes devengados a cobrar por préstamos-prendarios
+sobre automotores con cláusula CER
+131862 Sector privado no financiero – Ajustes devengados a cobrar por préstamos con otras
+garantías prendarias con cláusula CER
+131858 Sector privado no financiero – Ajustes devengados a cobrar por préstamos personales con
+cláusula CER
+131864 Sector privado no financiero – Ajustes devengados a cobrar por financiaciones de tarjetas
+de crédito con cláusula CER
+131851 Sector privado no financiero – Ajustes devengados a cobrar por otros préstamos con
+cláusula CER
+131885 Sector privado no financiero – Ajustes devengados a cobrar por documentos con cláusula
+CVS
+131889 Sector privado no financiero – Ajustes devengados a cobrar por préstamos hipotecarios
+sobre la vivienda con cláusula CVS
+131890 Sector privado no financiero – Ajustes devengados a cobrar por préstamos con otras
+garantías hipotecarios con cláusula CVS
+131891 Sector privado no financiero – Ajustes devengados a cobrar por préstamos prendarios sobre
+automotores con cláusula CVS
+131892 Sector privado no financiero – Ajustes devengados a cobrar por préstamos con otras
+garantías prendarias con cláusula CVS
+131888 Sector privado no financiero – Ajustes devengados a cobrar por préstamos personales con
+cláusula CVS
+131881 Sector privado no financiero – Ajustes devengados a cobrar por otros préstamos con
+cláusula CVS
+131803 Sector privado no financiero - Diferencias de cotización devengadas a cobrar
+131901 Sector privado no financiero - (Previsión por riesgo de incobrabilidad)
+131904 Sector privado no financiero - (Previsión por riesgo de desvalorización)
+131905 Sector privado no financiero - (Previsión por intereses y accesorios devengados de deudas
+en situación irregular)
+131906 Sector privado no financiero – (Diferencia por adquisición de cartera)
+132000 En pesos - Residentes en el exterior
+132100 Capitales
+132103 Corresponsalía - Nuestra cuenta
+132106 Corresponsalía - Su cuenta
+132109 Adelantos en cuenta corriente
+132112 Otros adelantos
+132119 Títulos de créditos descontados
+132118 Documentos descontados
+132121 Documentos comprados
+132108 Hipotecarios sobre la vivienda
+132111 Con otras garantías hipotecarias
+132113 Prendarios sobre automotores
+132114 Con otras garantías prendarias
+132136 De títulos públicos
+132138 De títulos privados
+132141 Otros préstamos
+132191 (Intereses documentados)
+132192 (Cobros no aplicados)
+132204 Intereses compensatorios devengados a cobrar por adelantos
+132205 Intereses compensatorios devengados a cobrar por documentos
+132209 Intereses compensatorios devengados a cobrar por préstamos hipotecarios sobre la
+vivienda
+132210 Intereses compensatorios devengados a cobrar por préstamos con otras garantías
+hipotecarias
+132211 Intereses compensatorios devengados a cobrar por préstamos prendarios sobre automotores
+132212 Intereses compensatorios devengados a cobrar por préstamos con otras garantías
+prendarias
+132201 Intereses compensatorios devengados a cobrar por otros préstamos
+132202 Intereses punitorios devengados a cobrar
+132254 Ajustes devengados a cobrar por adelantos con cláusula CER
+132255 Ajustes devengados a cobrar por documentos con cláusula CER
+132259 Ajustes devengados a cobrar por préstamos hipotecarios sobre la vivienda con
+cláusula CER
+132260 Ajustes devengados a cobrar por préstamos con otras garantías hipotecarias con
+cláusula CER
+132261 Ajustes devengados a cobrar por préstamos prendarios sobre automotores con
+cláusula CER
+132262 Ajustes devengados a cobrar por préstamos con otras garantías prendarias con
+cláusula CER
+132251 Ajustes devengados a cobrar por otros préstamos con cláusula CER
+132285 Ajustes devengados a cobrar por documentos con cláusula CVS
+132289 Ajustes devengados a cobrar por préstamos hipotecarios sobre la vivienda con
+cláusula CVS
+132290 Ajustes devengados a cobrar por préstamos con otras garantías hipotecarios con
+cláusula CVS
+132291 Ajustes devengados a cobrar por préstamos prendarios sobre automotores con
+cláusula CVS
+132292 Ajustes devengados a cobrar por préstamos con otras garantías prendarias con
+cláusula CVS
+132281 Ajustes devengados a cobrar por otros préstamos con cláusula CVS
+132203 Diferencias de cotización devengadas a cobrar
+132301 (Previsión por riesgo de incobrabilidad)
+132304 (Previsión por riesgo de desvalorización)
+132305 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+132306 (Diferencia por adquisición de cartera)
+135000 En moneda extranjera - Residentes en el país
+135100 Sector público no financiero - Capitales
+135109 Adelantos en cuenta corriente
+135112 Otros adelantos
+135115 Documentos a sola firma
+135119 Títulos de créditos descontados
+135118 Documentos descontados
+135121 Documentos comprados
+135108 Hipotecarios sobre la vivienda
+135111 Con otras garantías hipotecarias
+135113 Prendarios sobre automotores
+135114 Con otras garantías prendarias
+135133 Créditos documentarios
+135136 De títulos públicos
+135138 De títulos privados
+135199 Préstamos para la prefinanciación y financiación de exportaciones
+135141 Otros préstamos
+135191 (Intereses documentados)
+135192 (Cobros no aplicados)
+135204 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+adelantos
+135205 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+documentos
+135209 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos hipotecarios sobre la vivienda
+135210 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías hipotecarias
+135211 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos prendarios sobre automotores
+135212 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías prendarias
+135215 Sector público no financiero - Intereses compensatorios devengados a cobrar por
+préstamos para la prefinanciación y financiación de exportaciones
+135201 Sector público no financiero - Intereses compensatorios devengados a cobrar por otros
+préstamos
+135202 Sector público no financiero - Intereses punitorios devengados a cobrar
+135203 Sector público no financiero - Diferencias de cotización devengadas a cobrar
+135304 Sector público no financiero - (Previsión por riesgo de desvalorización)
+135400 Sector financiero – Capitales
+135403 Corresponsalía - Nuestra cuenta
+135406 Corresponsalía - Su cuenta
+135409 Adelantos en cuenta corriente
+135412 Otros adelantos
+135415 Documentos a sola firma
+135419 Títulos de créditos descontados
+135418 Documentos descontados
+135421 Documentos comprados
+135436 De títulos públicos
+135438 De títulos privados
+135442 Interfinancieros a entidades locales
+135443 Interfinancieros a entidades locales -En títulos públicos
+135444 Interfinancieros a entidades locales - En títulos privados
+135499 Interfinancieros a entidades locales - Prefinanciación y financiación de exportaciones
+135441 Otros préstamos
+135491 (Intereses documentados)
+135492 (Cobros no aplicados)
+135504 Sector financiero - Intereses compensatorios devengados a cobrar por adelantos
+135505 Sector financiero - Intereses compensatorios devengados a cobrar por documentos
+135506 Sector financiero - Intereses compensatorios devengados a cobrar por préstamos
+interfinancieros a entidades locales
+135515 Sector financiero - Intereses compensatorios devengados a cobrar por préstamos
+interfinancieros a entidades locales - Prefinanciación y financiación de exportaciones
+135501 Sector financiero - Intereses compensatorios devengados a cobrar por otros préstamos
+135502 Sector financiero - Intereses punitorios devengados a cobrar
+135503 Sector financiero - Diferencias de cotización devengadas a cobrar
+135601 Sector financiero - (Previsión por riesgo de incobrabilidad)
+135604 Sector financiero - (Previsión por riesgo de desvalorización)
+135605 Sector financiero - (Previsión por intereses y accesorios devengados de deudas en
+situación irregular)
+135700 Sector privado no financiero - Capitales
+135709 Adelantos en cuenta corriente
+135712 Otros adelantos
+135715 Documentos a sola firma
+135719 Títulos de créditos descontados
+135718 Documentos descontados
+135721 Documentos comprados
+135708 Hipotecarios sobre la vivienda
+135711 Con otras garantías hipotecarias
+135713 Prendarios sobre automotores
+135728 Prendarios para las PYMEs. Decreto 2586/92
+135714 Con otras garantías prendarias
+135731 Personales
+135732 Personales de monto reducido
+135733 Créditos documentarios
+135736 De títulos públicos
+135738 De títulos privados
+135742 De tarjetas de crédito
+135799 Préstamos para la prefinanciación y financiación de exportaciones
+135741 Otros préstamos
+135792 (Intereses documentados - PYMEs)
+135793 (Intereses documentados por préstamos personales)
+135791 (Otros intereses documentados)
+135794 (Cobros no aplicados)
+135804 Sector privado no financiero – Int. compensatorios devengados a cobrar por adelantos
+135805 Sector privado no financiero – Int. compensatorios devengados a cobrar por
+documentos
+135809 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos hipotecarios sobre la vivienda
+135810 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías hipotecarias
+135811 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos prendarios sobre automotores
+135813 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos prendarios para PYMEs
+135812 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos con otras garantías prendarias
+135808 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos personales
+135814 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos de tarjetas de crédito
+135815 Sector privado no financiero - Intereses compensatorios devengados a cobrar por
+préstamos para la prefinanciación y financiación de exportaciones
+135801 Sector privado no financiero - Intereses compensatorios devengados a cobrar por otros
+préstamos
+135802 Sector privado no financiero - Intereses punitorios devengados a cobrar
+135803 Sector privado no financiero - Diferencias de cotización devengadas a cobrar
+135901 Sector privado no financiero - (Previsión por riesgo de incobrabilidad)
+135904 Sector privado no financiero - (Previsión por riesgo de desvalorización)
+135905 Sector privado no financiero - (Previsión por intereses y accesorios devengados de
+deudas en situación irregular)
+135906 Sector privado no financiero – (Diferencia por adquisición de cartera)
+136000 En moneda extranjera - Residentes en el exterior
+136100 Capitales
+136103 Corresponsalía - Nuestra cuenta
+136106 Corresponsalía - Su cuenta
+136109 Adelantos en cuenta corriente
+136112 Otros adelantos
+136119 Títulos de créditos descontados
+136118 Documentos descontados
+136121 Documentos comprados
+136108 Hipotecarios sobre la vivienda
+136111 Con otras garantías hipotecarias
+136113 Prendarios sobre automotores
+136114 Con otras garantías prendarias
+136136 De títulos públicos
+136138 De títulos privados
+136141 Otros préstamos
+136191 (Intereses documentados )
+136192 (Cobros no aplicados)
+136204 Intereses compensatorios devengados a cobrar por adelantos
+136205 Intereses compensatorios devengados a cobrar por documentos
+136209 Intereses compensatorios devengados a cobrar por préstamos hipotecarios sobre la
+vivienda
+136210 Intereses compensatorios devengados a cobrar por préstamos con otras garantías
+hipotecarias
+136211 Intereses compensatorios devengados a cobrar por préstamos prendarios sobre automotores
+136212 Intereses compensatorios devengados a cobrar por préstamos con otras garantías
+prendarias
+136201 Intereses compensatorios devengados a cobrar por otros préstamos
+136202 Intereses punitorios devengados a cobrar
+136203 Diferencias de cotización devengadas a cobrar
+136301 (Previsión por riesgo de incobrabilidad)
+136304 (Previsión por riesgo de desvalorización)
+136305 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+136306 (Diferencia por adquisición de cartera)
+140000 Otros créditos por intermediación financiera
+141000 En pesos - Residentes en el país
+141100/400 Capitales
+141103 Responsabilidad de terceros por aceptaciones
+141101 Responsabilidad de terceros por pases
+141102 Responsabilidad de terceros por préstamos de títulos públicos
+141104 Deudores no financieros por pases activos de títulos públicos - Capitales
+141189 Deudores no financieros por pases activos de títulos públicos - Primas
+141116 Deudores no financieros por pases activos de moneda extranjera - Capitales
+141190 Deudores no financieros por pases activos de moneda extranjera - Primas
+141125 Deudores no financieros por otros pases activos - Capitales
+141105 Deudores no financieros por otros pases activos - Primas
+141134 Deudores financieros por pases activos de títulos públicos - Capitales
+141107 Deudores financieros por pases activos de títulos públicos - Primas
+141135 Deudores financieros por pases activos de moneda extranjera - Capitales
+141119 Deudores financieros por pases activos de moneda extranjera - Primas
+141176 Deudores financieros por otros pases activos - Capitales
+141128 Deudores financieros por otros pases activos - Primas
+141177 Deudores no financieros por ventas a término de títulos públicos - Capitales
+141420 Deudores no financieros por ventas a término de títulos públicos con entrega del
+subyacente y liquidación de diferencias
+141178 Deudores no financieros por ventas a término de moneda extranjera - Capitales
+141179 Deudores no financieros por otras ventas a término - Capitales
+141108 Deudores financieros por ventas a término de títulos públicos - Capitales
+141422 Deudores financieros por ventas a término de títulos públicos con entrega del subyacente
+y liquidación de diferencias
+141121 Deudores financieros por ventas a término de moneda extranjera - Capitales
+141109 Deudores financieros por otras ventas a término - Capitales
+141185 Deudores no financieros por ventas de títulos públicos al contado a liquidar - Capitales
+141186 Deudores no financieros por ventas de moneda extranjera al contado a liquidar -
+Capitales
+141187 Deudores no financieros por otras ventas al contado a liquidar - Capitales
+141126 Deudores financieros por ventas de títulos públicos al contado a liquidar - Capitales
+141118 Deudores financieros por ventas de moneda extranjera al contado a liquidar - Capitales
+141129 Deudores financieros por otras ventas al contado a liquidar – Capitales
+141188 Deudores por ventas a plazo - Primas
+141120 Compras a término de títulos públicos por operaciones de pase con tenencias a
+valor razonable de mercado
+141413 Compras a término de títulos públicos por operaciones de pase con tenencias a
+costo más rendimiento
+141414 Compras a término de títulos públicos por operaciones de pase con tenencias a
+costo más rendimiento - Diferencia de valuación
+141433 Compras a término de instrumentos de regulación monetaria por operaciones de
+pase
+141124 Compras a término por otras operaciones de pase
+141111 Compras a término de títulos públicos
+141424 Compras a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+141112 Otras compras a término
+141122 Compras de títulos públicos al contado a liquidar
+141130 Otras compras al contado a liquidar
+141113 Primas a devengar por pases pasivos
+141114 Primas a devengar por compras a plazo
+141155 Primas por opciones de compra tomadas
+141156 Primas por opciones de venta tomadas
+141127 Descubiertos en cámaras compensadoras del interior
+141131 Canje de valores
+141133 Anticipos por pago de jubilaciones y pensiones
+141136 Otros pagos por cuenta de terceros
+141197 Otras financiaciones
+141139 Aceptaciones y certificados de depósito comprados
+141193 Fondos comunes de inversión - Sin cotización
+141194 Certificados de participación en fideicomisos financieros - Sin cotización
+141411 Títulos de deuda de Fideicomisos Financieros – Sin Cotización
+141137 Obligaciones negociables compradas - Sin cotización - Emisiones propias
+141138 Obligaciones negociables compradas - Sin cotización - Otras
+141140 Obligaciones negociables compradas - Con cotización - Emisiones propias
+141145 Obligaciones negociables para ser recolocadas
+141180 Obligaciones subordinadas compradas - Sin cotización - Emisiones propias
+141181 Obligaciones subordinadas compradas - Sin cotización - Otras
+141182 Obligaciones subordinadas compradas - Con cotización - Emisiones propias
+141184 Obligaciones subordinadas para ser recolocadas
+141141 Comisiones devengadas a cobrar
+141401 Seguro de Depósitos S.A.- Préstamos con destino al Fondo de Garantía de los Depósitos
+141195 Seguro de Depósitos S.A.- Anticipos del Aporte al Fondo de Garantía de los Depósitos
+141198 Compensación a recibir CER / CVS
+141142 Banco Central de la República Argentina - Créditos recíprocos - Reembolsos pendientes
+141148 Banco Central de la República Argentina - Reembolsos pendientes por pagos de servicios
+de renta y amortización de valores públicos nacionales
+141153 Banco Central de la República Argentina – Cuentas especiales de garantías
+141169 Banco Central de la República Argentina - Depósitos indisponibles por operaciones
+cambiarias
+141170 Banco Central de la República Argentina - Otros depósitos indisponibles
+141191 Banco Central de la República Argentina – Diversos
+141407 Fideicomiso en garantía
+141192 (Cobros no aplicados)
+141196 (Otros cobros no aplicados)
+141402 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+liquidables en pesos
+141403 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+141404 Saldos pendientes de liquidación por otras operaciones a término
+141405 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+141406 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+141415 Primas-Resolución N.º381/04
+141154 Diversos
+141220 Intereses compensatorios devengados a cobrar por Préstamos con destino al Fondo de
+Garantía de los Depósitos
+141219 Banco Central de la República Argentina – Intereses devengados a cobrar por cuentas
+computables para la integración de los regímenes de encajes
+141250 Ajustes devengados a cobrar por otros créditos por intermediación financiera –
+computables en las normas sobre “Clasificación de Deudores”- con cláusula CER
+141251 Ajustes devengados a cobrar por otros créditos por intermediación financiera –no
+computables en las normas sobre “Clasificación de Deudores”- con cláusula CER
+141201 Otros intereses devengados a cobrar
+141301 (Previsión por riesgo de incobrabilidad)
+141303 (Previsión por riesgo de desvalorización)
+141304 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+141305 (Previsión por riesgo de desvalorización de certificados de participación en fideicomisos
+financieros)
+141306 (Previsión por riesgo de desvalorización de títulos de deuda de fideicomisos financieros)
+142000 En pesos - Residentes en el exterior
+142100 Capitales
+142108 Deudores por pases activos - Capitales
+142109 Deudores por pases activos - Primas
+142110 Deudores por ventas a término
+142162 Deudores por venta a término de títulos públicos con entrega del subyacente y liquidación
+de diferencias
+142111 Deudores por ventas al contado a liquidar
+142104 Compras a término de títulos públicos por operaciones de pase con tenencias a
+valor razonable de mercado
+142413 Compras a término de títulos públicos por operaciones de pase con tenencias a
+costo más rendimiento
+142414 Compras a término de títulos públicos por operaciones de pase con tenencias a
+costo más rendimiento - Diferencia de valuación
+142433 Compras a término de instrumentos de regulación monetaria por operaciones de
+pase
+142163 Compras a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+142106 Compras a término por otras operaciones de pase
+142112 Otras compras a término
+142113 Compras al contado a liquidar
+142107 Primas a devengar por pases pasivos
+142114 Primas a devengar por compras a plazo
+142155 Primas por opciones de compra tomadas
+142156 Primas por opciones de venta tomadas
+142157 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+liquidables en pesos
+142158 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+142159 Saldos pendientes de liquidación por otras operaciones a término
+142160 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+142161 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+142192 (Cobros no aplicados)
+142196 (Otros cobros no aplicados)
+142154 Diversos
+142201 Intereses devengados a cobrar
+142301 (Previsión por riesgo de incobrabilidad)
+142304 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+145000 En moneda extranjera - Residentes en el país
+145100 Capitales
+145103 Responsabilidad de terceros por aceptaciones
+145102 Responsabilidad de terceros por préstamos de títulos públicos
+145120 Deudores no financieros por pases activos de títulos públicos – Capitales
+145158 Deudores no financieros por pases activos de títulos públicos - Primas
+145115 Deudores no financieros por pases activos de moneda extranjera - Capitales
+145159 Deudores no financieros por pases activos de moneda extranjera – Primas
+145116 Deudores no financieros por otros pases activos - Capitales
+145121 Deudores no financieros por otros pases activos - Primas
+145143 Deudores financieros por pases activos de títulos públicos - Capitales
+145122 Deudores financieros por pases activos de títulos públicos - Primas
+145146 Deudores financieros por pases activos de moneda extranjera -Capitales
+145124 Deudores financieros por pases activos de moneda extranjera - Primas
+145125 Deudores financieros por otros pases activos - Capitales
+145147 Deudores financieros por otros pases activos - Primas
+145129 Deudores financieros por pases activos de títulos públicos con el B.C.R.A. - Capitales
+145130 Deudores financieros por pases activos de títulos públicos con el B.C.R.A. - Primas
+145126 Deudores no financieros por ventas a término de títulos públicos - Capitales
+145127 Deudores no financieros por ventas a término de moneda extranjera -Capitales
+145128 Deudores no financieros por otras ventas a término - Capitales
+145148 Deudores financieros por ventas a término de títulos públicos - Capitales
+145149 Deudores financieros por ventas a término de moneda extranjera -Capitales
+145150 Deudores financieros por otras ventas a término - Capitales
+145132 Deudores no financieros por ventas de títulos públicos al contado a liquidar - Capitales
+145133 Deudores no financieros por ventas de moneda extranjera al contado a liquidar - Capitales
+145134 Deudores no financieros por otras ventas al contado a liquidar -Capitales
+145152 Deudores financieros por ventas de títulos públicos al contado a liquidar - Capitales
+145155 Deudores financieros por ventas de moneda extranjera al contado a liquidar - Capitales
+145156 Deudores financieros por otras ventas al contado a liquidar –Capitales
+145157 Deudores por ventas a plazo – Primas
+145105 Compras a término de títulos públicos por operaciones de pase con tenencias a valor
+razonable de mercado
+145413 Compras a término de títulos públicos por operaciones de pase con tenencias a costo
+más rendimiento
+145414 Compras a término de títulos públicos por operaciones de pase con tenencias a costo
+más rendimiento – Diferencia de valuación
+145426 Compras a término de instrumentos de regulación monetaria por operaciones de
+pase
+145112 Compras a término de moneda extranjera por pases pasivos
+145110 Compras a término por otras operaciones de pase
+145111 Compras a término de títulos públicos
+145176 Compras a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+145119 Compras a término de moneda extranjera
+145135 Otras compras a término
+145118 Compras de títulos públicos al contado a liquidar
+145117 Compras de moneda extranjera al contado a liquidar
+145142 Otras compras al contado a liquidar
+145123 Primas a devengar por pases pasivos
+145108 Primas a devengar por compras a plazo
+145113 Primas por opciones de compra tomadas
+145114 Primas por opciones de venta tomadas
+145186 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+145187 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+145188 Saldos pendientes de liquidación por otras operaciones a término
+145189 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+145190 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+145131 Canje de valores
+145136 Pagos por cuenta de terceros
+145197 Otras financiaciones
+145139 Aceptaciones y certificados de depósito comprados
+145412 Certificados de depósito vinculados a fondos del exterior – Decreto N° 616/05
+145193 Fondos comunes de inversión - Sin cotización
+145194 Certificados de participación en fideicomisos financieros – Sin cotización
+145411 Títulos de deuda de Fideicomisos Financieros – Sin Cotización
+145137 Obligaciones negociables compradas – Sin cotización - Emisiones propias
+145138 Obligaciones negociables compradas – Sin cotización - Otras
+145140 Obligaciones negociables compradas – Con cotización - Emisiones propias
+145145 Obligaciones negociables para ser recolocadas
+145180 Obligaciones subordinadas compradas – Sin cotización - Emisiones propias
+145181 Obligaciones subordinadas compradas – Sin cotización - Otras
+145182 Obligaciones subordinadas compradas – Con cotización - Emisiones propias
+145184 Obligaciones subordinadas para ser recolocadas
+145141 Comisiones devengadas a cobrar
+145151 Seguro de Depósitos S.A. – Anticipos del Aporte al Fondo de Garantía de los Depósitos
+145195 Seguro de Depósitos S.A. – Préstamos con destino al Fondo de Garantía de los Depósitos
+145153 Banco Central de la República Argentina – Cuentas especiales de garantías
+145185 Banco Central de la República Argentina - Certificado de depósitos a plazo
+145191 Banco Central de la República Argentina – Diversos
+145407 Fideicomiso en Garantía
+145192 (Cobros no aplicados)
+145196 (Otros cobros no aplicados)
+145154 Diversos
+145202 Intereses compensatorios devengados a cobrar por Préstamos con destino al Fondo de
+Garantía de los Depósitos
+145219 Banco Central de la República Argentina – Intereses devengados a cobrar por cuentas
+computables para la integración de los regímenes de encajes
+145201 Otros intereses devengados a cobrar
+145301 (Previsión por riesgo de incobrabilidad)
+145303 (Previsión por riesgo de desvalorización)
+145304 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+145305 (Previsión por riesgo de desvalorización de certificados de participación en fideicomisos
+financieros)
+145306 (Previsión por riesgo de desvalorización de títulos de deuda fideicomisos financieros)
+146000 En moneda extranjera - Residentes en el exterior
+146100 Capitales
+146103 Responsabilidad de terceros por aceptaciones
+146108 Deudores por pases activos - Capitales
+146109 Deudores por pases activos - Primas
+146110 Deudores por ventas a término
+146111 Deudores por ventas al contado a liquidar
+146104 Compras a término de títulos públicos por operaciones de pase con tenencias a
+valor razonable de mercado
+146197 Compras a término de títulos públicos por operaciones de pase con tenencias a
+costo más rendimiento
+146414 Compras a término de títulos públicos por operaciones de pase con tenencias a
+costo más rendimiento - Diferencia de valuación
+146176 Compras a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+146106 Compras a término por otras operaciones de pase
+146112 Otras compras a término
+146113 Compras al contado a liquidar
+146107 Primas a devengar por pases pasivos
+146114 Primas a devengar por compras a plazo
+146155 Primas por opciones de compra tomadas
+146156 Primas por opciones de venta tomadas
+146115 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+146116 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+146117 Saldos pendientes de liquidación por otras operaciones a término
+146118 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+146119 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+146136 Pagos por cuenta de terceros
+146139 Aceptaciones y certificados de depósito comprados
+146138 Obligaciones negociables compradas - Sin cotización - Otras
+146145 Obligaciones negociables para ser recolocadas
+146181 Obligaciones subordinadas compradas - Sin cotización - Otras
+146184 Obligaciones subordinadas para ser recolocadas
+146193 Fondos comunes de inversión – Sin cotización
+146194 Certificados de participación en fideicomisos financieros - Sin cotización
+146411 Títulos de deuda de fideicomisos financieros - Sin cotización
+146141 Comisiones devengadas a cobrar
+146192 (Cobros no aplicados)
+146196 (Otros cobros no aplicados)
+146154 Diversos
+146201 Intereses devengados a cobrar
+146301 (Previsión por riesgo de incobrabilidad)
+146304 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+146305 (Previsión por riesgo de desvalorización de certificados de participación en fideicomisos
+financieros)
+146306 (Previsión por riesgo de desvalorización de títulos de deuda de fideicomisos financieros)
+146411 Títulos de deuda de fideicomisos financieros - Sin cotización
+146141 Comisiones devengadas a cobrar
+146192 (Cobros no aplicados)
+146196 (Otros cobros no aplicados)
+146154 Diversos
+146201 Intereses devengados a cobrar
+146301 (Previsión por riesgo de incobrabilidad)
+146304 (Previsión por intereses y accesorios devengados de deudas en situación irregular)
+146305 (Previsión por riesgo de desvalorización de certificados de participación en fideicomisos
+financieros)
+146306 (Previsión por riesgo de desvalorización de títulos de deuda de fideicomisos financieros)
+150000 Créditos por arrendamientos financieros
+151000 En pesos
+151003 Cuentas por cobrar por arrendamientos financieros
+151004 Cuotas contingentes devengadas a cobrar
+151007 (Cobros no aplicados)
+151210 Intereses devengados a cobrar por arrendamientos financieros
+151213 Ajustes devengados a cobrar por contratos de arrendamientos financieros con
+cláusula CER
+151312 (Previsión por contratos de arrendamientos financieros)
+155000 En moneda extranjera
+155003 Cuentas por cobrar por arrendamientos financieros
+155004 Cuotas contingentes devengadas a cobrar
+155007 (Cobros no aplicados)
+155210 Intereses devengados a cobrar por arrendamientos financieros
+155312 (Previsión por contratos de arrendamientos financieros)
+160000 Participaciones en otras sociedades
+161000 En pesos
+161003 En entidades financieras controladas
+161004 En entidades financieras controladas - No deducibles para la determinación de la
+responsabilidad patrimonial computable
+161006 En entidades financieras no controladas
+161007 En entidades financieras no controladas - No deducibles para la determinación de la
+responsabilidad patrimonial computable
+161012 En empresas de servicios públicos
+161013 Por regímenes de desgravación impositiva
+161015 Acciones para ser recolocadas
+161031 En empresas de servicios complementarios controladas
+161032 En empresas de servicios complementarios no controladas
+161029 En otras sociedades controladas
+161027 En otras sociedades no controladas - Sin cotización
+161103 (Llave negativa)
+161092 (Previsión por riesgo de desvalorización de participaciones en entidades financieras
+controladas)
+161098 (Previsión por riesgo de desvalorización de participaciones en entidades financieras
+controladas - No deducibles para la determinación de la responsabilidad patrimonial
+computable)
+161099 (Previsión por riesgo de desvalorización de participaciones en entidades financieras
+no controladas)
+161101 (Previsión por riesgo de desvalorización de participaciones en entidades financieras
+no controladas - No deducibles para la determinación de la responsabilidad patrimonial computable)
+161093 (Previsión por riesgo de desvalorización de participaciones en empresas de servicios
+públicos y por desgravación impositiva)
+161096 (Previsión por riesgo de desvalorización de participaciones en otras sociedades controladas)
+161094 (Previsión por riesgo de desvalorización de participaciones en otras sociedades no
+controladas - Sin cotización)
+161102 (Previsión por riesgo de desvalorización de participaciones en otras sociedades )
+165000 En moneda extranjera
+165003 En entidades financieras controladas
+165006 En entidades financieras no controladas
+165031 Participaciones en empresas de servicios complementarios controladas
+165032 Participaciones en empresas de servicios complementarios no controladas
+165021 En otras sociedades
+165103 (Llave negativa)
+165092 (Previsión por riesgo de desvalorización de participaciones en entidades financieras)
+165091 (Previsión por riesgo de desvalorización de otras participaciones)
+170000 Créditos diversos
+171000 En pesos - Residentes en el país
+171100 Capitales
+171103 Accionistas
+171106 Anticipos de honorarios a directores y síndicos
+171109 Anticipos al personal
+171112 Préstamos al personal
+171115 Anticipos de impuestos
+171117 Impuesto al valor agregado - Crédito fiscal
+171119 Impuesto a la ganancia mínima presunta – Crédito fiscal
+171121 Deudores por venta de bienes
+171123 (Cobros no aplicados por venta de bienes)
+171124 (Intereses a devengar por créditos por venta de bienes)
+171127 Pagos efectuados por adelantado
+171131 Alquileres a cobrar
+171133 Saldos a recuperar por siniestros
+171136 Depósitos en garantía
+171140 Depósitos en garantía por opciones tomadas sobre activos subyacentes físicos
+171141 Depósitos en garantía por opciones lanzadas tomadas sobre activos subyacentes
+físicos
+171142 Depósitos en garantía por opciones tomadas sobre activos subyacentes no físicos
+171143 Depósitos en garantía por opciones lanzadas tomadas sobre activos subyacentes no
+físicos
+171137 Ahorro obligatorio
+171139 Deudores varios
+171126 (Otros cobros no aplicados)
+171201 Intereses devengados a cobrar
+171202 Intereses devengados a cobrar por deudores por venta de bienes
+171250 Ajustes devengados a cobrar por deudores por venta de bienes con cláusula CER
+171251 Ajustes devengados a cobrar por otros créditos diversos con cláusula CER
+171301 (Previsión por riesgo de incobrabilidad de otros créditos diversos)
+171302 (Previsión por riesgo de incobrabilidad por deudores por venta de bienes)
+171303 (Previsión por riesgo de desvalorización del Impuesto a la ganancia mínima
+presunta – Crédito fiscal )
+172000 En pesos - Residentes en el exterior
+172100 Capitales
+172103 Accionistas
+172106 Anticipos de honorarios a directores y síndicos
+172136 Depósitos en garantía
+172140 Depósitos en garantía por opciones tomadas sobre activos subyacentes físicos
+172141 Depósitos en garantía por opciones lanzadas sobre activos subyacentes físicos
+172142 Depósitos en garantía por opciones tomadas sobre activos subyacentes no físicos
+172143 Depósitos en garantía por opciones lanzadas sobre activos subyacentes no
+físicos
+172139 Deudores varios
+172126 (Cobros no aplicados)
+172201 Intereses devengados a cobrar
+172301 (Previsión por riesgo de incobrabilidad)
+175000 En moneda extranjera - Residentes en el país
+175100 Capitales
+175112 Préstamos al personal
+175121 Deudores por venta de bienes
+175123 (Cobros no aplicados por venta de bienes)
+175124 (Intereses a devengar por créditos por venta de bienes)
+175136 Depósitos en garantía
+175140 Depósitos en garantía por opciones tomadas sobre activos subyacentes físicos
+175141 Depósitos en garantía por opciones lanzadas sobre activos subyacentes físicos
+175142 Depósitos en garantía por opciones tomadas sobre activos subyacentes no físicos
+175143 Depósitos en garantía por opciones lanzadas sobre activos subyacentes no físicos
+175139 Deudores varios
+175126 (Otros cobros no aplicados)
+175201 Intereses devengados a cobrar
+175202 Intereses devengados a cobrar por deudores por venta de bienes
+175301 (Previsión por riesgo de incobrabilidad de otros créditos diversos)
+175302 (Previsión por riesgo de incobrabilidad por deudores por venta de bienes)
+176000 En moneda extranjera - Residentes en el exterior
+176100 Capitales
+176121 Deudores por venta de bienes
+176123 (Cobros no aplicados por venta de bienes)
+176124 (Intereses a devengar por créditos por venta de bienes)
+176136 Depósitos en garantía
+176140 Depósitos en garantía por opciones tomadas sobre activos subyacentes físicos
+176141 Depósitos en garantía por opciones lanzadas sobre activos subyacentes físicos
+176142 Depósitos en garantía por opciones tomadas sobre activos subyacentes no físicos
+176143 Depósitos en garantía por opciones lanzadas sobre activos subyacentes no físicos
+176139 Deudores varios
+176126 (Otros cobros no aplicados)
+176201 Intereses devengados a cobrar
+176202 Intereses devengados a cobrar por deudores por venta de bienes
+176301 (Previsión por riesgo de incobrabilidad de otros créditos diversos)
+176302 (Previsión por riesgo de incobrabilidad por deudores por venta de bienes)
+180000 Bienes de uso
+180003 Inmuebles - Valor de origen actualizado
+180006 Inmuebles - (Depreciación acumulada)
+180012 Mobiliario e instalaciones - Valor de origen actualizado
+180015 Mobiliario e instalaciones - (Depreciación acumulada)
+180021 Máquinas y equipos - Valor de origen actualizado
+180024 Máquinas y equipos - (Depreciación acumulada)
+180031 Vehículos - Valor de origen actualizado
+180033 Vehículos (Depreciación acumulada)
+180048 Inmuebles adquiridos por arrendamientos financieros - Valor de origen actualizado
+180051 Inmuebles adquiridos por arrendamientos financieros - (Depreciación acumulada)
+180057 Muebles adquiridos por arrendamientos financieros - Valor de origen actualizado
+180060 Muebles adquiridos por arrendamientos financieros - (Depreciación acumulada)
+180039 Diversos - Valor de origen actualizado
+180042 Diversos - (Depreciación acumulada)
+190000 Bienes diversos
+190003 Obras en curso
+190006 Anticipos actualizables por compra de bienes
+190009 Obras de arte y piezas de colección
+190012 Bienes alquilados - Valor de origen actualizado
+190015 Bienes alquilados - (Depreciación acumulada)
+190016 Bienes tomados en defensa de créditos - Valor de origen actualizado
+190017 Bienes tomados en defensa de créditos - (Depreciación acumulada)
+190024 Alhajas y metales preciosos
+190027 Papelería y útiles
+190028 Bienes adquiridos por arrendamientos financieros - Valor de origen actualizado
+190029 Bienes adquiridos por arrendamientos financieros - (Depreciación acumulada)
+190018 Otros bienes diversos - Valor de origen actualizado
+190021 Otros bienes diversos - (Depreciación acumulada)
+210000 Bienes intangibles
+210003 Llave de negocio – Valor de origen actualizado
+210006 Llave de negocio – (Amortización acumulada)
+210012 Gastos de organización y desarrollo – Valor de origen actualizado
+210015 Gastos de organización y desarrollo – (Amortización acumulada)
+210017 Diferencias por resoluciones judiciales – Valor de Origen
+210018 Diferencias por resoluciones judiciales – (Amortización Acumulada)
+210020 Diferencias por dolarización de depósitos judiciales – Valor de Origen
+210021 Diferencias por dolarización de depósitos judiciales – (Amortización Acumulada)
+210022 Diferencias por valuación de títulos públicos e instrumentos de regulación
+monetaria – Valor de origen
+210023 Diferencias por valuación de títulos públicos e instrumentos de regulación
+monetaria – (Amortización Acumulada)
+210024 Gastos de originación de programas de créditos hipotecarios y de financiación de
+proyectos de inversión productiva – Valor de origen
+210025 Gastos de originación de programas de créditos hipotecarios y de financiación de
+proyectos de inversión productiva – Amortización acumulada
+220000 Filiales en el exterior
+220001 Filial . . .
+220002 Filial . . .
+230000 Partidas pendientes de imputación - Saldos deudores
+231000 En pesos
+231003 Sucursales y agencias - Fondos de terceros en tránsito
+231006 Sucursales y agencias - Fondos propios
+231009 Otras
+235000 En moneda extranjera
+235003 Sucursales y agencias - Fondos de terceros en tránsito
+235006 Sucursales y agencias - Fondos propios
+235009 Otras
+300000 Pasivo
+310000 Depósitos
+311000 En pesos - Residentes en el país
+311100 Sector público no financiero - Capitales
+311106 Cuentas corrientes sin interés
+311112 Cuentas corrientes con interés
+311123 Cuenta corriente especial para personas jurídicas –sin interés
+311124 Cuenta corriente especial para personas jurídicas –con interés
+311113 Depósitos Judiciales – Cuentas a la vista
+311131 Plazo fijo transferible
+311166 Plazo fijo transferible con cláusula CER
+311135 Inversiones a plazo constante transferibles
+311136 Inversiones con opción de cancelación anticipada transferibles
+311137 Inversiones con opción de renovación por plazo determinado transferibles
+311138 Inversiones a plazo con retribución variable transferibles
+311134 Plazo fijo transferible de títulos públicos
+311161 Plazo fijo transferible de títulos privados
+311140 Plazo fijo intransferible
+311167 Plazo fijo intransferible con cláusula CER
+311176 Letras de plazo fijo
+311153 Depósitos Judiciales a Plazo Fijo
+311155 Inversiones a plazo constante intransferibles
+311156 Inversiones con opción de cancelación anticipada intransferibles
+311147 Inversiones con opción de renovación por plazo determinado intransferibles
+311158 Inversiones a plazo con retribución variable intransferibles
+311141 Plazo fijo intransferible de títulos públicos
+311162 Plazo fijo intransferible de títulos privados
+311142 Saldos inmovilizados
+311145 Ordenes por pagar
+311148 Vinculados con operaciones cambiarias
+311151 En garantía
+311154 Otros depósitos
+311191 (Utilización de fondos unificados)
+311207 Sector público no financiero - Intereses devengados a pagar por depósitos a plazo fijo
+311218 Sector público no financiero - Intereses devengados a pagar por letras de plazo fijo
+311211 Sector público no financiero - Intereses devengados a pagar por depósitos en cuentas
+cuentas corrientes
+311209 Sector público no financiero - Intereses devengados a pagar por otras imposiciones a
+plazo
+311268 Sector público no financiero –Ajustes devengados a pagar por depósitos a plazo fijo
+con cláusula CER
+311252 Sector público no financiero- Ajustes devengados a pagar por letras de plazo fijo con
+cláusula CER
+311208 Sector público no financiero - Diferencias de cotización devengadas a pagar
+311203 Sector público no financiero - Otros intereses devengados a pagar
+311400 Sector financiero - Capitales
+311403 Cuentas corrientes sin interés - Corresponsalía - Su cuenta
+311405 Cuentas corrientes sin interés - Entidades financieras en liquidación - Devolución de
+depósitos
+311409 Cuentas corrientes con interés - Corresponsalía - Su cuenta
+311406 Cuentas corrientes sin interés
+311412 Cuentas corrientes con interés
+311423 Cuenta corriente especial para personas jurídicas –sin interés
+311424 Cuenta corriente especial para personas jurídicas –con interés
+311414 Cuentas corrientes en cámaras compensadoras del interior
+311413 Depósitos Judiciales-Cuentas a la vista
+311476 Letras de plazo fijo
+311453 Depósitos Judiciales a Plazo Fijo
+311445 Ordenes por pagar
+311454 Otros depósitos
+311518 Sector financiero - Intereses devengados a pagar por letras de plazo fijo
+311511 Sector financiero - Intereses devengados a pagar por depósitos en cuentas corrientes
+311503 Sector financiero - Otros intereses devengados a pagar
+311552 Sector financiero - Ajustes devengados a pagar por letras de plazo fijo con cláusula
+CER
+311700 Sector privado no financiero - Capitales
+311706 Cuentas corrientes sin interés
+311712 Cuentas corrientes con interés
+311723 Cuenta corriente especial para personas jurídicas - sin interés
+311724 Cuenta corriente especial para personas jurídicas - con interés
+311725 Depósitos Judiciales - Cuentas a la vista
+311718 Caja de ahorros
+311726 Cuenta Sueldo y Previsional
+311722 Cuenta Gratuita Universal
+311727 Ahorro vinculado a préstamos
+311729 Cuentas especiales para círculos cerrados
+311730 Fondo de Desempleo para los Trabajadores de la Industria de la Construcción
+311731 Plazo fijo transferible
+311766 Plazo fijo transferible con cláusula CER
+311735 Inversiones a plazo constante transferibles
+311736 Inversiones con opción de cancelación anticipada transferibles
+311737 Inversiones con opción de renovación por plazo determinado transferibles
+311738 Inversiones a plazo con retribución variable transferibles
+311734 Plazo fijo transferible de títulos públicos
+311761 Plazo fijo transferible de títulos privados
+311740 Plazo fijo intransferible
+311767 Plazo fijo intransferible con cláusula CER
+311901 (Retribución en bienes concretada por adelantado)
+311776 Letras de plazo fijo
+311753 Depósitos Judiciales a Plazo Fijo
+311778 Depósitos especiales intransferibles vinculados a la exteriorización y la repatriación
+de capitales - Ley 26.476
+311743 Inversiones a plazo constante intransferibles
+311744 Inversiones con opción de cancelación anticipada intransferibles
+311746 Inversiones con opción de renovación por plazo determinado intransferibles
+311747 Inversiones a plazo con retribución variable intransferibles
+311741 Plazo fijo intransferible de títulos públicos
+311762 Plazo fijo intransferible de títulos privados
+311742 Saldos inmovilizados
+311745 Ordenes por pagar
+311748 Vinculados con operaciones cambiarias
+311751 En garantía
+311754 Otros depósitos
+311807 Sector privado no financiero - Intereses devengados a pagar por depósitos a plazo fijo
+311818 Sector privado no financiero- Intereses devengados a pagar por letras de plazo fijo
+311811 Sector privado no financiero - Intereses devengados a pagar por depósitos en cuentas
+corrientes
+311812 Sector privado no financiero - Intereses devengados a pagar por depósitos en caja de
+ahorros
+311809 Sector privado no financiero - Intereses devengados a pagar por otras imposiciones a
+plazo
+311819 Sector privado no financiero - Intereses devengados a pagar por Depósitos
+especiales intransferibles vinculados a la exteriorización y la repatriación de
+capitales - Ley 26.476
+311868 Sector privado no financiero –Ajustes devengados a pagar por depósitos a plazo fijo con
+cláusula CER
+311852 Sector privado no financiero – Ajustes devengados a pagar por letras de plazo fijo con
+cláusula CER
+311808 Sector privado no financiero - Diferencias de cotización devengadas a pagar
+311803 Sector privado no financiero - Otros intereses devengados a pagar
+312000 En pesos - Residentes en el exterior
+312100 Capitales
+312103 Cuentas corrientes sin interés - Corresponsalía - Su cuenta
+312109 Cuentas corrientes con interés - Corresponsalía - Su cuenta
+312106 Cuentas corrientes sin interés
+312112 Cuentas corrientes con interés
+312123 Cuenta corriente especial para personas jurídicas –sin interés
+312124 Cuenta corriente especial para personas jurídicas –con interés
+312118 Caja de ahorros
+312131 Plazo fijo transferible
+312166 Plazo Fijo transferible con cláusula CER
+312135 Inversiones a plazo constante transferibles
+312136 Inversiones con opción de cancelación anticipada transferibles
+312149 Inversiones con opción de renovación por plazo determinado transferibles
+312138 Inversiones a plazo con retribución variable transferibles
+312134 Plazo fijo transferible de títulos públicos
+312161 Plazo fijo transferible de títulos privados
+312140 Plazo fijo intransferible
+312167 Plazo Fijo intransferible con cláusula CER
+312301 (Retribución en bienes concretada por adelantado)
+312176 Letras de plazo fijo
+312143 Inversiones a plazo constante intransferibles
+312146 Inversiones con opción de cancelación anticipada intransferibles
+312147 Inversiones con opción de renovación por plazo determinado intransferible
+312148 Inversiones a plazo con retribución variable intransferible
+312141 Plazo fijo intransferible de títulos públicos
+312162 Plazo fijo intransferible de títulos privados
+312142 Saldos inmovilizados
+312145 Ordenes por pagar
+312151 En garantía
+312154 Otros depósitos
+312207 Intereses devengados a pagar por depósitos a plazo fijo
+312218 Intereses devengados a pagar por letras de plazo fijo
+312211 Intereses devengados a pagar por depósitos en cuentas corrientes
+312212 Intereses devengados a pagar por depósitos en caja de ahorros
+312210 Intereses devengados a pagar por otras imposiciones a plazo
+312268 Sector público no financiero –Ajustes devengados a pagar por depósitos a plazo fijo con
+cláusula CER
+312252 Ajustes devengados a pagar por letras de plazo fijo con cláusula CER
+312208 Diferencias de cotización devengadas a pagar
+312203 Otros intereses devengados a pagar
+315000 En moneda extranjera - Residentes en el país
+315100 Sector público no financiero - Capitales
+315106 Cuentas corrientes sin interés
+315112 Cuentas corrientes con interés
+315123 Cuenta corriente especial para personas jurídicas –sin interés
+315124 Cuenta corriente especial para personas jurídicas –con interés
+315113 Depósitos Judiciales – Cuentas a la vista
+315107 Otras cuentas a la vista
+315132 Plazo fijo transferible
+315131 Inversiones a plazo constante transferibles
+315133 Inversiones con opción de cancelación anticipada transferibles
+315135 Inversiones con opción de renovación por plazo determinado transferibles
+315136 Inversiones a plazo con retribución variable transferibles
+315134 Plazo fijo transferible de títulos públicos
+315161 Plazo fijo transferible de títulos privados
+315137 Plazo fijo intransferible
+315153 Depósitos Judiciales a Plazo Fijo
+315146 Inversiones a plazo constante intransferibles
+315143 Inversiones con opción de cancelación anticipada intransferibles
+315144 Inversiones con opción de renovación por plazo determinado intransferibles
+315145 Inversiones a plazo con retribución variable intransferibles
+315141 Plazo fijo intransferible de títulos públicos
+315162 Plazo fijo intransferible de títulos privados
+315142 Saldos inmovilizados
+315151 En garantía
+315154 Otros depósitos
+315207 Sector público no financiero - Intereses devengados a pagar por depósitos a plazo fijo
+315211 Sector público no financiero - Intereses devengados a pagar por depósitos en cuentas
+corrientes
+315209 Sector público no financiero - Intereses devengados a pagar por otras imposiciones a
+plazo
+315208 Sector público no financiero - Diferencias de cotización devengadas a pagar
+315203 Sector público no financiero - Otros intereses devengados a pagar
+315400 Sector financiero - Capitales
+315406 Cuentas corrientes sin interés
+315412 Cuentas corrientes con interés
+315423 Cuenta corriente especial para personas jurídicas –sin interés
+315424 Cuenta corriente especial para personas jurídicas –con interés
+315404 Cuentas a la vista - Corresponsalía - Su cuenta
+315413 Depósitos Judiciales- Cuentas a la vista
+315407 Cuentas a la vista – Otras
+315453 Depósitos Judiciales a Plazo Fijo
+315455 Depósitos especiales vinculados al ingreso de fondos del exterior - Decreto 616/05
+315454 Otros depósitos
+315511 Sector financiero - Intereses devengados a pagar por depósitos en cuentas corrientes
+315503 Sector financiero - Otros intereses devengados a pagar
+315700 Sector privado no financiero – Capitales
+315706 Cuentas corrientes sin interés
+315712 Cuentas corrientes con interés
+315723 Cuenta corriente especial para personas jurídicas – sin interés
+315724 Cuenta corriente especial para personas jurídicas – con interés
+315725 Depósitos Judiciales – Cuentas a la vista
+315707 Cuentas a la vista
+315718 Caja de ahorros
+315779 Caja de ahorros Comunicación “A” 5526
+315780 Plazo fijo Comunicación “A” 5526
+315732 Plazo fijo transferible
+315731 Inversiones a plazo constante transferibles
+315733 Inversiones con opción de cancelación anticipada transferibles
+315735 Inversiones con opción de renovación por plazo determinado transferibles
+315736 Inversiones a plazo con retribución variable transferibles
+315734 Plazo fijo transferible de títulos públicos
+315761 Plazo fijo transferible de títulos privados
+315737 Plazo fijo intransferible
+315901 (Retribución en bienes concretada por adelantado)
+315753 Depósitos Judiciales a Plazo Fijo
+315777 Depósitos especiales vinculados al ingreso de fondos del exterior – Decreto N° 616/05
+315778 Depósitos especiales intransferibles vinculados a la exteriorización y la repatriación de
+capitales - Ley 26.476
+315746 Inversiones a plazo constante intransferibles
+315743 Inversiones con opción de cancelación anticipada intransferibles
+315744 Inversiones con opción de renovación por plazo determinado intransferibles
+315745 Inversiones a plazo con retribución variable intransferibles
+315741 Plazo fijo intransferible de títulos públicos
+315762 Plazo fijo intransferible de títulos privados
+315742 Saldos inmovilizados
+315751 En garantía
+315754 Otros depósitos
+315807 Sector privado no financiero – Intereses devengados a pagar por depósitos a plazo fijo
+315811 Sector privado no financiero – Intereses devengados a pagar por depósitos en cuentas
+corrientes
+315812 Sector privado no financiero – Intereses devengados a pagar por depósitos en caja de
+ahorros
+315809 Sector privado no financiero – Intereses devengados a pagar por otras imposiciones a
+plazo
+315819 Sector privado no financiero – Intereses devengados a pagar por Depósitos especiales
+intransferibles vinculados a la exteriorización y la repatriación de capitales - Ley 26.476
+315808 Sector privado no financiero – Diferencias de cotización devengadas a pagar
+315803 Sector privado no financiero – Otros intereses devengados a pagar
+316000 En moneda extranjera - Residentes en el exterior
+316100 Capitales
+316106 Cuentas corrientes sin interés
+316112 Cuentas corrientes con interés
+316123 Cuenta corriente especial para personas jurídicas –sin interés
+316124 Cuenta corriente especial para personas jurídicas –con interés
+316104 Cuentas a la vista - Corresponsalía - Su cuenta
+316107 Cuentas a la vista - Otras
+316118 Caja de ahorros
+316132 Plazo fijo transferible
+316135 Inversiones a plazo constante transferibles
+316136 Inversiones con opción de cancelación anticipada transferibles
+316138 Inversiones con opción de renovación por plazo determinado transferibles
+316139 Inversiones a plazo con retribución variable transferibles
+316134 Plazo fijo transferible de títulos públicos
+316161 Plazo fijo transferible de títulos privados
+316137 Plazo fijo intransferible
+316301 (Retribución en bienes concretada por adelantado)
+316177 Depósitos especiales vinculados al ingreso de fondos del exterior-Decreto 616/05
+316143 Inversiones a plazo constante intransferibles
+316144 Inversiones con opción de cancelación anticipada intransferibles
+316145 Inversiones con opción de renovación por plazo determinado intransferibles
+316146 Inversiones a plazo con retribución variable intransferibles
+316141 Plazo fijo intransferible de títulos públicos
+316162 Plazo fijo intransferible de títulos privados
+316142 Saldos inmovilizado
+316151 En garantía
+316154 Otros depósitos
+316207 Intereses devengados a pagar por depósitos a plazo fijo
+316211 Intereses devengados a pagar por depósitos en cuentas corrientes
+316212 Intereses devengados a pagar por depósitos en caja de ahorros
+316209 Intereses devengados a pagar por otras imposiciones a plazo
+316208 Diferencias de cotización devengadas a pagar
+316203 Otros intereses devengados a pagar
+320000 Otras obligaciones por intermediación financiera
+321000 En pesos - Residentes en el país
+321100/700 Capitales
+321102 Aceptaciones por transacciones financieras - Capitales
+321103 Aceptaciones por transacciones financieras - Intereses
+321104 Otras aceptaciones
+321105 Pases entre terceros - Capitales
+321106 Pases entre terceros - Primas
+321125 Préstamos de títulos públicos entre terceros - Capitales
+321127 Préstamos de títulos públicos entre terceros - Diferencias de cotización e intereses
+321108 Banco Central de la República Argentina - Descubiertos en cuenta corriente
+321180 Banco Central de la República Argentina - Circular OPASI - Rehabilitación de cuentas
+corrientes
+321183 Banco Central de la República Argentina - Artículos 2º y 62º de la Ley de Cheques Nº
+24.452
+321191 Banco Central de la República Argentina - Préstamos para financiar procesos productivos estacionales
+321192 Banco Central de la República Argentina - Préstamos vinculados con situaciones de
+emergencia o desastre
+321193 Banco Central de la República Argentina - Préstamos para financiar a la industria
+frigorífica exportadora
+321194 Banco Central de la República Argentina - Préstamos para prefinanciar exportaciones
+promocionadas
+321195 Banco Central de la República Argentina - Préstamos para financiar a exportadores
+321113 Banco Central de la República Argentina - Redescuento para atender situaciones de
+iliquidez
+321115 Banco Central de la República Argentina - Créditos recíprocos - Reintegros pendientes
+321122 Banco Central de la República Argentina - Depósitos en cuentas de ahorro para la
+vivienda, deducibles de la integración del efectivo mínimo
+321401 Banco Central de la República Argentina –Adelantos para la adquisición de los “Bonos
+del Gobierno Nacional en dólares estadounidenses Libor 2012”
+321406 Banco Central de la República Argentina –Adelantos para la adquisición de los “Bonos
+del Gobierno Nacional en dólares estadounidenses 2013”
+321112 Banco Central de la República Argentina - Otras líneas de préstamos
+321126 Banco de la Nación Argentina - Descubiertos en cámaras compensadoras del interior
+321411 Banco Central de la República Argentina –Ley 25730
+321701 (Anticipos-Resolución Nº 381/04)
+321404 Seguro de Depósitos S.A. – Aporte al Fondo de Garantía de los Depósitos a pagar
+321128 Corresponsalía - Nuestra cuenta
+321131 Corresponsalía - Su cuenta
+321309 Financiaciones recibidas de entidades financieras locales
+321310 Financiaciones recibidas de entidades financieras locales - En títulos públicos
+321311 Financiaciones recibidas de entidades financieras locales - En títulos privados
+321144 Otras financiaciones de entidades financieras
+321190 Otras financiaciones de entidades financieras - En títulos públicos
+321197 Otras financiaciones de entidades financieras - En títulos privados
+321415 Préstamo BID Nº1192/OC-AR “Programa Global de Crédito a la Micro, Pequeña
+y Mediana Empresa”
+321139 Canje de valores
+321114 Obligaciones negociables sin oferta pública
+321117 (Descuentos de emisión de obligaciones negociables sin oferta pública)
+321101 Obligaciones negociables con oferta pública
+321129 (Descuentos de emisión de obligaciones negociables con oferta pública)
+321158 Cobros no aplicados – Deudores registrados en cuentas de orden
+321142 Cédulas hipotecarias y otras obligaciones no sujetas a efectivo mínimo
+321148 Otras obligaciones sujetas a efectivo mínimo
+321154 Cobranzas y otras operaciones por cuenta de terceros
+321151 Retenciones y percepciones actualizables de impuestos
+321155 Otras retenciones y percepciones
+321161 Obligaciones por financiación de compras
+321182 Ordenes de pago previsionales pendientes de liquidación
+321162 Acreedores por compras de bienes dados en arrendamientos financieros
+321132 Acreedores no financieros por pases pasivos de títulos públicos - Capitales
+321134 Acreedores no financieros por pases pasivos de títulos públicos - Primas
+321174 Acreedores no financieros por pases pasivos de moneda extranjera - Capitales
+321176 Acreedores no financieros por pases pasivos de moneda extranjera - Primas
+321143 Acreedores no financieros por otros pases pasivos - Capitales
+321164 Acreedores no financieros por otros pases pasivos – Primas
+321140 Acreedores financieros por pases pasivos de títulos públicos - Capitales
+321141 Acreedores financieros por pases pasivos de títulos públicos - Primas
+321177 Acreedores financieros por pases pasivos de moneda extranjera - Capitales
+321167 Acreedores financieros por pases pasivos de moneda extranjera – Primas
+321160 Acreedores financieros por otros pases pasivos - Capitales
+321168 Acreedores financieros por otros pases pasivos - Primas
+321170 Acreedores no financieros por compras a término de títulos públicos - Capitales
+321420 Acreedores no financieros por compras a término de títulos públicos con entrega del
+subyacente y liquidación de diferencias
+321175 Acreedores no financieros por compras a término de moneda extranjera - Capitales
+321306 Acreedores no financieros por otras compras a término - Capitales
+321198 Acreedores financieros por compras a término de títulos públicos - Capitales
+321422 Acreedores financieros por compras a término de títulos públicos con entrega del
+subyacente y liquidación de diferencias
+321107 Acreedores financieros por compras a término de moneda extranjera - Capitales
+321307 Acreedores financieros por otras compras a término - Capitales
+321118 Acreedores no financieros por compras de títulos públicos al contado a liquidar -
+Capitales
+321172 Acreedores no financieros por compras de moneda extranjera al contado a liquidar -
+Capitales
+321301 Acreedores no financieros por otras compras al contado a liquidar – Capitales
+321119 Acreedores financieros por compras de títulos públicos al contado a liquidar - Capitales
+321120 Acreedores financieros por compras de moneda extranjera al contado a liquidar -
+Capitales
+321302 Acreedores financieros por otras compras al contado a liquidar - Capitales
+321199 Acreedores por compras a plazo - Primas
+321171 Ventas a término de títulos públicos por operaciones de pase
+321445 Ventas a término de instrumentos de regulación monetaria por operaciones de
+pase
+321303 Ventas a término por otros pases activos
+321173 Ventas a término de títulos públicos
+321424 Ventas a término de títulos públicos con entrega del subyacente y liquidación de diferencias
+321166 Otras ventas a término
+321123 Ventas de títulos públicos al contado a liquidar
+321305 Otras ventas al contado a liquidar
+321189 Primas a devengar por pases activos
+321187 Primas a devengar por ventas plazo
+321130 Primas por opciones de compra lanzadas
+321133 Primas por opciones de venta lanzadas
+321179 Comisiones devengadas a pagar
+321407 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+liquidables en pesos
+321408 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+321409 Saldos pendientes de liquidación por otras operaciones a término
+321410 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+321412 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+321181 Diversas sujetas a efectivo mínimo
+321184 Diversas no sujetas a efectivo mínimo
+321222 Banco Central de la República Argentina – Intereses devengados a pagar por adelantos
+recibidos con cláusula CER
+321213 Banco Central de la República Argentina - Otros intereses devengados a pagar deducibles
+de la integración del efectivo mínimo
+321214 Banco Central de la República Argentina - Otros intereses devengados a pagar no
+deducibles de la integración del efectivo mínimo
+321251 Banco Central de la República Argentina-Ajustes devengados a pagar por adelantos
+recibidos con cláusula CER
+321252 Banco Central de la República Argentina-Ajustes devengados a pagar por otras líneas de
+préstamos recibidos con cláusula CER
+321215 Diferencias de cotización devengadas a pagar
+321209 Intereses devengados a pagar por obligaciones negociables sin oferta pública
+321219 Intereses devengados a pagar por obligaciones negociables con oferta pública
+321221 Intereses devengados a pagar por financiaciones recibidas de entidades financieras
+locales
+321206 Otros intereses devengados a pagar
+321250 Ajustes devengados a pagar por otras obligaciones por intermediación financiera con
+cláusula CER
+322000 En pesos - Residentes en el exterior
+322100/400 Capitales
+322105 Acreedores por pases pasivos de títulos públicos - Capitales
+322106 Acreedores por pases pasivos de títulos públicos - Primas
+322107 Acreedores por otros pases pasivos - Capitales
+322108 Acreedores por otros pases pasivos - Primas
+322116 Acreedores por compras a término
+322422 Acreedores por compras a término de títulos públicos con entrega del subyacente y
+liquidación de diferencias
+322119 Acreedores por compras al contado a liquidar
+322424 Ventas a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+322109 Ventas a término por pases activos
+322110 Otras ventas a término
+322115 Ventas al contado a liquidar
+322112 Primas a devengar por pases activos
+322113 Primas a devengar por ventas a plazo
+322130 Primas por opciones de compra lanzadas
+322133 Primas por opciones de venta lanzadas
+322134 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+liquidables en pesos
+322135 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+322136 Saldos pendientes de liquidación por otras operaciones a término
+322137 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+322138 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+322128 Corresponsalía - Nuestra cuenta
+322131 Corresponsalía - Su cuenta
+322181 Diversas sujetas a efectivo mínimo
+322184 Diversas no sujetas a efectivo mínimo
+322114 Obligaciones negociables sin oferta pública
+322117 (Descuentos de emisión de obligaciones negociables sin oferta pública)
+322111 Obligaciones negociables con oferta pública
+322129 (Descuentos de emisión de obligaciones negociables con oferta pública)
+322209 Intereses devengados a pagar por obligaciones negociables sin oferta pública
+322219 Intereses devengados a pagar por obligaciones negociables con oferta pública
+322201 Otros intereses devengados a pagar
+322250 Ajustes devengados a pagar por otras obligaciones por intermediación financiera con
+cláusula CER
+325000 En moneda extranjera - Residentes en el país
+325100/300 Capitales
+325103 Aceptaciones
+325107 Préstamos de títulos públicos entre terceros - Capitales
+325108 Préstamos de títulos públicos entre terceros - Diferencias de cotización e intereses
+325105 Banco Central de la República Argentina - Préstamo para financiar exportaciones
+promocionadas
+325106 Banco Central de la República Argentina - Otras líneas de préstamo
+325120 Banco Central de la República Argentina - Depósitos a plazo fijo
+325124 Banco Central de la República Argentina - Diversas
+325121 Seguro de Depósitos S.A. - Aporte al Fondo de Garantía de los Depósitos a pagar
+325128 Corresponsalía - Nuestra cuenta
+325131 Corresponsalía - Su cuenta
+325309 Financiaciones recibidas de entidades financieras locales
+325310 Financiaciones recibidas de entidades financieras locales - En títulos públicos
+325311 Financiaciones recibidas de entidades financieras locales - En títulos privados
+325134 Otras financiaciones de entidades financieras
+325136 Otras financiaciones de entidades financieras - En títulos públicos
+325197 Otras financiaciones de entidades financieras - En títulos privados
+325148 Otras obligaciones
+325139 Canje de valores
+325149 Cobranzas y otras operaciones por cuenta de terceros
+325162 Acreedores por compras de bienes dados en arrendamientos financieros
+325138 Acreedores no financieros por pases pasivos de títulos públicos - Capitales
+325140 Acreedores no financieros por pases pasivos de títulos públicos – Primas
+325146 Acreedores no financieros por otros pases pasivos - Capitales
+325147 Acreedores no financieros por otros pases pasivos - Primas
+325144 Acreedores financieros por pases pasivos de títulos públicos - Capitales
+325145 Acreedores financieros por pases pasivos de títulos públicos – Primas
+325150 Acreedores financieros por otros pases pasivos - Capitales
+325165 Acreedores financieros por otros pases pasivos - Primas
+325181 Acreedores no financieros por compras a término de títulos públicos - Capitales
+325182 Acreedores no financieros por compras a término de moneda extranjera - Capitales
+325183 Acreedores no financieros por otras compras a término - Capitales
+325185 Acreedores financieros por compras a término de títulos públicos- Capitales
+325186 Acreedores financieros por compras a término de moneda extranjera - Capitales
+325187 Acreedores financieros por otras compras a término - Capitales
+325188 Acreedores no financieros por compras de títulos públicos al contado a liquidar -
+Capitales
+325189 Acreedores no financieros por compra de moneda extranjera al contado a liquidar -
+Capitales
+325190 Acreedores no financieros por otras compras al contado a liquidar - Capitales
+325191 Acreedores financieros por compras de títulos públicos al contado a liquidar - Capitales
+325192 Acreedores financieros por compras de moneda extranjera al contado a liquidar -
+Capitales
+325193 Acreedores financieros por otras compras al contado a liquidar - Capitales
+325194 Acreedores por compras a plazo - Primas
+325171 Ventas a término de títulos públicos por operaciones de pase
+325167 Ventas a término de instrumentos de regulación monetaria por operaciones de pase
+325174 Ventas a término de moneda extranjera por pases activos
+325110 Ventas a término por otros pases activos
+325172 Ventas a término de títulos públicos
+325166 Ventas a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+325176 Ventas a término de moneda extranjera
+325115 Otras ventas a término
+325175 Ventas de títulos públicos al contado a liquidar
+325173 Ventas de moneda extranjera al contado a liquidar
+325112 Otras ventas al contado a liquidar
+325177 Primas a devengar por pases activos
+325113 Primas a devengar por ventas a plazo
+325178 Primas por opciones de compra lanzadas
+325180 Primas por opciones de venta lanzadas
+325151 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+325152 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+325153 Saldos pendientes de liquidación por otras operaciones a término
+325154 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+325155 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+325179 Comisiones devengadas a pagar
+325114 Obligaciones negociables sin oferta pública
+325117 (Descuentos de emisión de obligaciones negociables sin oferta pública)
+325111 Obligaciones negociables con oferta pública
+325129 (Descuentos de emisión de obligaciones negociables con oferta pública)
+325158 Cobros no aplicados – Deudores registrados en cuentas de orden
+325184 Diversas
+325202 Banco Central de la República Argentina - Intereses devengados a pagar
+325209 Intereses devengados a pagar por obligaciones negociables sin oferta pública
+325219 Intereses devengados a pagar por obligaciones negociables con oferta pública
+325221 Intereses devengados a pagar por financiaciones recibidas de entidades financieras
+locales
+325204 Diferencias de cotización devengadas a pagar
+325203 Otros intereses devengados a pagar
+326000 En moneda extranjera - Residentes en el exterior
+326100/300 Capitales
+326103 Aceptaciones
+326125 Banco Interamericano de Desarrollo
+326126 Banco Internacional de Reconstrucción y Fomento
+326127 Otras financiaciones de organismos internacionales
+326106 Acreedores por pases pasivos de títulos públicos - Capitales
+326107 Acreedores por pases pasivos de títulos públicos – Primas
+326108 Acreedores por otros pases pasivos – Capitales
+326109 Acreedores por otros pases pasivos - Primas
+326118 Acreedores por compras a término
+326119 Acreedores por compras al contado a liquidar
+326110 Ventas a término por pases activos
+326166 Ventas a término de títulos públicos con entrega del subyacente y liquidación de
+diferencias
+326116 Otras ventas a término
+326112 Ventas al contado a liquidar
+326113 Primas a devengar por pases activos
+326115 Primas a devengar por ventas a plazo
+326178 Primas por opciones de compra lanzadas
+326180 Primas por opciones de venta lanzadas
+326185 Saldos pendientes de liquidación por operaciones a término de moneda extranjera
+326186 Saldos pendientes de liquidación por operaciones a término de títulos públicos
+326187 Saldos pendientes de liquidación por otras operaciones a término
+326188 Saldos pendientes de liquidación por permutas de tasa de interés fija por variable
+326189 Saldos pendientes de liquidación por permutas de tasa de interés variable por fija
+326128 Corresponsalía - Nuestra cuenta
+326131 Corresponsalía - Su cuenta
+326133 Otras financiaciones de entidades financieras
+326148 Otras obligaciones
+326162 Acreedores por compra de bienes dados en arrendamientos financieros
+326114 Obligaciones negociables sin oferta pública
+326117 (Descuentos de emisión de obligaciones negociables sin oferta pública)
+326111 Obligaciones negociables con oferta pública
+326129 (Descuentos de emisión de obligaciones negociables con oferta pública)
+326179 Comisiones devengadas a pagar
+326184 Diversas
+326209 Intereses devengados a pagar por obligaciones negociables sin oferta pública
+326219 Intereses devengados a pagar por obligaciones negociables con oferta pública
+326201 Otros intereses devengados a pagar
+330000 Obligaciones diversas
+331000 En pesos - Residentes en el país
+331100 Capitales
+331106 Dividendos a pagar en efectivo
+331109 Honorarios a pagar a directores y síndicos
+331112 Remuneraciones y cargas sociales a pagar
+331115 Retenciones a pagar sobre remuneraciones
+331116 Otras retenciones a pagar
+331117 Impuesto al valor agregado - Débito fiscal
+331118 Impuestos a pagar
+331121 Banco Central de la República Argentina - Intereses punitorios y cargos a pagar
+331128 Anticipos por venta de bienes tomados en defensa de créditos
+331127 Anticipos por venta de otros bienes
+331131 Acreedores por compra de bienes
+331133 Cobros efectuados por adelantado
+331136 Acreedores varios
+331137 Arrendamientos financieros a pagar
+331138 Arrendamientos financieros - Cuotas contingentes devengadas a pagar
+331202 Ajustes e intereses devengados a pagar por compra de bienes
+331201 Otros ajustes e intereses devengados a pagar
+331237 Ajustes e intereses devengados a pagar por arrendamientos financieros
+331250 Ajustes devengados a pagar por obligaciones diversas con cláusula CER
+332000 En pesos - Residentes en el exterior
+332100 Capitales
+332106 Dividendos a pagar en efectivo
+332109 Honorarios a pagar a directores y síndicos
+332136 Acreedores varios
+332137 Arrendamientos financieros a pagar
+332138 Arrendamientos financieros - Cuotas contingentes devengadas a pagar
+332201 Ajustes e intereses devengados a pagar
+332237 Ajustes e intereses devengados a pagar por arrendamientos financieros
+332250 Ajustes devengados a pagar por obligaciones diversas con cláusula CER
+335000 En moneda extranjera - Residentes en el país
+335100 Capitales
+335128 Anticipo por venta de bienes tomados en defensa de créditos
+335127 Anticipos por venta de otros bienes
+335131 Acreedores por compra de bienes
+335136 Acreedores varios
+335137 Arrendamientos financieros a pagar
+335138 Arrendamientos financieros - Cuotas contingentes devengadas a pagar
+335202 Intereses devengados a pagar por compra de bienes
+335201 Otros intereses devengados a pagar
+335237 Ajustes e intereses devengados a pagar por arrendamientos financieros
+336000 En moneda extranjera - Residentes en el exterior
+336100 Capitales
+336128 Anticipo por venta de bienes tomados en defensa de créditos
+336127 Anticipos por venta de otros bienes
+336131 Acreedores por compra de bienes
+336137 Arrendamientos financieros a pagar
+336138 Arrendamientos financieros - Cuotas contingentes devengadas a pagar
+336136 Acreedores varios
+336202 Intereses devengados a pagar por compra de bienes
+336201 Otros intereses devengados a pagar
+336237 Ajustes e intereses devengados a pagar por arrendamientos financieros
+340000 Previsiones
+340003 Indemnización por despidos
+340006 Contingencias con el Banco Central de la República Argentina
+340009 Riesgos no previstos
+340012 Otras contingencias
+340015 Especial para operaciones a tasa regulada
+340018 Por compromisos eventuales
+340019 Por aplicación de refinanciación de deudas –Decreto 730/2001-
+340021 Llave negativa
+340022 Diferencias por dolarización de depósitos judiciales – Comunicación “A” 4686
+340023 Para sanciones administrativas, disciplinarias y penales.
+350000 Partidas pendientes de imputación - Saldos acreedores
+351000 En pesos
+351003 Sucursales y agencias - Fondos de terceros en tránsito
+351006 Sucursales y agencias - Fondos propios
+351009 Otras
+355000 En moneda extranjera
+355003 Sucursales y agencias - Fondos de terceros en tránsito
+355006 Sucursales y agencias - Fondos propios
+355009 Otras
+360000 Obligaciones subordinadas
+361000 En pesos - Residentes en el país
+361100 Capitales
+361107 Obligaciones subordinadas computables para la R.P.C. sin oferta pública
+361118 (Descuento de emisión de obligaciones subordinadas computables para la R.P.C. sin
+oferta pública)
+361103 Obligaciones subordinadas - Otras - sin oferta pública
+361117 (Descuentos de emisión de obligaciones subordinadas - Otras - sin oferta pública)
+361108 Obligaciones subordinadas computables para la R.P.C. con oferta pública
+361119 (Descuentos de emisión de obligaciones subordinadas computables para la R.P.C.
+con oferta pública)
+361130 Obligaciones subordinadas- Aportes para futuros aumentos de capital
+361106 Obligaciones subordinadas - Otras - con oferta pública
+361129 (Descuentos de emisión de obligaciones subordinadas - Otras - con oferta pública)
+361140 Instrumentos representativos de deuda subordinada
+361150 (Descuentos de emisión de instrumentos representativos de deuda subordinada)
+361209 Intereses devengados a pagar por obligaciones subordinadas sin oferta pública
+361219 Intereses devengados a pagar por obligaciones subordinadas con oferta pública
+361229 Intereses devengados a pagar por instrumentos representativos de deuda subordinada
+361250 Ajustes devengados a pagar por obligaciones subordinadas con cláusula CER
+362000 En pesos - Residentes en el exterior
+362100 Capitales
+362107 Obligaciones subordinadas computables para la R.P.C. sin oferta pública
+362118 (Descuento de emisión de obligaciones subordinadas computables para la R.P.C. sin
+oferta pública)
+362103 Obligaciones subordinadas - Otras - sin oferta pública
+362117 (Descuentos de emisión de obligaciones subordinadas - Otras - sin oferta pública)
+362108 Obligaciones subordinadas computables para la R.P.C. con oferta pública
+362119 (Descuentos de emisión de obligaciones subordinadas computables para la R.P.C.
+con oferta pública)
+362130 Obligaciones subordinadas- Aportes para futuros aumentos de capital
+362106 Obligaciones subordinadas - Otras - con oferta pública
+362129 (Descuentos de emisión de obligaciones subordinadas - Otras - con oferta pública)
+362140 Instrumentos representativos de deuda subordinada
+362150 (Descuentos de emisión de instrumentos representativos de deuda subordinada)
+362209 Intereses devengados a pagar por obligaciones subordinadas sin oferta pública
+362219 Intereses devengados a pagar por obligaciones subordinadas con oferta pública
+362229 Intereses devengados a pagar por instrumentos representativos de deuda subordinada
+362250 Ajustes devengados a pagar por obligaciones subordinadas con cláusula CER
+365000 En moneda extranjera - Residentes en el país
+365100 Capitales
+365107 Obligaciones subordinadas computables para la R.P.C. sin oferta pública
+365118 (Descuento de emisión de obligaciones subordinadas computables para la R.P.C. sin
+oferta pública)
+365103 Obligaciones subordinadas - Otras - sin oferta pública
+365117 (Descuentos de emisión de obligaciones subordinadas - Otras - sin oferta pública)
+365108 Obligaciones subordinadas computables para la R.P.C. con oferta pública
+365119 (Descuentos de emisión de obligaciones subordinadas computables para la R.P.C.
+con oferta pública)
+365106 Obligaciones subordinadas - Otras - con oferta pública
+365129 (Descuentos de emisión de obligaciones subordinadas - Otras - con oferta pública)
+365140 Instrumentos representativos de deuda subordinada
+365150 (Descuentos de emisión de instrumentos representativos de deuda subordinada)
+365209 Intereses devengados a pagar por obligaciones subordinadas sin oferta pública
+365219 Intereses devengados a pagar por obligaciones subordinadas con oferta pública
+365229 Intereses devengados a pagar por instrumentos representativos de deuda subordinada
+366000 En moneda extranjera - Residentes en el exterior
+366100 Capitales
+366107 Obligaciones subordinadas computables para la R.P.C. sin oferta pública
+366118 (Descuento de emisión de obligaciones subordinadas computables para la R.P.C. sin
+oferta pública)
+366103 Obligaciones subordinadas - Otras - sin oferta pública
+366117 (Descuentos de emisión de obligaciones subordinadas - Otras - sin oferta pública)
+366108 Obligaciones subordinadas computables para la R.P.C. con oferta pública
+366119 (Descuentos de emisión de obligaciones subordinadas computables para la R.P.C.
+con oferta pública)
+366106 Obligaciones subordinadas - Otras - con oferta pública
+366129 (Descuentos de emisión de obligaciones subordinadas - Otras - con oferta pública)
+366140 Instrumentos representativos de deuda subordinada
+366150 (Descuentos de emisión de instrumentos representativos de deuda subordinada)
+366209 Intereses devengados a pagar por obligaciones subordinadas sin oferta pública
+366219 Intereses devengados a pagar por obligaciones subordinadas con oferta pública
+366229 Intereses devengados a pagar por instrumentos representativos de deuda subordinada
+400000 Patrimonio Neto
+410000 Capital Social
+410003 Acciones emitidas en circulación
+410006 Acciones emitidas en cartera
+410009 Acciones pendientes de emisión o distribución
+410012 Capital asignado
+420000 Aportes no capitalizado
+420003 Primas de emisión de acciones
+420006 Aportes irrevocables para futuros aumentos de capital
+420009 Aportes no reintegrables
+430000 Ajustes al patrimonio
+430015 Fondo de ajuste patrimonial - Revalúo técnico
+430018 Fondo de ajuste patrimonial - Revalúo técnico - Participaciones en entidades financieras
+controladas
+430024 Ajuste del capital
+430025 Ajuste de Primas de emisión de acciones
+430026 Ajuste de Aportes irrevocables para futuros aumentos de capital y Aportes no
+reintegrables
+- - - Ajuste por reexpresión de partidas
+440000 Reserva de utilidades
+440003 Legal
+440004 Especiales de sociedades cooperativas
+440006 Normativas
+440007 Normativa – Especial para Instrumentos de Deuda
+440009 Estatutarias
+440012 Facultativas
+450000 Resultado no asignados
+450003 Resultados acumulados de ejercicios anteriores
+450006 Ajuste de resultados de ejercicios anteriores
+450009 Resultados del ejercicio
+470000 Diferencia de valuación no realizada
+470002 Diferencia de valuación no realizada por la compensación de la posición neta en moneda
+extranjera
+500000 Resultados
+510000 Ingresos financieros
+511000 Por operaciones en pesos
+511002 Intereses por disponibilidades
+511004 Intereses por préstamos al sector financiero
+511014 Intereses por préstamos de títulos públicos al sector financiero
+511013 Intereses por otros préstamos de títulos públicos
+511047 Intereses por adelantos
+511048 Intereses por documentos
+511049 Intereses por préstamos hipotecarios sobre la vivienda
+511050 Intereses por préstamos con otras garantías hipotecarias
+511051 Intereses por préstamos prendarios sobre automotores
+511052 Intereses por préstamos con otras garantías prendarias
+511054 Intereses por préstamos de tarjetas de crédito
+511055 Intereses por préstamos interfinancieros a entidades locales
+511053 Intereses por otros préstamos
+511003 Intereses por otros préstamos - Otras retribuciones financieras
+511064 Intereses por arrendamientos financieros
+511027 Primas por pases activos con el sector financiero
+511084 Primas por ventas a término de moneda extranjera liquidables en pesos
+511007 Primas por otros pases activos
+511009 Intereses por otros créditos por intermediación financiera
+511071 Ajustes por préstamos con cláusula CER
+511072 Ajustes por otros créditos por intermediación financiera con cláusula CER
+511073 Ajustes por contratos de arrendamientos financieros con cláusula CER
+511075 Ajustes por títulos públicos con cláusula CER
+511076 Ajustes por préstamos con cláusula CVS
+511088 Ajustes por títulos públicos en dólares estadounidenses liquidables en pesos
+511085 Ajustes por operaciones a término en moneda extranjera liquidables en pesos
+511020 Diferencia de ajustes e intereses a cargo del B.C.R.A.
+511021 Resultado por títulos públicos
+511059 Resultado por préstamos garantizados - Decreto 1387/01
+511061 Intereses por pagarés emitidos por el Gobierno Nacional
+511056 Resultado por certificados de participación en fideicomisos financieros
+511087 Resultado por títulos de deuda de fideicomisos financieros
+511041 Resultado por obligaciones negociables
+511042 Resultado por obligaciones subordinadas
+511057 Resultado por otros títulos privados
+511043 Resultado por opciones de compra tomadas
+511044 Resultado por opciones de venta tomadas
+511045 Resultado por opciones de compra lanzadas
+511046 Resultado por opciones de venta lanzadas
+511058 Resultado por otros créditos por intermediación financiera
+511086 Resultado por permutas de tasas de interés
+511065 Resultado por cuotas contingentes de arrendamientos financieros
+515000 Por operaciones en oro y moneda extranjera
+515002 Intereses por disponibilidades
+515004 Intereses por préstamos de títulos públicos al sector financiero
+515006 Intereses por otros préstamos de títulos públicos
+515007 Intereses por otros préstamos al sector financiero
+515047 Intereses por adelantos
+515048 Intereses por documentos
+515049 Intereses por préstamos hipotecarios sobre la vivienda
+515050 Intereses por préstamos con otras garantías hipotecarias
+515051 Intereses por préstamos prendarios sobre automotores
+515052 Intereses por préstamos con otras garantías prendarias
+515053 Intereses por otros préstamos
+515009 Intereses por otros créditos por intermediación financiera
+515054 Intereses por préstamos de tarjetas de crédito
+515055 Intereses por préstamos interfinancieros a entidades locales
+515070 Intereses por préstamos para la prefinanciación y financiación de exportaciones
+515060 Intereses por pagarés emitidos por el Gobierno Nacional
+515064 Intereses por arrendamientos financieros
+515031 Primas por ventas de moneda extranjera
+515034 Primas por pases activos con el sector financiero
+515035 Primas por otros pases activos
+515027 Diferencia de cotización de oro y moneda extranjera
+515021 Resultado por títulos públicos
+515056 Resultado por certificados de participación en fideicomisos financieros
+515087 Resultado por títulos de deuda de fideicomisos financieros
+515041 Resultado por obligaciones negociables
+515042 Resultado por obligaciones subordinadas
+515057 Resultado por otros títulos privados
+515043 Resultado por opciones de compra tomadas
+515044 Resultado por opciones de venta tomadas
+515045 Resultado por opciones de compra lanzadas
+515046 Resultado por opciones de venta lanzadas
+515058 Resultado por otros créditos por intermediación financiera
+515086 Resultado por permutas de tasas de interés
+515065 Resultado por cuotas contingentes de arrendamientos financieros
+520000 Egresos Financieros
+521000 Por operaciones en pesos
+521062 Intereses por depósitos en cuentas corrientes
+521063 Intereses por depósitos en caja de ahorros
+521064 Intereses por depósitos a plazo fijo
+521065 Intereses por depósitos por otras imposiciones a plazo
+521013 Intereses por depósitos de títulos públicos
+521003 Intereses por otros depósitos
+521022 Primas por pases pasivos con el sector financiero
+521007 Primas por otros pases pasivos
+521084 Primas por compras a término de moneda extranjera liquidables en pesos
+521023 Intereses por el redescuento para atender situaciones de iliquidez
+521036 Intereses por préstamos del B.C.R.A.
+521037 Intereses por préstamos de entidades financieras
+521038 Intereses por préstamos de títulos públicos de entidades financieras
+521067 Intereses por financiaciones de entidades financieras locales
+521009 Intereses por otras obligaciones por intermediación financiera
+521001 Intereses por obligaciones subordinadas
+521089 Intereses por instrumentos representativos de deuda subordinada
+521090 Descuento de emisión de instrumentos representativos de deuda subordinada
+521074 Intereses por adelantos con cláusula CER recibidos del B.C.R.A.
+521082 Intereses por letras de plazo fijo
+521021 Aporte al Fondo de Garantía de los Depósitos
+521024 Resultado por títulos públicos
+521077 Ajuste de valuación por préstamos al sector público no financiero Com “A” 3911
+521068 Resultado por certificados de participación en fideicomisos financieros
+521087 Resultado por títulos de deuda de fideicomisos financieros
+521053 Resultado por desvalorización de arrendamientos financieros
+521056 Resultado por obligaciones negociables
+521057 Resultado por obligaciones subordinadas
+521069 Resultado por otros títulos privados
+521058 Resultado por opciones de compra tomadas
+521059 Resultado por opciones de venta tomadas
+521060 Resultado por opciones de compra lanzadas
+521061 Resultado por opciones de venta lanzadas
+521086 Resultado por permutas de tasas de interés
+521031 Aporte al Instituto de Servicios Sociales Bancarios
+521032 Otros aportes sobre ingresos financieros
+521033 Impuesto sobre los ingresos brutos
+521050 Cargo por desvalorización de préstamos
+521083 Ajustes por letras de plazo fijo
+521072 Ajustes por otras obligaciones por intermediación financiera con cláusula CER
+521073 Ajustes por obligaciones subordinadas con cláusula CER
+521080 Ajustes por depósitos a Plazo Fijo con cláusula CER
+521088 Ajustes por títulos públicos en dólares estadounidenses liquidables en pesos
+521085 Ajustes por operaciones a término en moneda extranjera liquidables en pesos
+521070 Resultado por otros créditos por intermediación financiera
+525000 Por operaciones en oro y moneda extranjera
+525062 Intereses por depósitos en cuentas corrientes
+525063 Intereses por depósitos en caja de ahorros
+525064 Intereses por depósitos a plazo fijo
+525065 Intereses por depósitos por otras imposiciones a plazo
+525002 Intereses por depósitos de títulos públicos
+525003 Intereses por otros depósitos
+525004 Intereses por préstamos del B.C.R.A.
+525067 Intereses por financiaciones de entidades financieras locales
+525010 Intereses por otras obligaciones por intermediación financiera con el sector financiero
+525009 Intereses por otras obligaciones por intermediación financiera
+525001 Intereses por obligaciones subordinadas
+525089 Intereses por instrumentos representativos de deuda subordinada
+525090 Descuento de emisión de instrumentos representativos de deuda subordinada
+525039 Primas por compras de moneda extranjera
+525042 Primas por pases pasivos con el sector financiero
+525043 Primas por otros pases pasivos
+525036 Diferencia de cotización de oro y moneda extranjera
+525021 Aporte al Fondo de Garantía de los Depósitos
+525024 Resultado por títulos públicos
+525077 Ajuste de valuación por préstamos al sector público no financiero Com “A” 3911
+525068 Resultado por certificados de participación en fideicomisos financieros
+525087 Resultado por títulos de deuda de fideicomisos financieros
+525053 Resultado por desvalorización de arrendamientos financieros
+525056 Resultado por obligaciones negociables
+525057 Resultado por obligaciones subordinadas
+525069 Resultado por otros títulos privados
+525058 Resultado por opciones de compra tomadas
+525059 Resultado por opciones de venta tomadas
+525060 Resultado por opciones de compra lanzadas
+525061 Resultado por opciones de venta lanzadas
+525086 Resultado por permutas de tasas de interés
+525031 Aporte al Instituto de Servicios Sociales Bancarios
+525032 Otros aportes sobre ingresos financieros
+525033 Impuesto sobre los ingresos brutos
+525050 Cargo por desvalorización de préstamos
+525070 Resultado por otros créditos por intermediación financiera
+530000 Cargo por incobrabilidad
+531003 Por operaciones en pesos
+535003 Por operaciones en moneda extranjera
+540000 Ingresos por servicios
+541000 Por operaciones en pesos
+541003 Comisiones vinculadas con obligaciones
+541006 Comisiones vinculadas con créditos
+541009 Comisiones vinculadas con valores mobiliarios
+541012 Comisiones por garantías otorgadas
+541015 Alquiler de cajas de seguridad
+541018 Otros
+545000 Por operaciones en oro y moneda extranjera
+545004 Comisiones por operaciones de exterior y cambio
+545018 Otros
+550000 Egresos por servicios
+551000 Por operaciones en pesos
+551003 Comisiones
+551006 Aporte al Instituto de Servicios Sociales Bancarios
+551007 Otros aportes sobre ingresos por servicios
+551009 Impuesto sobre los ingresos brutos
+551018 Otros
+555000 Por operaciones en oro y moneda extranjera
+555003 Comisiones por operaciones de exterior y cambio
+555006 Aporte al Instituto de Servicios Sociales Bancarios
+555007 Otros aportes sobre ingresos por servicios
+555009 Impuesto sobre los ingresos brutos
+555018 Otros
+560000 Gastos de administración
+560003 Remuneraciones
+560006 Cargas Sociales sobre remuneraciones
+560009 Indemnizaciones y gratificaciones al personal
+560012 Representación, viáticos y movilidad
+560015 Servicios al personal
+560018 Servicios administrativos contratados
+560021 Servicios de seguridad
+560024 Honorarios a directores y síndicos
+560027 Otros honorarios
+560031 Seguros
+560033 Alquileres
+560036 Papelería y útiles
+560039 Electricidad y comunicaciones
+560042 Propaganda y publicidad
+560045 Impuestos
+560048 Gastos de mantenimiento, conservación y reparaciones
+560051 Depreciación de bienes de uso
+560053 Depreciación de bienes adquiridos por arrendamientos financieros
+560054 Amortización de gastos de organización y desarrollo
+560058 Amortización de gastos de originación de programas de créditos hipotecarios y
+de financiación de proyectos de inversión productiva
+560057 Otros
+570000 Utilidades diversas
+570025 Resultado por participaciones en entidades financieras locales
+570003 Resultado por participaciones permanentes en otras sociedades
+570006 Utilidades por venta de bienes de uso
+570009 Utilidades por operaciones con bienes diversos
+570012 Alquileres
+570016 Ajustes por deudores por venta de bienes con cláusula CER
+570017 Ajustes por otros créditos diversos con cláusula CER
+570015 Otros ajustes e intereses por créditos diversos
+570018 Intereses punitorios
+570021 Créditos recuperados
+570024 Previsiones desafectadas
+570045 Otras
+580000 Pérdidas diversas
+580035 Resultado por participaciones en entidades financieras locales
+580003 Resultado por participaciones permanentes en otras sociedades
+580005 Resultado por arrendamientos financieros tomados
+580006 Pérdida por venta o desvalorización de bienes de uso
+580009 Pérdida por operaciones o desvalorización de bienes diversos
+580012 Depreciación de bienes diversos
+580015 Amortización de llave de negocio
+580018 Cargo por incobrabilidad de créditos diversos
+580021 Cargo por otras previsiones
+580025 Ajustes por obligaciones diversas con cláusula CER
+580024 Otros ajustes e intereses por obligaciones diversas
+580027 Intereses punitorios y cargos a favor del Banco Central de la República Argentina
+580031 Siniestros
+580033 Donaciones
+580036 Aporte al Instituto de Servicios Sociales Bancarios
+580037 Otros aportes sobre utilidades diversas
+580039 Impuesto sobre los ingresos brutos
+580040 Amortización de diferencias por resoluciones judiciales
+580041 Cargos por sanciones administrativas, disciplinarias y penales
+580045 Otras
+590000 Resultado de filiales en el exterior
+590001 Resultado filial ..........
+590002 Resultado filial ..........
+610000 Impuesto a las ganancias
+610003 Impuesto a las ganancias
+620000 Resultado monetario por intermediación financiera
+620003 Por operaciones en pesos
+620006 Por operaciones en oro y moneda extranjera
+630000 Resultado monetario por otras operaciones
+630003 Resultado monetario por otras operaciones
+640000 Resultado monetario vinculado con egresos operativos
+640003 Resultado monetario vinculado con egresos operativos
+700000 Cuentas de orden
+710000 Deudoras
+711000 En pesos
+CONTINGENTES
+711013 Créditos obtenidos
+711022 Garantías preferidas recibidas por pases y operaciones a término
+711105 Garantías recibidas por operaciones a término liquidables en pesos
+711023 Otras garantías preferidas recibidas
+711024 Otras garantías recibidas por pases y operaciones a término
+711025 Otras garantías recibidas
+711043 Banco Central de la República Argentina - Documentos redescontados
+711045 Entidades Financieras - Documentos redescontados
+711083 Otras cuentas deudoras contingentes
+711084 Cuenta contingente deudora por contra
+DE CONTROL
+711046 Créditos clasificados irrecuperables
+711053 Efectivo en custodia por cuenta del Banco Central de la República Argentina
+711055 Efectivo en custodia por cuenta de entidades financieras
+711106 Títulos representativos de inversiones en custodia por cuenta del FGS
+711059 Billetes excedentes de Buen Uso declarados en custodia por cuenta y orden del
+BCRA
+711058 Billetes deteriorados en custodia por cuenta y orden del BCRA
+711057 Otros valores en custodia
+711063 Valores al cobro
+711073 Valores por debitar
+711075 Valores pendientes de cobro
+711085 Otras cuentas deudoras de control
+711086 Cuenta de control deudora por contra
+DE DERIVADOS
+711034 Opciones de compra tomadas
+711035 Opciones de venta tomadas
+711091 Opciones de compra tomadas sobre activos subyacentes no físicos
+711092 Opciones de venta tomadas sobre activos subyacentes no físicos
+711099 Compras a Término de Moneda Extranjera liquidables en pesos
+711101 Compras a Término de Títulos Públicos
+711102 Otras Compras a Término
+711103 Permutas de tasa de interés fija por variable
+711104 Permutas de tasa de interés variable por fija
+711087 Otras cuentas deudoras de derivados
+711088 Cuenta de derivados deudora por el contrario
+711089 Fondos en Fideicomiso
+715000 En moneda extranjera
+CONTINGENTES
+715013 Créditos obtenidos
+715022 Garantías preferidas recibidas por pases y operaciones a término
+715023 Otras garantías preferidas recibidas
+715024 Otras garantías recibidas por pases y operaciones a término
+715025 Otras garantías recibidas
+715043 Banco Central de la República Argentina - Documentos redescontados
+715045 Entidades Financieras - Documentos redescontados
+715083 Otras cuentas deudoras contingentes
+715084 Cuenta contingente deudora por contra
+DE CONTROL
+715046 Créditos clasificados irrecuperables
+715094 Efectivo en custodia por cuenta de entidades financieras
+715095 Efectivo en custodia por cuenta del Banco Central de la República Argentina
+715106 Títulos representativos de inversiones en custodia por cuenta del FGS
+715053 Otros valores en custodia
+715063 Valores al cobro
+715073 Valores por debitar
+715075 Valores pendientes de cobro
+715085 Otras cuentas deudoras de control
+715086 Cuenta de control deudora por contra
+DE DERIVADOS
+715034 Opciones de compra tomadas
+715035 Opciones de venta tomadas
+715091 Opciones de compra tomadas sobre activos subyacentes no físicos
+715092 Opciones de venta tomadas sobre activos subyacentes no físicos
+715099 Compras a Término de Moneda Extranjera
+715101 Compras a Término de Títulos Públicos
+715102 Otras Compras a Término
+715103 Permutas de tasa de interés fija por variable
+715104 Permutas de tasa de interés variable por fija
+715087 Otras cuentas deudoras de derivados
+715088 Cuenta de derivados deudora por contra
+DE ACTIVIDAD FIDUCIARIA
+715089 Fondos en fideicomiso
+720000 Acreedoras
+721000 En pesos
+CONTINGENTES
+721003 Adelantos en cuenta corriente acordados
+721006 Adelantos y avales en cuenta corriente de cheques de pago diferido acordados
+721038 Avales otorgados sobre cheques de pago diferido
+721008 Créditos acordados a entidades locales
+721005 Otros créditos acordados
+721031 Garantías otorgadas por obligaciones directas
+721014 Otras garantías otorgadas al Banco Central de la República Argentina
+721033 Otras garantías otorgadas
+721083 Otras cuentas acreedoras contingentes
+721084 Cuenta contingente acreedora por contra
+DE CONTROL
+721081 Fianzas, avales y otras responsabilidades otorgadas desde el exterior - Comunicación "A" 2412
+721082 Financiaciones otorgadas desde el exterior - Comunicación "A" 2412
+721074 Valores por acreditar
+721091 Depósitos en cuenta de ahorro para la vivienda por cuenta y orden del Banco Central
+de la República Argentina
+721092 Intereses devengados por depósitos en cuentas de ahorro para la vivienda
+721093 Otros depósitos constituidos por cuenta y orden del Banco Central de la República
+Argentina
+721094 Intereses devengados por otros depósitos constituidos por cuenta y orden del Banco
+Central de la República Argentina
+721085 Otras cuentas acreedoras de control
+721086 Cuenta de control acreedora por contra
+DE DERIVADOS
+721034 Opciones de compra lanzadas
+721035 Opciones de venta lanzadas
+721095 Opciones de venta lanzadas sobre los cupones de los “Bonos del Gobierno Nacional
+en dólares estadounideneses Libor 2005”.
+721096 Opciones de venta lanzadas sobre los cupones de los “Bonos del Gobierno Nacional
+en dólares estadounideneses Libor 2006”.
+721097 Opciones de venta lanzadas sobre los cupones de los “Bonos del Gobierno Nacional
+en dólares estadounideneses Libor 2012”.
+721098 Opciones de venta lanzadas sobre los cupones de los“Bonos del Gobierno Nacional
+en dólares estadounideneses 2013”.
+721039 Opciones de compra lanzadas sobre activos subyacentes no físicos
+721040 Opciones de venta lanzadas sobre activos subyacentes no físicos
+721099 Ventas a Término de Moneda Extranjera liquidables en pesos
+721101 Ventas a Término de Títulos Públicos
+721102 Otras ventas a Término
+721087 Otras cuentas acreedoras de derivados
+721088 Cuenta de derivados acreedora por contra
+DE ACTIVIDAD FIDUICIARIA
+721090 Cuenta de actividad fiduciaria acreedora por contra
+725000 En moneda extranjera
+725001 Adelantos en cuenta corriente acordados
+725006 Adelantos y avales en cuenta corriente de cheques de pago diferido acordados
+725038 Avales otorgados sobre cheques de pago diferido
+725003 Responsabilidades por operaciones de comercio exterior
+725004 Créditos documentarios
+725008 Créditos acordados a entidades locales
+725005 Otros créditos acordados
+725007 Compromisos por financiaciones y líneas de corresponsalía
+725031 Garantías otorgadas por obligaciones directas
+725014 Otras garantías otorgadas al Banco Central de la República Argentina
+725033 Otras garantías otorgadas
+725083 Otras cuentas acreedoras contingentes
+725084 Cuenta contingente acreedora por contra
+DE CONTROL
+725081 Fianzas, avales y otras responsabilidades otorgadas desde el exterior - Comunicación “A” 2412
+725082 Financiaciones otorgadas desde el exterior - Comunicación “A” 2412
+725074 Valores por acreditar
+725093 Otros depósitos constituidos por cuenta y orden del Banco Central de la República
+Argentina
+725094 Intereses devengados por otros depósitos constituidos por cuenta y orden del Banco
+Central de la República Argentina
+725085 Otras cuentas acreedoras de control
+725086 Cuenta de control acreedora por contra
+DE DERIVADOS
+725034 Opciones de compra lanzadas
+725035 Opciones de venta lanzadas
+725039 Opciones de compra lanzadas sobre activos subyacentes no físicos
+725040 Opciones de venta lanzadas sobre activos subyacentes no físicos
+725099 Ventas a Término de Moneda Extranjera
+725101 Ventas a Término de Títulos Públicos
+725102 Otras ventas a Término
+725087 Otras cuentas acreedoras de derivados
+725088 Cuenta de derivados acreedora por contra
+DE ACTIVIDAD FIDUCIARIA
+725090 Cuenta de actividad fiduciaria acreedora por el contrario

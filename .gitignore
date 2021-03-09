@@ -1,0 +1,11 @@
+# Ignore Stata database binary files
+# https://git-scm.com/docs/gitignore
+# https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+# git rm --cached \*.dta
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+# Ignore Stata log files and Stata databases everywhere
+*.dta
+*.smcl

@@ -1,0 +1,1819 @@
+Country	Year	IT										
+AUS	1985	0										
+AUS	1986	0										
+AUS	1987	0										
+AUS	1988	0										
+AUS	1989	0										
+AUS	1990	0										
+AUS	1991	0										
+AUS	1992	0										
+AUS	1993	1										
+AUS	1994	1										
+AUS	1995	1										
+AUS	1996	1										
+AUS	1997	1										
+AUS	1998	1										
+AUS	1999	1										
+AUS	2000	1										
+AUS	2001	1										
+AUS	2002	1										
+AUS	2003	1										
+AUS	2004	1										
+AUS	2005	1										
+AUS	2006	1										
+AUS	2007	1										
+AUS	2008	1										
+AUS	2009	1										
+AUS	2010	1										
+AUS	2011	1										
+AUS	2012	1										
+BRA	1985	0										
+BRA	1986	0										
+BRA	1987	0										
+BRA	1988	0										
+BRA	1989	0										
+BRA	1990	0										
+BRA	1991	0										
+BRA	1992	0										
+BRA	1993	0										
+BRA	1994	0										
+BRA	1995	0										
+BRA	1996	0										
+BRA	1997	0										
+BRA	1998	0										
+BRA	1999	1										
+BRA	2000	1										
+BRA	2001	1										
+BRA	2002	1										
+BRA	2003	1										
+BRA	2004	1										
+BRA	2005	1										
+BRA	2006	1										
+BRA	2007	1										
+BRA	2008	1										
+BRA	2009	1										
+BRA	2010	1										
+BRA	2011	1										
+BRA	2012	1										
+CAN	1985	0										
+CAN	1986	0										
+CAN	1987	0										
+CAN	1988	0										
+CAN	1989	0										
+CAN	1990	0										
+CAN	1991	1										
+CAN	1992	1										
+CAN	1993	1										
+CAN	1994	1										
+CAN	1995	1										
+CAN	1996	1										
+CAN	1997	1										
+CAN	1998	1										
+CAN	1999	1										
+CAN	2000	1										
+CAN	2001	1										
+CAN	2002	1										
+CAN	2003	1										
+CAN	2004	1										
+CAN	2005	1										
+CAN	2006	1										
+CAN	2007	1										
+CAN	2008	1										
+CAN	2009	1										
+CAN	2010	1										
+CAN	2011	1										
+CAN	2012	1										
+CHL	1985	0										
+CHL	1986	0										
+CHL	1987	0										
+CHL	1988	0										
+CHL	1989	0										
+CHL	1990	0										
+CHL	1991	1										
+CHL	1992	1										
+CHL	1993	1										
+CHL	1994	1										
+CHL	1995	1										
+CHL	1996	1										
+CHL	1997	1										
+CHL	1998	1										
+CHL	1999	1										
+CHL	2000	1										
+CHL	2001	1										
+CHL	2002	1										
+CHL	2003	1										
+CHL	2004	1										
+CHL	2005	1										
+CHL	2006	1										
+CHL	2007	1										
+CHL	2008	1										
+CHL	2009	1										
+CHL	2010	1										
+CHL	2011	1										
+CHL	2012	1										
+COL	1985	0										
+COL	1986	0										
+COL	1987	0										
+COL	1988	0										
+COL	1989	0										
+COL	1990	0										
+COL	1991	0										
+COL	1992	0										
+COL	1993	0										
+COL	1994	0										
+COL	1995	0										
+COL	1996	0										
+COL	1997	0										
+COL	1998	0										
+COL	1999	0										
+COL	2000	1										
+COL	2001	1										
+COL	2002	1										
+COL	2003	1										
+COL	2004	1										
+COL	2005	1										
+COL	2006	1										
+COL	2007	1										
+COL	2008	1										
+COL	2009	1										
+COL	2010	1										
+COL	2011	1										
+COL	2012	1										
+CZE	1985	0										
+CZE	1986	0										
+CZE	1987	0										
+CZE	1988	0										
+CZE	1989	0										
+CZE	1990	0										
+CZE	1991	0										
+CZE	1992	0										
+CZE	1993	0										
+CZE	1994	0										
+CZE	1995	0										
+CZE	1996	0										
+CZE	1997	0										
+CZE	1998	1										
+CZE	1999	1										
+CZE	2000	1										
+CZE	2001	1										
+CZE	2002	1										
+CZE	2003	1										
+CZE	2004	1										
+CZE	2005	1										
+CZE	2006	1										
+CZE	2007	1										
+CZE	2008	1										
+CZE	2009	1										
+CZE	2010	1										
+CZE	2011	1										
+CZE	2012	1										
+FIN	1985	0										
+FIN	1986	0										
+FIN	1987	0										
+FIN	1988	0										
+FIN	1989	0										
+FIN	1990	0										
+FIN	1991	0										
+FIN	1992	0										
+FIN	1993	1										
+FIN	1994	1										
+FIN	1995	1										
+FIN	1996	1										
+FIN	1997	1										
+FIN	1998	1										
+FIN	1999	0										
+FIN	2000	0										
+FIN	2001	0										
+FIN	2002	0										
+FIN	2003	0										
+FIN	2004	0										
+FIN	2005	0										
+FIN	2006	0										
+FIN	2007	0										
+FIN	2008	0										
+FIN	2009	0										
+FIN	2010	0										
+FIN	2011	0										
+FIN	2012	0										
+GHA	1985	0										
+GHA	1986	0										
+GHA	1987	0										
+GHA	1988	0										
+GHA	1989	0										
+GHA	1990	0										
+GHA	1991	0										
+GHA	1992	0										
+GHA	1993	0										
+GHA	1994	0										
+GHA	1995	0										
+GHA	1996	0										
+GHA	1997	0										
+GHA	1998	0										
+GHA	1999	0										
+GHA	2000	0										
+GHA	2001	0										
+GHA	2002	0										
+GHA	2003	0										
+GHA	2004	0										
+GHA	2005	0										
+GHA	2006	0										
+GHA	2007	1										
+GHA	2008	1										
+GHA	2009	1										
+GHA	2010	1										
+GHA	2011	1										
+GHA	2012	1										
+GTM	1985	0										
+GTM	1986	0										
+GTM	1987	0										
+GTM	1988	0										
+GTM	1989	0										
+GTM	1990	0										
+GTM	1991	0										
+GTM	1992	0										
+GTM	1993	0										
+GTM	1994	0										
+GTM	1995	0										
+GTM	1996	0										
+GTM	1997	0										
+GTM	1998	0										
+GTM	1999	0										
+GTM	2000	0										
+GTM	2001	0										
+GTM	2002	0										
+GTM	2003	0										
+GTM	2004	0										
+GTM	2005	1										
+GTM	2006	1										
+GTM	2007	1										
+GTM	2008	1										
+GTM	2009	1										
+GTM	2010	1										
+GTM	2011	1										
+GTM	2012	1										
+HUN	1985	0										
+HUN	1986	0										
+HUN	1987	0										
+HUN	1988	0										
+HUN	1989	0										
+HUN	1990	0										
+HUN	1991	0										
+HUN	1992	0										
+HUN	1993	0										
+HUN	1994	0										
+HUN	1995	0										
+HUN	1996	0										
+HUN	1997	0										
+HUN	1998	0										
+HUN	1999	0										
+HUN	2000	0										
+HUN	2001	1										
+HUN	2002	1										
+HUN	2003	1										
+HUN	2004	1										
+HUN	2005	1										
+HUN	2006	1										
+HUN	2007	1										
+HUN	2008	1										
+HUN	2009	1										
+HUN	2010	1										
+HUN	2011	1										
+HUN	2012	1										
+ISL	1985	0										
+ISL	1986	0										
+ISL	1987	0										
+ISL	1988	0										
+ISL	1989	0										
+ISL	1990	0										
+ISL	1991	0										
+ISL	1992	0										
+ISL	1993	0										
+ISL	1994	0										
+ISL	1995	0										
+ISL	1996	0										
+ISL	1997	0										
+ISL	1998	0										
+ISL	1999	0										
+ISL	2000	0										
+ISL	2001	1										
+ISL	2002	1										
+ISL	2003	1										
+ISL	2004	1										
+ISL	2005	1										
+ISL	2006	1										
+ISL	2007	1										
+ISL	2008	1										
+ISL	2009	1										
+ISL	2010	1										
+ISL	2011	1										
+ISL	2012	1										
+IDN	1985	0										
+IDN	1986	0										
+IDN	1987	0										
+IDN	1988	0										
+IDN	1989	0										
+IDN	1990	0										
+IDN	1991	0										
+IDN	1992	0										
+IDN	1993	0										
+IDN	1994	0										
+IDN	1995	0										
+IDN	1996	0										
+IDN	1997	0										
+IDN	1998	0										
+IDN	1999	0										
+IDN	2000	0										
+IDN	2001	0										
+IDN	2002	0										
+IDN	2003	0										
+IDN	2004	0										
+IDN	2005	1										
+IDN	2006	1										
+IDN	2007	1										
+IDN	2008	1										
+IDN	2009	1										
+IDN	2010	1										
+IDN	2011	1										
+IDN	2012	1										
+ISR	1985	0										
+ISR	1986	0										
+ISR	1987	0										
+ISR	1988	0										
+ISR	1989	0										
+ISR	1990	0										
+ISR	1991	0										
+ISR	1992	1										
+ISR	1993	1										
+ISR	1994	1										
+ISR	1995	1										
+ISR	1996	1										
+ISR	1997	1										
+ISR	1998	1										
+ISR	1999	1										
+ISR	2000	1										
+ISR	2001	1										
+ISR	2002	1										
+ISR	2003	1										
+ISR	2004	1										
+ISR	2005	1										
+ISR	2006	1										
+ISR	2007	1										
+ISR	2008	1										
+ISR	2009	1										
+ISR	2010	1										
+ISR	2011	1										
+ISR	2012	1										
+MEX	1985	0										
+MEX	1986	0										
+MEX	1987	0										
+MEX	1988	0										
+MEX	1989	0										
+MEX	1990	0										
+MEX	1991	0										
+MEX	1992	0										
+MEX	1993	0										
+MEX	1994	0										
+MEX	1995	0										
+MEX	1996	0										
+MEX	1997	0										
+MEX	1998	0										
+MEX	1999	0										
+MEX	2000	0										
+MEX	2001	1										
+MEX	2002	1										
+MEX	2003	1										
+MEX	2004	1										
+MEX	2005	1										
+MEX	2006	1										
+MEX	2007	1										
+MEX	2008	1										
+MEX	2009	1										
+MEX	2010	1										
+MEX	2011	1										
+MEX	2012	1										
+NZL	1985	0										
+NZL	1986	0										
+NZL	1987	0										
+NZL	1988	0										
+NZL	1989	0										
+NZL	1990	1										
+NZL	1991	1										
+NZL	1992	1										
+NZL	1993	1										
+NZL	1994	1										
+NZL	1995	1										
+NZL	1996	1										
+NZL	1997	1										
+NZL	1998	1										
+NZL	1999	1										
+NZL	2000	1										
+NZL	2001	1										
+NZL	2002	1										
+NZL	2003	1										
+NZL	2004	1										
+NZL	2005	1										
+NZL	2006	1										
+NZL	2007	1										
+NZL	2008	1										
+NZL	2009	1										
+NZL	2010	1										
+NZL	2011	1										
+NZL	2012	1										
+NOR	1985	0										
+NOR	1986	0										
+NOR	1987	0										
+NOR	1988	0										
+NOR	1989	0										
+NOR	1990	0										
+NOR	1991	0										
+NOR	1992	0										
+NOR	1993	0										
+NOR	1994	0										
+NOR	1995	0										
+NOR	1996	0										
+NOR	1997	0										
+NOR	1998	0										
+NOR	1999	0										
+NOR	2000	0										
+NOR	2001	1										
+NOR	2002	1										
+NOR	2003	1										
+NOR	2004	1										
+NOR	2005	1										
+NOR	2006	1										
+NOR	2007	1										
+NOR	2008	1										
+NOR	2009	1										
+NOR	2010	1										
+NOR	2011	1										
+NOR	2012	1										
+PER	1985	0										
+PER	1986	0										
+PER	1987	0										
+PER	1988	0										
+PER	1989	0										
+PER	1990	0										
+PER	1991	0										
+PER	1992	0										
+PER	1993	0										
+PER	1994	0										
+PER	1995	0										
+PER	1996	0										
+PER	1997	0										
+PER	1998	0										
+PER	1999	0										
+PER	2000	0										
+PER	2001	0										
+PER	2002	1										
+PER	2003	1										
+PER	2004	1										
+PER	2005	1										
+PER	2006	1										
+PER	2007	1										
+PER	2008	1										
+PER	2009	1										
+PER	2010	1										
+PER	2011	1										
+PER	2012	1										
+PHL	1985	0										
+PHL	1986	0										
+PHL	1987	0										
+PHL	1988	0										
+PHL	1989	0										
+PHL	1990	0										
+PHL	1991	0										
+PHL	1992	0										
+PHL	1993	0										
+PHL	1994	0										
+PHL	1995	0										
+PHL	1996	0										
+PHL	1997	0										
+PHL	1998	0										
+PHL	1999	0										
+PHL	2000	0										
+PHL	2001	0										
+PHL	2002	1										
+PHL	2003	1										
+PHL	2004	1										
+PHL	2005	1										
+PHL	2006	1										
+PHL	2007	1										
+PHL	2008	1										
+PHL	2009	1										
+PHL	2010	1										
+PHL	2011	1										
+PHL	2012	1										
+POL	1985	0										
+POL	1986	0										
+POL	1987	0										
+POL	1988	0										
+POL	1989	0										
+POL	1990	0										
+POL	1991	0										
+POL	1992	0										
+POL	1993	0										
+POL	1994	0										
+POL	1995	0										
+POL	1996	0										
+POL	1997	0										
+POL	1998	1										
+POL	1999	1										
+POL	2000	1										
+POL	2001	1										
+POL	2002	1										
+POL	2003	1										
+POL	2004	1										
+POL	2005	1										
+POL	2006	1										
+POL	2007	1										
+POL	2008	1										
+POL	2009	1										
+POL	2010	1										
+POL	2011	1										
+POL	2012	1										
+ROU	1985	0										
+ROU	1986	0										
+ROU	1987	0										
+ROU	1988	0										
+ROU	1989	0										
+ROU	1990	0										
+ROU	1991	0										
+ROU	1992	0										
+ROU	1993	0										
+ROU	1994	0										
+ROU	1995	0										
+ROU	1996	0										
+ROU	1997	0										
+ROU	1998	0										
+ROU	1999	0										
+ROU	2000	0										
+ROU	2001	0										
+ROU	2002	0										
+ROU	2003	0										
+ROU	2004	0										
+ROU	2005	1										
+ROU	2006	1										
+ROU	2007	1										
+ROU	2008	1										
+ROU	2009	1										
+ROU	2010	1										
+ROU	2011	1										
+ROU	2012	1										
+SVK	1985	0										
+SVK	1986	0										
+SVK	1987	0										
+SVK	1988	0										
+SVK	1989	0										
+SVK	1990	0										
+SVK	1991	0										
+SVK	1992	0										
+SVK	1993	0										
+SVK	1994	0										
+SVK	1995	0										
+SVK	1996	0										
+SVK	1997	0										
+SVK	1998	0										
+SVK	1999	0										
+SVK	2000	0										
+SVK	2001	0										
+SVK	2002	0										
+SVK	2003	0										
+SVK	2004	0										
+SVK	2005	1										
+SVK	2006	1										
+SVK	2007	1										
+SVK	2008	1										
+SVK	2009	1										
+SVK	2010	0										
+SVK	2011	0										
+SVK	2012	0										
+ZAF	1985	0										
+ZAF	1986	0										
+ZAF	1987	0										
+ZAF	1988	0										
+ZAF	1989	0										
+ZAF	1990	0										
+ZAF	1991	0										
+ZAF	1992	0										
+ZAF	1993	0										
+ZAF	1994	0										
+ZAF	1995	0										
+ZAF	1996	0										
+ZAF	1997	0										
+ZAF	1998	0										
+ZAF	1999	0										
+ZAF	2000	1										
+ZAF	2001	1										
+ZAF	2002	1										
+ZAF	2003	1										
+ZAF	2004	1										
+ZAF	2005	1										
+ZAF	2006	1										
+ZAF	2007	1										
+ZAF	2008	1										
+ZAF	2009	1										
+ZAF	2010	1										
+ZAF	2011	1										
+ZAF	2012	1										
+KOR	1985	0										
+KOR	1986	0										
+KOR	1987	0										
+KOR	1988	0										
+KOR	1989	0										
+KOR	1990	0										
+KOR	1991	0										
+KOR	1992	0										
+KOR	1993	0										
+KOR	1994	0										
+KOR	1995	0										
+KOR	1996	0										
+KOR	1997	0										
+KOR	1998	1										
+KOR	1999	1										
+KOR	2000	1										
+KOR	2001	1										
+KOR	2002	1										
+KOR	2003	1										
+KOR	2004	1										
+KOR	2005	1										
+KOR	2006	1										
+KOR	2007	1										
+KOR	2008	1										
+KOR	2009	1										
+KOR	2010	1										
+KOR	2011	1										
+KOR	2012	1										
+ESP	1985	0										
+ESP	1986	0										
+ESP	1987	0										
+ESP	1988	0										
+ESP	1989	0										
+ESP	1990	0										
+ESP	1991	0										
+ESP	1992	0										
+ESP	1993	0										
+ESP	1994	0										
+ESP	1995	1										
+ESP	1996	1										
+ESP	1997	1										
+ESP	1998	1										
+ESP	1999	0										
+ESP	2000	0										
+ESP	2001	0										
+ESP	2002	0										
+ESP	2003	0										
+ESP	2004	0										
+ESP	2005	0										
+ESP	2006	0										
+ESP	2007	0										
+ESP	2008	0										
+ESP	2009	0										
+ESP	2010	0										
+ESP	2011	0										
+ESP	2012	0										
+SWE	1985	0										
+SWE	1986	0										
+SWE	1987	0										
+SWE	1988	0										
+SWE	1989	0										
+SWE	1990	0										
+SWE	1991	0										
+SWE	1992	0										
+SWE	1993	1										
+SWE	1994	1										
+SWE	1995	1										
+SWE	1996	1										
+SWE	1997	1										
+SWE	1998	1										
+SWE	1999	1										
+SWE	2000	1										
+SWE	2001	1										
+SWE	2002	1										
+SWE	2003	1										
+SWE	2004	1										
+SWE	2005	1										
+SWE	2006	1										
+SWE	2007	1										
+SWE	2008	1										
+SWE	2009	1										
+SWE	2010	1										
+SWE	2011	1										
+SWE	2012	1										
+CHE	1985	0										
+CHE	1986	0										
+CHE	1987	0										
+CHE	1988	0										
+CHE	1989	0										
+CHE	1990	0										
+CHE	1991	0										
+CHE	1992	0										
+CHE	1993	0										
+CHE	1994	0										
+CHE	1995	0										
+CHE	1996	0										
+CHE	1997	0										
+CHE	1998	0										
+CHE	1999	0										
+CHE	2000	1										
+CHE	2001	1										
+CHE	2002	1										
+CHE	2003	1										
+CHE	2004	1										
+CHE	2005	1										
+CHE	2006	1										
+CHE	2007	1										
+CHE	2008	1										
+CHE	2009	1										
+CHE	2010	1										
+CHE	2011	1										
+CHE	2012	1										
+THA	1985	0										
+THA	1986	0										
+THA	1987	0										
+THA	1988	0										
+THA	1989	0										
+THA	1990	0										
+THA	1991	0										
+THA	1992	0										
+THA	1993	0										
+THA	1994	0										
+THA	1995	0										
+THA	1996	0										
+THA	1997	0										
+THA	1998	0										
+THA	1999	0										
+THA	2000	1										
+THA	2001	1										
+THA	2002	1										
+THA	2003	1										
+THA	2004	1										
+THA	2005	1										
+THA	2006	1										
+THA	2007	1										
+THA	2008	1										
+THA	2009	1										
+THA	2010	1										
+THA	2011	1										
+THA	2012	1										
+TUR	1985	0										
+TUR	1986	0										
+TUR	1987	0										
+TUR	1988	0										
+TUR	1989	0										
+TUR	1990	0										
+TUR	1991	0										
+TUR	1992	0										
+TUR	1993	0										
+TUR	1994	0										
+TUR	1995	0										
+TUR	1996	0										
+TUR	1997	0										
+TUR	1998	0										
+TUR	1999	0										
+TUR	2000	0										
+TUR	2001	0										
+TUR	2002	0										
+TUR	2003	0										
+TUR	2004	0										
+TUR	2005	0										
+TUR	2006	1										
+TUR	2007	1										
+TUR	2008	1										
+TUR	2009	1										
+TUR	2010	1										
+TUR	2011	1										
+TUR	2012	1										
+UK	1985	0										
+UK	1986	0										
+UK	1987	0										
+UK	1988	0										
+UK	1989	0										
+UK	1990	0										
+UK	1991	0										
+UK	1992	0										
+UK	1993	1										
+UK	1994	1										
+UK	1995	1										
+UK	1996	1										
+UK	1997	1										
+UK	1998	1										
+UK	1999	1										
+UK	2000	1										
+UK	2001	1										
+UK	2002	1										
+UK	2003	1										
+UK	2004	1										
+UK	2005	1										
+UK	2006	1										
+UK	2007	1										
+UK	2008	1										
+UK	2009	1										
+UK	2010	1										
+UK	2011	1										
+UK	2012	1										
+AUT	1985	0										
+AUT	1986	0										
+AUT	1987	0										
+AUT	1988	0										
+AUT	1989	0										
+AUT	1990	0										
+AUT	1991	0										
+AUT	1992	0										
+AUT	1993	0										
+AUT	1994	0										
+AUT	1995	0										
+AUT	1996	0										
+AUT	1997	0										
+AUT	1998	0										
+AUT	1999	0										
+AUT	2000	0										
+AUT	2001	0										
+AUT	2002	0										
+AUT	2003	0										
+AUT	2004	0										
+AUT	2005	0										
+AUT	2006	0										
+AUT	2007	0										
+AUT	2008	0										
+AUT	2009	0										
+AUT	2010	0										
+AUT	2011	0										
+AUT	2012	0										
+BEL	1985	0										
+BEL	1986	0										
+BEL	1987	0										
+BEL	1988	0										
+BEL	1989	0										
+BEL	1990	0										
+BEL	1991	0										
+BEL	1992	0										
+BEL	1993	0										
+BEL	1994	0										
+BEL	1995	0										
+BEL	1996	0										
+BEL	1997	0										
+BEL	1998	0										
+BEL	1999	0										
+BEL	2000	0										
+BEL	2001	0										
+BEL	2002	0										
+BEL	2003	0										
+BEL	2004	0										
+BEL	2005	0										
+BEL	2006	0										
+BEL	2007	0										
+BEL	2008	0										
+BEL	2009	0										
+BEL	2010	0										
+BEL	2011	0										
+BEL	2012	0										
+DNK	1985	0										
+DNK	1986	0										
+DNK	1987	0										
+DNK	1988	0										
+DNK	1989	0										
+DNK	1990	0										
+DNK	1991	0										
+DNK	1992	0										
+DNK	1993	0										
+DNK	1994	0										
+DNK	1995	0										
+DNK	1996	0										
+DNK	1997	0										
+DNK	1998	0										
+DNK	1999	0										
+DNK	2000	0										
+DNK	2001	0										
+DNK	2002	0										
+DNK	2003	0										
+DNK	2004	0										
+DNK	2005	0										
+DNK	2006	0										
+DNK	2007	0										
+DNK	2008	0										
+DNK	2009	0										
+DNK	2010	0										
+DNK	2011	0										
+DNK	2012	0										
+FRA	1985	0										
+FRA	1986	0										
+FRA	1987	0										
+FRA	1988	0										
+FRA	1989	0										
+FRA	1990	0										
+FRA	1991	0										
+FRA	1992	0										
+FRA	1993	0										
+FRA	1994	0										
+FRA	1995	0										
+FRA	1996	0										
+FRA	1997	0										
+FRA	1998	0										
+FRA	1999	0										
+FRA	2000	0										
+FRA	2001	0										
+FRA	2002	0										
+FRA	2003	0										
+FRA	2004	0										
+FRA	2005	0										
+FRA	2006	0										
+FRA	2007	0										
+FRA	2008	0										
+FRA	2009	0										
+FRA	2010	0										
+FRA	2011	0										
+FRA	2012	0										
+DEU	1985	0										
+DEU	1986	0										
+DEU	1987	0										
+DEU	1988	0										
+DEU	1989	0										
+DEU	1990	0										
+DEU	1991	0										
+DEU	1992	0										
+DEU	1993	0										
+DEU	1994	0										
+DEU	1995	0										
+DEU	1996	0										
+DEU	1997	0										
+DEU	1998	0										
+DEU	1999	0										
+DEU	2000	0										
+DEU	2001	0										
+DEU	2002	0										
+DEU	2003	0										
+DEU	2004	0										
+DEU	2005	0										
+DEU	2006	0										
+DEU	2007	0										
+DEU	2008	0										
+DEU	2009	0										
+DEU	2010	0										
+DEU	2011	0										
+DEU	2012	0										
+GRC	1985	0										
+GRC	1986	0										
+GRC	1987	0										
+GRC	1988	0										
+GRC	1989	0										
+GRC	1990	0										
+GRC	1991	0										
+GRC	1992	0										
+GRC	1993	0										
+GRC	1994	0										
+GRC	1995	0										
+GRC	1996	0										
+GRC	1997	0										
+GRC	1998	0										
+GRC	1999	0										
+GRC	2000	0										
+GRC	2001	0										
+GRC	2002	0										
+GRC	2003	0										
+GRC	2004	0										
+GRC	2005	0										
+GRC	2006	0										
+GRC	2007	0										
+GRC	2008	0										
+GRC	2009	0										
+GRC	2010	0										
+GRC	2011	0										
+GRC	2012	0										
+IRL	1985	0										
+IRL	1986	0										
+IRL	1987	0										
+IRL	1988	0										
+IRL	1989	0										
+IRL	1990	0										
+IRL	1991	0										
+IRL	1992	0										
+IRL	1993	0										
+IRL	1994	0										
+IRL	1995	0										
+IRL	1996	0										
+IRL	1997	0										
+IRL	1998	0										
+IRL	1999	0										
+IRL	2000	0										
+IRL	2001	0										
+IRL	2002	0										
+IRL	2003	0										
+IRL	2004	0										
+IRL	2005	0										
+IRL	2006	0										
+IRL	2007	0										
+IRL	2008	0										
+IRL	2009	0										
+IRL	2010	0										
+IRL	2011	0										
+IRL	2012	0										
+ITA	1985	0										
+ITA	1986	0										
+ITA	1987	0										
+ITA	1988	0										
+ITA	1989	0										
+ITA	1990	0										
+ITA	1991	0										
+ITA	1992	0										
+ITA	1993	0										
+ITA	1994	0										
+ITA	1995	0										
+ITA	1996	0										
+ITA	1997	0										
+ITA	1998	0										
+ITA	1999	0										
+ITA	2000	0										
+ITA	2001	0										
+ITA	2002	0										
+ITA	2003	0										
+ITA	2004	0										
+ITA	2005	0										
+ITA	2006	0										
+ITA	2007	0										
+ITA	2008	0										
+ITA	2009	0										
+ITA	2010	0										
+ITA	2011	0										
+ITA	2012	0										
+JPN	1985	0										
+JPN	1986	0										
+JPN	1987	0										
+JPN	1988	0										
+JPN	1989	0										
+JPN	1990	0										
+JPN	1991	0										
+JPN	1992	0										
+JPN	1993	0										
+JPN	1994	0										
+JPN	1995	0										
+JPN	1996	0										
+JPN	1997	0										
+JPN	1998	0										
+JPN	1999	0										
+JPN	2000	0										
+JPN	2001	0										
+JPN	2002	0										
+JPN	2003	0										
+JPN	2004	0										
+JPN	2005	0										
+JPN	2006	0										
+JPN	2007	0										
+JPN	2008	0										
+JPN	2009	0										
+JPN	2010	0										
+JPN	2011	0										
+JPN	2012	0										
+LUX	1985	0										
+LUX	1986	0										
+LUX	1987	0										
+LUX	1988	0										
+LUX	1989	0										
+LUX	1990	0										
+LUX	1991	0										
+LUX	1992	0										
+LUX	1993	0										
+LUX	1994	0										
+LUX	1995	0										
+LUX	1996	0										
+LUX	1997	0										
+LUX	1998	0										
+LUX	1999	0										
+LUX	2000	0										
+LUX	2001	0										
+LUX	2002	0										
+LUX	2003	0										
+LUX	2004	0										
+LUX	2005	0										
+LUX	2006	0										
+LUX	2007	0										
+LUX	2008	0										
+LUX	2009	0										
+LUX	2010	0										
+LUX	2011	0										
+LUX	2012	0										
+NLD	1985	0										
+NLD	1986	0										
+NLD	1987	0										
+NLD	1988	0										
+NLD	1989	0										
+NLD	1990	0										
+NLD	1991	0										
+NLD	1992	0										
+NLD	1993	0										
+NLD	1994	0										
+NLD	1995	0										
+NLD	1996	0										
+NLD	1997	0										
+NLD	1998	0										
+NLD	1999	0										
+NLD	2000	0										
+NLD	2001	0										
+NLD	2002	0										
+NLD	2003	0										
+NLD	2004	0										
+NLD	2005	0										
+NLD	2006	0										
+NLD	2007	0										
+NLD	2008	0										
+NLD	2009	0										
+NLD	2010	0										
+NLD	2011	0										
+NLD	2012	0										
+PRT	1985	0										
+PRT	1986	0										
+PRT	1987	0										
+PRT	1988	0										
+PRT	1989	0										
+PRT	1990	0										
+PRT	1991	0										
+PRT	1992	0										
+PRT	1993	0										
+PRT	1994	0										
+PRT	1995	0										
+PRT	1996	0										
+PRT	1997	0										
+PRT	1998	0										
+PRT	1999	0										
+PRT	2000	0										
+PRT	2001	0										
+PRT	2002	0										
+PRT	2003	0										
+PRT	2004	0										
+PRT	2005	0										
+PRT	2006	0										
+PRT	2007	0										
+PRT	2008	0										
+PRT	2009	0										
+PRT	2010	0										
+PRT	2011	0										
+PRT	2012	0										
+USA	1985	0										
+USA	1986	0										
+USA	1987	0										
+USA	1988	0										
+USA	1989	0										
+USA	1990	0										
+USA	1991	0										
+USA	1992	0										
+USA	1993	0										
+USA	1994	0										
+USA	1995	0										
+USA	1996	0										
+USA	1997	0										
+USA	1998	0										
+USA	1999	0										
+USA	2000	0										
+USA	2001	0										
+USA	2002	0										
+USA	2003	0										
+USA	2004	0										
+USA	2005	0										
+USA	2006	0										
+USA	2007	0										
+USA	2008	0										
+USA	2009	0										
+USA	2010	0										
+USA	2011	0										
+USA	2012	0										
+ARG	1985	0										
+ARG	1986	0										
+ARG	1987	0										
+ARG	1988	0										
+ARG	1989	0										
+ARG	1990	0										
+ARG	1991	0										
+ARG	1992	0										
+ARG	1993	0										
+ARG	1994	0										
+ARG	1995	0										
+ARG	1996	0										
+ARG	1997	0										
+ARG	1998	0										
+ARG	1999	0										
+ARG	2000	0										
+ARG	2001	0										
+ARG	2002	0										
+ARG	2003	0										
+ARG	2004	0										
+ARG	2005	0										
+ARG	2006	0										
+ARG	2007	0										
+ARG	2008	0										
+ARG	2009	0										
+ARG	2010	0										
+ARG	2011	0										
+ARG	2012	0										
+PAN	1985	0										
+PAN	1986	0										
+PAN	1987	0										
+PAN	1988	0										
+PAN	1989	0										
+PAN	1990	0										
+PAN	1991	0										
+PAN	1992	0										
+PAN	1993	0										
+PAN	1994	0										
+PAN	1995	0										
+PAN	1996	0										
+PAN	1997	0										
+PAN	1998	0										
+PAN	1999	0										
+PAN	2000	0										
+PAN	2001	0										
+PAN	2002	0										
+PAN	2003	0										
+PAN	2004	0										
+PAN	2005	0										
+PAN	2006	0										
+PAN	2007	0										
+PAN	2008	0										
+PAN	2009	0										
+PAN	2010	0										
+PAN	2011	0										
+PAN	2012	0										
+BOL	1985	0										
+BOL	1986	0										
+BOL	1987	0										
+BOL	1988	0										
+BOL	1989	0										
+BOL	1990	0										
+BOL	1991	0										
+BOL	1992	0										
+BOL	1993	0										
+BOL	1994	0										
+BOL	1995	0										
+BOL	1996	0										
+BOL	1997	0										
+BOL	1998	0										
+BOL	1999	0										
+BOL	2000	0										
+BOL	2001	0										
+BOL	2002	0										
+BOL	2003	0										
+BOL	2004	0										
+BOL	2005	0										
+BOL	2006	0										
+BOL	2007	0										
+BOL	2008	0										
+BOL	2009	0										
+BOL	2010	0										
+BOL	2011	0										
+BOL	2012	0										
+VEN	1985	0										
+VEN	1986	0										
+VEN	1987	0										
+VEN	1988	0										
+VEN	1989	0										
+VEN	1990	0										
+VEN	1991	0										
+VEN	1992	0										
+VEN	1993	0										
+VEN	1994	0										
+VEN	1995	0										
+VEN	1996	0										
+VEN	1997	0										
+VEN	1998	0										
+VEN	1999	0										
+VEN	2000	0										
+VEN	2001	0										
+VEN	2002	0										
+VEN	2003	0										
+VEN	2004	0										
+VEN	2005	0										
+VEN	2006	0										
+VEN	2007	0										
+VEN	2008	0										
+VEN	2009	0										
+VEN	2010	0										
+VEN	2011	0										
+VEN	2012	0										
+CRI	1985	0										
+CRI	1986	0										
+CRI	1987	0										
+CRI	1988	0										
+CRI	1989	0										
+CRI	1990	0										
+CRI	1991	0										
+CRI	1992	0										
+CRI	1993	0										
+CRI	1994	0										
+CRI	1995	0										
+CRI	1996	0										
+CRI	1997	0										
+CRI	1998	0										
+CRI	1999	0										
+CRI	2000	0										
+CRI	2001	0										
+CRI	2002	0										
+CRI	2003	0										
+CRI	2004	0										
+CRI	2005	0										
+CRI	2006	0										
+CRI	2007	0										
+CRI	2008	0										
+CRI	2009	0										
+CRI	2010	0										
+CRI	2011	0										
+CRI	2012	0										
+EGY	1985	0										
+EGY	1986	0										
+EGY	1987	0										
+EGY	1988	0										
+EGY	1989	0										
+EGY	1990	0										
+EGY	1991	0										
+EGY	1992	0										
+EGY	1993	0										
+EGY	1994	0										
+EGY	1995	0										
+EGY	1996	0										
+EGY	1997	0										
+EGY	1998	0										
+EGY	1999	0										
+EGY	2000	0										
+EGY	2001	0										
+EGY	2002	0										
+EGY	2003	0										
+EGY	2004	0										
+EGY	2005	0										
+EGY	2006	0										
+EGY	2007	0										
+EGY	2008	0										
+EGY	2009	0										
+EGY	2010	0										
+EGY	2011	0										
+EGY	2012	0										
+CHN	1985	0										
+CHN	1986	0										
+CHN	1987	0										
+CHN	1988	0										
+CHN	1989	0										
+CHN	1990	0										
+CHN	1991	0										
+CHN	1992	0										
+CHN	1993	0										
+CHN	1994	0										
+CHN	1995	0										
+CHN	1996	0										
+CHN	1997	0										
+CHN	1998	0										
+CHN	1999	0										
+CHN	2000	0										
+CHN	2001	0										
+CHN	2002	0										
+CHN	2003	0										
+CHN	2004	0										
+CHN	2005	0										
+CHN	2006	0										
+CHN	2007	0										
+CHN	2008	0										
+CHN	2009	0										
+CHN	2010	0										
+CHN	2011	0										
+CHN	2012	0										
+IND	1985	0										
+IND	1986	0										
+IND	1987	0										
+IND	1988	0										
+IND	1989	0										
+IND	1990	0										
+IND	1991	0										
+IND	1992	0										
+IND	1993	0										
+IND	1994	0										
+IND	1995	0										
+IND	1996	0										
+IND	1997	0										
+IND	1998	0										
+IND	1999	0										
+IND	2000	0										
+IND	2001	0										
+IND	2002	0										
+IND	2003	0										
+IND	2004	0										
+IND	2005	0										
+IND	2006	0										
+IND	2007	0										
+IND	2008	0										
+IND	2009	0										
+IND	2010	0										
+IND	2011	0										
+IND	2012	0										
+PAK	1985	0										
+PAK	1986	0										
+PAK	1987	0										
+PAK	1988	0										
+PAK	1989	0										
+PAK	1990	0										
+PAK	1991	0										
+PAK	1992	0										
+PAK	1993	0										
+PAK	1994	0										
+PAK	1995	0										
+PAK	1996	0										
+PAK	1997	0										
+PAK	1998	0										
+PAK	1999	0										
+PAK	2000	0										
+PAK	2001	0										
+PAK	2002	0										
+PAK	2003	0										
+PAK	2004	0										
+PAK	2005	0										
+PAK	2006	0										
+PAK	2007	0										
+PAK	2008	0										
+PAK	2009	0										
+PAK	2010	0										
+PAK	2011	0										
+PAK	2012	0										
+MYS	1985	0										
+MYS	1986	0										
+MYS	1987	0										
+MYS	1988	0										
+MYS	1989	0										
+MYS	1990	0										
+MYS	1991	0										
+MYS	1992	0										
+MYS	1993	0										
+MYS	1994	0										
+MYS	1995	0										
+MYS	1996	0										
+MYS	1997	0										
+MYS	1998	0										
+MYS	1999	0										
+MYS	2000	0										
+MYS	2001	0										
+MYS	2002	0										
+MYS	2003	0										
+MYS	2004	0										
+MYS	2005	0										
+MYS	2006	0										
+MYS	2007	0										
+MYS	2008	0										
+MYS	2009	0										
+MYS	2010	0										
+MYS	2011	0										
+MYS	2012	0										
+SGP	1985	0										
+SGP	1986	0										
+SGP	1987	0										
+SGP	1988	0										
+SGP	1989	0										
+SGP	1990	0										
+SGP	1991	0										
+SGP	1992	0										
+SGP	1993	0										
+SGP	1994	0										
+SGP	1995	0										
+SGP	1996	0										
+SGP	1997	0										
+SGP	1998	0										
+SGP	1999	0										
+SGP	2000	0										
+SGP	2001	0										
+SGP	2002	0										
+SGP	2003	0										
+SGP	2004	0										
+SGP	2005	0										
+SGP	2006	0										
+SGP	2007	0										
+SGP	2008	0										
+SGP	2009	0										
+SGP	2010	0										
+SGP	2011	0										
+SGP	2012	0										
+BGR	1985	0										
+BGR	1986	0										
+BGR	1987	0										
+BGR	1988	0										
+BGR	1989	0										
+BGR	1990	0										
+BGR	1991	0										
+BGR	1992	0										
+BGR	1993	0										
+BGR	1994	0										
+BGR	1995	0										
+BGR	1996	0										
+BGR	1997	0										
+BGR	1998	0										
+BGR	1999	0										
+BGR	2000	0										
+BGR	2001	0										
+BGR	2002	0										
+BGR	2003	0										
+BGR	2004	0										
+BGR	2005	0										
+BGR	2006	0										
+BGR	2007	0										
+BGR	2008	0										
+BGR	2009	0										
+BGR	2010	0										
+BGR	2011	0										
+BGR	2012	0										
+LTU	1985	0										
+LTU	1986	0										
+LTU	1987	0										
+LTU	1988	0										
+LTU	1989	0										
+LTU	1990	0										
+LTU	1991	0										
+LTU	1992	0										
+LTU	1993	0										
+LTU	1994	0										
+LTU	1995	0										
+LTU	1996	0										
+LTU	1997	0										
+LTU	1998	0										
+LTU	1999	0										
+LTU	2000	0										
+LTU	2001	0										
+LTU	2002	0										
+LTU	2003	0										
+LTU	2004	0										
+LTU	2005	0										
+LTU	2006	0										
+LTU	2007	0										
+LTU	2008	0										
+LTU	2009	0										
+LTU	2010	0										
+LTU	2011	0										
+LTU	2012	0										
+LVA	1985	0										
+LVA	1986	0										
+LVA	1987	0										
+LVA	1988	0										
+LVA	1989	0										
+LVA	1990	0										
+LVA	1991	0										
+LVA	1992	0										
+LVA	1993	0										
+LVA	1994	0										
+LVA	1995	0										
+LVA	1996	0										
+LVA	1997	0										
+LVA	1998	0										
+LVA	1999	0										
+LVA	2000	0										
+LVA	2001	0										
+LVA	2002	0										
+LVA	2003	0										
+LVA	2004	0										
+LVA	2005	0										
+LVA	2006	0										
+LVA	2007	0										
+LVA	2008	0										
+LVA	2009	0										
+LVA	2010	0										
+LVA	2011	0										
+LVA	2012	0										
+EST	1985	0										
+EST	1986	0										
+EST	1987	0										
+EST	1988	0										
+EST	1989	0										
+EST	1990	0										
+EST	1991	0										
+EST	1992	0										
+EST	1993	0										
+EST	1994	0										
+EST	1995	0										
+EST	1996	0										
+EST	1997	0										
+EST	1998	0										
+EST	1999	0										
+EST	2000	0										
+EST	2001	0										
+EST	2002	0										
+EST	2003	0										
+EST	2004	0										
+EST	2005	0										
+EST	2006	0										
+EST	2007	0										
+EST	2008	0										
+EST	2009	0										
+EST	2010	0										
+EST	2011	0										
+EST	2012	0										
+CYP	1985	0										
+CYP	1986	0										
+CYP	1987	0										
+CYP	1988	0										
+CYP	1989	0										
+CYP	1990	0										
+CYP	1991	0										
+CYP	1992	0										
+CYP	1993	0										
+CYP	1994	0										
+CYP	1995	0										
+CYP	1996	0										
+CYP	1997	0										
+CYP	1998	0										
+CYP	1999	0										
+CYP	2000	0										
+CYP	2001	0										
+CYP	2002	0										
+CYP	2003	0										
+CYP	2004	0										
+CYP	2005	0										
+CYP	2006	0										
+CYP	2007	0										
+CYP	2008	0										
+CYP	2009	0										
+CYP	2010	0										
+CYP	2011	0										
+CYP	2012	0										
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
+												
