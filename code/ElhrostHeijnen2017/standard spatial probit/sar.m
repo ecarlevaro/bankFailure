@@ -160,6 +160,7 @@ t0 = clock;
 % step 1) do regressions
 % step 2) maximize concentrated likelihood function;
     options = optimset('fminbnd');
+    % fminbnd: Find minimum of single-variable function on fixed interval
     [prho,liktmp,exitflag,output] = fminbnd('f_sar',rmin,rmax,options,detval,epe0,eped,epe0d,n);
    
 time4 = etime(clock,t0);

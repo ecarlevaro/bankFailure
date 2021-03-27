@@ -1,8 +1,8 @@
-<map version="freeplane 1.7.0">
+<map version="freeplane 1.8.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="Methodology" FOLDED="false" ID="ID_50742613" CREATED="1605066849145" MODIFIED="1605066867364" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="1.612">
+<hook NAME="MapStyle" zoom="1.334">
     <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
@@ -178,8 +178,8 @@
 <node TEXT="Market power" ID="ID_1908788839" CREATED="1605152421081" MODIFIED="1605152423129">
 <node TEXT="\latex $\text{Local IHH index}$" ID="ID_1937203290" CREATED="1605152424056" MODIFIED="1605152446506"/>
 <node TEXT="Overlaps with Mkt Share in Structure though" ID="ID_1311537004" CREATED="1605152447137" MODIFIED="1605152455194"/>
-<node TEXT="IHH of the bank in certan geographical market" FOLDED="true" ID="ID_1299819834" CREATED="1605152457936" MODIFIED="1605152466970">
-<node TEXT="Una mayor concentraci&#xf3;n de mercado agravada por las fallas bancarias durante la crisis puede generar una mayor perfomance como resultado de mayor poder de mercado y no como resultado de mayor capital. Adem&#xe1;s, un banco con poder de mercado en un &#xe1;rea geogr&#xe1;fica puede decidir aumentar su capital como forma de prevenir la entrada de competidores al mercado (&#x201c;, if local marketconcentration resultsin high earnings, and if banks in concentrated markets hold more capital to protect the franchise value of their access to these markets, then a positive correlation between CAR and ROE may result.&#x201d;. BERGER cAPITAL AND EARNINGS IN BANKING (1995) uses &#x201c;Herfindahl index of local market concentration&#x201d; como variable. La proporcion de depositos del banco I en el Mercado i. El cecimiento de los dep&#xf3;sitos en el mercado i en el ue el banco opera (para los bancos nacionales se podr&#xed;a usar el crecimiento total de los dep&#xf3;sitos del sistema)." ID="ID_982859187" CREATED="1605152475328" MODIFIED="1605152476542"/>
+<node TEXT="IHH of the bank in certan geographical market" ID="ID_1299819834" CREATED="1605152457936" MODIFIED="1605152466970">
+<node TEXT="Una mayor concentración de mercado agravada por las fallas bancarias durante la crisis puede generar una mayor perfomance como resultado de mayor poder de mercado y no como resultado de mayor capital. Además, un banco con poder de mercado en un área geográfica puede decidir aumentar su capital como forma de prevenir la entrada de competidores al mercado (“, if local marketconcentration resultsin high earnings, and if banks in concentrated markets hold more capital to protect the franchise value of their access to these markets, then a positive correlation between CAR and ROE may result.”. BERGER cAPITAL AND EARNINGS IN BANKING (1995) uses “Herfindahl index of local market concentration” como variable. La proporcion de depositos del banco I en el Mercado i. El cecimiento de los depósitos en el mercado i en el ue el banco opera (para los bancos nacionales se podría usar el crecimiento total de los depósitos del sistema)." ID="ID_982859187" CREATED="1605152475328" MODIFIED="1605152476542"/>
 </node>
 </node>
 <node TEXT="Risk" ID="ID_531492087" CREATED="1605151665002" MODIFIED="1605151667739">
@@ -190,7 +190,7 @@
 <node TEXT="Loans rate" ID="ID_85063018" CREATED="1605151635289" MODIFIED="1605151640291"/>
 <node TEXT="Rates spread" ID="ID_661843811" CREATED="1605152259328" MODIFIED="1605152267801">
 <node TEXT="\latex $ \text{Loans rate} - \text{Deposits rate} $" ID="ID_1931978284" CREATED="1605152316344" MODIFIED="1605152345737" MAX_WIDTH="164.01437259103002 pt" MIN_WIDTH="164.01437259103002 pt"/>
-<node TEXT="It&apos;s a measure of the expected risk on loans made by the bank." ID="ID_1484892180" CREATED="1605152275624" MODIFIED="1605152307250" MAX_WIDTH="164.01437259103002 pt" MIN_WIDTH="164.01437259103002 pt">
+<node TEXT="It&apos;s a measure of the expected risk on loans made by the bank." FOLDED="true" ID="ID_1484892180" CREATED="1605152275624" MODIFIED="1605152307250" MAX_WIDTH="164.01437259103002 pt" MIN_WIDTH="164.01437259103002 pt">
 <node TEXT="" ID="ID_656116189" CREATED="1605152308271" MODIFIED="1605152308271"/>
 <node ID="ID_227177587" CREATED="1605152309675" MODIFIED="1605152309675"><richcontent TYPE="NODE">
 
@@ -318,11 +318,30 @@
 </node>
 </node>
 <node TEXT="Multinomial logit model" ID="ID_1023464980" CREATED="1611115810211" MODIFIED="1611115814854"/>
+<node TEXT="ELHORST HEIJNEN CODE" ID="ID_1944255327" CREATED="1615518667116" MODIFIED="1615519832275">
+<node TEXT="Spatial lag probit model" ID="ID_515758988" CREATED="1615518682581" MODIFIED="1615518699796"/>
+<node TEXT="loglik" ID="ID_716189656" CREATED="1615518705466" MODIFIED="1615519906696" HGAP_QUANTITY="14.749999977648258 pt"><richcontent TYPE="NOTE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      log-likelihood of spatial panel
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="z" ID="ID_100558688" CREATED="1615519925230" MODIFIED="1615519926538"/>
+</node>
+</node>
 </node>
 <node TEXT="DATA" LOCALIZED_STYLE_REF="styles.topic" POSITION="left" ID="ID_11317917" CREATED="1611806290984" MODIFIED="1611806297416">
 <edge COLOR="#00ffff"/>
-<node TEXT="Central de deudores" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_917530699" CREATED="1611806311977" MODIFIED="1611806325367">
-<node TEXT="Argentina&#x2019;s public credit registry, established in 1991, is a database containing credit information on every firm and individual that obtains credit from the formal financial system" ID="ID_1837002457" CREATED="1611808245469" MODIFIED="1611808253929" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
+<node TEXT="Central de deudores" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" FOLDED="true" ID="ID_917530699" CREATED="1611806311977" MODIFIED="1611806325367">
+<node TEXT="Argentina’s public credit registry, established in 1991, is a database containing credit information on every firm and individual that obtains credit from the formal financial system" ID="ID_1837002457" CREATED="1611808245469" MODIFIED="1611808253929" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
 <node TEXT="Since each bank must report borrower-level information, the data in the registry aggregates the loan, collateral, and repayment status of each borrower with every&#xa;lender." ID="ID_151036868" CREATED="1611808249275" MODIFIED="1611808271102" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
 <node TEXT="Before 1995" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" FOLDED="true" ID="ID_1750899574" CREATED="1611808276684" MODIFIED="1611809808069" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"><richcontent TYPE="NOTE">
 
@@ -340,10 +359,10 @@
 <node TEXT=" the Central Bank of Argentina used the registry purely for the purpose of banking supervision" ID="ID_1004345043" CREATED="1611808281091" MODIFIED="1611808296901"/>
 </node>
 <node TEXT="1995" OBJECT="java.lang.Long|1995" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" FOLDED="true" ID="ID_1884694668" CREATED="1611808298100" MODIFIED="1611808351508" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt">
-<node TEXT="the Central Bank granted financial institutions access to borrowers&#x2019; full current credit&#xa;record (debt, collateral, rating with each lender) for a subset of borrowers." ID="ID_245164672" CREATED="1611808311796" MODIFIED="1611808313286"/>
-<node TEXT="A borrower&#x2019;s information was shared across financial institutions if" ID="ID_273615184" CREATED="1611808320877" MODIFIED="1611808330798"/>
+<node TEXT="the Central Bank granted financial institutions access to borrowers’ full current credit&#xa;record (debt, collateral, rating with each lender) for a subset of borrowers." ID="ID_245164672" CREATED="1611808311796" MODIFIED="1611808313286"/>
+<node TEXT="A borrower’s information was shared across financial institutions if" ID="ID_273615184" CREATED="1611808320877" MODIFIED="1611808330798"/>
 <node TEXT="(1) the borrower received a rating of 3 or higher by any bank during the prior 24 months&#xa;or" ID="ID_1726345220" CREATED="1611808331188" MODIFIED="1611808338645"/>
-<node TEXT="(2) the borrower&#x2019;s total debt outstanding across all institutions exceeded&#xa;$200,000 at any time during the prior 12 months" ID="ID_937571468" CREATED="1611808339164" MODIFIED="1611808340301"/>
+<node TEXT="(2) the borrower’s total debt outstanding across all institutions exceeded&#xa;$200,000 at any time during the prior 12 months" ID="ID_937571468" CREATED="1611808339164" MODIFIED="1611808340301"/>
 <node TEXT="Only financial institutions and credit rating companies were granted access&#xa;to the registry data" ID="ID_1609393658" CREATED="1611808382212" MODIFIED="1611808383151"/>
 <node TEXT=" magnetic tape" ID="ID_607687880" CREATED="1611808388501" MODIFIED="1611808389086"/>
 <node TEXT="delay of 3 months" ID="ID_1740178618" CREATED="1611808393789" MODIFIED="1611808394877"/>
@@ -369,6 +388,11 @@
 <node TEXT="A govt-based formula to &apos;randomly&apos; give money to banks." ID="ID_334775245" CREATED="1611139453397" MODIFIED="1611139473318"/>
 <node TEXT="Does the network play a role here? Do banks more connected give more lending?" ID="ID_193645051" CREATED="1611139474236" MODIFIED="1611139493838"/>
 </node>
+</node>
+<node TEXT="The order of the failures" ID="ID_1521891283" CREATED="1615342352560" MODIFIED="1615342356553">
+<node TEXT="If the network effect is relevant, the order of the failures is not random and it affects the number of failures" ID="ID_828727418" CREATED="1615342357344" MODIFIED="1615342389883"/>
+<node TEXT="If the first to fail is a highly connected bank then more failures will follow.A highly" ID="ID_1672301112" CREATED="1615342373936" MODIFIED="1615342412954"/>
+<node TEXT="Whereas if a non&apos;central bank fails, the number of failures is nil" ID="ID_335026611" CREATED="1615342413425" MODIFIED="1615342431867"/>
 </node>
 <node TEXT="Endogeneity of W" ID="ID_970007406" CREATED="1614310953833" MODIFIED="1614310962253">
 <node TEXT="" ID="ID_1585802435" CREATED="1614310963008" MODIFIED="1614310963008"/>

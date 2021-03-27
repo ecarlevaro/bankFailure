@@ -1,8 +1,8 @@
 function z=loglik(param,y,x,W,seed)
 %log-likelihood of spatial panel
 
-b=param(1:end-1);
-r=param(end);
+b=param(1:end-1); % covariates parameters
+r=param(end); % rho, spatial lag parameter
 N=size(W,1);
 
 mu=inv(eye(N)-r*W)*x*b;

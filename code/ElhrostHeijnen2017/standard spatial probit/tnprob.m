@@ -1,8 +1,11 @@
+
 function p=tnprob(mu,s,Sigma,seed)
 
 %Let y be multivariate normal with mean mu and variance Sigma. Then the
 %program calculates the probability that (y>0)==s using GHK
 
+% s seems to be a vector
+% set the seed in case it wasn't provided
 if nargin<4
     R=1000;
     seed=rand(R,length(mu));

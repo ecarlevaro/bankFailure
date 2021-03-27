@@ -1,8 +1,10 @@
 function [paramest,paramstd,logL,Varcov]=spatial_probit(a,data,W,vars)
 
-%In: spatial probit data (a is a vector with adoptiond dates, data is a struct with exo. vars for each period, W the spatial weigth matrix and vars which columns of data(t).X to include)
-%Out: ml-estimates, standard deviation and value of loglikelihood
-%Optimization- and econometrics toolbox are needed
+%In: spatial probit data (a is a vector with adoptiond dates, data is a
+%struct with exo. vars for each period, W the spatial weigth matrix and
+%vars which columns of data(t).X to include) Out: ml-estimates, standard
+%deviation and value of loglikelihood Optimization- and econometrics
+%toolbox are needed
 
 %handy stuff
 options = optimset;

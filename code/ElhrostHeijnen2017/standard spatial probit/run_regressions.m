@@ -17,8 +17,8 @@ load IT
 %var. 5 = Government debt
 %var. 6 = Financial development
 %var. 7 = LCBI
-%var. 8 = Duration
-%var. 9-36 - time dummies
+%var. 8 = Duration in the 0 state (no IT)
+%var. 9-36 - time dummies (IT'S ACTUALLY 9 TO 32, THAT IS 23 YEARS)
 
 % rho1 - spatial effect of countries that switch in the same period
 % rho2 - spatial effect of countries that have already switched
@@ -52,7 +52,7 @@ for i=1:size(C,1)
         C(i,:)=C(i,:)/sum(C(i,:));
     end
 end
-
+sarResults = sar(y, x, W, info)
 vars=[1 2 3 4 5 6 7];
 [paramest,paramstd,logL,Varcov]=spatial_probit_Vogler(adoptiondate,data,B,vars);
 
