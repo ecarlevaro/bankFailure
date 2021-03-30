@@ -2,7 +2,7 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="Methodology" FOLDED="false" ID="ID_50742613" CREATED="1605066849145" MODIFIED="1605066867364" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="1.334">
+<hook NAME="MapStyle" zoom="1.003">
     <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
@@ -89,13 +89,11 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="16" RULE="ON_BRANCH_CREATION"/>
-<node TEXT="Variables" LOCALIZED_STYLE_REF="styles.topic" POSITION="right" ID="ID_610279441" CREATED="1605066852958" MODIFIED="1611806270209">
+<hook NAME="AutomaticEdgeColor" COUNTER="17" RULE="ON_BRANCH_CREATION"/>
+<node TEXT="Variables" LOCALIZED_STYLE_REF="styles.topic" POSITION="right" ID="ID_610279441" CREATED="1605066852958" MODIFIED="1616823692691">
 <edge COLOR="#ff0000"/>
-<node TEXT="Perfomance" ID="ID_1739847728" CREATED="1605151679637" MODIFIED="1605151682075">
-<node TEXT="Mkt. share chg %" ID="ID_1917069551" CREATED="1605151594193" MODIFIED="1605151601002"/>
-</node>
-<node TEXT="FAILURE" STYLE_REF="Highlight1" ID="ID_631436770" CREATED="1612251852806" MODIFIED="1612251868257">
+<node TEXT="Dependant" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_948636504" CREATED="1616823694619" MODIFIED="1616823802666">
+<node TEXT="FAILURE" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_631436770" CREATED="1612251852806" MODIFIED="1616823797437">
 <node ID="ID_882290967" CREATED="1612252100821" MODIFIED="1612253289140"><richcontent TYPE="NODE">
 
 <html>
@@ -165,25 +163,26 @@
 <node TEXT="\latex $ \frac{\text{Equity} + \text{Loans reserves} - \text{Non-perfoming loans}}{\text{ASSETS}} $" ID="ID_1915214738" CREATED="1613961870848" MODIFIED="1613961946329"/>
 </node>
 </node>
-<node TEXT="Funding" ID="ID_1896644481" CREATED="1605151657477" MODIFIED="1605151662371">
-<node TEXT="Capital ratio" ID="ID_1415872868" CREATED="1605151586655" MODIFIED="1605151591670"/>
-<node TEXT="Deposits" ID="ID_268658695" CREATED="1605151640601" MODIFIED="1605151647914"/>
+<node TEXT="Perfomance" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1739847728" CREATED="1605151679637" MODIFIED="1616823797435">
+<node TEXT="Mkt. share chg %" ID="ID_1917069551" CREATED="1605151594193" MODIFIED="1605151601002"/>
 </node>
-<node TEXT="Structure" ID="ID_1045142992" CREATED="1605151662785" MODIFIED="1605151664570">
+</node>
+<node TEXT="Bank covariates" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_150551746" CREATED="1616823698274" MODIFIED="1616823749121">
+<node TEXT="Structure" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1045142992" CREATED="1605151662785" MODIFIED="1616823762243">
 <node TEXT="Mkt share" ID="ID_332288046" CREATED="1605151602705" MODIFIED="1605151605955"/>
 <node TEXT="Assets real value" ID="ID_162664545" CREATED="1605151650049" MODIFIED="1605151653981"/>
 <node TEXT="# provinces" ID="ID_1039812733" CREATED="1605151607081" MODIFIED="1605151611213"/>
 <node TEXT="# branches per Assets" ID="ID_985334017" CREATED="1605151613793" MODIFIED="1605151621669"/>
 </node>
-<node TEXT="Market power" ID="ID_1908788839" CREATED="1605152421081" MODIFIED="1605152423129">
+<node TEXT="Market power" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1908788839" CREATED="1605152421081" MODIFIED="1616823762246">
 <node TEXT="\latex $\text{Local IHH index}$" ID="ID_1937203290" CREATED="1605152424056" MODIFIED="1605152446506"/>
 <node TEXT="Overlaps with Mkt Share in Structure though" ID="ID_1311537004" CREATED="1605152447137" MODIFIED="1605152455194"/>
-<node TEXT="IHH of the bank in certan geographical market" ID="ID_1299819834" CREATED="1605152457936" MODIFIED="1605152466970">
+<node TEXT="IHH of the bank in certan geographical market" FOLDED="true" ID="ID_1299819834" CREATED="1605152457936" MODIFIED="1605152466970">
 <node TEXT="Una mayor concentración de mercado agravada por las fallas bancarias durante la crisis puede generar una mayor perfomance como resultado de mayor poder de mercado y no como resultado de mayor capital. Además, un banco con poder de mercado en un área geográfica puede decidir aumentar su capital como forma de prevenir la entrada de competidores al mercado (“, if local marketconcentration resultsin high earnings, and if banks in concentrated markets hold more capital to protect the franchise value of their access to these markets, then a positive correlation between CAR and ROE may result.”. BERGER cAPITAL AND EARNINGS IN BANKING (1995) uses “Herfindahl index of local market concentration” como variable. La proporcion de depositos del banco I en el Mercado i. El cecimiento de los depósitos en el mercado i en el ue el banco opera (para los bancos nacionales se podría usar el crecimiento total de los depósitos del sistema)." ID="ID_982859187" CREATED="1605152475328" MODIFIED="1605152476542"/>
 </node>
 </node>
-<node TEXT="Risk" ID="ID_531492087" CREATED="1605151665002" MODIFIED="1605151667739">
-<node TEXT="Previsions" ID="ID_600615917" CREATED="1605151630137" MODIFIED="1605151634786">
+<node TEXT="Risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_531492087" CREATED="1605151665002" MODIFIED="1616823762247">
+<node TEXT="Previsions" FOLDED="true" ID="ID_600615917" CREATED="1605151630137" MODIFIED="1605151634786">
 <node TEXT="ALso &apos;the ratio of loan loss reserves to total assets&apos;" ID="ID_1369547096" CREATED="1605152525554" MODIFIED="1605152536386"/>
 </node>
 <node TEXT="Liquidity ratio" ID="ID_242622233" CREATED="1605151626609" MODIFIED="1605151629786"/>
@@ -254,21 +253,42 @@
 <node TEXT="Std. dev nominal value in deposits?" ID="ID_1946090233" CREATED="1605151777163" MODIFIED="1605151789528"/>
 </node>
 </node>
-<node TEXT="Management quality" ID="ID_218187558" CREATED="1605151911619" MODIFIED="1605151914636">
+<node TEXT="Management quality" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_218187558" CREATED="1605151911619" MODIFIED="1616823762247">
 <node TEXT="\latex $\frac{\text{Non-interest expenses}}{\text{Total income}}$" ID="ID_1936307873" CREATED="1605151915387" MODIFIED="1605151988598"/>
 <node TEXT="Altman, Cizel &amp; Rijken 2014" ID="ID_498387804" CREATED="1605151999548" MODIFIED="1605152007749"/>
 </node>
-<node TEXT="Financial quality" ID="ID_1762924274" CREATED="1605152042812" MODIFIED="1605152052366">
+<node TEXT="Financial quality" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1762924274" CREATED="1605152042812" MODIFIED="1616823762248">
 <node TEXT="\latex $\frac{\text{Net interest margin}}{\text{Assets}}$" ID="ID_1439200277" CREATED="1605151915387" MODIFIED="1605152077856"/>
 <node TEXT="Altman, Cizel &amp; Rijken 2014" ID="ID_300945006" CREATED="1605152084181" MODIFIED="1605152086142"/>
 </node>
-<node TEXT="MACRO" ID="ID_760034004" CREATED="1605151720474" MODIFIED="1605151724979">
-<node TEXT="Reacl exchange rate volatility" ID="ID_1625133615" CREATED="1605152124693" MODIFIED="1605152130599">
+<node TEXT="MACRO" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_760034004" CREATED="1605151720474" MODIFIED="1616823762248">
+<node TEXT="Reacl exchange rate volatility" FOLDED="true" ID="ID_1625133615" CREATED="1605152124693" MODIFIED="1605152130599">
 <node TEXT="Arena 2005" ID="ID_1635599344" CREATED="1605152139758" MODIFIED="1605152141166"/>
 </node>
-<node TEXT="GDP growth" ID="ID_620064700" CREATED="1605152131805" MODIFIED="1605152133975">
+<node TEXT="GDP growth" FOLDED="true" ID="ID_620064700" CREATED="1605152131805" MODIFIED="1605152133975">
 <node TEXT="Arena 2005" ID="ID_1090453274" CREATED="1605152135805" MODIFIED="1605152138447"/>
 </node>
+</node>
+<node TEXT="Funding" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1896644481" CREATED="1605151657477" MODIFIED="1616823777190">
+<node TEXT="Capital ratio" ID="ID_1415872868" CREATED="1605151586655" MODIFIED="1605151591670"/>
+<node TEXT="Deposits" ID="ID_268658695" CREATED="1605151640601" MODIFIED="1605151647914"/>
+</node>
+</node>
+<node TEXT="Network covariates" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_821073160" CREATED="1616823703386" MODIFIED="1616823816590"/>
+<node TEXT="Bank covariates probit" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1186386414" CREATED="1616823709973" MODIFIED="1616823816592">
+<node TEXT="log(Assets)" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_129906458" CREATED="1616823822425" MODIFIED="1616823833479">
+<node TEXT="Activo" ID="ID_1376307377" CREATED="1616990472510" MODIFIED="1616990475297"/>
+</node>
+<node TEXT="Equity/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1114421616" CREATED="1616823835520" MODIFIED="1616823840634">
+<node TEXT="C8_E" ID="ID_854229890" CREATED="1616990562625" MODIFIED="1616990564555"/>
+<node TEXT="C8Est_w" ID="ID_1323727326" CREATED="1616990842600" MODIFIED="1616990846661"/>
+</node>
+<node TEXT="Nonperforming loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1038144291" CREATED="1616823841336" MODIFIED="1616823846778"/>
+<node TEXT="Net income/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_892840659" CREATED="1616823847744" MODIFIED="1616823851474"/>
+<node TEXT="Wholesale deposits/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1003810385" CREATED="1616823852535" MODIFIED="1616823861913"/>
+<node TEXT="Loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_463874669" CREATED="1616823862439" MODIFIED="1616823865195"/>
+<node TEXT="Institution type" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1347156413" CREATED="1616823877702" MODIFIED="1616823889739"/>
+<node TEXT="Consider log of all ratios variables" LOCALIZED_STYLE_REF="default" ID="ID_1053293751" CREATED="1616834937968" MODIFIED="1616834948183"/>
 </node>
 </node>
 <node TEXT="MODEL" LOCALIZED_STYLE_REF="styles.topic" POSITION="left" ID="ID_855696763" CREATED="1611115800499" MODIFIED="1611806276871">
@@ -332,7 +352,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="z" ID="ID_100558688" CREATED="1615519925230" MODIFIED="1615519926538"/>
 </node>
@@ -384,6 +403,15 @@
 <edge COLOR="#00ff00"/>
 <node TEXT="Instruments" ID="ID_154778887" CREATED="1611139434581" MODIFIED="1611139437111">
 <node TEXT="Siniestros (fires &amp; robberies)" ID="ID_1317211754" CREATED="1611139437844" MODIFIED="1611139449454"/>
+<node TEXT="Bank covariates probit" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1672710193" CREATED="1616823709973" MODIFIED="1616823816592">
+<node TEXT="log(Assets)" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_268959548" CREATED="1616823822425" MODIFIED="1616823833479"/>
+<node TEXT="Equity/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1779715986" CREATED="1616823835520" MODIFIED="1616823840634"/>
+<node TEXT="Nonperforming loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1646518071" CREATED="1616823841336" MODIFIED="1616823846778"/>
+<node TEXT="Net income/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_197479921" CREATED="1616823847744" MODIFIED="1616823851474"/>
+<node TEXT="Wholesale deposits/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1799152390" CREATED="1616823852535" MODIFIED="1616823861913"/>
+<node TEXT="Loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1404792210" CREATED="1616823862439" MODIFIED="1616823865195"/>
+<node TEXT="Institution type" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_8758177" CREATED="1616823877702" MODIFIED="1616823889739"/>
+</node>
 <node TEXT="PARAVISINI 2008 INSTRUMENT Local bank financial constraints and credit supply" ID="ID_34317794" CREATED="1611139451357" MODIFIED="1611139452720">
 <node TEXT="A govt-based formula to &apos;randomly&apos; give money to banks." ID="ID_334775245" CREATED="1611139453397" MODIFIED="1611139473318"/>
 <node TEXT="Does the network play a role here? Do banks more connected give more lending?" ID="ID_193645051" CREATED="1611139474236" MODIFIED="1611139493838"/>

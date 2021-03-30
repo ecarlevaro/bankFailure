@@ -1,3 +1,7 @@
+/* ************************************ */
+//		ENTIDADES
+/* ************************************ */
+
 // Cambio FCE
 by IDent: gen cambioFCE = bMesCierre - L1.bMesCierre
 // Corrección cambio FCE

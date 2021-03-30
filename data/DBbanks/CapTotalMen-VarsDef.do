@@ -29,8 +29,15 @@ replace saldo* = 0
 /*	*********************************************************	*/
 drop Activo
 egen Activo = rowtotal(saldo111001-saldo235009) ,missing
-gen ActivoR = Activo*(100.689987182617/IPC)
+label var Activo "Activo en miles de pesos nominal"
+
+gen ActivoN = Activo - A_IMP_NETEAR
+label var ActivoN "Activo neteado de A_IMP_NETEAR"
+replace ActivoN = Activo if missing(A_IMP_NETEAR)
+
+gen ActivoRN = Activo*(100.689987182617/IPC)
 label var ActivoR "Activo en pesos de Septiembre 2009"
+order Activo ActivoR, after(IPC)
 // PRÉSTAMOS
 // ARS
 drop APRestamosARS
@@ -178,11 +185,14 @@ label var PdepVista "Dep. Vista"
 gen PdepVistaDEP = (PdepVista/Pdep)*100
 label var PdepVistaDEP "Dep. Vista sobre DEPÓSITOS (%)"
 
-/* **********************************************************	*/
-/*																*/
-/*					PATRIMONIO NETO 									*/
-/*
-/*	*********************************************************	*/
+/* *********************************************	*/
+//	PATRIMONIO NETO
+/* *********************************************	*/
+
+drop PN PNcapSocial PNapoNoCap PNajPatr PNreservUtil PNresultNoAsig PNdifValNoReali PNtotal
+
+egen PN = rowtotal(saldo4*), missing
+format PN* %14.0gc
 
 egen PNcapSocial = rowtotal(saldo410003-saldo410012), missing
 label var PNcapSocial "PN Capital social"
@@ -190,7 +200,7 @@ egen PNapoNoCap = rowtotal(saldo420003-saldo420009), missing
 label var PNapoNoCap "PN Aportes no capitalizados"
 egen PNajPatr = rowtotal(saldo430015-saldo430026), missing
 label var PNajPatr "PN-Ajustres al patrimonio"
-egen PNresrvUtil = rowtotal(saldo440003-saldo440013), missing
+egen PNreservUtil = rowtotal(saldo440003-saldo440013), missing
 label var PNreservUtil "PN-Reserva de utilidades"
 egen PNresultNoAsig = rowtotal(saldo450003-saldo450006 RnetoDspImpMon), missing
 label var PNresultNoAsig "PN-Resultados no asignados (incluye resultado en curso)"
@@ -199,21 +209,19 @@ label var PNdifValNoReali "PN-Diferencia valuación no realizada"
 
 gen PNtotal = PNcapSocial+PNapoNoCap+PNajPatr+PNreservUtil+PNresultNoAsig+PNdifValNoReali
 label var PNtotal "Patrimonio Neto CON resultado en curso"
-order PNtotal, after(PN)
-format PN* %14.0gc
-foreach varNom of varlist PNcapSocial-PNtotal {
+order PNcapSocial PNapoNoCap PNajPatr PNreservUtil PNresultNoAsig PNdifValNoReali PNtotal PNtotal, after(PN)
+
+foreach varNom of varlist PN-PNtotal {
 	replace `varNom' = `varNom'*(-1)
 }
 
-/* **********************************************************	*/
-/*																*/
-/*					RESULTADOS 									*/
-/*
-/*	*********************************************************	*/
-//
+/* *********************************************	*/
 // RESULTADOS ACUMULADOS
-//
-egen RnetoDspImpMon = rowtotal(saldo511002-saldo640003), missing // Éste coincide con "Resultados Acumuados" IEF PDF
+/* *********************************************	*/
+
+drop RnetoDspImpMon RingFcieros RegrFcieros RcargoIncob RingServ RegrServ  RgasAdmn RutilDiversas RperdDiversas RresultExt RiGcias RresultMon
+// Éste coincide con "Resultados Acumuados" IEF PDF
+egen RnetoDspImpMon = rowtotal(saldo511002-saldo640003), missing 
 label var RnetoDspImpMon "Resultados ACUMULADOS desde FCE"
 egen RingFcieros = rowtotal(saldo511002-saldo515087), missing
 egen RegrFcieros = rowtotal(saldo521001-saldo525089), missing
@@ -227,15 +235,18 @@ egen RresultExt = rowtotal(saldo590001-saldo590015), missing
 gen RiGcias = saldo610003
 egen RresultMon = rowtotal(saldo620003-saldo640003), missing
 format RingFcieros-RresultMon %14.0gc
+
 foreach varNom of varlist RnetoDspImpMon-RresultMon {
 	replace `varNom' = `varNom'*(-1)
 }
+order RnetoDspImpMon-RresultMon, after(PNtotal)
 
-
-//
+/* *********************************************	*/
 // RESULTADOS MENSUALES cuentas contables
-//
+/* *********************************************	*/
+
 // Para cada variable de resultado calculo el dato mensual en función si la fecha de cierre es dic o jun. La primer observación para cada banco es valor perdido (no se puede calcular)
+sort IDent FECHAdata
 foreach varname of varlist saldo511002-saldo640003 {
 	drop `varname'M
 	by IDent: gen `varname'M = (`varname' - L1.`varname') if (FECHAdataMes != 1 & bMesCierre == 12)
@@ -313,8 +324,11 @@ gen sinRatioM =  (saldo580031M/ALIQs1_1)*100
 /*					INDICADORES 									*/
 /*
 /*	*********************************************************	*/
-gen C8Est = (PNtotal/Activo)*100
+drop C8Est C8Est_w
+gen C8Est = (PNtotal/ActivoN)*100
 winsor2 C8Est , cuts(1 99)
+label variable C8Est_w "PNTotal/Activo * 100 winsorized at 99%"
+
 // MARKET SHARE
 
 sort FECHAdata IDent
