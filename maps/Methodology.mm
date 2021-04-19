@@ -2,8 +2,8 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="Methodology" FOLDED="false" ID="ID_50742613" CREATED="1605066849145" MODIFIED="1605066867364" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="1.003">
-    <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+<hook NAME="MapStyle" zoom="0.515">
+    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -44,6 +44,10 @@
 <stylenode TEXT="Highlight1" BACKGROUND_COLOR="#66ff99">
 <font NAME="Liberation Sans" SIZE="14" BOLD="true"/>
 <edge STYLE="sharp_bezier" COLOR="#808080" WIDTH="2" DASH="SOLID"/>
+</stylenode>
+<stylenode TEXT="Highlight2" STYLE="bubble">
+<font NAME="Liberation Sans" SIZE="14" BOLD="true"/>
+<edge STYLE="sharp_bezier" COLOR="#808080" WIDTH="2"/>
 </stylenode>
 <stylenode TEXT="Equation" STYLE="rectangle" FORMAT="latexPatternFormat">
 <font NAME="Liberation Sans" SIZE="14" BOLD="true"/>
@@ -89,7 +93,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="17" RULE="ON_BRANCH_CREATION"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="18" RULE="ON_BRANCH_CREATION"/>
 <node TEXT="Variables" LOCALIZED_STYLE_REF="styles.topic" POSITION="right" ID="ID_610279441" CREATED="1605066852958" MODIFIED="1616823692691">
 <edge COLOR="#ff0000"/>
 <node TEXT="Dependant" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_948636504" CREATED="1616823694619" MODIFIED="1616823802666">
@@ -273,23 +277,140 @@
 <node TEXT="Capital ratio" ID="ID_1415872868" CREATED="1605151586655" MODIFIED="1605151591670"/>
 <node TEXT="Deposits" ID="ID_268658695" CREATED="1605151640601" MODIFIED="1605151647914"/>
 </node>
+<node TEXT="DABOS SOSA-ESCUDERO 2004" STYLE_REF="AuthorYear" ID="ID_594700391" CREATED="1617181799270" MODIFIED="1617183417864">
+<node TEXT="1) Equity / Assets (IND1)&#xa;2) Liabilities / Equity (IND2)&#xa;3) Immediate liquidity = (Cash + Public Securities)/ Deposits (IND3)&#xa;4) Structural liquidity = (Equity – Fixed Assets) / Liabilities (IND4)&#xa;5) Operating expenses / Liabilities (IND5)&#xa;6) Arrears portfolio – Losses provisions / Equity (IND6)&#xa;7) Return on equity (ROE) (IND7)" ID="ID_957913174" CREATED="1617181824902" MODIFIED="1617181826810"/>
+</node>
+<node TEXT="DAMATO GRUBISIC POWELL 1997" STYLE_REF="AuthorYear" ID="ID_208532895" CREATED="1617182187576" MODIFIED="1617183417862">
+<node TEXT="Bank level" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1438878854" CREATED="1603689135584" MODIFIED="1617182155177">
+<node TEXT="Pasive rates in USD and ARS" ID="ID_1037170463" CREATED="1603688834137" MODIFIED="1603688843970">
+<node TEXT="&quot;It is the return required by the market given the market&apos;s perception of the bank&apos;s risk&quot;" ID="ID_980470138" CREATED="1603688914321" MODIFIED="1603688919914"/>
+</node>
+<node TEXT="Capital ratio" ID="ID_1605412358" CREATED="1603688850384" MODIFIED="1603688852937">
+<node TEXT="Capital over total assets" ID="ID_1061270015" CREATED="1603688854024" MODIFIED="1603688859209"/>
+<node TEXT="&quot;The capital ratio of the bank is a signal of the riskiness of the bank and this appeared to convey extra information not captured in the interest paid by banks.&quot;" ID="ID_1466263114" CREATED="1603688935144" MODIFIED="1603688942770"/>
+</node>
+</node>
+<node TEXT="Macro vars" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_532902039" CREATED="1603689144569" MODIFIED="1617182155181">
+<node TEXT="Chg in total deposits in the system" ID="ID_1750345238" CREATED="1603689147305" MODIFIED="1603689191276"/>
+<node TEXT="Chg Argentine bond prices (FRB bond price)" ID="ID_1331396278" CREATED="1603689191987" MODIFIED="1603689206749"/>
+<node TEXT="Merval" ID="ID_1149535333" CREATED="1603689208076" MODIFIED="1603689209471"/>
+<node TEXT="Level of Central Bank reserves" ID="ID_579370045" CREATED="1603689210236" MODIFIED="1603689216287"/>
+<node TEXT="Level of interst rates" ID="ID_1648017586" CREATED="1603689217029" MODIFIED="1603689221182">
+<node TEXT="Level of the inter bank market" ID="ID_1779676274" CREATED="1603689221933" MODIFIED="1603689226959"/>
+</node>
+</node>
+</node>
+<node TEXT="McCandless, Gabrielli, Rouillet 2003" STYLE_REF="AuthorYear" ID="ID_1514523047" CREATED="1617183398012" MODIFIED="1617183417858">
+<node TEXT="MIcro" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_505105823" CREATED="1617183219681" MODIFIED="1617183220873">
+<node TEXT="Institution type" FOLDED="true" ID="ID_278052107" CREATED="1617183222753" MODIFIED="1617183226595">
+<node TEXT="Public" ID="ID_1327723952" CREATED="1617183227688" MODIFIED="1617183230506"/>
+<node TEXT="Foreign" ID="ID_436585355" CREATED="1617183230976" MODIFIED="1617183232666"/>
+<node TEXT="Private" ID="ID_606206039" CREATED="1617183233168" MODIFIED="1617183235058"/>
+</node>
+<node TEXT="Deposit $" ID="ID_1475247213" CREATED="1617183264537" MODIFIED="1617183265851">
+<node TEXT="Monthly percentage change in term deposits of private sector denominated&#xa;in pesos" ID="ID_482633531" CREATED="1617183461658" MODIFIED="1617183462244"/>
+</node>
+<node TEXT="Deposit US$" ID="ID_1434537712" CREATED="1617183272705" MODIFIED="1617183273788"/>
+<node TEXT="Govt Exposure" ID="ID_112379980" CREATED="1617183280273" MODIFIED="1617183476220">
+<node TEXT="Fraction of public bonds and loans to the public sector to total assets." ID="ID_1702642613" CREATED="1617183477514" MODIFIED="1617183478348"/>
+</node>
+<node TEXT="Non-performing loans" ID="ID_854807983" CREATED="1617183492506" MODIFIED="1617183498286">
+<node TEXT="Monthly percentage change in problem loans." ID="ID_1447834505" CREATED="1617183499250" MODIFIED="1617183499924"/>
+</node>
+<node TEXT="Deposit Rate $" ID="ID_373100058" CREATED="1617183287921" MODIFIED="1617183513159">
+<node TEXT="Interest rate on 30 days deposits in pesos" ID="ID_1811523642" CREATED="1617183508323" MODIFIED="1617183509254"/>
+</node>
+<node TEXT="Deposit Rate US$" ID="ID_1699399558" CREATED="1617183293314" MODIFIED="1617183516198"/>
+<node TEXT="Financial income share" ID="ID_749487047" CREATED="1617183300818" MODIFIED="1617183335779"/>
+<node TEXT="Loan in  ARS share" ID="ID_984729782" CREATED="1617183312402" MODIFIED="1617183329698"/>
+<node TEXT="Loan in  USD share" ID="ID_1612464184" CREATED="1617183319041" MODIFIED="1617183324634"/>
+<node TEXT="Rating" ID="ID_1402204857" CREATED="1617183343329" MODIFIED="1617183344954"/>
+</node>
+<node TEXT="Macro" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1531664450" CREATED="1617183093323" MODIFIED="1617183166565">
+<node TEXT="Activity" ID="ID_424459924" CREATED="1617183095384" MODIFIED="1617183101784">
+<node TEXT="monthly seasonally adjusted change in the economic activity level index (Activity) as constructed by INDEC, which is an indicator of the real side of the economy" ID="ID_1146526659" CREATED="1617183136016" MODIFIED="1617183140737"/>
+</node>
+<node TEXT="Forward rate" ID="ID_1495301237" CREATED="1617183109608" MODIFIED="1617183112665">
+<node TEXT="six month non deliverable forwards (ndf6) quoted in New York as proxy of expectations on the future evolution of the exchange rate (ARG$/US$) six months ahead" ID="ID_1776191318" CREATED="1617183178264" MODIFIED="1617183182914"/>
+</node>
+</node>
+</node>
 </node>
 <node TEXT="Network covariates" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_821073160" CREATED="1616823703386" MODIFIED="1616823816590"/>
 <node TEXT="Bank covariates probit" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1186386414" CREATED="1616823709973" MODIFIED="1616823816592">
 <node TEXT="log(Assets)" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_129906458" CREATED="1616823822425" MODIFIED="1616823833479">
-<node TEXT="Activo" ID="ID_1376307377" CREATED="1616990472510" MODIFIED="1616990475297"/>
+<node TEXT="ActivoN" STYLE_REF="Highlight2" ID="ID_1376307377" CREATED="1616990472510" MODIFIED="1617691122340"/>
 </node>
 <node TEXT="Equity/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1114421616" CREATED="1616823835520" MODIFIED="1616823840634">
-<node TEXT="C8_E" ID="ID_854229890" CREATED="1616990562625" MODIFIED="1616990564555"/>
-<node TEXT="C8Est_w" ID="ID_1323727326" CREATED="1616990842600" MODIFIED="1616990846661"/>
+<node TEXT="C8Est_w" STYLE_REF="Highlight2" ID="ID_1323727326" CREATED="1616990842600" MODIFIED="1617691122341">
+<node TEXT="has less missing values" ID="ID_742973422" CREATED="1617093410617" MODIFIED="1617093415169"/>
+<node TEXT="more stable variance" ID="ID_1016264936" CREATED="1617093762452" MODIFIED="1617093765944"/>
 </node>
-<node TEXT="Nonperforming loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1038144291" CREATED="1616823841336" MODIFIED="1616823846778"/>
-<node TEXT="Net income/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_892840659" CREATED="1616823847744" MODIFIED="1616823851474"/>
-<node TEXT="Wholesale deposits/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1003810385" CREATED="1616823852535" MODIFIED="1616823861913"/>
-<node TEXT="Loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_463874669" CREATED="1616823862439" MODIFIED="1616823865195"/>
+<node TEXT="C8_E" ID="ID_854229890" CREATED="1616990562625" MODIFIED="1616990564555"/>
+</node>
+<node TEXT="Nonperforming loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1038144291" CREATED="1616823841336" MODIFIED="1616823846778">
+<node TEXT="CAR_IRR_3A6" STYLE_REF="Highlight2" ID="ID_563368475" CREATED="1617094196639" MODIFIED="1617691122342">
+<node TEXT="It has twice as many missing values as ActivoN or C8Est_w." ID="ID_997069581" CREATED="1617094203182" MODIFIED="1617094216360"/>
+<node TEXT="Maybe I can use a different measure of risk like interest rates" ID="ID_773881264" CREATED="1617094216814" MODIFIED="1617094228722"/>
+</node>
+</node>
+<node TEXT="Net income/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_892840659" CREATED="1616823847744" MODIFIED="1616823851474">
+<node TEXT="P_ROA" STYLE_REF="Highlight2" ID="ID_718259701" CREATED="1617094254057" MODIFIED="1617691122342">
+<node TEXT="Has less missing before 2002" ID="ID_1778732864" CREATED="1617177816448" MODIFIED="1617180952760"/>
+</node>
+<node TEXT="P_ROA_EST_PC" ID="ID_219390068" CREATED="1617179051928" MODIFIED="1617179055993"/>
+</node>
+<node LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_1003810385" CREATED="1616823852535" MODIFIED="1617267568159"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <b><strike>Private sector 30-days deposits</strike></b>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="Share of private sector 30-days deposits in total Liability" ID="ID_804893215" CREATED="1617183716326" MODIFIED="1617183730192"/>
+<node TEXT="Not now. I don&apos;t think I have data on maturity at bank level" ID="ID_607979245" CREATED="1617184131251" MODIFIED="1617184144053"/>
+</node>
+<node TEXT="Deposit rate" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1823431816" CREATED="1617267570846" MODIFIED="1617267576621">
+<node TEXT="P_DEP_ARS_RATE" STYLE_REF="Highlight2" ID="ID_595597102" CREATED="1617267606536" MODIFIED="1617691137247"/>
+</node>
+<node TEXT="Loans rate" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_476830981" CREATED="1617267577046" MODIFIED="1617267578777">
+<node TEXT="P_LOANS_ARS_RATE_W" STYLE_REF="Highlight2" ID="ID_1722398727" CREATED="1617269786888" MODIFIED="1617691137248"/>
+</node>
+<node TEXT="Public sector exposure" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_266470650" CREATED="1617183692629" MODIFIED="1617183697505">
+<node TEXT="APRSpNF_RATE_W" STYLE_REF="Highlight2" ID="ID_966445185" CREATED="1617185263394" MODIFIED="1617691137249">
+<node TEXT="Total loans to public sector over total loans" ID="ID_215598305" CREATED="1617185267617" MODIFIED="1617185276910"/>
+</node>
+</node>
+<node TEXT="Loans in USD share" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1232636529" CREATED="1617183698109" MODIFIED="1617183706695">
+<node TEXT="APR_USD_RATE" STYLE_REF="Highlight2" ID="ID_53515290" CREATED="1617266450918" MODIFIED="1617691137249">
+<node TEXT="Doesn&apos;t include OtCredXIntFciera" ID="ID_443232799" CREATED="1617266464588" MODIFIED="1617266476086"/>
+</node>
+</node>
+<node TEXT="Loans/Assets" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_463874669" CREATED="1616823862439" MODIFIED="1616823865195">
+<node TEXT="APR_RATE_W" STYLE_REF="Highlight2" ID="ID_458721717" CREATED="1617267406687" MODIFIED="1617691137249"/>
+</node>
 <node TEXT="Institution type" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1347156413" CREATED="1616823877702" MODIFIED="1616823889739"/>
+<node TEXT="Economic activity" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_983934163" CREATED="1617269800104" MODIFIED="1617691201008"/>
+<node TEXT="Sovereign risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1416540940" CREATED="1617269808303" MODIFIED="1617691194664">
+<node TEXT="Forward on exchange rate" ID="ID_189462957" CREATED="1617682138332" MODIFIED="1617682153030">
+<node TEXT="MCcandless GABRIELLI, ROUILLET 2003 &quot;For the macro variables, Activity is never significant but ndf6 is significant&#xa;and negative in both the entire sample and during the critical period. This can&#xa;help explain the system wide decline in dollar deposits during the last few months&#xa;of the year, as the ndf6 rose, the probability of a devaluation increased&quot;" ID="ID_1498287446" CREATED="1617682153881" MODIFIED="1617682169971"/>
+</node>
+</node>
 <node TEXT="Consider log of all ratios variables" LOCALIZED_STYLE_REF="default" ID="ID_1053293751" CREATED="1616834937968" MODIFIED="1616834948183"/>
 </node>
+</node>
+<node TEXT="Specification" LOCALIZED_STYLE_REF="styles.topic" POSITION="right" ID="ID_383637437" CREATED="1617760957700" MODIFIED="1617760961853">
+<edge COLOR="#ff0000"/>
+<node TEXT="unseasonaed GDP with quarter dummies for seasonality" ID="ID_642265201" CREATED="1617760963237" MODIFIED="1617760976613"/>
+<node TEXT="lag of GDP" ID="ID_1631851489" CREATED="1617760977132" MODIFIED="1617760986790"/>
+<node TEXT="GDP growth or GDP levels" ID="ID_1306051641" CREATED="1617760987172" MODIFIED="1617760991766"/>
 </node>
 <node TEXT="MODEL" LOCALIZED_STYLE_REF="styles.topic" POSITION="left" ID="ID_855696763" CREATED="1611115800499" MODIFIED="1611806276871">
 <edge COLOR="#ff0000"/>

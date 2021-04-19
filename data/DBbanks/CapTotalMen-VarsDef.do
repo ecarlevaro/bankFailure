@@ -37,7 +37,7 @@ replace ActivoN = Activo if missing(A_IMP_NETEAR)
 
 gen ActivoRN = Activo*(100.689987182617/IPC)
 label var ActivoR "Activo en pesos de Septiembre 2009"
-order Activo ActivoR, after(IPC)
+order Activo ActivoN ActivoR, after(IPC)
 // PRÉSTAMOS
 // ARS
 drop APRestamosARS
@@ -60,11 +60,15 @@ egen APRARSSPrivNFAj = rowtotal(saldo131851-saldo131892), missing
 label var APRARSSPrivNFAj "APRéstamos ARS SectPrivNF Ajustes"
 gen APRARSAjSobreCap = APRARSSPrivNFAj/APRARSSPrivNFCap
 label var APRARSAjSobreCap "ratio de Ajustes sobre Capital SPrivNF"
+
 // Prest.USD
-drop APRestamosARS
-egen APRestamosARS = rowtotal(saldo131108-saldo132301), missing
-label var APRestamosARS "APRéstamos en pesos"
-order APRestamosARS, after(ALIQs1_1ratio)
+
+drop APRestamosUSD
+
+egen APRestamosUSD = rowtotal(saldo135* saldo136*), missing
+label var APRestamosUSD "APRéstamos en mda extranjera"
+order APRestamosUSD, after(APRARSAjSobreCap)
+
 egen APRUSDSpNFCap = rowtotal(saldo1351*), missing
 label var APRUSDSpNFCap "APRéstamos USD SectorPublico NoFciero CAPITALES"
 egen APRUSDSFcieroCap = rowtotal(saldo1354*), missing
@@ -209,7 +213,7 @@ label var PNdifValNoReali "PN-Diferencia valuación no realizada"
 
 gen PNtotal = PNcapSocial+PNapoNoCap+PNajPatr+PNreservUtil+PNresultNoAsig+PNdifValNoReali
 label var PNtotal "Patrimonio Neto CON resultado en curso"
-order PNcapSocial PNapoNoCap PNajPatr PNreservUtil PNresultNoAsig PNdifValNoReali PNtotal PNtotal, after(PN)
+order PN PNcapSocial PNapoNoCap PNajPatr PNreservUtil PNresultNoAsig PNdifValNoReali PNtotal PNtotal, after(P_BCRA)
 
 foreach varNom of varlist PN-PNtotal {
 	replace `varNom' = `varNom'*(-1)
@@ -234,6 +238,7 @@ egen RperdDiversas = rowtotal(saldo580003-saldo580045), missing
 egen RresultExt = rowtotal(saldo590001-saldo590015), missing
 gen RiGcias = saldo610003
 egen RresultMon = rowtotal(saldo620003-saldo640003), missing
+label var RresultMon "Resultado monetario acumulado desde FCE"
 format RingFcieros-RresultMon %14.0gc
 
 foreach varNom of varlist RnetoDspImpMon-RresultMon {
@@ -264,9 +269,15 @@ foreach varname of varlist saldo511002-saldo640003 {
 	by IDent: gen CTRL`varname' = `varname' - (`varname'M+ L1.`varname'M+ L2.`varname'M+ L3.`varname'M+ L4.`varname'M+ L5.`varname'M+ L6.`varname'M+ L7.`varname'M+ L8.`varname'M+ L9.`varname'M+ L10.`varname'M+ L11.`varname'M) if (FECHAdataMes == 12 & bMesCierre == 12)
 	by IDent: replace CTRL`varname' = `varname' - (`varname'M+ L1.`varname'M+ L2.`varname'M+ L3.`varname'M+ L4.`varname'M+ L5.`varname'M+ L6.`varname'M+ L7.`varname'M+ L8.`varname'M+ L9.`varname'M+ L10.`varname'M+ L11.`varname'M) if (FECHAdataMes == 6 & bMesCierre == 6)
 }
+
+drop CTRL*
+
 //
 // RESULTADOS MENSUALES COMPONENTES
 //
+
+drop RnetoDspImpMonM RingFcierosM RegrFcierosM RcargoIncobM RingServM RegrServM  RgasAdmnM RutilDiversasM RperdDiversasM RresultExtM RiGciasM RresultMonM
+
 egen RnetoDspImpMonM = rowtotal(saldo511002M-saldo640003M), missing 
 label var RnetoDspImpMonM "Result. Neto Dsp. ImpGcias y Result.Monetario MENSUAL"
 egen RingFcierosM = rowtotal(saldo511002M-saldo515087M), missing
@@ -290,8 +301,9 @@ label var RresultExtM "Resultado filiales exterior MENSUAL"
 gen RiGciasM = saldo610003M
 label var RiGciasM "Impuesto a las Gcias MENSUAL"
 egen RresultMonM = rowtotal(saldo620003M-saldo640003M), missing
-label var RresultMon "Resultado Monetario MENSUAL"
-format RingFcierosM-RresultMonM %14.0gc
+label var RresultMonM "Resultado Monetario MENSUAL"
+
+format RnetoDspImpMonM-RresultMonM %14.0gc
 foreach varNom of varlist RnetoDspImpMonM-RresultMonM {
 replace `varNom' = `varNom'*(-1)
 }
@@ -329,6 +341,7 @@ gen C8Est = (PNtotal/ActivoN)*100
 winsor2 C8Est , cuts(1 99)
 label variable C8Est_w "PNTotal/Activo * 100 winsorized at 99%"
 
+order C8_E C8Est C8Est_w, after(A10)
 // MARKET SHARE
 
 sort FECHAdata IDent
@@ -353,6 +366,11 @@ gen volNgcioCapProm12 = (((L11.APRARSCap+L10.APRARSCap+L9.APRARSCap+L8.APRARSCap
 label var volNgcioCapProm12 "Promedio ult. 12meses PRESTAMOS+DEPOSITOS (capitales)" 
 
 gen E402est = (L11.RgasAdmnM+L10.RgasAdmnM+ L9.RgasAdmnM + L8.RgasAdmnM +L7.RgasAdmnM +L6.RgasAdmnM +L5.RgasAdmnM +L4.RgasAdmnM +L3.RgasAdmnM +L2.RgasAdmnM +L1.RgasAdmnM +RgasAdmnM) / ((L11.Activo+L10.Activo+ L9.Activo + L8.Activo +L7.Activo +L6.Activo +L5.Activo +L4.Activo +L3.Activo +L2.Activo +L1.Activo +Activo)/12)
+
+// Return on assets (%), trailing 12 months
+gen P_ROA_EST_PC = ( (L12.RnetoDspImpMonM + L11.RnetoDspImpMonM + L10.RnetoDspImpMonM + L9.RnetoDspImpMonM + L8.RnetoDspImpMonM + L7.RnetoDspImpMonM + L6.RnetoDspImpMonM + L5.RnetoDspImpMonM + L4.RnetoDspImpMonM + L3.RnetoDspImpMonM + L2.RnetoDspImpMonM + L1.RnetoDspImpMonM) / ((1/12)*((L1.ActivoN + L2.ActivoN + L3.ActivoN + L4.ActivoN + L5.ActivoN + L6.ActivoN + L7.ActivoN + L8.ActivoN + L9.ActivoN + L10.ActivoN + L11.ActivoN + L12.ActivoN))) )*100
+label var P_ROA_EST_PC "Return on assets last 12-months (%)"
+order P_ROA_EST_PC, after(P_ROA)
 
 
 /* **********************************************************	*/

@@ -1,9 +1,9 @@
-<map version="freeplane 1.7.0">
+<map version="freeplane 1.8.0">
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.771">
-    <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+<hook NAME="MapStyle" zoom="1.026">
+    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -117,7 +117,7 @@
 <node TEXT="Empirical" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_493855537" CREATED="1578281202238" MODIFIED="1612768304140"/>
 </node>
 <node TEXT="Credit risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" FOLDED="true" ID="ID_1927760580" CREATED="1578300087905" MODIFIED="1579571928801">
-<node TEXT="ZAMORE, DJAN How to measure Credit risk review.pdf" ID="ID_1031668225" CREATED="1573444968197" MODIFIED="1573444968205" LINK="An&#xe1;lisis%20emp&#xed;ricos/Credit%20risk/ZAMORE,%20DJAN%20How%20to%20measure%20Credit%20risk%20review.pdf">
+<node TEXT="ZAMORE, DJAN How to measure Credit risk review.pdf" ID="ID_1031668225" CREATED="1573444968197" MODIFIED="1573444968205" LINK="Análisis%20empíricos/Credit%20risk/ZAMORE,%20DJAN%20How%20to%20measure%20Credit%20risk%20review.pdf">
 <node TEXT="" ID="ID_921048725" CREATED="1578300356150" MODIFIED="1578300356150"/>
 </node>
 <node TEXT="Z-score" ID="ID_1711049119" CREATED="1580719889255" MODIFIED="1580719897454"/>
@@ -147,8 +147,8 @@
 </node>
 <node TEXT="Thus, bank that higer relied on deposits funds (i.e, more leveraged) suffered the negative rates more" ID="ID_1551768112" CREATED="1605076241780" MODIFIED="1605076265002"/>
 <node TEXT="They respond by searching for yield: increasing the holdin of high-risk securities from private companeis" ID="ID_538218589" CREATED="1605076265296" MODIFIED="1605076285466"/>
-<node TEXT=", &#x201c;Negative monetary policy rates and systemic banks&#x2019; risk-taking: Evidence from the euro area securities register&#x201d;, ECB Working Paper Series, No [tbc], and Journal of Money, Credit and Banking (forthcoming)." ID="ID_93562940" CREATED="1605076372754" MODIFIED="1605076379796"/>
-<node TEXT="Bubeck, J, A Maddaloni and J-L Peydr&#xf3; (2020)" STYLE_REF="AuthorYear" ID="ID_53474397" CREATED="1605076380386" MODIFIED="1605076388045"/>
+<node TEXT=", “Negative monetary policy rates and systemic banks’ risk-taking: Evidence from the euro area securities register”, ECB Working Paper Series, No [tbc], and Journal of Money, Credit and Banking (forthcoming)." ID="ID_93562940" CREATED="1605076372754" MODIFIED="1605076379796"/>
+<node TEXT="Bubeck, J, A Maddaloni and J-L Peydró (2020)" STYLE_REF="AuthorYear" ID="ID_53474397" CREATED="1605076380386" MODIFIED="1605076388045"/>
 <node TEXT="" ID="ID_1901727229" CREATED="1605076236268" MODIFIED="1605076236268"/>
 </node>
 </node>
@@ -177,7 +177,7 @@
 </node>
 <node TEXT="Capital and market discipline" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_204744888" CREATED="1578389466206" MODIFIED="1603250516210">
 <node TEXT="In Argentina" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_1869391712" CREATED="1578389470426" MODIFIED="1579573097471">
-<node TEXT="CALOMIRIS POWEL 2000" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_1301762260" CREATED="1578389473186" MODIFIED="1612768289372">
+<node TEXT="CALOMIRIS POWEL 2000" STYLE_REF="AuthorYear" ID="ID_1301762260" CREATED="1578389473186" MODIFIED="1612768289372">
 <node ID="ID_117014333" CREATED="1578389493599" MODIFIED="1578389493599"><richcontent TYPE="NODE">
 
 <html>
@@ -191,7 +191,7 @@
 </richcontent>
 </node>
 </node>
-<node TEXT="CALOMIRIS POWELL 2000" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_265280491" CREATED="1578390531664" MODIFIED="1579573084279">
+<node TEXT="CALOMIRIS POWELL 2000" STYLE_REF="AuthorYear" ID="ID_265280491" CREATED="1578390531664" MODIFIED="1579573084279">
 <hook URI="recursos/calomirisPowell.jpeg" SIZE="1.0" NAME="ExternalObject"/>
 <node TEXT="Bank deposit growth rates" ID="ID_77636967" CREATED="1578390785087" MODIFIED="1610685117075" LINK="../CapitalEffects-PrincipalMap.mm">
 <edge STYLE="bezier" COLOR="#00007c" WIDTH="thin"/>
@@ -329,7 +329,7 @@
 <node TEXT="Why do banks hold more capital that the required minimum?" STYLE_REF="PaperTItle" ID="ID_648661432" CREATED="1602149058398" MODIFIED="1602149093368"/>
 <node TEXT="We show that when credit markets are competitive, market discipline coming from the asset side induces banks to hold positive levels of capital as a way to commit to monitor and attract borrowers." LOCALIZED_STYLE_REF="default" FOLDED="true" ID="ID_374720999" CREATED="1602149310590" MODIFIED="1602149329944">
 <node TEXT=" the model suggests that greater credit market competition increases capital holdings as it introduces market discipline from the asset side." ID="ID_1623474461" CREATED="1602149758491" MODIFIED="1602149791260"/>
-<node TEXT=" the increased commitment to monitor makes a bank with a large amount of capital more attractive to borrowers and thus improves its &#x201c;product market&#x201d; opportunities" ID="ID_70964755" CREATED="1602150066224" MODIFIED="1602150145077"><richcontent TYPE="NOTE">
+<node TEXT=" the increased commitment to monitor makes a bank with a large amount of capital more attractive to borrowers and thus improves its “product market” opportunities" ID="ID_70964755" CREATED="1602150066224" MODIFIED="1602150145077"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -346,7 +346,7 @@
 <node TEXT="Third, the model suggests that banks that are more involved in monitoring-intensive lending should be more capitalized and that, similarly, firms for which monitoring adds the most value should prefer to borrow from banks with high capital" ID="ID_1443038588" CREATED="1602149779008" MODIFIED="1602149786558"/>
 </node>
 <node TEXT="The bank chooses the level of monitoring" LOCALIZED_STYLE_REF="default" FOLDED="true" ID="ID_550947535" CREATED="1602149350456" MODIFIED="1602149360842">
-<node TEXT="our analysis suggests that increased capital requirements imply a shift in banks&#x2019; portfolios away&#xa;from transactional lending toward more relationship lending" ID="ID_1346343697" CREATED="1602149802092" MODIFIED="1602149838098"/>
+<node TEXT="our analysis suggests that increased capital requirements imply a shift in banks’ portfolios away&#xa;from transactional lending toward more relationship lending" ID="ID_1346343697" CREATED="1602149802092" MODIFIED="1602149838098"/>
 </node>
 <node TEXT="In an extension the bank can choose to do relationship or transactional lending" LOCALIZED_STYLE_REF="default" ID="ID_1671394194" CREATED="1602149700507" MODIFIED="1602149722971"/>
 <node TEXT="Ownserhip" LOCALIZED_STYLE_REF="default" FOLDED="true" ID="ID_1908559660" CREATED="1602149895708" MODIFIED="1602149897668">
@@ -354,7 +354,7 @@
 </node>
 </node>
 <node TEXT="HOLSTROM &amp; TIROLE 1997" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_944895430" CREATED="1603250124844" MODIFIED="1603250135046">
-<node TEXT="Monitoring techonology (as in Holstr&#xf6;m &amp; Tirole, 1997) enhances firms payoffs (as opossed to higher loan rate)" ID="ID_453245920" CREATED="1603250136219" MODIFIED="1603250143885"/>
+<node TEXT="Monitoring techonology (as in Holström &amp; Tirole, 1997) enhances firms payoffs (as opossed to higher loan rate)" ID="ID_453245920" CREATED="1603250136219" MODIFIED="1603250143885"/>
 <node TEXT="Banks monitor more when tehy have more capital" ID="ID_1945273490" CREATED="1603250144355" MODIFIED="1603250151517"/>
 </node>
 <node TEXT="" STYLE_REF="AuthorYear" ID="ID_1688675350" CREATED="1603252101919" MODIFIED="1603252101921"/>
@@ -384,7 +384,7 @@
 <node TEXT="Blundell, R., Bond, S., 1998, Initial conditions and moment restrictions in dynamic panel data model. J. of&#xa;Econometrics" ID="ID_1258549117" CREATED="1578885203044" MODIFIED="1578885282986"/>
 <node TEXT="OLSZAK ROSZOWKSA KOWALSKA 2018" ID="ID_222901460" CREATED="1578885284245" MODIFIED="1578885350099">
 <node TEXT="Procyclical loan loss provisions" ID="ID_1841870482" CREATED="1578885351788" MODIFIED="1578885359097"/>
-<node TEXT="&quot; Equation (1) involves bank-specific variables that may be&#xa;endogenous. Therefore, we apply an approach that involves instrumental variables, i.e the generalised method of moments (GMM) developed by Blundell and Bond (1998) with robust standard errors and Windmeijer&#x2019;s (2005) correction. We also report OLS, FE, RE and GMM 1-step (Arellano and Bond, 1991) estimations for the base results, but in the remainder of the paper only report GMM estimates&quot;" ID="ID_1450580567" CREATED="1578885312612" MODIFIED="1602054026073" MAX_WIDTH="379.2270469324679 pt" MIN_WIDTH="379.2270469324679 pt"/>
+<node TEXT="&quot; Equation (1) involves bank-specific variables that may be&#xa;endogenous. Therefore, we apply an approach that involves instrumental variables, i.e the generalised method of moments (GMM) developed by Blundell and Bond (1998) with robust standard errors and Windmeijer’s (2005) correction. We also report OLS, FE, RE and GMM 1-step (Arellano and Bond, 1991) estimations for the base results, but in the remainder of the paper only report GMM estimates&quot;" ID="ID_1450580567" CREATED="1578885312612" MODIFIED="1602054026073" MAX_WIDTH="379.2270469324679 pt" MIN_WIDTH="379.2270469324679 pt"/>
 </node>
 </node>
 <node TEXT="Disequilibrium models" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1364654568" CREATED="1578969986786" MODIFIED="1579571944070">
@@ -398,7 +398,7 @@
 <cloud COLOR="#cccc00" SHAPE="ARC"/>
 <node TEXT="BRICs" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_278092171" CREATED="1578281763219" MODIFIED="1603427972892">
 <node TEXT=" how market concentration and risk-taking behavior affect bank performance in the BRICs" ID="ID_1934682693" CREATED="1578281766996" MODIFIED="1578281767797"/>
-<node TEXT=" 2003&#x2013;2010,  1001 bank-year observations" ID="ID_1611752555" CREATED="1578281857597" MODIFIED="1578282131868"/>
+<node TEXT=" 2003–2010,  1001 bank-year observations" ID="ID_1611752555" CREATED="1578281857597" MODIFIED="1578282131868"/>
 <node TEXT=" Only major banks!" ID="ID_771914182" CREATED="1578282289363" MODIFIED="1578282371502">
 <icon BUILTIN="messagebox_warning"/>
 <node TEXT="this is a proble if you want to study market power!" ID="ID_372842667" CREATED="1578282301465" MODIFIED="1578282314036"/>
@@ -406,7 +406,7 @@
 <node TEXT="data are available from the Bankscope" ID="ID_1486199047" CREATED="1578282139954" MODIFIED="1578282141469"/>
 <node TEXT="stochastic frontier analysis (SFA)" ID="ID_782435892" CREATED="1578282204963" MODIFIED="1578282206211"/>
 <node TEXT="linear regression on th eerror term from SFA" ID="ID_703417906" CREATED="1578282207898" MODIFIED="1578282218973"/>
-<node TEXT="a negative association between market concentration and performance, in support of the &#x201c;quiet life&#x201d; hypothesis" ID="ID_1790839345" CREATED="1578281860092" MODIFIED="1578281876173"/>
+<node TEXT="a negative association between market concentration and performance, in support of the “quiet life” hypothesis" ID="ID_1790839345" CREATED="1578281860092" MODIFIED="1578281876173"/>
 <node TEXT="We also find that banks with a lower level of risks perform better, in favor of prudential practice" ID="ID_697022414" CREATED="1578281887491" MODIFIED="1578281888307"/>
 </node>
 <node TEXT="Bailout-bailin" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1728062748" CREATED="1603427948237" MODIFIED="1603427972891">
@@ -462,12 +462,12 @@
 <edge COLOR="#ff0000"/>
 <cloud COLOR="#ffcccc" SHAPE="ARC"/>
 <node TEXT="Excessive liquidity creation" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_1874371869" CREATED="1578279820098" MODIFIED="1579571901950">
-<node TEXT="Fung&#xe1;&#x10d;ov&#xe1; Turk-Ariss Weill 2013 Does Excessive Liquidity Creation Trigger Bank Failures?" ID="ID_1168473476" CREATED="1578455083489" MODIFIED="1578455115186"/>
+<node TEXT="Fungáčová Turk-Ariss Weill 2013 Does Excessive Liquidity Creation Trigger Bank Failures?" ID="ID_1168473476" CREATED="1578455083489" MODIFIED="1578455115186"/>
 </node>
 <node TEXT="Risk taking" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_682214994" CREATED="1578281408446" MODIFIED="1579571901956">
 <node TEXT="Comptetition" ID="ID_440292299" CREATED="1578281416182" MODIFIED="1578281419512">
 <node TEXT="Increases stability" ID="ID_1076160173" CREATED="1578281420502" MODIFIED="1578281427399">
-<node TEXT="The Theory of Bank Risk Taking and Competition Revisited&#xa;JOHN H. BOYD  GIANNI DE NICOL&#xd3;" ID="ID_926028145" CREATED="1578281602476" MODIFIED="1578281603429"/>
+<node TEXT="The Theory of Bank Risk Taking and Competition Revisited&#xa;JOHN H. BOYD  GIANNI DE NICOLÓ" ID="ID_926028145" CREATED="1578281602476" MODIFIED="1578281603429"/>
 <node TEXT="" ID="ID_1082773751" CREATED="1578281604003" MODIFIED="1578281604003"/>
 </node>
 <node TEXT="Reduces stability" FOLDED="true" ID="ID_1361834510" CREATED="1578281427757" MODIFIED="1578281586520"><richcontent TYPE="NOTE">
@@ -559,7 +559,7 @@
 </node>
 <node TEXT="MOdeling bank risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" FOLDED="true" ID="ID_308018962" CREATED="1578389957841" MODIFIED="1580704613372">
 <node TEXT="Default risk is a combination of asset risk and leverage (forllowing Black-Scholes model(" ID="ID_1027366482" CREATED="1578390102478" MODIFIED="1578390122463"/>
-<node TEXT="Accoding to CALOMIRIS POWELL 2000, &quot;if depositors are &#x201c;risk-intolerant,&#x201d; then increases in deposit interest rates in response to increased risk should be reversed over time, as banks are forced to reduce asset risk and leverage to meet depositors&#x2019; preferences&#xa;for low risk&quot;&quot;" ID="ID_1487953564" CREATED="1578389962078" MODIFIED="1578389998566"/>
+<node TEXT="Accoding to CALOMIRIS POWELL 2000, &quot;if depositors are “risk-intolerant,” then increases in deposit interest rates in response to increased risk should be reversed over time, as banks are forced to reduce asset risk and leverage to meet depositors’ preferences&#xa;for low risk&quot;&quot;" ID="ID_1487953564" CREATED="1578389962078" MODIFIED="1578389998566"/>
 <node TEXT="The interest rate a bank pays to depositors, could go up as the results of the bank enganging in higher risk assets." ID="ID_1756702685" CREATED="1578389999637" MODIFIED="1578390032296"/>
 <node TEXT="But any shock in risks could not have a long-term effect since depositors will not tolerate higher risks" ID="ID_522883650" CREATED="1578390032757" MODIFIED="1578390060911"/>
 <node TEXT="Depositors will force the bank to reduce risk by withdrawing money." ID="ID_1720372941" CREATED="1578390068869" MODIFIED="1578390082239"/>
@@ -567,7 +567,7 @@
 <node TEXT="CANOVA CICCARELLI 2013 Panel VAR survey" ID="ID_71784733" CREATED="1578454586892" MODIFIED="1578454587855"/>
 <node TEXT="PEDRONI Peter Econometrics 2013 Structural Panel VARs&#xa;Pby Peter Pedroni" ID="ID_880338430" CREATED="1578454631545" MODIFIED="1578454650322"/>
 <node TEXT="Panel Vector Autoregression in R with the Package Panelvar&#xa;Quarterly Review of Economics and Finance, 2019" ID="ID_1114057071" CREATED="1578454670407" MODIFIED="1578454671762"/>
-<node TEXT="Michael Sigmund Sophia D&#xf6;meThe Impact of Unconventional Monetary Policy on Major European Banks&apos; Interest Spreads" ID="ID_1389264604" CREATED="1578454790043" MODIFIED="1578454806796"/>
+<node TEXT="Michael Sigmund Sophia DömeThe Impact of Unconventional Monetary Policy on Major European Banks&apos; Interest Spreads" ID="ID_1389264604" CREATED="1578454790043" MODIFIED="1578454806796"/>
 </node>
 </node>
 <node TEXT="Applied" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_477474199" CREATED="1580704615762" MODIFIED="1612868507577">
@@ -595,6 +595,40 @@
 </node>
 </node>
 <node TEXT="CHIARAMONTE CASU 2017 Capital liquidity rations and distress European banks.pdf" ID="ID_140798234" CREATED="1613376487822" MODIFIED="1613376487823" LINK="../biblio/survival/CHIARAMONTE%20CASU%202017%20Capital%20liquidity%20rations%20and%20distress%20European%20banks.pdf"/>
+<node TEXT="McCANDLESS, GABRIELLI, ROUILLET, 2003" STYLE_REF="AuthorYear" ID="ID_1626182206" CREATED="1617182422643" MODIFIED="1617183148623">
+<node TEXT="Determining The Causes of Bank Runs in Argentina During the Crisis of 2001, BCRA" STYLE_REF="PaperTItle" ID="ID_531079287" CREATED="1617182443237" MODIFIED="1617183154061"/>
+<node TEXT="Private sector 30-days term deposits" FOLDED="true" ID="ID_1004615378" CREATED="1617183021536" MODIFIED="1617183070809">
+<node TEXT="&quot;We restrict our analysis to thirty-day private term deposits because we believe that these are the most susceptible to runs and least influenced by unrelated disturbances&quot;" ID="ID_1246781907" CREATED="1617183030119" MODIFIED="1617183036786"/>
+<node TEXT="&quot;First, time deposits do not contain as large a seasonal component as do sight deposits.&quot;" ID="ID_1745330508" CREATED="1617183048576" MODIFIED="1617183052353"/>
+<node TEXT="&quot;Since a large fraction of salaries are paid through sight deposits, these may be less responsive to runs&quot;" ID="ID_117968769" CREATED="1617183063104" MODIFIED="1617183064881"/>
+</node>
+<node TEXT="Variables" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_1090377360" CREATED="1617183090585" MODIFIED="1617183161953">
+<node TEXT="Macro" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1531664450" CREATED="1617183093323" MODIFIED="1617183166565">
+<node TEXT="Activity" ID="ID_424459924" CREATED="1617183095384" MODIFIED="1617183101784">
+<node TEXT="monthly seasonally adjusted change in the economic activity level index (Activity) as constructed by INDEC, which is an indicator of the real side of the economy" ID="ID_1146526659" CREATED="1617183136016" MODIFIED="1617183140737"/>
+</node>
+<node TEXT="Forward rate" ID="ID_1495301237" CREATED="1617183109608" MODIFIED="1617183112665">
+<node TEXT="six month non deliverable forwards (ndf6) quoted in New York as proxy of expectations on the future evolution of the exchange rate (ARG$/US$) six months ahead" ID="ID_1776191318" CREATED="1617183178264" MODIFIED="1617183182914"/>
+</node>
+</node>
+<node TEXT="MIcro" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_505105823" CREATED="1617183219681" MODIFIED="1617183220873">
+<node TEXT="Institution type" FOLDED="true" ID="ID_278052107" CREATED="1617183222753" MODIFIED="1617183226595">
+<node TEXT="Public" ID="ID_1327723952" CREATED="1617183227688" MODIFIED="1617183230506"/>
+<node TEXT="Foreign" ID="ID_436585355" CREATED="1617183230976" MODIFIED="1617183232666"/>
+<node TEXT="Private" ID="ID_606206039" CREATED="1617183233168" MODIFIED="1617183235058"/>
+</node>
+<node TEXT="Deposit $" ID="ID_1475247213" CREATED="1617183264537" MODIFIED="1617183265851"/>
+<node TEXT="Deposit US$" ID="ID_1434537712" CREATED="1617183272705" MODIFIED="1617183273788"/>
+<node TEXT="Exposure" ID="ID_112379980" CREATED="1617183280273" MODIFIED="1617183281379"/>
+<node TEXT="Rate $" ID="ID_373100058" CREATED="1617183287921" MODIFIED="1617183288979"/>
+<node TEXT="Rate US$" ID="ID_1699399558" CREATED="1617183293314" MODIFIED="1617183294386"/>
+<node TEXT="Financial income share" ID="ID_749487047" CREATED="1617183300818" MODIFIED="1617183335779"/>
+<node TEXT="Loan in  ARS share" ID="ID_984729782" CREATED="1617183312402" MODIFIED="1617183329698"/>
+<node TEXT="Loan in  USD share" ID="ID_1612464184" CREATED="1617183319041" MODIFIED="1617183324634"/>
+<node TEXT="Rating" ID="ID_1402204857" CREATED="1617183343329" MODIFIED="1617183344954"/>
+</node>
+</node>
+</node>
 </node>
 <node TEXT="Does capital reduce failure rate?" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_1630578648" CREATED="1610678531441" MODIFIED="1610678697923">
 <node TEXT="Reduce" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1715169996" CREATED="1610678665352" MODIFIED="1610678707166">
@@ -691,7 +725,7 @@
 <cloud COLOR="#f0f0f0" SHAPE="ARC"/>
 <node TEXT="Do banks have an incentive to lie?" ID="ID_1245439608" CREATED="1611809440472" MODIFIED="1611809446537">
 <node TEXT="No" ID="ID_1898074036" CREATED="1611809449868" MODIFIED="1611809450616"/>
-<node TEXT="There are several reasons for a bank to report a rating of 2 even when it knows this will be observed by a firm&#x2019;s other lenders." ID="ID_125601520" CREATED="1611809451135" MODIFIED="1611809464273"/>
+<node TEXT="There are several reasons for a bank to report a rating of 2 even when it knows this will be observed by a firm’s other lenders." ID="ID_125601520" CREATED="1611809451135" MODIFIED="1611809464273"/>
 <node TEXT="Since these ratings are used for prudential regulation, a bank that assigns a rating of 1&#xa;to all firms that are not in default would trigger scrutiny by the regulator." ID="ID_322331272" CREATED="1611809464863" MODIFIED="1611809475720"/>
 <node TEXT=" In addition, the credible threat of being publicly rated 2 incentivizes borrowers to avoid actions that lower the value of an outstanding loan." ID="ID_800931479" CREATED="1611809476456" MODIFIED="1611809481672"/>
 <node TEXT="There is a maximum limit of 1 for difference in the rating reported by many banks to the same borrower" ID="ID_1370267357" CREATED="1611809493775" MODIFIED="1611809509713"/>
@@ -712,7 +746,7 @@
 <node TEXT="FRY-MCKIBBIN HSIAO TANG 2014" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_1290188864" CREATED="1602571991335" MODIFIED="1602575470120">
 <hook URI="recursos/renee_mckibbin_fry.jpg" SIZE="0.56347466" NAME="ExternalObject"/>
 <node TEXT="Contagion and Global Financial Crises" STYLE_REF="PaperTItle" ID="ID_1503238096" CREATED="1602574566000" MODIFIED="1602574572190"/>
-<node TEXT="&quot;The crises of this paper correspond to those in: Hong Kong (Asian crisis) in 1997&#x2013; 1998; Russia in 1998; the US (LTCM crisis) in 1998; Brazil in 1999; the US (dot-com crisis) in 2000; Argentina in 2001&#x2013;2002; the US (sub-prime crisis) in 2007&#x2013;2008; the US (great recession) in 2008&#x2013;2009; and Greece (European debt crisis) in 2010&#x2013; 2013. The sample for the k = 27 equity markets represented in Fig. 1 consists of daily equity price indices Pk,t expressed in US dollars&quot;" ID="ID_1989457330" CREATED="1602572000487" MODIFIED="1602572009805"/>
+<node TEXT="&quot;The crises of this paper correspond to those in: Hong Kong (Asian crisis) in 1997– 1998; Russia in 1998; the US (LTCM crisis) in 1998; Brazil in 1999; the US (dot-com crisis) in 2000; Argentina in 2001–2002; the US (sub-prime crisis) in 2007–2008; the US (great recession) in 2008–2009; and Greece (European debt crisis) in 2010– 2013. The sample for the k = 27 equity markets represented in Fig. 1 consists of daily equity price indices Pk,t expressed in US dollars&quot;" ID="ID_1989457330" CREATED="1602572000487" MODIFIED="1602572009805"/>
 <node TEXT="Read this paper" ID="ID_1376672851" CREATED="1602574544258" MODIFIED="1602574547016"/>
 </node>
 <node TEXT="BRIERE CHAPELLE SZAFARZ 2012 No contagion only globalization and flight to quality" STYLE_REF="AuthorYear" ID="ID_1239680426" CREATED="1602575268610" MODIFIED="1602575269651"/>
@@ -729,7 +763,7 @@
 <node TEXT="&quot;Note that throughout this period in Argentina  here was no official deposit insurance in operation and the Convertibility program was widely believed to imply that there were only very limited lender of last resort facilities available. In this context, we would expect variables related to bank safety to be important fundamentals&quot;" ID="ID_207355071" CREATED="1603688667705" MODIFIED="1603688679827"/>
 </node>
 <node TEXT="DAMATO GRUBISIC POWELL 1997" STYLE_REF="AuthorYear" ID="ID_1482083070" CREATED="1603688823361" MODIFIED="1610682700817" MAX_WIDTH="160.96697802479358 pt" MIN_WIDTH="160.96697802479358 pt">
-<node TEXT="Variables" FOLDED="true" ID="ID_689359738" CREATED="1603688831849" MODIFIED="1603689179694"><richcontent TYPE="NOTE">
+<node TEXT="Variables" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_689359738" CREATED="1603688831849" MODIFIED="1617182162125"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -742,7 +776,7 @@
   </body>
 </html>
 </richcontent>
-<node TEXT="Bank level" ID="ID_1438878854" CREATED="1603689135584" MODIFIED="1603689137385">
+<node TEXT="Bank level" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1438878854" CREATED="1603689135584" MODIFIED="1617182155177">
 <node TEXT="Pasive rates in USD and ARS" ID="ID_1037170463" CREATED="1603688834137" MODIFIED="1603688843970">
 <node TEXT="&quot;It is the return required by the market given the market&apos;s perception of the bank&apos;s risk&quot;" ID="ID_980470138" CREATED="1603688914321" MODIFIED="1603688919914"/>
 </node>
@@ -751,7 +785,7 @@
 <node TEXT="&quot;The capital ratio of the bank is a signal of the riskiness of the bank and this appeared to convey extra information not captured in the interest paid by banks.&quot;" ID="ID_1466263114" CREATED="1603688935144" MODIFIED="1603688942770"/>
 </node>
 </node>
-<node TEXT="Macro vars" ID="ID_532902039" CREATED="1603689144569" MODIFIED="1603689146633">
+<node TEXT="Macro vars" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_532902039" CREATED="1603689144569" MODIFIED="1617182155181">
 <node TEXT="Chg in total deposits in the system" ID="ID_1750345238" CREATED="1603689147305" MODIFIED="1603689191276"/>
 <node TEXT="Chg Argentine bond prices (FRB bond price)" ID="ID_1331396278" CREATED="1603689191987" MODIFIED="1603689206749"/>
 <node TEXT="Merval" ID="ID_1149535333" CREATED="1603689208076" MODIFIED="1603689209471"/>
@@ -768,7 +802,7 @@
 <node TEXT="Fundamentals 27%" ID="ID_492091428" CREATED="1610682540162" MODIFIED="1610682546604"/>
 <node TEXT="Contagio 17%" ID="ID_937746334" CREATED="1610682547018" MODIFIED="1610682550228"/>
 <node TEXT="Macro 11%" ID="ID_907987618" CREATED="1610682550674" MODIFIED="1610682557500"/>
-<node TEXT="&quot;although the results give some support that depositors did discriminate according to &#x2018;bank fundamentals&#x2019; and indeed this appeared to be the single largest determinant of the explained movement in deposits, contagion effects were also evident.&quot;" ID="ID_1163174079" CREATED="1610682559722" MODIFIED="1610682566852"/>
+<node TEXT="&quot;although the results give some support that depositors did discriminate according to ‘bank fundamentals’ and indeed this appeared to be the single largest determinant of the explained movement in deposits, contagion effects were also evident.&quot;" ID="ID_1163174079" CREATED="1610682559722" MODIFIED="1610682566852"/>
 </node>
 </node>
 <node TEXT="PERIA SCHMUKLER 2001" STYLE_REF="AuthorYear" ID="ID_59824634" CREATED="1610701005227" MODIFIED="1610701026496" LINK="#ID_526231526" MAX_WIDTH="160.96697802479358 pt" MIN_WIDTH="160.96697802479358 pt"/>
