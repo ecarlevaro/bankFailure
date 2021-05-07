@@ -1,0 +1,204 @@
+---
+title: "Banks DB descStats"
+author: "Emi"
+date: "30/03/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(haven)
+library(tidyverse)
+library(magrittr)
+library(lubridate)
+library(xlsx)
+library(DT)
+```
+
+## R Markdown
+
+Descriptive statistics for a probit model. Data is from 1997q4 to 2001q12. 
+
+```{r dbX}
+dbX <- haven::read_dta('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/data/failures-1997-2001-quarterly.dta') %>%
+        dplyr::mutate(., 
+          FECHAdata = quarter(ymd("1960-01-01")+months(FECHA_Q*3), with_year=TRUE),
+          FECHAdataAnio = year(ymd("1960-01-01")+months(FECHA_Q*3)),
+          EXIT_DATE_Q = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+          EXIT_DATE_Y = year(as_date(EXIT_DATE, origin=ymd('1960-01-01'))),
+          START_Q = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+          .after = IDENT) %>%
+    filter(FECHAdata >= 1997.4 & FECHAdata <= 2004.4)
+#summary(cars)
+```
+FECHAdata contains the quarter in R format. It is built from the quarterly variable for Stata (FECHA_Q).
+
+# Descriptive statistics
+## Missing values as %
+```{r mssingByYear}
+dbX %>% 
+  group_by(FECHAdataAnio) %>%
+    summarise(across(c(ActivoN, C8Est_w, CAR_IRR_3A6, P_ROA, P_DEP_ARS_RATE, P_LOANS_ARS_RATE_W, APRSpNF_RATE_W, APR_USD_RATE, APR_RATE_W, GDP_D_Q, ARG_YTM), 
+                   list(M = ~round(( sum(is.na(.x))/sum(!is.na(IDENT)))*100)) )) %>%
+  #filter(., Activo_N_MISSING > 0) %>%
+  #kable(., caption='Missinv values for Activo')
+  DT::datatable(., rownames=FALSE, filter='top',  caption='Percentage of missing values (%)',
+          options = list(columnDefs = list(list(
+                      targets = c(1,2,3,4,5),
+                      render = JS(
+                        "function(data, type, row, meta) {",
+                        "return type === 'display' && data.length > 8 ?",
+                        "'<span title=\"' + data + '\">' + data.substr(0, 8) + '...</span>' : data;",
+                        "}")
+))))
+```
+
+## Banks desc stats table
+Sample features
+
+```{r }
+tibble('N' = length(unique(dbX$IDENT)),
+                    'T' = length(unique(dbX$FECHA_Q)),
+                    'NxT' = N*T,
+                    'Avg n' = dbX %>% 
+                                select(FECHA_Q, IDENT) %>% 
+                                group_by(IDENT) %>% summarise(n = n()) %$% mean(.$n)) %>%
+  t(.) %>%
+  DT::datatable(.) %>% formatRound(columns=c('V1'))
+```
+
+```{r desc_stats_table}
+varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W', 'GDP_D_Q', 'ARG_YTM')
+dSVals <- dbX %>% 
+  summarise(across(all_of(varsList), list(
+    'min' = ~min(.x, na.rm=TRUE),
+    'median' = ~round(median(.x, na.rm=TRUE)),
+    'mean' = ~mean(.x, na.rm=TRUE),
+    'max' = ~round(max(.x, na.rm=TRUE)),
+    'SD' = ~round(sd(.x, na.rm=TRUE)) )))
+  
+descStatsTibble <- tibble('min' = as_vector(select(dSVals, ends_with('min'))),
+                    'median' = as_vector(select(dSVals, ends_with('median'))),
+                    'mean' = as_vector(select(dSVals, ends_with('mean'))),
+                    'sd' = as_vector(select(dSVals, ends_with('sd'))),
+                    'max' = as_vector(select(dSVals, ends_with('max'))))
+
+rownames(descStatsTibble) <- c('Assets $', 'Equity/Assets (%)', 'Non-perfomring loans/Loans (%)', 'ROA (%)', 'Deposits interst rate (%)', 'Loans interest rate (%)', 'Public sector loans/Loans (%)', 'USD loans/Loans (%)', 'Loans/Assets (%)', 'Seas-adjusted quarterly chg GDP (%)', 'Country risk (%)')
+
+  datatable(descStatsTibble) %>%
+    formatRound(columns=c('min', 'median', 'mean', 'sd', 'max'))
+```
+APR_RATE_W is the ratio of Loans to Assets in percentage (%).
+
+### Failure descriptive statistics
+
+Create quarterly dates and choose observations for banks alive by 1997q4.
+```{r dbEnts, results='asis'}
+dbEnts <- dbX %>%
+  # Select only banks alive on 1997.4  
+          filter(START_Q <= 1997.4 & EXIT_DATE_Q > 1997.4)
+```
+
+This give 139 entities
+
+For each quarter I count how many banks die and are alive.
+```{r tibbles}
+# Count failures by quarter
+failuresByQ <- dbEnts %>% 
+                # TODO:  plot of exit by types group_by(EXIT_DATE_Q, EXIT_TYPE) %>%
+                group_by(EXIT_DATE_Q) %>%
+                count(., name='N_FAILS') %>%
+                rename(Q = EXIT_DATE_Q)
+
+allQs <- seq.Date(from=ymd('1997-10-01'), to=ymd('2004-12-31'), by='quarter') %>%
+          quarter(., with_year = TRUE)
+# For each quarter, count alives at the beginning of the quarter
+alives <- map_int(allQs, function(thisQ)
+    {
+      dbEnts %>% arrange(IDENT) %>%
+      filter(., START_Q <= thisQ & (EXIT_DATE_Q > thisQ) ) %>%
+      nrow()
+  
+    })
+
+failsByTime <- left_join( tibble('Q' = allQs,'TOTAL_ENTS' = alives),
+                            failuresByQ,
+                          by='Q') %>%
+              replace(., is.na(.), 0) %>%
+              mutate(., HAZ_RATE = (N_FAILS/TOTAL_ENTS)*100,
+                        SUR_RATE = (TOTAL_ENTS/139)*100)
+```
+
+Plots:
+```{r survival_plots}
+#ggplot(data=failuresByQ, mapping=aes(x=Q, y=N_FAILS, fill=EXIT_TYPE)) +
+# ggplot(data=failuresByQ, mapping=aes(x=Q)) +
+# geom_col(aes(y=N_FAILS)) +
+# scale_x_continuous(name='Quarters') +
+# theme(axis.text.x = element_text(angle=90, vjust=0.5)) +
+# scale_y_continuous(name='Failure rate (%)') +
+# coord_cartesian(ylim=20) +
+# labs(title='Instantaneous failure rate (hazard)')
+#
+
+
+ggplot(data=failsByTime, mapping=aes(x=Q, y=SUR_RATE)) +
+  geom_line() +
+  #geom_curve(aes(xend=)) +
+  scale_x_continuous(name='Quarters') +
+  scale_y_continuous(name='Survival rate (%)') +
+  labs(title='Empirical survival function')
+```
+
+# Export data to Matlab
+## Merge EXIT_DATE_Q with covariates X
+
+In dbX, there are `nrow(dbX)` observations, and `length(unique(dbX$IDENT))` entities;   and `ncol(dbX)` variables. There should be $n=2037$, $np=159$, and $k=18$.
+In dbEnts, there are `nrow(dbEnts)` observations, and `length(unique(dbEnts$IDENT))` entities;   and `ncol(dbEnts)` variables. There should be $n=2037$, $np=159$, and $k=18$.
+All entities in dbEnts should have a match in dbX
+
+Entitines in dbEnts without a match in dbX
+```{r }
+xo <- anti_join(dbEnts, dbX, by='IDENT')
+```
+
+Choose X data on 1997-12.
+```{r}
+XExt <- inner_join(select(dbEnts, IDENT, EXIT_DATE_Q), 
+                   select(dbX, IDENT, FECHAdata, ActivoN, C8Est_w, CAR_IRR_3A6, P_ROA, P_DEP_ARS_RATE, P_LOANS_ARS_RATE_W, APRSpNF_RATE_W, APR_USD_RATE, APR_RATE_W),
+                   by='IDENT') %>%
+          mutate('Y' = if_else(EXIT_DATE_Q <= 2004.12, 0, 1), .after=EXIT_DATE_Q) %>%
+        filter_all(all_vars(!is.na(.)))
+Xt <- XExt %>%
+      filter(FECHAdata == 1997.4) %>%      
+      select(!c(IDENT, Y, EXIT_DATE_Q, FECHAdata)) 
+        
+Yt <- XExt %>%
+        filter(FECHAdata == 1997.4) %>%
+        select(Y)
+  
+```
+
+```{r export}
+X <- Xt %>%
+        mutate('constant' = 1, .before=ActivoN) %>% 
+        write_csv(., 'probit/X.csv')
+
+Y <- Yt %>%
+    write_csv(., 'probit/Y.csv')
+# solve(t(X) %*% X) %*% t(X) %*% Y
+
+# For the probit the macro vars have no role
+
+```
+
+Try to estimate here 
+
+```{r estimate}
+
+#h <- rms::orm(Y ~ Xt$ActivoN + Xt$C8Est_w + Xt$CAR_IRR_3A6 + Xt$P_ROA + Xt$P_DEP_ARS_RATE + Xt$P_LOANS_ARS_RATE_W + Xt$APRSpNF_RATE_W + Xt$APR_USD_RATE + Xt$APR_RATE_W, family=probit)
+p <- glm(as.matrix(Y) ~ X$constant + X$ActivoN + X$C8Est_w + X$CAR_IRR_3A6 + X$P_ROA + X$P_DEP_ARS_RATE + X$P_LOANS_ARS_RATE_W + X$APRSpNF_RATE_W + X$APR_USD_RATE + X$APR_RATE_W, family=binomial)
+
+p
+```

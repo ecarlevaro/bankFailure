@@ -1,0 +1,220 @@
+---
+title: "Graph 1997m6-2001m12"
+author: "Emi"
+date: "10/02/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+getwd()
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(xlsx)
+library(svglite) # export plots to svg
+#source('FunsMisc.R')
+```
+
+## Loading data
+
+Load the database from Stata:
+
+```{r load_and_filter}
+dbRelations <- read_dta('../../data/interLoans/cen_deu_1997-06_2001-06_todas_ent_fcieras.dta') %>%
+              dplyr::select(., FECHAdata, IDENT_ACREEDORA, IDENT_DEUDORA, PRESTAMOS) %>%
+              dplyr::filter(., !is.na(IDENT_DEUDORA)) %>%
+              dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata))
+dbFcialEnts <- read_dta('../../data/DBbanks/capital-allEntities-Monthly.dta', col_select = c(IDent, FECHAdata, bNombre, grupoIDUni, Activo, ActivoR,
+                      ALIQs1_1ratio, APRamplio, C8Est_w, CAR_IRR_3A6,
+                      P_LOANS_ARS_RATE, P_DEP_ARS_RATE, P_ROA, C8_E)) %>%
+                dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata),                        IDENT_ACREEDORA = IDent) %>%
+                filter(., FECHAdata<ymd("2004-12-01") & FECHAdata>ymd("1997-05-01"))
+```
+
+### Weighting relations
+
+Now we build the wights of each link. We backup the data on Assets and Loans from dbFcialEnts and enter into the dbRelations data frame.
+
+```{r build_graph}
+relations <- dbRelations %>%
+              filter(., IDENT_ACREEDORA != IDENT_DEUDORA) %>%
+              dplyr::left_join(., dbFcialEnts, by = c('IDENT_ACREEDORA', 'FECHAdata'))
+
+```
+
+## Oh missing values!
+
+### From creditors perspective
+
+The following entities appear in the Central de deudores but not anymore in the balance de saldos:
+
+```{r}
+missCreditors <- dplyr::anti_join(relations, dbFcialEnts, 
+                                  by=c('FECHAdata', 'IDENT_ACREEDORA'))
+missCreditors
+
+```
+
+The **318 Banco de Salta SA** which was absorbed by Banco Macro on November 1999. I have detailed data only till Sep-1999. I could get more aggregated data if necesary from the balance resumido. **Caja de crédito Universo Cooperativa Limitada 64123** did not report its balance in 2000-10. I treat it as a missing value.
+
+I impute this missing values. Replace with the previous value
+
+```{r }
+toAddSalta <- filter(dbFcialEnts, FECHAdata == ym(199909) &IDent == 318) %>%
+            mutate(., FECHAdata = ym(199910))
+toAddUniverso <- filter(dbFcialEnts, FECHAdata == ym(200009) &IDent == 64123) %>%
+                  mutate(., FECHAdata = ym(200010))
+dbFcialEnts <- bind_rows(dbFcialEnts, toAddSalta, toAddUniverso) 
+```
+
+### From debtors perspective
+
+Verify that all nodes involved in relations are in dbFcialEnts. The following table shows the relations in which a debtor does not appear in dbFcialEnts. *anti\_join()*, returns rows in *relations* without a match in *dbFcialEnts*.
+
+```{r}
+missDebtors <- anti_join(relations, 
+                    mutate(dbFcialEnts, IDENT_DEUDORA = IDent),
+                    by=c('FECHAdata', 'IDENT_DEUDORA')) %>%
+                  group_by(., IDENT_DEUDORA) %>%
+                  summarise(n = n())
+missDebtors
+```
+
+This could be due to debtors disappearing. A debtor disappears as a financial entitite but the debts do not expire, such that active financial entities still report those debts.
+
+I exclude these relations from the *relations* tibble. We exclude those observations and select a specific month, say, **1999m12**
+
+Get desc stats monthly?
+
+```{r network_by_date}
+#relations <- filter(relations, !is.na(IDent))
+atDate <- ymd("1998-06-01")
+theseRelations <-  relations[ !(relations$IDENT_DEUDORA %in% missDebtors$IDENT_DEUDORA),  ] %>%
+                  dplyr::mutate(., WEIGHT = PRESTAMOS/APRamplio) %>%
+                  dplyr::filter(., WEIGHT>0.005)
+
+grupoStr <- tibble('grupoIDUni' = c(1:9, NA),
+                    'type' = c('Local corporation', 'Cooperative', 'Local corporation', 'State-owned', 'State-owned', 'Foreign branch', 'Caja', 'Non-bank', 'Non-bank', 'Non-bank'))
+
+nodes <- filter(dbFcialEnts, FECHAdata==atDate) %>%
+          dplyr::select(., !FECHAdata) %>%
+          left_join(., grupoStr, by='grupoIDUni')
+```
+
+When did these bank end in 'entidades.dta'?
+
+```{r, eval=FALSE}
+dbEnts <- read_dta('../BasesBCRA-IEF/entidades/entidades.dta') %>%
+          dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata))
+entsDates <- dbEnts %>%
+              group_by(., IDent) %>%
+              summarise(firstDate = min(FECHAdata), endDate = max(FECHAdata))
+#save2Excel(entsDates, 'entsDates',  'entsDates.xlsx')
+entsDates
+```
+
+## Relations: distribution of weights
+
+```{r weight_density}
+#thisRelations <- dplyr::filter(theseRelations, FECHAdata == atDate)
+group_by(theseRelations, FECHAdata) %>%
+  summarise(.,
+          'Links' = n(),
+          'N_CREDITORS' = n_distinct(IDENT_ACREEDORA),
+          'N_DEBTORS' = n_distinct(IDENT_DEUDORA),
+          'MEAN_WEIGHT_PC' = round(mean(WEIGHT)*100, 2),
+          'Median' = round(median(WEIGHT)*100),
+          'CV' =  round((MEAN_WEIGHT_PC/100) / sd(WEIGHT), 2),
+          '1st quartile_PC' = round(quantile(WEIGHT, probs=.25)*100, 2))
+
+```
+
+ggplot(data=thisRelations[, 'WEIGHT'], mapping=aes(x=WEIGHT)) +
+  scale_x_continuous(breaks=seq(0, 0.35, by=0.05)) +
+  geom_dotplot()
+
+ggplot(data=thisRelations[, 'WEIGHT'], mapping=aes(x=WEIGHT)) +
+  scale_x_continuous(breaks=seq(0, 0.35, by=0.05)) +
+  geom_boxplot()
+
+```
+
+# Build the network
+
+```{r }
+g <- graph_from_data_frame(
+  thisRelations %>% dplyr::select(., IDENT_ACREEDORA, IDENT_DEUDORA, WEIGHT), 
+    vertices = nodes,
+    directed = TRUE)
+```
+
+Acces a specific node (vertix):
+
+```{r}
+V(g)[[1]]
+```
+
+gives all the details about the first vertix.
+
+We can plot g
+
+```{r plot}
+library(ggraph) 
+ggraph(g, layout='fr', weights=WEIGHT ) +
+  geom_edge_link() +
+  geom_node_point(aes(size = centrality_pagerank())) +
+  theme(legend.position = 'bottom')
+
+Pstatic <- ggraph(g, layout='fr', weights=WEIGHT ) +
+            # geom_edge_fan(aes(width=WEIGHT, colour=stat(index)),
+            geom_edge_fan(aes(alpha=WEIGHT),
+                          arrow = arrow(length=unit(1, 'mm')), end_cap = circle(2, 'mm')) +
+            geom_node_point(aes(size = (Activo/1000000), colour=factor(type)), alpha=.8) +
+            #geom_node_text(aes(label = bNombre), repel=TRUE, check_overlap = TRUE) + 
+  scale_size(breaks=c(1, 5, 10, 15), labels=c('<=1', '5', '10', '15'))          +
+  theme(legend.position = 'bottom') +
+            guides(size=guide_legend(title='Assets (billions pesos)', title.position='top', nrow=3, ncol=2, byrow=TRUE),
+                   colour=guide_legend(title='Organizational type', title.position='top', override.aes=list(size=5), nrow=3, byrow=TRUE),
+                   edge_alpha=guide_legend(title='Share from lender bank', title.position='top', nrow=3, byrow=TRUE))
+
+Pstatic
+ggsave('Pstatic.pdf', plot=Pstatic)
+ggsave('Pstatic.svg', plot=Pstatic)
+
+```
+
+## Interactive plot
+
+Using visNetwork package. I use the same 'g' object from iGraph
+
+```{r plot_interactive, eval=TRUE}
+pTblNodes <- nodes %>%
+  dplyr::select(., IDent, bNombre, Activo) %>%
+  dplyr::transmute(., id=IDent, label=bNombre, value=Activo, title=str_c(bNombre, ', $ ', (Activo/10000), ' mill.'))
+
+pTblRelations <- thisRelations %>%
+  dplyr::transmute(., from=IDENT_ACREEDORA, to=IDENT_DEUDORA, value=WEIGHT, arrows='to')
+
+visNetwork(nodes = pTblNodes, edges = pTblRelations)  %>% 
+  visLayout(randomSeed = 123, improvedLayout=TRUE) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visInteraction(navigationButtons = TRUE) %>%
+  visConfigure(enabled = TRUE)
+#%>%
+#  visNodes(scaling=list())
+
+
+
+#visIgraph(g) %>%
+#  visNodes(shape='square', size = WEIGHT)
+```
+
+# Export adjacency matrix
+
+```{r adj_matrix}
+W <- as_adjacency_matrix(g, attr='WEIGHT', sparse=FALSE)
+```

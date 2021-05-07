@@ -1,0 +1,75 @@
+---
+title: "Data availability by date"
+author: "Emi"
+date: "25/03/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(haven)
+library(tidyverse)
+library(lubridate)
+library(xlsx)
+```
+
+## Failure times
+
+
+```{r import}
+failDates <- readxl::read_excel('../data/DBbanks/entities_start_end_dates.xlsx') %>%
+              mutate(., 'START_DATE' = ymd(FIRST_DATE),
+                     'EXIT_DATE' = ymd(EXIT_DATE_XLS),
+                     'START_QUARTER' = quarter(FIRST_DATE, with_year = T),
+                     'EXIT_QUARTER' = quarter(EXIT_DATE, with_year = T),
+                     .after = EXIT_DATE) 
+
+```
+
+For each quarter I count how many banks are alive.
+```{r tibbles}
+# Count failures by quarter
+failuresByQ <- group_by(failDates, EXIT_QUARTER) %>%
+  rename('Q' = 'EXIT_QUARTER') %>%
+  count(., name='N_FAILS')
+
+allQs <- seq.Date(from=ymd('1997-01-01'), to=ymd('2004-07-01'), by='quarter') %>%
+          quarter(., with_year = TRUE)
+alives <- map_int(allQs, function(thisQ)
+    {
+      arrange(failDates, IDENT) %>%
+      filter(., START_QUARTER <= thisQ & 
+        (EXIT_QUARTER>thisQ | is.na(EXIT_QUARTER) ) ) %>%
+      nrow(.)
+    })
+
+failsByTime <- right_join( tibble('Q' = allQs,
+                    'TOTAL_ENTS' = alives),
+                    failuresByQ,
+                    by='Q') %>%
+                  mutate(., HAZ_RATE_PC = (N_FAILS/TOTAL_ENTS)*100)
+
+```
+## Plots
+
+You can also embed plots, for example:
+
+```{r plots, message=TRUE, warning=TRUE}
+avgN <- filter(failsByTime, TOTAL_ENTS>10)$TOTAL_ENTS %>% mean(.)
+ggplot(data=failsByTime, mapping=aes(x=Q, y=N_FAILS)) +
+  geom_dotplot() +
+  geom_label(aes(label=N_FAILS), position=position_dodge(0.9)) +
+  coord_cartesian(ylim=c(0, avgN))
+
+ggplot(data=failsByTime, mapping=aes(x=Q, y=HAZ_RATE_PC)) +
+  geom_line() +
+  coord_cartesian(ylim=c(0, 100))
+
+(position='dodge') +
+  geom_label(aes(label=N_FAILS), position=position_dodge(0.9)) +
+  coord_cartesian(ylim=c(0, avgN))
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

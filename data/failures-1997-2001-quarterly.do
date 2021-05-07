@@ -1,3 +1,9 @@
+/* ******************************************************* */
+/*
+The valoe for grupoIDUni for the observations with missing vale for GROUP_ID_MAX have been manually recorded using information from "entidades_eventos.xlsx" from "BasesBCRA-IEF\entidades". There are may be some error here in differentiating between foreign entities and locals.
+*/
+/* ******************************************************* */
+
 failures-quarterly
 
 //exclude negative Assets
@@ -27,3 +33,36 @@ merge m:1 IDENT using "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data
 // There are banks in the failure DB that don't exist in the balance sheet DB because either they were created after 2004 or they died before 1997q4.
 drop _merge
 // n=2,174 mactched. Proceed.
+
+// Exit date: use a high date value for censored banks (entities that did not fail)
+replace EXIT_DATE = date("31Dec2099", "DMY", 2099) if missing(EXIT_DATE) & EXIT_TYPE==0
+
+/* *************************** */
+/*	IMPORT DATA ON ENTITIES TYPE
+/* *************************** */
+gen FECHAdata = mofd( dofq(FECHA_Q))
+format FECHAdata %tm
+label var FECHAdata "Monthly date of the first month of quarter. To bring data from other DBs"
+order FECHAdata, after(FECHA_Q)
+
+// N=2,714, n=162, t-bar=13,41, k=19
+merge 1:1 FECHAdata IDENT using "C:\Users\emi.ABLE-22868\OneDrive\InvUNL\BasesBCRA-IEF\entidades\entidades.dta", assert(master match) keep(master match) keepusing(grupoIDUni)
+// N=2,714, n=162, t-bar=13,41, k=21
+
+//////////////////
+// solve missing values for grupoIDUni
+sort IDENT
+by IDENT: egen GRUPO_ID_MAX = max(grupoIDUni)
+replace grupoIDUni = GRUPO_ID_MAX if missing(grupoIDUni)
+rename grupoIDUni GRUPO_ID_UNI
+
+save "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\failures-1997-2001-quarterly.dta", replace
+
+// NOMBRE
+xtsum IDENT
+// N=2174, n=162, t-bar=13.41, k=21
+merge 1:1 FECHAdata IDENT using "C:\Users\emi.ABLE-22868\OneDrive\InvUNL\BasesBCRA-IEF\entidades\entidades.dta", assert(master match) keep(master match) keepusing(NOMRED)
+// N=2174, n=162, t-bar=13.41, k=23
+order NOMRED, after(FECHAdata)
+
+save "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\failures-1997-2001-quarterly.dta", replace

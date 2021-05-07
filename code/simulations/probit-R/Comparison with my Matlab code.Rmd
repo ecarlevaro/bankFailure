@@ -1,0 +1,52 @@
+---
+title: "Estimation and inference in probit model"
+author: "Emi"
+date: "28/04/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(magrittr)
+```
+
+## R Markdown
+
+Load 3 samples of different sizes. They were simulated by the Matlab script.
+```{r load_simulated_data}
+sams <- list('n36' = list('X' = read_csv('../../probit/Xsim-36.csv', col_names=FALSE),
+                          'Y' = read_csv('../../probit/Ysim-36.csv', col_names=FALSE)),
+                'n100' = list('X' = read_csv('../../probit/Xsim-100.csv', col_names=FALSE),
+                              'Y' = read_csv('../../probit/Ysim-100.csv', col_names=FALSE)),
+                'n500' = list('X' = read_csv('../../probit/Xsim-500.csv', col_names=FALSE),
+                              'Y' = read_csv('../../probit/Ysim-500.csv', col_names=FALSE)))
+                
+```
+
+## Estimation & inference
+
+### Correct estimation
+Compute estimation using Generalised Least Sqaures with error term following a Biomial (Bernoulli)
+
+```{r estimation, echo=FALSE}
+results <- map_dfc(sams, function(sample)
+  {
+  Y <- as.matrix(sample$Y)
+  X <- as.matrix(sample$X)
+  
+  p <- glm(Y ~ X, family=binomial(link='probit'))
+  summary.glm(p) %$%
+    c(.$coefficients[,1], .$coefficients[,3])
+
+  })
+results
+```
+
+means
+results[[3]]$coefficients[,1]
+
+z-values
+results[[1]]$coefficients[,3]
+
+The first 4 rows correspond to mean coefficients and the last 4 rows correspond to the Z-value. See the comparison in the file C:\\Users\\emi.ABLE-22868\\OneDrive\\UWA PhD\\bankFailure\\code\\probit\\Probit simulation results.xlsx

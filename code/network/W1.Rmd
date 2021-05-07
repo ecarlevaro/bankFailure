@@ -1,0 +1,85 @@
+---
+title: "Graph 1997m6"
+author: "Emi"
+date: "06/02/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+
+```
+
+
+Load the database from Stata:
+```{r load_a_filter}
+dbRelations <- read_dta('data/W_1997m6.dta') %>%
+        dplyr::select(., FECHAdata, IDENT_ACREEDOR, IDENT_DEUDOR, 
+                PRESTAMOS, A_ACTIVO, A_APRamplio)
+dbFcialEnts <- read_dta('data/DBbanks/capital-allEntities-Monthly.dta') 
+dbFcialEnts <- dplyr::select(dbFcialEnts,  
+                      IDent, FECHAdata, bNombre, grupoIDUni, Activo, ActivoR,
+                      ALIQs1_1ratio, APRamplio, C8Est_w, CAR_IRR_3A6,
+                      P_LOANS_ARS_RATE, P_DEP_ARS_RATE, P_ROA, C8_E) %>%
+                dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata)) %>%
+    filter(., FECHAdata == ymd("1997-06-01"))
+```
+
+
+```{r build_graph}
+relations <- dbRelations %>%
+              filter(., IDENT_ACREEDOR != IDENT_DEUDOR) %>%
+              dplyr::mutate(., WEIGHT = PRESTAMOS/A_APRamplio) %>%
+              dplyr::select(IDENT_ACREEDOR, IDENT_DEUDOR, WEIGHT)
+
+g <- graph_from_data_frame(relations, directed = TRUE,
+                           vertices = dbFcialEnts)
+```
+
+Acces a specific node (vertix):
+
+```{r}
+V(g)[[1]]
+```
+gives all the details about the first vertix.
+
+ We can plot g
+```{r plot}
+library(ggraph) 
+ggraph(g, layout='fr', weights=WEIGHT ) +
+  geom_edge_link() +
+  geom_node_point(aes(size = centrality_pagerank())) +
+  theme(legend.position = 'bottom')
+
+ggraph(g, layout='fr', weights=WEIGHT ) +
+  geom_edge_link(aes(width=WEIGHT, colour=stat(index))) +
+  geom_node_point(aes(size = Activo), colour='blue', alpha=.2) +
+  geom_node_text(aes(label = bNombre), repel=TRUE) + 
+  theme(legend.position = 'bottom')
+
+```
+## Interactive plot
+Using visNetwork package. I use the same 'g' object from iGraph
+```{r plot_interactive}
+pTblNodes <- dbFcialEnts %>%
+  dplyr::select(., IDent, bNombre, Activo) %>%
+  dplyr::transmute(., id=IDent, label=bNombre, value=Activo, title=str_c(bNombre, ', $ ', (Activo/10000), ' mill.'))
+
+pTblRelations <- relations %>%
+  dplyr::transmute(., from=IDENT_ACREEDOR, to=IDENT_DEUDOR, value=WEIGHT, arrows='to')
+
+visNetwork(nodes = pTblNodes, edges = pTblRelations)
+#%>%
+#  visNodes(scaling=list())
+
+
+
+#visIgraph(g) %>%
+#  visNodes(shape='square', size = WEIGHT)
+```
