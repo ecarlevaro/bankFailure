@@ -8,8 +8,6 @@ warning('off', 'MATLAB:rankDeficientMatrix')
 % ns  denotes number of trajectories 
 % par denotes Kx1 vector of paramters with par(1) being the spatial paramter rho!!
 
-
-
 % determine number of observations
 N=length(W);
 
@@ -22,7 +20,6 @@ param=par;
 % applies sine restriction to spatial paramter rho which ensures |rho|<=c
 c=1-0.00001;
 param(1)=rhorestrict(par(1),c);  % => search value for param(1) which satisfies sin(param(1))*c=rho
-
 
 % create common random numbers (crn's)
 rng(1234567) % control seed

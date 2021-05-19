@@ -1,17 +1,27 @@
-// CapTotalMen-VarsDef.do 
-// +
+/* ************************************** */
+/* This database takes observations from capital-allEntities-Monthly.dta from 1997 to 2004
+The do files are: 
+	-CapTotalMen-VarsDef.do 
+	-This file.
+In this database, the variables that are sums of 'saldo' vars, treted missing values as zero. 
+*/
  // this file
-drop if IDent>99999
+drop if IDENT>99999
+drop if missing(ActivoN)
 
 gen FECHA_Q = qofd(dofm(FECHAdata))
 label var FECHA_Q "Quarterly date"
 format FECHA_Q %tq
 order FECHA_Q, after(FECHAdata)
 // Mes cierre: update
-merge 1:1 FECHAdata IDent using "C:\Users\emi.ABLE-22868\OneDrive\InvUNL\BasesBCRA-IEF\entidades\entidades.dta", assert(master match match_update) keep(master match match_update) keepusing(MESCIE grupoIDUni) update
+merge 1:1 FECHAdata IDENT using "C:\Users\emi.ABLE-22868\OneDrive\InvUNL\BasesBCRA-IEF\entidades\entidades.dta", assert(master match match_update) keep(master match match_update) keepusing(MESCIE grupoIDUni) update
 drop bMesCierre
 rename MESCIE bMesCierre
 order bMesCierre, after(FECHAcd)
+
+gen APRestamos = APRestamosARS+APRestamosUSD
+label var APRestamos "Total prestamos"
+format APRestamos %14.0gc
 
 gen APRSpNF_RATE = ((APRARSSpNFCap + APRUSDSpNFCap)/ (APRestamosARS+APRestamosUSD))*100
 order APRSpNF_RATE, after(RISK_EXC_PREV)

@@ -52,8 +52,6 @@ failsByTime <- right_join( tibble('Q' = allQs,
 ```
 ## Plots
 
-You can also embed plots, for example:
-
 ```{r plots, message=TRUE, warning=TRUE}
 avgN <- filter(failsByTime, TOTAL_ENTS>10)$TOTAL_ENTS %>% mean(.)
 ggplot(data=failsByTime, mapping=aes(x=Q, y=N_FAILS)) +

@@ -1,4 +1,7 @@
-ORDEN VARIABLES 
+/* *********************************** */
+/* The file capital-allEntities-Monthly-REBUILD VARS.dta requires rebuilding the vars that are sums of 'saldo' vars to treat missing values as zero (0). Then, if a bank has Activo = 0, then get rid of that observation.
+Also, that database needs to reorder the variables based on the order in the balance sheet. 
+*/
 
 // display list of variables and return the list in r(varlist)
 ds 
@@ -27,10 +30,17 @@ replace saldo* = 0
 /*					ACTIVO									*/
 /*
 /*	*********************************************************	*/
+codebook Activo
 drop Activo
-egen Activo = rowtotal(saldo111001-saldo235009) ,missing
+egen Activo = rowtotal(saldo111001-saldo235009), missing 
+//  It creates the (row) sum of the variables in varlist, treating missing as 0.  If missing is specified and all values in varlist are    missing for an observation, newvar is set to missing.
 label var Activo "Activo en miles de pesos nominal"
+codebook Activo 
 
+drop if missing(Activo)
+
+codebook ActivoN
+drop ActivoN
 gen ActivoN = Activo - A_IMP_NETEAR
 label var ActivoN "Activo neteado de A_IMP_NETEAR"
 replace ActivoN = Activo if missing(A_IMP_NETEAR)
@@ -79,6 +89,11 @@ egen APRUSDExtCap = rowtotal(saldo1361*), missing
 label var APRUSDExtCap "APRéstamos USD ResidExt CAPITALES"
 gen APRUSDCap = APRUSDSpNFCap+APRUSDSFcieroCap+APRUSDSPrivNFCap+APRUSDExtCap
 label var APRUSDCap "Préstams en USD Capitales"
+
+gen APRestamos = APRestamosARS + APRestamosUSD
+label var APRestamos "Prestamos"
+order var APRestamos, after(ALIQs1_1ratio)
+
 // OtCredXIntFciera
 drop APRotCredXIntFcieraARS
 egen APRotCredXIntFcieraARS = rowtotal(saldo141101-saldo142429), missing

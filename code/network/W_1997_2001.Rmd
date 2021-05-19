@@ -92,10 +92,13 @@ Get desc stats monthly?
 
 ```{r network_by_date}
 #relations <- filter(relations, !is.na(IDent))
-atDate <- ymd("1998-06-01")
+atDate <- ymd("1998-03-01")
 theseRelations <-  relations[ !(relations$IDENT_DEUDORA %in% missDebtors$IDENT_DEUDORA),  ] %>%
                   dplyr::mutate(., WEIGHT = PRESTAMOS/APRamplio) %>%
                   dplyr::filter(., WEIGHT>0.005)
+# Nodes
+#
+#sam <- openRDS('../../results/probit/failureUntil2001q4/sam_s1998q1_priv.rds')
 
 grupoStr <- tibble('grupoIDUni' = c(1:9, NA),
                     'type' = c('Local corporation', 'Cooperative', 'Local corporation', 'State-owned', 'State-owned', 'Foreign branch', 'Caja', 'Non-bank', 'Non-bank', 'Non-bank'))

@@ -1,0 +1,541 @@
+---
+title: "Duration probit SAR quarterly -2vars"
+author: "Emi"
+date: "14/05/2021"
+output: 
+  html_document:
+    #number_sections: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure')
+library(knitr)
+library(haven)
+library(tidyverse)
+library(magrittr)
+library(lubridate)
+library(plotly)
+library(xlsx)
+library(DT)
+library(Hmisc)
+```
+<style type="text/css">
+.main-container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+# Sample description
+
+Fitting probit model.
+
+## Load data
+
+```{r loadDb}
+db <- haven::read_dta('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/data/failures-1997-2001-quarterly.dta') %>%
+        dplyr::mutate(., 
+          FECHAdata = quarter(ymd("1960-01-01")+months(FECHA_Q*3), with_year=TRUE),
+          FECHAdataAnio = year(ymd("1960-01-01")+months(FECHA_Q*3)),
+          EXIT_DATE_Q = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+          EXIT_DATE_Y = year(as_date(EXIT_DATE, origin=ymd('1960-01-01'))),
+          START_Q = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+          .after = IDENT)
+```
+
+## Define sample
+
+```{r thisSample}
+samsSpecs <- tribble(~name, ~start,
+                     'dur_q_alive97q4_priv', 1997.4)
+samsSpecs <- mutate(samsSpecs, 
+                    'failureUnitl' = 2001.4,
+                    'predictorsUntil' = 2000.4,
+                    'excludeStateOwn' = TRUE,
+                    'outPath' = 'code/duration/alive_97q4_W98')
+```
+
+The benchmark case I select all banks alive in 1997 and use their covariate to predict failure until time `r samsSpecs$end[1]` .
+
+Here, I include banks alive on each t (instead of only banks alive on 1997q4).
+
+Are state-owned banks excluded? `r samsSpecs$excludeStateOwn[1]`
+
+samStart contains the date at which the X covariates are considered (predictors), where samEnd is the last time failures are considered.
+
+# Estimation
+
+State-owned banks are 4 (national) & 5 (provincial or municipal). Branches of foreign banks is 6, 5 is 'cajas de credito', 6 cia fcieras extranjero, 7 cia fcieras nacional.
+
+```{r estimation}
+r1 <- pmap(samsSpecs, function(...) {
+  # samSpec <- samsSpecs[1,]
+  samSpec <- tibble(...)
+  # Bank covariates (X)
+  varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
+  sam <- db %>% 
+          # Select observations of banks alive in 1997.4          
+          filter(START_Q <= 1997.4 & EXIT_DATE_Q > 1997.4) %>%
+          select(IDENT, FECHAdata, GRUPO_ID_UNI, !!varsList) %>%
+          # Only complete observations
+          filter_all(all_vars(!is.na(.))) %>%
+          # Only observations at this time
+          filter(FECHAdata >= samSpec$start & FECHAdata <= samSpec$predictorsUntil)
+          # ONly private banks
+   if (samSpec$excludeStateOwn == TRUE){
+     sam <- filter(sam, GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5)
+   }
+  # Alternative you may want to incorporate banks that were created after 1997.4. Then,
+  # you consider all banks alive at samSpec['samStart'] quarter:
+  #  sam <- db %>% 
+  #            # Select observations of banks alive at samSpec['samStart']         
+  #            filter(START_Q <= samSpec['samStart'] & EXIT_DATE_Q > samSpec['samStart']) %>%
+  #            # Only complete observations
+  #            filter_all(all_vars(!is.na(.))) %>%
+  #            # Only observations at these time
+  #            filter(FECHAdata == samSpec['samStart'])
+  #
+            
+  # Save sample
+  saveRDS(sam, file=str_c(samSpec$outPath, 'sam_', samSpec$name, '.rds'))
+  
+  # Bank covariates (X)
+  varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
+  X <- sam %>% select(all_of(varsList))
+  # 1: survival, 0: failure during the sample period
+  Y <- if_else(sam$EXIT_DATE_Y <= samSpec$end, 0, 1)
+  
+  # Table
+  desc <- tibble('N' = length(unique(sam$IDENT)),
+              'T' = length(unique(sam$FECHAdata)),
+              'NxT' = N*T,
+              'Avg n per panel' = sam %>% 
+                          select(FECHAdata, IDENT) %>% 
+                          group_by(IDENT) %>% summarise(n = n()) %$% mean(.$n),
+              'Avg IDENT' = mean(sam$IDENT),
+              'SampleStart' = min(sam$FECHAdata), 
+              'SampleEnd' = max(sam$FECHAdata),
+              'Failure until' = samSpec$end,
+              'SurvivalRate' = round(mean(Y), digits=2))
+  
+  descVars <- X %>% 
+    summarise(across(all_of(varsList), list(
+      'min' = ~min(.x, na.rm=TRUE),
+      'median' = ~round(median(.x, na.rm=TRUE)),
+      'mean' = ~mean(.x, na.rm=TRUE),
+      'max' = ~round(max(.x, na.rm=TRUE)),
+      'SD' = ~round(sd(.x, na.rm=TRUE)) )))
+  
+  # corr$r contains the correlation coefficients and corr$p the p-values (H0: r==0)
+  corr <- Hmisc::rcorr(as.matrix(X), type='pearson')
+  
+  #map_dfr(samSpec['samStart']s, function(samSpec['samStart']) {
+  #  
+  #  
+  #})
+  #h <- rms::orm(Y ~ Xt$ActivoN + Xt$C8Est_w + Xt$CAR_IRR_3A6 + Xt$P_ROA + Xt$P_DEP_ARS_RATE + Xt$P_LOANS_ARS_RATE_W + Xt$APRSpNF_RATE_W + Xt$APR_USD_RATE + Xt$APR_RATE_W, family=probit)
+  p <- glm(as.matrix(Y) ~ 
+             X$ActivoN + X$C8Est_w + X$CAR_IRR_3A6 + X$P_ROA + X$P_DEP_ARS_RATE + X$P_LOANS_ARS_RATE_W + X$APRSpNF_RATE_W + X$APR_USD_RATE + X$APR_RATE_W, 
+           family=binomial(link='probit'), x=TRUE)
+  
+  # Save regression result
+  saveRDS(p, file=str_c( 'probits_quarterly_all_banks_p_', samSpec$name, '.rds'))
+  
+  list('desc' = desc, 'descVars' = descVars, 'corr'=corr, 'p' = p)
+})
+
+names(r1) <- samsSpecs$name
+
+```
+
+## Compute marginal effects
+
+A $1- \alpha$ confidence interval for $\hat{\beta_k}$ is $\hat{\beta_k} \pm z_{\frac{\alpha}{2}} \: \frac{\hat{\sigma_k}}{\sqrt{n}}$
+
+```{r marginalEffects}
+
+# OUtput is r2$s1997q4 containing a tibble with marginal effects for each variable
+# Compute marginal effects
+# Marginal probabilities
+r2 <- map(r1, function(r) {
+  # r = r1$s97q4.Priv.01q4
+  pSummary <- summary.glm(r$p)
+  
+  pMarginals <- dnorm( r$p$x %*% r$p$coefficients )
+  
+  # Marginal effect of the average bank
+  x_Bar <- apply(r$p$x, MARGIN=2, mean) # Kx1 vector
+  pMarginalAvgBank <- dnorm( t(x_Bar) %*% r$p$coefficients)
+  
+  pmap_dfr(as_tibble( pSummary$coefficients, rownames='var'), function(var, Estimate, `Std. Error`, ...) { 
+  # CAMERON TRIVEDIR p467. Avergae Marginal effect of variable j is the average (over observations) of pdf(X Beta) * \hat{\beta}_j
+    tibble('samStart' = r$desc$SampleStart,
+           'samEnd' = r$desc$SampleStart,
+           'n' = NROW(r$p$y),
+           'var' = var, 
+           'avgEffectMean' = mean(pMarginals * Estimate),
+           'avgEffectMin90' = avgEffectMean - 1.645 * (`Std. Error`)*(1/sqrt( n )), 
+           'avgEffectMax90' = avgEffectMean + 1.645 * (`Std. Error`)*(1/sqrt( n )),
+           'effectAvgBankMean' = pMarginalAvgBank * Estimate,
+           'effectAvgBankMin90' = effectAvgBankMean - 1.645* (`Std. Error`)*(1/sqrt( n )),
+           'effectAvgBankMax90' = effectAvgBankMean + 1.645*(`Std. Error`)*(1/sqrt( n )))
+  }) 
+  
+}) 
+  
+```
+
+# Results
+
+## Descriptive statistics {.tabset .tabset-fade .tabset-pills}
+
+```{r tableSampleDesc}
+t <- map2_dfr(r1, names(r1), function(r, samName) {
+      r$desc }) %>% t(.) %>% 
+      as_tibble(., rownames='row_names')
+colnames(t) <- c('Feature', samsSpecs$name )
+
+t %>% DT::datatable(., rownames=FALSE) %>% 
+  formatRound(columns=c(2:NCOL(t)))
+
+```
+
+### Means
+
+```{r tableMeans}
+tMeans <- map_dfr(r1, function(r) {
+      r$descVars %>% select(ends_with('_mean')) }) %>%
+      t(.) %>% 
+      as_tibble(., rownames='row_names')
+colnames(tMeans) <- c('Variable', samsSpecs$name )
+
+tMeans %>%
+  DT::datatable(., rownames=FALSE) %>% formatRound(columns=c(2:NCOL(tMeans)))
+
+```
+
+### Std Dev
+
+```{r }
+tSDs <- map_dfr(r1, function(r) {
+      r$descVars %>% select(ends_with('_SD')) }) %>%
+      t(.) %>% 
+      as_tibble(., rownames='row_names')
+colnames(tSDs) <- c('Variable', samsSpecs$name )
+
+tSDs %>%
+  DT::datatable(., rownames=FALSE) %>% formatRound(columns=c(2:NCOL(tSDs)))
+
+```
+
+## Correlation coefficients {.tabset .tabset-fade .tabset-pills}
+
+```{r corrTableCode, eval=FALSE, include=FALSE}
+library(pander)
+
+create_section <- function(r) {
+
+   # Inserts "## Title (auto)"
+   pander::pandoc.header('Title (auto)', level =3)
+
+   # Section content
+
+   # a list, formatted as Markdown
+   # adding also empty lines, to be sure that this is valid Markdown
+   pander::pandoc.p('')
+   pander::pandoc.list(letters[1:3])
+   pander::pandoc.p('')
+}
+```
+
+```{r eval=FALSE, include=FALSE, results='asis'}
+n_sections <- 3
+
+walk(r1, function(r) {
+   create_section(r)
+})
+```
+
+```{r }
+walk(r1, function(r) {
+  colnames(r$corr$P) <- str_c( colnames(r$corr$r), '_P') 
+  corrData <- cbind(r$corr$r, r$corr$P) %>% 
+              as_tibble(., rownames='Variable')
+
+  corrTable <-  DT::datatable(corrData, rownames = FALSE, 
+                    caption='Correlation table. Bold correlations with p-value < 0.15',
+                    extensions = 'FixedColumns',
+                      options = list(dom = 'Variable', scrollX = TRUE, fixedColumns = TRUE))
+
+  # Add format for significant correlations (p-value < 0.15)
+    walk(colnames(r$corr$r), function(colName) {
+      #browser()
+      corrTable <<- formatStyle(corrTable, 
+                      colName, str_c(colName, '_P'),
+                      fontWeight = styleInterval(c(0.15), c('bold', 'normal')))
+      corrTable <<- formatStyle(corrTable, 
+                      str_c(colName, '_P'),
+                      visibility= 'hidden')
+    })
+    #browser()
+    print(corrTable %>% formatRound(columns=c(2:NCOL(corrData))))
+    #print('2')
+
+})
+
+
+```
+
+## Average marginal effects {.tabset .tabset-fade .tabset-pills}
+
+```{r marginalEffectsData}
+# Extract data on marginal effects for each sample
+mEffects <- map_dfr(r2, function(sam) {
+            sam
+            })
+
+plot_avg_m_effect <- function(varStr) {
+    dPlot <- filter(mEffects, var== !!str_c('X$',varStr)) %>%
+            mutate(
+            'avgEffectMin90' = avgEffectMin90*100,
+            'avgEffectMean' = avgEffectMean*100,
+            'avgEffectMax90' = avgEffectMax90*100,
+            'bar_length_radio' = (avgEffectMax90 - avgEffectMin90)/2,
+              'samStart_str' = str_c(samStart))
+    pInteractive <- plot_ly(data=dPlot,
+               x = ~samStart_str,
+               y = ~avgEffectMean,
+               type = 'scatter', mode = 'markers',
+               error_y = ~list(array = dPlot$bar_length_radio,
+                          color = '#000000')) %>%
+               #name = ~Item,
+               #color = ~ Item,
+               #colors = c("dodgerblue3","deeppink3","lightgreen")),
+            layout(
+               title = str_c('Marginal effect of ', varStr, ' on survival probability'),
+               xaxis = list(type = 'category', title = 'Quarter of predictor'),
+               yaxis = list(title = 'Marginal effect x100'))
+                            #range = c(0,7))
+    pStatic <- ggplot(data = dPlot,
+         mapping=aes(x=samStart, y=avgEffectMean)) +
+        geom_hline(yintercept=0) +
+        geom_pointrange(aes(ymin=avgEffectMin90, ymax=avgEffectMax90), colour='blue')
+    
+    list('interactive' = pInteractive, 'static' = pStatic)
+
+}
+
+```
+
+### Capital ratio (C8Est\_w)
+
+Plot marginal effect for capital ratio for different initial values of predictor variables.
+
+```{r marginalEffCapital}
+plots <- plot_avg_m_effect('C8Est_w')
+
+plots$interactive
+
+plots$static
+
+```
+
+### Non-perfoaming loans
+
+```{r }
+plots <- plot_avg_m_effect('CAR_IRR_3A6')
+
+plots$interactive
+
+plots$static
+
+```
+
+### Deposits interest rate (P\_DEP\_ARS\_RATE)
+
+Plot marginal effect for Deposits interest rate for different initial values of predictor variables.
+
+```{r }
+plots <- plot_avg_m_effect('P_DEP_ARS_RATE')
+
+plots$interactive
+
+plots$static
+
+```
+
+### Loans interest rate (P\_LOANS\_ARS\_RATE\_W)
+
+Plot marginal effect for Deposits interest rate for different initial values of predictor variables.
+
+```{r }
+plots <- plot_avg_m_effect('P_LOANS_ARS_RATE_W')
+
+plots$interactive
+
+plots$static
+
+```
+
+### PUblic sector exposure through loans (APRSpNF\_RATE\_W)
+
+Plot marginal effect for PUblic sector exposure through loans for different initial values of predictor variables.
+
+```{r }
+plots <- plot_avg_m_effect('APRSpNF_RATE_W')
+
+plots$interactive
+
+plots$static
+
+```
+
+### USD loans (APR\_USD\_RATE)
+
+Plot marginal effect for APR\_USD\_RATE for different initial values of predictor variables.
+
+```{r }
+plots <- plot_avg_m_effect('APR_USD_RATE')
+
+plots$interactive
+
+plots$static
+
+```
+
+### Loans to Assets ratio (APR\_RATE\_W)
+
+Plot marginal effect for APR\_RATE\_W for different initial values of predictor variables.
+
+```{r }
+plots <- plot_avg_m_effect('APR_RATE_W')
+
+plots$interactive
+
+plots$static
+
+```
+
+## Marginal effects of average bank {.tabset .tabset-fade .tabset-pills}
+
+### Capital ratio (C8Est\_w)
+
+Plot marginal effect for capital ratio for different initial values of predictor variables.
+
+```{r plot_fcn_m_effect_avg_bank}
+
+plot_m_effect_avg_bank <- function(varStr) {
+  dPlot <- filter(mEffects, var == !!str_c('X$',varStr)) %>%
+            mutate(
+              'effectAvgBankMin90' = effectAvgBankMin90*100,
+              'effectAvgBankMean' = effectAvgBankMean*100,
+              'effectAvgBankMax90' = effectAvgBankMax90*100,
+              'bar_length_radio' = (effectAvgBankMax90 - effectAvgBankMin90)/2,
+              'samStart_str' = str_c(samStart))
+    pInteractive <- plot_ly(data=dPlot,
+                 x = ~samStart_str,
+                 y = ~effectAvgBankMean,
+                 type = 'scatter', mode = 'markers',
+                 error_y = ~list(array = dPlot$bar_length_radio,
+                            color = '#000000')) %>%
+                 #name = ~Item,
+                 #color = ~ Item,
+                 #colors = c("dodgerblue3","deeppink3","lightgreen")),
+              layout(
+                 title = str_c('Marginal effect of ', varStr, ' on survival probability'),
+                 xaxis = list(type = 'category', title = 'Quarter of predictor'),
+                 yaxis = list(title = 'Marginal effect x100'))
+                              #range = c(0,7))
+    pStatic <- ggplot(data = dPlot,
+                 mapping=aes(x=samStart, y=effectAvgBankMean)) +
+                geom_hline(yintercept=0) +
+                geom_pointrange(aes(ymin=effectAvgBankMin90, ymax=effectAvgBankMax90), colour='blue')
+    
+    list('interactive' = pInteractive, 'static' = pStatic)
+
+}
+```
+
+```{r }
+plots <- plot_m_effect_avg_bank('C8Est_w')
+
+plots$interactive
+
+plots$static
+```
+
+### Non-perfoaming loans
+
+```{r }
+plots <- plot_m_effect_avg_bank('CAR_IRR_3A6')
+
+plots$interactive
+
+plots$static
+```
+
+### Deposits interest rate (P\_DEP\_ARS\_RATE)
+
+Plot marginal effect for Deposits interest rate for different initial values of predictor variables.
+
+```{r }
+plots <- plot_m_effect_avg_bank('P_DEP_ARS_RATE')
+
+plots$interactive
+
+plots$static
+```
+
+### Loans interest rate (P\_LOANS\_ARS\_RATE\_W)
+
+Plot marginal effect for Deposits interest rate for different initial values of predictor variables.
+
+```{r }
+plots <- plot_m_effect_avg_bank('P_LOANS_ARS_RATE_W')
+
+plots$interactive
+
+plots$static
+
+```
+
+### PUblic sector exposure through loans (APRSpNF\_RATE\_W)
+
+Plot marginal effect for PUblic sector exposure through loans for different initial values of predictor variables.
+
+```{r }
+plots <- plot_m_effect_avg_bank('APRSpNF_RATE_W')
+
+plots$interactive
+
+plots$static
+
+```
+
+### USD loans (APR\_USD\_RATE)
+
+Plot marginal effect for APR\_USD\_RATE for different initial values of predictor variables.
+
+```{r }
+plots <- plot_m_effect_avg_bank('APR_USD_RATE')
+
+plots$interactive
+
+plots$static
+
+```
+
+### Loans to Assets ratio (APR\_RATE\_W)
+
+Plot marginal effect for APR\_RATE\_W for different initial values of predictor variables.
+
+```{r }
+plots <- plot_m_effect_avg_bank('APR_RATE_W')
+
+plots$interactive
+
+plots$static
+
+```

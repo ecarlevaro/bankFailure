@@ -1,4 +1,5 @@
-load IT
+%load IT
+Y = readmatrix("../
 
 %Data (See Hanna's XLS-file for details)
 %N --- The number of countries

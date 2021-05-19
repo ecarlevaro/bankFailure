@@ -1,0 +1,195 @@
+---
+title: "Graph 1997m6-2001m12"
+author: "Emi"
+date: "10/02/2021"
+output: html_document
+   #code_folding: hide
+---
+<style type="text/css">
+.main-container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure')
+library(tidyverse)
+library(lubridate)
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(xlsx)
+library(svglite) # export plots to svg
+#source('FunsMisc.R')
+```
+
+# INtroduction
+I build the network monthly. 
+Then I take quarterly averages of the matrix W obtaining quarterly networks.
+Then I filter W to include only the banks that are considered in the quarterly probit model. 
+
+## Loading data
+
+Load the database from Stata:
+
+```{r load_and_filter}
+
+dbRelations <- read_dta('data/interLoans/cen_deu_annual.dta')
+```
+
+```{r network_by_date}
+#relations <- filter(relations, !is.na(IDent))
+#atDate <- ymd("1998-03-01")
+atDate <- 1998
+sam <- readRDS('code/probit/failureTill2001q4/annual/sam_s98.Priv.01.onT.rds')
+
+theseRelations <- dbRelations %>% 
+                  #dplyr::filter(., W_A_PR>0.0001) %>%
+                  dplyr::filter(., FECHA_A == atDate) %>%
+                  filter(., IDENT_ACREEDORA != IDENT_DEUDORA) %>%
+                  select(IDENT_ACREEDORA, IDENT_DEUDORA, W_A_PR) %>%
+                  rename(WEIGHT = W_A_PR) %>%
+                  mutate(WEIGHT = WEIGHT*100)
+# W can only contains entities that are in the sample. 
+theseRelations <- semi_join(theseRelations, select(sam, IDENT), by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
+                  semi_join(., select(sam, IDENT), by= c('IDENT_DEUDORA' = 'IDENT'))
+  
+
+# Nodes
+#
+
+#grupoStr <- tibble('grupoIDUni' = c(1:9, NA),
+#                    'type' = c('Local corporation', 'Cooperative', 'Local corporation', 'State-owned', 'State-owned', 'Foreign branch', 'Caja', 'Non-bank', 'Non-bank', 'Non-bank'))
+
+
+#nodes <- filter(dbFcialEnts, FECHAdata==atDate) %>%
+#          dplyr::select(., !FECHAdata) %>%
+          #left_join(., grupoStr, by='grupoIDUni')
+#
+nodes <- select(sam, IDENT, NOMRED, EXIT_DATE_Q:GRUPO_ID_UNI)
+g <- graph_from_data_frame(d = theseRelations, 
+                           vertices = nodes,
+                          directed = TRUE)
+
+# Export adjacency matrix
+W_weighted <- as_adjacency_matrix(g, attr='WEIGHT', sparse=FALSE)
+W <- as_adjacency_matrix(g, attr=NULL, sparse=FALSE)
+sumCols <- apply(W, MARGIN=2, sum)
+write.table(W_weighted, file='code/standardSpatialProbit/W_weighted_1998.csv', 
+            sep=', ',
+            row.names = F, col.names = F)
+
+write.table(W, file='code/standardSpatialProbit/annualW_1998.csv', 
+            sep=', ',
+            row.names = F, col.names = F)
+
+# Export covariates
+
+
+```
+
+Sparsity of W is ```{r} (sum(sumCols)/(NCOL(W)*NROW(W)))*100 ``` %
+
+
+## Relations: distribution of weights
+
+```{r weight_density}
+#thisRelations <- dplyr::filter(theseRelations, FECHAdata == atDate)
+#group_by(theseRelations, FECHAdata) %>%
+  descStatsW <- summarise(theseRelations,
+          'Links' = n(),
+          'N_CREDITORS' = n_distinct(IDENT_ACREEDORA),
+          'N_DEBTORS' = n_distinct(IDENT_DEUDORA),
+          'MEAN_WEIGHT_PC' = round(mean(WEIGHT), 2),
+          'Median weight' = round(median(WEIGHT)),
+          'CV weight' =  round((MEAN_WEIGHT_PC) / sd(WEIGHT), 2),
+          '1st quartile_PC' = round(quantile(WEIGHT, probs=.25), 2))
+          
+descStatsW
+
+linksPerBank <- theseRelations %>%
+group_by(IDENT_ACREEDORA) %>%
+summarise('Links' = n())
+
+linksPerBank
+
+```
+
+#ggplot(data=thisRelations[, 'WEIGHT'], mapping=aes(x=WEIGHT)) +
+#  scale_x_continuous(breaks=seq(0, 0.35, by=0.05)) +
+#  geom_dotplot()
+#
+#ggplot(data=thisRelations[, 'WEIGHT'], mapping=aes(x=WEIGHT)) +
+#  scale_x_continuous(breaks=seq(0, 0.35, by=0.05)) +
+#  geom_boxplot()
+
+Acces a specific node (vertix):
+
+```{r}
+V(g)[[1]]
+```
+
+gives all the details about the first vertix.
+
+We can plot g
+
+```{r plot}
+library(ggraph) 
+ggraph(g, layout='fr', weights=WEIGHT ) +
+  geom_edge_link() +
+  geom_node_point(aes(size = centrality_pagerank())) +
+  theme(legend.position = 'bottom')
+
+Pstatic <- ggraph(g, layout='fr', weights=WEIGHT ) +
+            # geom_edge_fan(aes(width=WEIGHT, colour=stat(index)),
+            geom_edge_fan(aes(alpha=WEIGHT),
+                          arrow = arrow(length=unit(1, 'mm')), end_cap = circle(2, 'mm')) +
+            geom_node_point(aes(size = (Activo/1000000), colour=factor(type)), alpha=.8) +
+            #geom_node_text(aes(label = bNombre), repel=TRUE, check_overlap = TRUE) + 
+  scale_size(breaks=c(1, 5, 10, 15), labels=c('<=1', '5', '10', '15'))          +
+  theme(legend.position = 'bottom') +
+            guides(size=guide_legend(title='Assets (billions pesos)', title.position='top', nrow=3, ncol=2, byrow=TRUE),
+                   colour=guide_legend(title='Organizational type', title.position='top', override.aes=list(size=5), nrow=3, byrow=TRUE),
+                   edge_alpha=guide_legend(title='Share from lender bank', title.position='top', nrow=3, byrow=TRUE))
+
+#Pstatic
+#ggsave('Pstatic.pdf', plot=Pstatic)
+#ggsave('Pstatic.svg', plot=Pstatic)
+
+```
+
+## Interactive plot
+
+Using visNetwork package. I use the same 'g' object from iGraph
+
+```{r plot_interactive, eval=TRUE}
+pTblNodes <- nodes %>%
+  dplyr::select(., IDENT, NOMRED, ActivoN) %>%
+  dplyr::transmute(., id=IDENT, label=NOMRED, value=ActivoN, title=str_c(NOMRED, ', $ ', round((ActivoN/1000000), digits=2), ' bill.'))
+
+pTblRelations <- theseRelations %>%
+  dplyr::transmute(., from=IDENT_ACREEDORA, to=IDENT_DEUDORA, value=WEIGHT, arrows='to')
+
+visNetwork(nodes = pTblNodes, edges = pTblRelations, height = "900px", width = "100%")  %>% 
+  visNodes(mass=15, scaling=list('min'=5,'max'=20)) %>%
+  visEdges(scaling=list('min'=1, 'max'=5)) %>%
+  visLayout(randomSeed=123, improvedLayout=TRUE) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE, collapse=TRUE) %>%
+  visInteraction(navigationButtons = TRUE) %>%
+  visPhysics(enabled = FALSE, maxVelocity = 0.75)
+
+#   %>%
+#  visConfigure(enabled = TRUE)
+#%>%
+#  visNodes(scaling=list())
+
+
+
+#visIgraph(g) %>%
+#  visNodes(shape='square', size = WEIGHT)
+```
+

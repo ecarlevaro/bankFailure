@@ -1,0 +1,83 @@
+---
+title: "Desc stats from samples"
+author: "Emi"
+date: "11/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE)
+library(haven)
+library(tidyverse)
+library(lubridate)
+```
+
+```{r importSample}
+#sam <- readRDS('../probit/failureTill2001q4/annual/sam_s98.Priv.01.onT.rds')
+sam <- readRDS('sam_s98.Priv.01.onT.rds')
+```
+
+```{r tibbles}
+# Count failures by quarter
+failuresByQ <- group_by(sam, EXIT_DATE_Q) %>%
+  rename('Q' = 'EXIT_DATE_Q') %>%
+  count(., name='N_FAILS')
+
+allQs <- seq.Date(from=ymd('1997-01-01'), to=ymd('2004-07-01'), by='quarter') %>%
+          quarter(., with_year = TRUE)
+alives <- map_int(allQs, function(thisQ)
+    {
+      arrange(sam, IDENT) %>%
+      filter(., START_Q <= thisQ & 
+        (EXIT_DATE_Q>thisQ | EXIT_DATE_Y == 2099 ) ) %>%
+      nrow(.)
+    })
+
+failsByTime <- right_join( tibble('Q' = allQs,
+                    'TOTAL_ENTS' = alives),
+                    failuresByQ,
+                    by='Q') %>%
+                  mutate(., HAZ_RATE_PC = (N_FAILS/TOTAL_ENTS)*100)
+
+```
+
+# Plots
+
+```{r plots, message=TRUE, warning=TRUE}
+avgN <- filter(failsByTime, TOTAL_ENTS>10)$TOTAL_ENTS %>% mean(.)
+
+pSurvival <- failsByTime %>%
+              filter(Q<=2004.2) %>%
+              ggplot( mapping=aes(x=Q, y=TOTAL_ENTS)) +
+              geom_line() +
+                theme_bw() + theme(panel.grid=element_line(colour='#999999', linetype='14'), 
+                                 panel.grid.minor=element_line(colour='white'), text=element_text(size=12), 
+                                 axis.text.x = element_text(angle=90, vjust=0.5),
+                                 axis.text.y = element_text(size=10),
+                                 legend.position = 'bottom',
+                                 legend.text = element_text(size = 12)) +
+              scale_x_continuous(name='Quarters') +
+            #, limits=c(1998.2, 2004.2), breaks=seq(from=1998.2, 2004.43000, by=300)) + 
+              scale_y_continuous(name='Total active banks', 
+                                 breaks=seq(from=0, 105, by=10)) +
+              geom_vline(xintercept=2001.4, size=0.8, colour = 'black', linetype = 'longdash')
+
+ggsave('survival.png', width=16, height=10,
+       units='cm', plot=pSurvival)
+
+
+
+ggplot(data=failsByTime, mapping=aes(x=Q, y=N_FAILS)) +
+  #geom_dotplot() +
+  geom_label(aes(label=N_FAILS), position=position_dodge(0.9)) +
+  coord_cartesian(ylim=c(0, avgN))
+
+ggplot(data=failsByTime, mapping=aes(x=Q, y=HAZ_RATE_PC)) +
+  geom_line() +
+  coord_cartesian(ylim=c(0, 100)) + 
+  geom_label(aes(label=N_FAILS), position=position_dodge(0.9)) +
+  coord_cartesian(ylim=c(0, avgN))
+
+
+```

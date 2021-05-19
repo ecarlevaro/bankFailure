@@ -25,5 +25,15 @@ gen CUIT = IDEN_DEUDOR if TIPO == 11
 label var CUIT "CUIT del deudor. Igual a IDEN_DEUDOR para los que tienen CUIT"
 
 merge m:1 FECHA_DATA CUIT using "C:\Users\emi.ABLE-22868\OneDrive\InvUNL\BasesBCRA-IEF\entidades\mapeo_IDent_CUIT\CUITs_entidades_1997_2001.dta", assert(master match) keep(master match) keepusing(IDent) update
-
 replace IDENT_DEUDORA = IDent 
+
+order IDENT_ACREEDORA IDENT_DEUDORA, after(NOMBRE_ENT)
+
+/* ********************** */
+/* GO QUARTERLY			*/
+/* ********************** */
+gen FECHA_Q = qofd(dofm(FECHAdata))
+label var FECHA_Q "Quarterly date"
+format FECHA_Q %tq
+order FECHA_Q, after(FECHAdata)
+

@@ -13,13 +13,10 @@ library(tidyverse)
 library(lubridate)
 library(xlsx)
 library(DT)
+library(htmltools)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Loading data
 
 ```{r db}
 db <- haven::read_dta('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/data/failures-1997-2001-quarterly.dta') %>%
@@ -29,35 +26,40 @@ db <- haven::read_dta('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/data
           EXIT_DATE_Q = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
           EXIT_DATE_Y = year(as_date(EXIT_DATE, origin=ymd('1960-01-01'))),
           START_Q = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
-          .after = IDENT) 
+          .after = IDENT) %>%
+        filter(FECHAdata>=1997.4 & FECHAdata<=2001.4)
+
+varList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
 ```
 
 # Descriptive statistics
-## From 1997-12 to 2001-12
-### Missing values as %
+## From 1997q4 to 2001q4
+### Missing values
 
-Percentage (%) of complete observations by year
+Percentage (%) of fully complete observations by year (all variables)
 ```{r }
 NperQ <- db %>% 
-  filter(FECHAdata>=1997.4 & FECHAdata<=2001.4) %>%
   group_by(FECHAdata) %>%
   summarise(N = n())
 completeNperQ <- db %>% 
-  filter(FECHAdata>=1997.4 & FECHAdata<=2001.4) %>%
   filter_all(all_vars(!is.na(.))) %>% 
   group_by(FECHAdata) %>%
   summarise(completeN = n())
+
 dplyr::inner_join(NperQ, completeNperQ, by="FECHAdata") %>%
-  dplyr::mutate('fullObsPC' = round(completeN/N*100))
+  dplyr::mutate('Complete observations (%)' = round(completeN/N*100))
 
 ```
-filter_all(all_vars(!is.na(.)))
+
+Missing by year (% of total observations)
 
 ```{r mssingByYear}
+db %>% select(c(IDENT, FECHAdata, !!varList)) %>% filter(is.na(CAR_IRR_3A6)) %>% 
+  write.xlsx(., file='CAR_IRR_3A6_missing.xlsx')
+
 db %>% 
-  filter(FECHAdata>=1997.4 & FECHAdata<=2001.4) %>%
   group_by(FECHAdataAnio) %>%
-    summarise(across(c(ActivoN, C8Est_w, CAR_IRR_3A6, P_ROA, P_DEP_ARS_RATE, P_LOANS_ARS_RATE_W, APRSpNF_RATE_W, APR_USD_RATE, APR_RATE_W), 
+    summarise(across(!!varList, 
                    list(M = ~round(( sum(is.na(.x))/sum(!is.na(IDENT)))*100)) ) ) %>%
   #filter(., Activo_N_MISSING > 0) %>%
   #kable(., caption='Missinv values for Activo')
@@ -67,15 +69,9 @@ db %>%
 
 ### Desc stats table
 ```{r desc_stats_table}
-tibble('id' = c(1,2,3),
-  'var1' = c(100,225, 300)) %>%
-  summarize(across(c(var1), 
-                   list(mean = mean)))
 
-varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
 dSVals <- db %>% 
-  filter(FECHAdata>=ymd("1997-12-1") & FECHAdata<=ymd("2001-12-31")) %>%
-  summarise(across(all_of(varsList), list(
+  summarise(across(all_of(!!varList), list(
     'min' = ~min(.x, na.rm=TRUE),
     'median' = ~round(median(.x, na.rm=TRUE)),
     'mean' = ~mean(.x, na.rm=TRUE),
@@ -85,7 +81,6 @@ dSVals <- db %>%
 
 colName = c('min', 'median', 'mean', 'sd', 'max')
 out <- map_dfc(colName, function(colName) {
-  
  colVector <- select(dSVals, ends_with(colName)) %>%
   map_dbl(., function(col) { 
     as_vector(col)
@@ -98,248 +93,81 @@ descStatsTibble <- tibble('min' = as_vector(select(dSVals, ends_with('min'))),
                     'mean' = as_vector(select(dSVals, ends_with('mean'))),
                     'sd' = as_vector(select(dSVals, ends_with('sd'))),
                     'max' = as_vector(select(dSVals, ends_with('max'))))
-rownames(descStatsTibble) <- vars
+rownames(descStatsTibble) <- varList
   datatable(descStatsTibble) %>%
     formatRound(columns=c('min', 'median', 'mean', 'sd', 'max'))
 ```
 
-                        mean = ~round(mean(.x, na.rm=TRUE)),
-                        median = ~round(median(.x, na.rm=TRUE)),
-                        max = ~round(max(.x)),
-                        SD = ~round(sd(.x, na.rm=TRUE))
-                        
 ## Correlation table
 ```{r corrTable}
-cor(db, db)
+
+# corr$r contains the correlation coefficients and corr$p the p-values (H0: r==0)
+corr <- Hmisc::rcorr(as.matrix(select(db, !!varList)), type='pearson')
+
+colnames(corr$P) <- str_c( colnames(corr$r), '_P') 
+corrData <- cbind(corr$r, corr$P) %>% 
+            as_tibble(., rownames='Variable')
+
+corrTable <-  DT::datatable(corrData, rownames = FALSE, 
+                  caption='Correlation table. Bold correlations with p-value < 0.15',
+                  extensions = 'FixedColumns',
+                    options = list(dom = 'Variable', scrollX = TRUE, fixedColumns = TRUE))
+
+# Add format for significant correlations (p-value < 0.15)
+walk(colnames(corr$r), function(colName) {
+  #browser()
+  corrTable <<- formatStyle(corrTable, 
+                  colName, str_c(colName, '_P'),
+                  fontWeight = styleInterval(c(0.15), c('bold', 'normal')))
+  corrTable <<- formatStyle(corrTable, 
+                  str_c(colName, '_P'),
+                  visibility= 'hidden')
+})
+  #browser()
+corrTable  %>% formatRound(columns=c(2:NCOL(corrData)))
+
 ```
 
-## Details
-### Results
-#### ActivoN
+## Variable tables
 
-```{r Activo, results='asis'}
-db %>% 
-  group_by(IDENT) %>%
-  summarise(across(c(ActivoN), 
-                   list('min' = min,
-                        mean = ~mean(.x, na.rm=TRUE),
-                        max = max,
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-
-
-```
-
-#### Equity ratio
-
-```{r Equity, results='asis'}
-db %>%
-  summarise(across(c(C8_E, C8Est_w),
-                   list(mean = ~mean(.x, na.rm=TRUE),
-                        sd = ~sd(.x, na.rm=TRUE))))
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(C8_E, C8Est_w), 
-                   list('min' = min,
-                        mean = ~mean(.x, na.rm=TRUE),
-                        max = max,
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-
-# By IDENT
-db %>% 
-  group_by(IDENT) %>%
-  summarise(across(c(C8_E, C8Est_w), 
-                   list(mean = ~mean(.x, na.rm=TRUE),
-                        sd = ~sd(.x, na.rm=TRUE),
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  datatable(.)
-```
-
-C8Est_w has lower sd.
-
-#### Non-performing loans
-
-CAR_IRR_3A6
 ```{r Nonperforming, results='asis'}
-db %>%
-  summarise(across(c(CAR_IRR_3A6),
-                   list(mean = ~mean(.x, na.rm=TRUE),
-                        sd = ~sd(.x, na.rm=TRUE))))
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(CAR_IRR_3A6), 
-                   list('min' = min,
-                        mean = ~mean(.x, na.rm=TRUE),
-                        max = max,
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-
-# By IDENT
-db %>% 
-  group_by(IDENT) %>%
-  summarise(across(c(C8_E, C8Est_w), 
-                   list(mean = ~mean(.x, na.rm=TRUE),
-                        sd = ~sd(.x, na.rm=TRUE),
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  datatable(.)
-```
-
-
-#### ROA
-```{r ROA, results='asis'}
-db %>%
-  summarise(across(c(P_ROA, P_ROA_EST_PC),
-                   list(mean = ~mean(.x, na.rm=TRUE),
-                        sd = ~sd(.x, na.rm=TRUE))))
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(P_ROA, P_ROA_EST_PC), 
-                   list(#'min' = min,
-                        mean = ~round(mean(.x, na.rm=TRUE),2),
-                        #max = max,
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-
-# By IDENT
-db %>% 
-  group_by(IDENT) %>%
-  summarise(across(c(P_ROA, P_ROA_EST_PC), 
-                   list(N_MISSING = ~sum(is.na(.x))))) %>%
-  #summarise(., meanMissing = mean(P_ROA_N_MISSING))
-  summarise(., across(c(P_ROA_N_MISSING, P_ROA_EST_PC_N_MISSING), 
-                      list(meanMissing = ~mean(.x)))) %>%
-  datatable(.)
-
-db %>% 
-  filter(FECHAdataAnio<2002) %>%
-  group_by(IDENT) %>%
-  summarise(across(c(P_ROA, P_ROA_EST_PC), 
-                   list(N_MISSING = ~sum(is.na(.x))))) %>%
-  #summarise(., meanMissing = mean(P_ROA_N_MISSING))
-  summarise(., across(c(P_ROA_N_MISSING, P_ROA_EST_PC_N_MISSING), 
-                      list(meanMissing = ~mean(.x)))) %>%
-  datatable(.)
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(P_ROA, 
-                   list('min' = ~round(min(.x, na.rm = TRUE), 2),
-                        'mean' = ~round(mean(.x, na.rm=TRUE),2),
-                        'median' = ~round(median(.x, na.rm=TRUE),2),
-                        'sd' = ~round(sd(.x, na.rm=TRUE),2),
-                        'max' = ~round(max(.x, na.rm = TRUE)),
-                        'N_MISSING' = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-```
-
-#### Public sector expoure
-
-```{r StateExp, results='asis'}
-db %>%
-  summarise(across(c(APRSpNF_RATE_W),
-                   list(mean = ~round(mean(.x, na.rm=TRUE), 2),
-                        sd = ~round(sd(.x, na.rm=TRUE), 2))))
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(APRSpNF_RATE_W), 
-                   list(#'min' = min,
-                        mean = ~round(mean(.x, na.rm=TRUE),2),
-                        #max = max,
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-
-# By IDENT
-db %>% 
-  group_by(IDENT) %>%
-  summarise(across(APRSpNF_RATE_W, 
-                   list(N_MISSING = ~sum(is.na(.x))))) %>%
-  #summarise(., meanMissing = mean(P_ROA_N_MISSING))
-  summarise(., across(c(APRSpNF_RATE_N_MISSING), 
-                      list(meanMissing = ~mean(.x)))) %>%
-  datatable(.)
-
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(APRSpNF_RATE_W), 
-                   list('min' = ~round(min(.x, na.rm = TRUE), 2),
-                        'mean' = ~round(mean(.x, na.rm=TRUE),2),
-                        'median' = ~round(median(.x, na.rm=TRUE),2),
-                        'sd' = ~round(sd(.x, na.rm=TRUE),2),
-                        'max' = ~round(max(.x, na.rm = TRUE)),
-                        'N_MISSING' = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-```
-```{r interest_rates}
-db %>%
-  summarise(across(c(APRSpNF_SHR),
-                   list(mean = ~round(mean(.x, na.rm=TRUE), 2),
-                        sd = ~round(sd(.x, na.rm=TRUE), 2))))
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(APRSpNF_SHR), 
-                   list(#'min' = min,
-                        mean = ~round(mean(.x, na.rm=TRUE),2),
-                        #max = max,
-                        N_MISSING = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-
-# By IDENT
-db %>% 
-  group_by(IDENT) %>%
-  summarise(across(APRSpNF_SHR, 
-                   list(N_MISSING = ~sum(is.na(.x))))) %>%
-  #summarise(., meanMissing = mean(P_ROA_N_MISSING))
-  summarise(., across(c(APRSpNF_SHR_N_MISSING), 
-                      list(meanMissing = ~mean(.x)))) %>%
-  datatable(.)
-
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(APRSpNF_SHR), 
-                   list('min' = ~round(min(.x, na.rm = TRUE), 2),
-                        'mean' = ~round(mean(.x, na.rm=TRUE),2),
-                        'median' = ~round(median(.x, na.rm=TRUE),2),
-                        'sd' = ~round(sd(.x, na.rm=TRUE),2),
-                        'max' = ~round(max(.x, na.rm = TRUE)),
-                        'N_MISSING' = ~sum(is.na(.x))))) %>%
-  #filter(., Activo_N_MISSING > 0) %>%
-  #kable(., caption='Missinv values for Activo')
-  datatable(.)
-### Missing values
-```{r missValues, results='asis'}
-db %>% 
-  summarise(across(c(ActivoN, C8Est_w, CAR_IRR_3A6), 
-                   list(N_MISSING = ~sum(is.na(.x))))) %>%
-  datatable(.)
-
-db %>% 
-  group_by(FECHAdataAnio) %>%
-  summarise(across(c(ActivoN, C8Est_w, CAR_IRR_3A6), 
-                   list(N_MISSING = ~sum(is.na(.x))))) %>%
-  datatable(.)
-
+map(varList, function(thisVar) {
+ # generate new tab
+  cat(str_c('### ', thisVar, ' {.tabset .tabset-fade .tabset-pills} \n'))
+  
+  #cat(str_c('#### N \n'))
+  #table <- db %>%
+  #  summarise(across(!!thisVar,
+  #                   list(mean = ~mean(.x, na.rm=TRUE),
+  #                        sd = ~sd(.x, na.rm=TRUE))))
+  #
+  #print(htmltools::tagList(datatable(table)))
+  
+  cat(str_c('#### By year \n'))
+  table <- db %>% 
+    group_by(FECHAdataAnio) %>%
+    summarise(across(!!thisVar, 
+                     list('min' = min,
+                          'mean' = ~mean(.x, na.rm=TRUE),
+                          'max' = max,
+                          'N_MISSING' = ~sum(is.na(.x))))) 
+    #filter(., Activo_N_MISSING > 0) %>%
+    #kable(., caption='Missinv values for Activo')
+  print(htmltools::tagList(datatable(table) %>% formatRound(c(2,3, 4)) ))
+   
+  cat('\n')
+  
+  # By IDENT
+  cat(str_c('#### By IDENT \n'))
+  table <- db %>% 
+    group_by(IDENT) %>%
+    summarise(across(!!thisVar, 
+                     list(mean = ~mean(.x, na.rm=TRUE),
+                          sd = ~sd(.x, na.rm=TRUE),
+                          N_MISSING = ~sum(is.na(.x)))))
+  print(htmltools::tagList(datatable(table) %>% formatRound(c(2,3)) ))
+  
+  cat('\n')
+})
+  
 ```

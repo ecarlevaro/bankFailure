@@ -47,22 +47,26 @@ db <- haven::read_dta('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/data
 ## Define sample
 
 ```{r thisSample}
-samsSpecs <- list('s1997q4' = c(samStart=1997.4, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1998q1' = c(samStart=1998.1, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1998q2' = c(samStart=1998.2, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1998q3' = c(samStart=1998.3, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1998q4' = c(samStart=1998.4, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1999q1' = c(samStart=1999.1, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1999q2' = c(samStart=1999.2, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1999q3' = c(samStart=1999.3, samEnd=2001.4, excludeStateOwn=TRUE),
-                  's1999q4' = c(samStart=1999.4, samEnd=2001.4, excludeStateOwn=TRUE))
+samsSpecs <- tribble(~name, ~start,
+                     's1998q1_priv', 1998.1, 
+                     's1998q2_priv', 1998.2,
+                     's1998q3_priv', 1998.3,
+                     's1998q4_priv', 1998.4,
+                     's1999q1_priv', 1999.1,
+                     's1999q2_priv', 1999.2,
+                     's1999q3_priv', 1999.3,
+                     's1999q4_priv', 1999.4)
+samsSpecs <- mutate(samsSpecs, 
+                    'end' = 2001.4,
+                    'excludeStateOwn' = TRUE,
+                    'outPath' = '../../results/probit/failureUntil2001q4/')
 ```
 
-The benchmark case I select all banks alive in 1997 and use their covariate to predict failure until time `r samsSpecs[[1]]['samEnd']` .
+The benchmark case I select all banks alive in 1997 and use their covariate to predict failure until time `r samsSpecs$end[1]` .
 
 Here, I include banks alive on each t (instead of only banks alive on 1997q4).
 
-Are state-owned banks excluded? `r samsSpecs[[1]]['stateOwn']`
+Are state-owned banks excluded? `r samsSpecs$excludeStateOwn[1]`
 
 samStart contains the date at which the X covariates are considered (predictors), where samEnd is the last time failures are considered.
 
@@ -71,17 +75,18 @@ samStart contains the date at which the X covariates are considered (predictors)
 State-owned banks are 4 (national) & 5 (provincial or municipal). Branches of foreign banks is 6, 5 is 'cajas de credito', 6 cia fcieras extranjero, 7 cia fcieras nacional.
 
 ```{r estimation}
-r1 <- map(samsSpecs, function(samSpec) {
-  # samSpec <- samsSpecs[[1]]
+r1 <- pmap(samsSpecs, function(...) {
+  # samSpec <- samsSpecs[1,]
+  samSpec <- tibble(...)
   sam <- db %>% 
           # Select observations of banks alive in 1997.4          
-          filter(START_Q <= 1997.4 & EXIT_DATE_Q > 1997.4) %>%
+          #filter(START_Q <= 1997.4 & EXIT_DATE_Q > 1997.4) %>%
           # Only complete observations
           filter_all(all_vars(!is.na(.))) %>%
           # Only observations at this time
-          filter(FECHAdata == samSpec['samStart'])
+          filter(FECHAdata == samSpec$start)
           # ONly private banks
-   if (samSpec['excludeStateOwn'] == TRUE){
+   if (samSpec$excludeStateOwn == TRUE){
      sam <- filter(sam, GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5)
    }
   # Alternative you may want to incorporate banks that were created after 1997.4. Then,
@@ -95,12 +100,14 @@ r1 <- map(samsSpecs, function(samSpec) {
   #            filter(FECHAdata == samSpec['samStart'])
   #
             
+  # Save sample
+  saveRDS(sam, file=str_c(samSpec$outPath, 'sam_', samSpec$name, '.rds'))
   
   # Bank covariates (X)
   varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
   X <- sam %>% select(all_of(varsList))
   # 1: survival, 0: failure during the sample period
-  Y <- if_else(sam$EXIT_DATE_Y <= samSpec['samEnd'], 0, 1)
+  Y <- if_else(sam$EXIT_DATE_Y <= samSpec$end, 0, 1)
   
   # Table
   desc <- tibble('N' = length(unique(sam$IDENT)),
@@ -112,7 +119,7 @@ r1 <- map(samsSpecs, function(samSpec) {
               'Avg IDENT' = mean(sam$IDENT),
               'SampleStart' = min(sam$FECHAdata), 
               'SampleEnd' = max(sam$FECHAdata),
-              'Failure until' = samSpec['samEnd'],
+              'Failure until' = samSpec$end,
               'SurvivalRate' = round(mean(Y), digits=2))
   
   descVars <- X %>% 
@@ -133,10 +140,15 @@ r1 <- map(samsSpecs, function(samSpec) {
   #h <- rms::orm(Y ~ Xt$ActivoN + Xt$C8Est_w + Xt$CAR_IRR_3A6 + Xt$P_ROA + Xt$P_DEP_ARS_RATE + Xt$P_LOANS_ARS_RATE_W + Xt$APRSpNF_RATE_W + Xt$APR_USD_RATE + Xt$APR_RATE_W, family=probit)
   p <- glm(as.matrix(Y) ~ 
              X$ActivoN + X$C8Est_w + X$CAR_IRR_3A6 + X$P_ROA + X$P_DEP_ARS_RATE + X$P_LOANS_ARS_RATE_W + X$APRSpNF_RATE_W + X$APR_USD_RATE + X$APR_RATE_W, 
-           family=binomial(link='logit'), x=TRUE)
+           family=binomial(link='probit'), x=TRUE)
+  
+  # Save regression result
+  saveRDS(p, file=str_c( 'probits_quarterly_all_banks_p_', samSpec$name, '.rds'))
   
   list('desc' = desc, 'descVars' = descVars, 'corr'=corr, 'p' = p)
 })
+
+names(r1) <- samsSpecs$name
 
 ```
 
@@ -185,7 +197,7 @@ r2 <- map(r1, function(r) {
 t <- map2_dfr(r1, names(r1), function(r, samName) {
       r$desc }) %>% t(.) %>% 
       as_tibble(., rownames='row_names')
-colnames(t) <- c('Feature', names(samsSpecs) )
+colnames(t) <- c('Feature', samsSpecs$name )
 
 t %>% DT::datatable(., rownames=FALSE) %>% 
   formatRound(columns=c(2:NCOL(t)))
@@ -199,7 +211,7 @@ tMeans <- map_dfr(r1, function(r) {
       r$descVars %>% select(ends_with('_mean')) }) %>%
       t(.) %>% 
       as_tibble(., rownames='row_names')
-colnames(tMeans) <- c('Variable', names(samsSpecs) )
+colnames(tMeans) <- c('Variable', samsSpecs$name )
 
 tMeans %>%
   DT::datatable(., rownames=FALSE) %>% formatRound(columns=c(2:NCOL(tMeans)))
@@ -213,7 +225,7 @@ tSDs <- map_dfr(r1, function(r) {
       r$descVars %>% select(ends_with('_SD')) }) %>%
       t(.) %>% 
       as_tibble(., rownames='row_names')
-colnames(tSDs) <- c('Variable', names(samsSpecs) )
+colnames(tSDs) <- c('Variable', samsSpecs$name )
 
 tSDs %>%
   DT::datatable(., rownames=FALSE) %>% formatRound(columns=c(2:NCOL(tSDs)))

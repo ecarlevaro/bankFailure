@@ -11,11 +11,12 @@ use "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\DBbanks\failures-
 
 drop if Activo <= 0
 drop if ActivoN <= 0
+drop if missing(Activo)
 drop if C8Est_w <= 0
 
 keep if tin(1997m9, 2001m12)
 
-collapse ActivoN C8Est_w CAR_IRR_3A6 P_ROA P_DEP_ARS_RATE P_LOANS_ARS_RATE_W APRSpNF_RATE_W APR_USD_RATE APR_RATE_W, by(IDent FECHA_Q)
+collapse ActivoN APRestamos C8Est_w CAR_IRR_3A6 P_ROA P_DEP_ARS_RATE P_LOANS_ARS_RATE_W APRSpNF_RATE_W APR_USD_RATE APR_RATE_W, by(IDent FECHA_Q)
 
 rename IDent IDENT
 xtset IDENT FECHA_Q
@@ -36,6 +37,10 @@ drop _merge
 
 // Exit date: use a high date value for censored banks (entities that did not fail)
 replace EXIT_DATE = date("31Dec2099", "DMY", 2099) if missing(EXIT_DATE) & EXIT_TYPE==0
+
+gen EXIT_Q = qofd(EXIT_DATE)
+format %tq EXIT_Q
+order EXIT_Q, after(EXIT_DATE)
 
 /* *************************** */
 /*	IMPORT DATA ON ENTITIES TYPE

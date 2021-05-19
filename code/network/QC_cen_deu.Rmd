@@ -19,13 +19,28 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r load_data}
-DbCenDeu <- read_dta('data/interLoans/cen_deu_1997-06_2001-06_todas_ent_fcieras.dta') %>%
+DbCenDeu <- read_dta('../../data/interLoans/cen_deu_1997-06_2001-06_todas_ent_fcieras.dta') %>%
           mutate(., FECHA_CD = ymd("1960-01-01")+months(FECHA_CD),
-         FECHA_DATA = ymd("1960-01-01")+months(FECHA_DATA))
+         FECHA_DATA = ymd("1960-01-01")+months(FECHAdata),
+         QUARTER = quarter(FECHA_DATA),
+         MONTH = month(FECHA_DATA))
 #DbBanks <- read_dta('data/DBbanks/capital-allEntities-Monthly.dta')
 
 # Reconvert dates
 
+```
+
+## Data frequency
+
+```{r }
+samBanks <- DbCenDeu %>%
+  filter(FECHA_A == 1998) %>%
+  filter(!is.na(IDENT_ACREEDORA) & !is.na(IDENT_DEUDORA)) 
+select(samBanks, FECHA_DATA, IDENT_ACREEDORA, IDENT_DEUDORA, PRESTAMOS)
+
+samBanks %>%
+  group_by(MONTH) %>%
+  summarise(n = n())
 ```
 
 ## Check Galicia
