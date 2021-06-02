@@ -74,11 +74,11 @@ r1 <- pmap(samsSpecs, function(...) {
   # samSpec <- samsSpecs[1,]
   samSpec <- tibble(...)
   # Bank covariates (X)
-  varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
+  varsList <- c('ActivoN', 'C8Est_w')
   sam <- db %>% 
           # Select observations of banks alive in 1997.4          
           filter(START_Q <= 1997.4 & EXIT_DATE_Q > 1997.4) %>%
-          select(IDENT, FECHAdata, GRUPO_ID_UNI, !!varsList) %>%
+          select(IDENT, FECHAdata, GRUPO_ID_UNI, EXIT_Q, START_Q, !!varsList) %>%
           # Only complete observations
           filter_all(all_vars(!is.na(.))) %>%
           # Only observations at this time
@@ -101,11 +101,22 @@ r1 <- pmap(samsSpecs, function(...) {
   # Save sample
   saveRDS(sam, file=str_c(samSpec$outPath, 'sam_', samSpec$name, '.rds'))
   
-  # Bank covariates (X)
-  varsList <- c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
   X <- sam %>% select(all_of(varsList))
-  # 1: survival, 0: failure during the sample period
-  Y <- if_else(sam$EXIT_DATE_Y <= samSpec$end, 0, 1)
+  # Select entities at the beginiing of the sample
+  failureDate <- sam %>% filter(FECHAdata==1997.4) %>% select(IDENT, EXIT_Q)
+  NROW(unique(sam$IDENT))
+  anti_join(sam, failureDate, by='IDENT')
+  # 151 (1997q4) is the # of quarters since Stata date 0
+  failureDate <- -151
+  sum(failureDate<10)
+    # Export variables
+  write.table(failureDate, file=str_c(samSpec$outPath, 'failureDate_', samSpec['name'], '.csv'), 
+            sep=', ',
+            row.names = F, col.names = F)
+  write.table(cbind(1, X), 
+            file=str_c(samSpec$outPath, 'X_', samSpec['name'], '.csv'), 
+            sep=', ',
+            row.names = F, col.names = F)
   
   # Table
   desc <- tibble('N' = length(unique(sam$IDENT)),
@@ -117,7 +128,7 @@ r1 <- pmap(samsSpecs, function(...) {
               'Avg IDENT' = mean(sam$IDENT),
               'SampleStart' = min(sam$FECHAdata), 
               'SampleEnd' = max(sam$FECHAdata),
-              'Failure until' = samSpec$end,
+              'Failure until' = samSpec$failureUntil,
               'SurvivalRate' = round(mean(Y), digits=2))
   
   descVars <- X %>% 
@@ -137,11 +148,11 @@ r1 <- pmap(samsSpecs, function(...) {
   #})
   #h <- rms::orm(Y ~ Xt$ActivoN + Xt$C8Est_w + Xt$CAR_IRR_3A6 + Xt$P_ROA + Xt$P_DEP_ARS_RATE + Xt$P_LOANS_ARS_RATE_W + Xt$APRSpNF_RATE_W + Xt$APR_USD_RATE + Xt$APR_RATE_W, family=probit)
   p <- glm(as.matrix(Y) ~ 
-             X$ActivoN + X$C8Est_w + X$CAR_IRR_3A6 + X$P_ROA + X$P_DEP_ARS_RATE + X$P_LOANS_ARS_RATE_W + X$APRSpNF_RATE_W + X$APR_USD_RATE + X$APR_RATE_W, 
+             X$ActivoN + X$C8Est_w, 
            family=binomial(link='probit'), x=TRUE)
   
   # Save regression result
-  saveRDS(p, file=str_c( 'probits_quarterly_all_banks_p_', samSpec$name, '.rds'))
+  saveRDS(p, file=str_c( 'dur_quarterly_privBanks_2vars_p_', samSpec$name, '.rds'))
   
   list('desc' = desc, 'descVars' = descVars, 'corr'=corr, 'p' = p)
 })
