@@ -30,7 +30,7 @@ replace IDENT_DEUDORA = IDent
 order IDENT_ACREEDORA IDENT_DEUDORA, after(NOMBRE_ENT)
 
 /* ********************** */
-/* GO QUARTERLY			*/
+/* prepare for going QUARTERLY			*/
 /* ********************** */
 gen FECHA_Q = qofd(dofm(FECHAdata))
 label var FECHA_Q "Quarterly date"
