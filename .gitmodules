@@ -1,0 +1,6 @@
+[submodule "manuscript/test"]
+	path = manuscript/test
+	url = https://github.com/ecarlevaro/test
+[submodule "manuscriptBAFA"]
+	path = manuscriptBAFA
+	url = https://github.com/ecarlevaro/manuscriptBAFA
