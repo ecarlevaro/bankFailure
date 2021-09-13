@@ -1,0 +1,90 @@
+---
+title: "Estimation of a SAR model"
+author: "Emi"
+date: "18/08/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(spdep)
+library(spatialreg)
+```
+
+# Simulate
+
+## Load data
+
+```{r load_data}
+sNames <- c('rho01', 'rho-0.9', 'rho-0.3', 'rho0.3', 'rho0.9')
+names(sNames) <- c('rho01', 'rho-0.9', 'rho-0.3', 'rho0.3', 'rho0.9')
+sams <- map(sNames, function(sName) {
+  read_excel('simulations/SAR_Matlab/Simulated_SAR.xlsx', sheet=sName)
+})
+
+W <- read_csv("simulations/SAR_Matlab/W_1998.csv", 
+              col_names=FALSE) %>%
+    as.matrix()
+
+network <- mat2listw(W)
+
+```
+
+# Estimation
+
+```{r}
+results <- map(sams, function(sam) {
+   reg <- spatialreg::lagsarlm(formula = 'dependant ~ C8Est_w + CAR_IRR_3A6', 
+       data = sam,
+       listw = network, 
+       zero.policy=TRUE)
+  list('summary' = summary(reg),
+       'impact' = spatialreg::impacts(reg, listw=network))
+  
+})
+```
+
+# Results {.tabset .tabset-fade .tabset-pills}
+
+## rho01
+```{r}
+
+results$rho01
+
+```
+
+## rho-0.9
+```{r}
+
+results$`rho-0.9`
+
+```
+
+## rho-0.3
+```{r}
+
+results$`rho-0.3`
+
+```
+
+## rho0.3
+```{r}
+
+results$`rho0.3`
+
+```
+
+## rho0.9
+```{r}
+
+results$`rho0.9`
+
+```
+# Standardise W
+W <- W %>%
+  pmap_dfr(function(...) {
+    row <- tibble(...)
+    row/sum(row)
+  })

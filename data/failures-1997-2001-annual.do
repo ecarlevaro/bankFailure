@@ -41,6 +41,8 @@ format FECHAdata %tm
 label var FECHAdata "Monthly date of the first month of the year. To bring data from other DBs"
 order FECHAdata, after(FECHA_A)
 
+gen FECHA_D = FECHAdata
+
 xtsum IDENT
 // N=655, n=162, t-bar=4304, k=15
 merge 1:1 FECHAdata IDENT using "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\failures-1997-2001-quarterly.dta", assert(master match) keep(master match) keepusing(GRUPO_ID_UNI NOMRED)

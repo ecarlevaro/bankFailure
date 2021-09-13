@@ -1,0 +1,257 @@
+---
+  title: "PanelSAR_FixW_9704"
+author: "Emi"
+date: "10/02/2021"
+output: html_document
+#code_folding: hide
+---
+
+```{=html}
+<style type="text/css">
+  .main-container {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+```
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library(tsibble) # Panel data/longitudinal
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(svglite) # export plots to svg
+source('../../../code/Rutils/Emi_R_utils.R')
+
+samPath = 'data/SAMPLES/PanelSAR_FixW_9704/'
+```
+
+# INtroduction
+
+$\bm{y_t}$ is the indicator vector for quarter $t$ such that if bank $i$ fails by quarter $i$, $y_{i, t} = 1$.\
+
+\item
+
+$W$ is the average between 1997q4 and 2000q3
+
+\item
+
+For each quarter $t$, $X_t$ is the average of $X$ the previous 4-quarters.
+
+# Load data
+
+```{r load_bank_data}
+banksDB <- haven::read_dta('data/BAFA-main-1997-2001-quarterly.dta') %>%
+        dplyr::mutate(., 
+        fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
+        exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+        startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+        .after = IDENT) %>%
+    drop_na %>%
+  # For fix W I need to fix banks at the beginning of the sample
+  filter(startDateQ<= 1997.4) %>%
+  # ONly private banks
+  filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5)
+
+# Select only entities private and alive on 1997q4
+banksAtStart <- banksDB %>%
+dplyr::group_by(IDENT) %>%
+  summarise('start' = min(fechaQ),
+            'startDateQ' = min(startDateQ),
+            NOMRED = first(NOMRED),
+            GRUPO_ID_UNI = first(GRUPO_ID_UNI),
+            P_LOANS_ARS_RATE_W = first(P_LOANS_ARS_RATE_W))
+
+excBanks <- filter(banksAtStart, start>1997.4)
+```
+I lose the following 13 banks because a) they don't have complete observations by 1997.4 (missing P_LOANS_ARS_RATE) or b) they were privatised after 1997q4.
+
+```{r}
+excBanks
+```
+
+Hence the banks are:
+```{r}
+# All rows in banks that do not have a matrhc in excBanks
+banks <- anti_join(banksDB, excBanks, by='IDENT') %>%
+  mutate(fechaQ2 = yearquarter(fechaQ))
+  )
+  as_tsibble(., key = IDENT, index = fechaQ)
+
+banks %>%
+  scan_gaps()
+banks %>%
+  group_by_key() %>%
+  fill_gaps() %>%
+  tidyr::fill(P_ROA, .direction = "down")
+banks
+```
+
+```{r load_network_data}
+dbRelations <- read_dta('data/interLoans/cen_deu_1997-06_2001_quarterly.dta') %>%
+  mutate(fechaQ = quarter(as_date(FECHA_D, origin=ymd("1960-01-01")), with_year=TRUE))
+
+thisRelations <- filter(dbRelations, 
+      # fechaQ >= 1997.4 &
+  fechaQ <= 2000.4 &
+  (IDENT_ACREEDORA != IDENT_DEUDORA) &
+  W_A_PR != 0) %>% 
+  rename(WEIGHT = W_A_PR) %>% mutate(WEIGHT = WEIGHT*100)
+
+thisRelations
+
+# Number of unique relations (links)
+uLinksN <- select(thisRelations, IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  distinct() %>%
+  nrow()
+
+uLinksN
+
+```
+# Build the Average Network
+$W$ is the average for each link between 1997q4 and 2000q4 for all banks
+
+```{r}
+avgRelations <- thisRelations %>%
+  group_by(IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  summarise(WEIGHT = mean(WEIGHT)) %>%
+  # W can only contains entities that are in the sample. 
+  semi_join(., select(banks, IDENT), 
+    by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
+  semi_join(., select(banks, IDENT), 
+    by= c('IDENT_DEUDORA' = 'IDENT'))
+# This dataframe should be empty
+netExcBanks <- bind_rows(anti_join(avgRelations, banks, by=c('IDENT_ACREEDORA' = 'IDENT')),
+                    anti_join(avgRelations, banks, by=c('IDENT_DEUDORA' = 'IDENT')))
+
+avgRelations
+
+writexl::write_xlsx(avgRelations, path=str_c(samPath, 'avgRelations.xlsx'))
+
+```
+The following entities appear in the network but not in the banks dataframe:
+`{r} netExcBanks`. Should be empty!
+
+
+## Export average network as spatial matrix
+ Export the network as a fix spatial matrix `W` which only contains banks that are in `banks`
+ 
+```{r }
+nodes <- banks %>%
+  filter(., fechaQ==1997.4) %>%
+  select(., IDENT, NOMRED, exitDateQ:GRUPO_ID_UNI)
+  
+g <- igraph::graph_from_data_frame(d = avgRelations, 
+                           vertices = nodes,
+                          directed = TRUE)
+
+# Export adjacency matrix
+W_weighted <- as_adjacency_matrix(g, attr='WEIGHT', sparse=FALSE)
+W <- as_adjacency_matrix(g, attr=NULL, sparse=FALSE)
+# Dimensions of W should equal # of banks
+```
+
+There are `{r} nrow(thisRelations)` links in `thisRelations`; `{r} nrow(uLinksN)` of them are unique and hence the average network has `{r} nrow(W)` non-empty cells.
+
+# Build covariates and dependant
+I collect covariates X for each quarter of banks alive. We only consider banks existing at 1997q4. This allows having a fix W, otherwise W changes every quarter. Aditionally, excludes new born banks wich are more likley to fail. 
+
+Build individual samples
+```{r}
+
+Qs = c(1997.4, 1998.1, 1998.2, 1998.3, 1998.4, 1999.1, 1999.2, 1999.3, 1999.4,
+       2000.1, 2000.2, 2000.3, 2000.4, 2001.1, 2001.2, 2001.3, 2001.4)
+samT <- map(Qs, function(thisQ) {
+  #thisQ = 1998.4
+  sam_t <-  banks %>%
+    # Only observations at this time
+    filter(fechaQ == thisQ)
+  
+  #Bank covariates (X)
+  varsList <- c('IDENT', 'ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE',
+                'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
+  X_t <- sam_t %>%
+    select(all_of(varsList))
+  
+  # Vector y
+    # 1: survival, 0: failure during the sample period
+  y_t <- if_else(sam_t$exitDateQ <= thisQ, 0, 1)
+  
+  avgPastRelations <- thisRelations %>%
+    filter(fechaQ <= thisQ) %>%
+    group_by(IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+    summarise(avgW = mean(WEIGHT)) %>%
+    # W can only contains entities that are in the sample. 
+    semi_join(., select(sam_t, IDENT), 
+      by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
+    semi_join(., select(sam_t, IDENT), 
+      by= c('IDENT_DEUDORA' = 'IDENT'))
+  
+  list('y'=y_t, 'X'=X_t, 'avgLinks_t'=avgPastRelations)
+  
+})
+
+names(samT) <- Qs
+
+saveRDS(samT, 'samT.rds')
+```
+
+# Export to Matlab
+
+map(samT, function(tt) {
+  
+  nodes <- select(sam, IDENT, NOMRED, EXIT_DATE_Q:GRUPO_ID_UNI)
+g <- graph_from_data_frame(d = theseRelations, 
+                           vertices = nodes,
+                          directed = TRUE)
+
+# Export adjacency matrix
+W_weighted <- as_adjacency_matrix(g, attr='WEIGHT', sparse=FALSE)
+W <- as_adjacency_matrix(g, attr=NULL, sparse=FALSE)
+ 
+  list('y' = as.vector(tt$y),
+       'X' = data.matrix(tt$X),
+       'W' = 
+})
+library(rmatio)
+
+exp <- list('1997.4' = list('X' = cbind(c(1,2,3), c(4,5,6)),
+                'y' = c(1, 1, 1, 2)),
+            '1998.1' = list('X' = cbind(c(1,2,3), c(4,5,6)),
+                'y' = c(1, 1, 1, 2)))
+
+write.mat(exp, 'matExp.mat')
+write.mat(samT$`1997.4`, 'matExp.mat')
+exp$a$`y`
+```
+
+```{r build_networ}
+# Look for apropiate network
+networkT <- map(Qs, function(thisQ) {
+  thisQ = 1998.4
+  # Option A: chose avg past links
+  
+
+  avgPastRelations
+  theseRelations <- 
+  
+  theseRelations <- semi_join(avgRelations, select(sam, IDENT), 
+                              by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
+                    semi_join(., select(sam, IDENT), 
+                            by= c('IDENT_DEUDORA' = 'IDENT'))
+  
+```
+
+names(samT) <- Qs
+
+filter_all() %>%
+          
+filter(banks, FECHA_M = atDate
+
+```

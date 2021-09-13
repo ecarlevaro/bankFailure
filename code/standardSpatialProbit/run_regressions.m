@@ -1,8 +1,15 @@
 %load IT
+addpath(genpath('C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\standardSpatialProbit'))
 y = readmatrix("Y_s98.Priv.01.onT.csv")
 X = readmatrix("X_s98.Priv.01.onT.csv")
 W = readmatrix("W_1998.csv")
 
+result0 = sar(y, X, W, info)
+prt(result0, varNames)
+% Play with a symmetric W
+%symmW = W + W'
+%eig(symmW)
+%W = symmW
 %Data (See Hanna's XLS-file for details)
 %N --- The number of countries
 %T --- The number of time periods (t is the index for time, t=1 corresponds to 1985)
@@ -26,20 +33,15 @@ W = readmatrix("W_1998.csv")
 % rho1 - spatial effect of countries that switch in the same period
 % rho2 - spatial effect of countries that have already switched
 
-tic
-W = [0 1 0;
-    1 0 0
-    0 0 0]
-inv(W)
+
 %normalize W
 for i=1:size(W,1)
     if sum(W(i,:))~=0
         W(i,:)=W(i,:)/sum(W(i,:));
     end
 end
-% is W invertible?
-inv(W)
-
+% is W invertible? W is not invertible and need not to be. (I - rho W) must
+% be invertible (be a diagonal dominant matrix after row normalisation)
 
 vars=[1 2 3 4 5 6 7 8 9 10];
 [paramest,paramstd,logL,Varcov]=spatial_probit_Vogler(y,X,W);

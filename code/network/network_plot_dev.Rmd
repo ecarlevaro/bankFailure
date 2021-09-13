@@ -1,0 +1,149 @@
+---
+title: "Network"
+author: "Emi"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: true
+---
+
+# Setup 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+library(tidygraph) # Plotting graphs
+library(ggraph)
+require(visNetwork)
+library(svglite) # export plots to svg
+source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+
+plots <- list('banksLinks'=NULL, 'linksWeights'=NULL, 
+          'fullNetwork'=NULL, 'networkFailBanks'=NULL)
+specs <- list('savingFolder'=NULL, 
+              'idSample'= 'A99_Wtill98q4_creW_b97q4_s03q4_network')
+specs$savingFolder <- 'output/SAR/Annual99/'
+
+```
+
+---
+  date: `r today()`
+---
+
+```{r load_network}
+network <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds')) %>%
+  as_tbl_graph() %>%
+  activate(nodes) %>%
+  mutate(degree = degree(.),
+         colour = if_else(survival==1, 'green', 'red'))
+
+summary(network)
+```
+
+
+## Distribution of links
+```{r}
+plots$banksLinks <- network %>%
+  activate(nodes) %>%
+  as_tibble(.) %>%
+  {ggplot(., mapping=aes(x=degree)) +
+  geom_histogram(binwidth=3, fill='blue') +
+      scale_x_continuous(name='Number of links by entitiy (degree)') +
+      scale_y_continuous(name='Number of entities', breaks=0:10) +
+      theme_bw() +
+      theme(panel.grid=element_line(colour='#999999', linetype='14'), 
+                     panel.grid.minor=element_line(colour='white'), text=element_text(size=16), 
+                     axis.text.x = element_text(),
+                     axis.text.y = element_text(size=14),
+                     legend.position = 'bottom', legend.key.height=unit(3.5, 'cm'))}
+
+plots$banksLinks
+
+```
+## Distribution of weights
+```{r}
+plots$linksWeights <- network %>%
+  activate(edges) %>%
+  as_tibble(.) %>%
+  { ggplot(., mapping=aes(x=WEIGHT)) +
+      geom_histogram(binwidth=1, colour='grey') +
+      scale_x_continuous(name='Link weight as percentage of Loans', breaks=0:20) +
+      scale_y_continuous(name='Number of links') +
+      theme_bw() +
+      theme(panel.grid=element_line(colour='#999999', linetype='14'), 
+                     panel.grid.minor=element_line(colour='white'), text=element_text(size=16), 
+                     axis.text.x = element_text(),
+                     axis.text.y = element_text(size=14),
+                     legend.position = 'bottom', legend.key.height=unit(3.5, 'cm'))}
+
+plots$linksWeights
+```
+
+
+# Network plot
+
+
+```{r}
+
+networkFplot <- network %>%
+  activate(edges) %>%
+  filter(., WEIGHT>0.1)
+
+#thisLayout <- layout_with_lgl(pNetwork, options=list(fixed=))
+#thisLayout <- layout_with_lgl(pNetwork, options=list(fixed=))
+#thisLayout <- layout_hive(pNetwork)
+
+plots$fullNetwork <- networkFplot %>%
+  ggraph(., layout = 'kk') +
+  geom_edge_fan2(aes(alpha = WEIGHT), colour='black', check_overlap=TRUE, n = 115) + 
+    geom_node_point(aes(size=ActivoN), shape=21, fill=V(networkFplot)$colour) +
+  theme_graph()
+
+plots$fullNetwork
+  
+```
+
+
+```{r }
+networkFailBanks  <- networkFplot %>%
+  activate(nodes) %>%
+  filter(., survival==0) 
+
+networkFailBanks
+
+```
+Which failing banks are isolated?
+```{r}
+networkFailBanks %>% activate(nodes) %>% 
+  filter(node_is_isolated())
+
+```
+
+                    
+```{r plot_fail_banks_network}
+
+plots$NetworkFailBanks <- networkFailBanks %>%
+  {ggraph(., layout = 'kk') +
+  geom_edge_fan2(aes(alpha = WEIGHT), colour='black', check_overlap=TRUE, n = 115, show.legend = FALSE) + 
+  geom_node_point(aes(size=ActivoN), shape=21, fill=V(.)$colour, show.legend=FALSE) +
+      theme_graph()}
+    
+plots$NetworkFailBanks
+
+```
+
+# Save
+```{r save}
+walk2(plots, names(plots), function(plot, fileName) {
+  ggsave(paste0(specs$savingFolder, fileName, '.pdf'),
+         plot, 
+   width=22.5, height=15, units='cm')
+})
+
+```
+
+
+

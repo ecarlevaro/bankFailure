@@ -2,8 +2,8 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="Methodology" FOLDED="false" ID="ID_50742613" CREATED="1605066849145" MODIFIED="1605066867364" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.515">
-    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+<hook NAME="MapStyle" zoom="0.829">
+    <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -372,7 +372,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Share of private sector 30-days deposits in total Liability" ID="ID_804893215" CREATED="1617183716326" MODIFIED="1617183730192"/>
 <node TEXT="Not now. I don&apos;t think I have data on maturity at bank level" ID="ID_607979245" CREATED="1617184131251" MODIFIED="1617184144053"/>
@@ -480,10 +479,10 @@
 </node>
 <node TEXT="DATA" LOCALIZED_STYLE_REF="styles.topic" POSITION="left" ID="ID_11317917" CREATED="1611806290984" MODIFIED="1611806297416">
 <edge COLOR="#00ffff"/>
-<node TEXT="Central de deudores" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" FOLDED="true" ID="ID_917530699" CREATED="1611806311977" MODIFIED="1611806325367">
+<node TEXT="Central de deudores" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_917530699" CREATED="1611806311977" MODIFIED="1611806325367">
 <node TEXT="Argentina’s public credit registry, established in 1991, is a database containing credit information on every firm and individual that obtains credit from the formal financial system" ID="ID_1837002457" CREATED="1611808245469" MODIFIED="1611808253929" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
 <node TEXT="Since each bank must report borrower-level information, the data in the registry aggregates the loan, collateral, and repayment status of each borrower with every&#xa;lender." ID="ID_151036868" CREATED="1611808249275" MODIFIED="1611808271102" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
-<node TEXT="Before 1995" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" FOLDED="true" ID="ID_1750899574" CREATED="1611808276684" MODIFIED="1611809808069" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"><richcontent TYPE="NOTE">
+<node TEXT="Before 1995" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_1750899574" CREATED="1611808276684" MODIFIED="1611809808069" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"><richcontent TYPE="NOTE">
 
 <html>
   <head>
@@ -517,7 +516,7 @@
 <node TEXT="Before April 1998" ID="ID_400979354" CREATED="1611806328113" MODIFIED="1611807694026" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
 <node TEXT="information was shared only for borrowers whose total outstanding debt was above $200,000 to reduce the cost of distributing information for large numbers of small debtors. The adoption of CD-ROMs eliminated the need for this threshold." ID="ID_1613843578" CREATED="1611807694526" MODIFIED="1611807696461" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
 <node TEXT="For the same debtor, it can be a maximum of 1 level of different in the rating of creditworthiness (SITUACION)" ID="ID_717942073" CREATED="1611808064794" MODIFIED="1611808085028" MAX_WIDTH="332.862774367311 pt" MIN_WIDTH="332.862774367311 pt"/>
-<node TEXT="&quot;It is notable that not all previous studies have found positive effects of credit information sharing. Based on a natural experiment in Argentina, where the public credit registry was expanded to all firms, the study of Hertzberg et al. (2011) documents an amplification of coordination effects among lenders when negative credit information was shared in response to the credit registry reform. This study is one of the rare that documents significant negative real effects after the introduction of credit information. Thus, it is ex ante not clear whether and under which conditions a positive or negative effect prevails.&quot;" ID="ID_1866674128" CREATED="1611807378820" MODIFIED="1611807681584"/>
+<node TEXT="&quot;It is notable that not all previous studies have found positive effects of credit information sharing. Based on a natural experiment in Argentina, where the public credit registry was expanded to all firms, the study of Hertzberg et al. (2011) documents an amplification of coordination effects among lenders when negative credit information was shared in response to the credit registry reform. This study is one of the rare that documents significant negative real effects after the introduction of credit information. Thus, it is ex ante not clear whether and under which conditions a positive or negative effect prevails.&quot;" ID="ID_1866674128" CREATED="1611807378820" MODIFIED="1630894930084" MAX_WIDTH="427.63156617543626 pt" MIN_WIDTH="427.63156617543626 pt"/>
 </node>
 </node>
 <node TEXT="IDENTIFICATION" LOCALIZED_STYLE_REF="styles.topic" POSITION="right" ID="ID_1538372212" CREATED="1611139430016" MODIFIED="1611806287911">

@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2021a"><title>Untitled</title><style type="text/css">.rtcContent { padding: 30px; } .CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S0 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S1 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S2 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S3 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+.S4 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 6px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.variableValue { width: 100% !important; }
+.embeddedOutputsMatrixElement,.eoOutputWrapper .matrixElement {    min-height: 18px;    box-sizing: border-box;}
+.embeddedOutputsMatrixElement .matrixElement,.eoOutputWrapper  .matrixElement,.rtcDataTipElement .matrixElement {    position: relative;}
+.matrixElement .variableValue,.rtcDataTipElement .matrixElement .variableValue {    white-space: pre;    display: inline-block;    vertical-align: top;    overflow: hidden;}
+.embeddedOutputsMatrixElement.inlineElement {}
+.embeddedOutputsMatrixElement.inlineElement .topHeaderWrapper {    display: none;}
+.embeddedOutputsMatrixElement.inlineElement .veTable .body {    padding-top: 0 !important;    max-height: 100px;}
+.inlineElement .matrixElement {    max-height: 300px;}
+.embeddedOutputsMatrixElement.rightPaneElement {}
+.rightPaneElement .matrixElement,.rtcDataTipElement .matrixElement {    overflow: hidden;    padding-left: 9px;}
+.rightPaneElement .matrixElement {    margin-bottom: -1px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer,.eoOutputWrapper .matrixElement .valueContainer,.rtcDataTipElement .matrixElement .valueContainer {    white-space: nowrap;    margin-bottom: 3px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis.hide,.embeddedOutputsMatrixElement .matrixElement .verticalEllipsis.hide,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis.hide,.eoOutputWrapper .matrixElement .verticalEllipsis.hide,.rtcDataTipElement .matrixElement .valueContainer .horizontalEllipsis.hide,.rtcDataTipElement .matrixElement .verticalEllipsis.hide {    display: none;}
+.embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .verticalEllipsis, .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .horizontalEllipsis {    display:none;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis {    margin-bottom: -3px;}
+.eoOutputWrapper .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer {    cursor: default !important;}
+.embeddedOutputsVariableElement {    white-space: pre-wrap;    word-wrap: break-word;    min-height: 18px;    max-height: 250px;    overflow: auto;}
+.variableElement {}
+.embeddedOutputsVariableElement.inlineElement {}
+.inlineElement .variableElement {}
+.embeddedOutputsVariableElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .variableElement {    padding-top: 2px;    padding-left: 9px;}
+.variableNameElement {    margin-bottom: 3px;    display: inline-block;}
+/* * Ellipses as base64 for HTML export. */.matrixElement .horizontalEllipsis,.rtcDataTipElement .matrixElement .horizontalEllipsis {    display: inline-block;    margin-top: 3px;    /* base64 encoded version of images-liveeditor/HEllipsis.png */    width: 30px;    height: 12px;    background-repeat: no-repeat;    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAJCAYAAADO1CeCAAAAJUlEQVR42mP4//8/A70xw0i29BUDFPxnAEtTW37wWDqakIa4pQDvOOG89lHX2gAAAABJRU5ErkJggg==");}
+.matrixElement .verticalEllipsis,.textElement .verticalEllipsis,.rtcDataTipElement .matrixElement .verticalEllipsis,.rtcDataTipElement .textElement .verticalEllipsis {    margin-left: 35px;    /* base64 encoded version of images-liveeditor/VEllipsis.png */    width: 12px;    height: 30px;    background-repeat: no-repeat;    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAZCAYAAAAIcL+IAAAALklEQVR42mP4//8/AzGYgWyFMECMwv8QddRS+P//KyimlmcGUOFoOI6GI/UVAgDnd8Dd4+NCwgAAAABJRU5ErkJggg==");}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 250px;    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement{    min-height: 18px;    max-height: 250px;    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2019 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: rgb(255,100,0);    text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: rgb(230,0,0);    text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 250px;    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S5 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 6px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'><span style="white-space: pre"><span >addpath </span><span style="color: rgb(170, 4, 249);">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\ElhrostHeijnen2017\standard-spatial-probit'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >addpath(genpath(</span><span style="color: rgb(170, 4, 249);">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\etoolbox'</span><span >))</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >load </span><span style="color: rgb(170, 4, 249);">IT</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%Data (See Hanna's XLS-file for details)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%N --- The number of countries</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%T --- The number of time periods (t is the index for time, t=1 corresponds to 1985)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%adoptiondate --- A vector of length N with the adoption date</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%W - ten-nearest neighbors matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">% A - common language matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">% B - common legal origin matrix</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">% C - common membership in BIS</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%data.X --- A struct with T fields containing the exogenous variables</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 1 = Intercept</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 2 = Inflation</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 3 = GDP growth</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 4 = Exchange rate regime</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 5 = Government debt</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 6 = Financial development</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 7 = LCBI</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 8 = Duration</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%var. 9-36 - time dummies</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">% rho1 - spatial effect of countries that switch in the same period</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">% rho2 - spatial effect of countries that have already switched</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >tic</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%normalize W</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >i=1:size(W,1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">if </span><span >sum(W(i,:))~=0</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        W(i,:)=W(i,:)/sum(W(i,:));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%normalize A</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >i=1:size(A,1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">if </span><span >sum(A(i,:))~=0</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        A(i,:)=A(i,:)/sum(A(i,:));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%normalize B</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >i=1:size(B,1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">if </span><span >sum(B(i,:))~=0</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        B(i,:)=B(i,:)/sum(B(i,:));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%normalize C</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >i=1:size(C,1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">if </span><span >sum(C(i,:))~=0</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        C(i,:)=C(i,:)/sum(C(i,:));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >vars=[1 2 3 4 5 6 7];</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%handy stuff</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >options = optimset;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'Display' </span><span >,</span><span style="color: rgb(170, 4, 249);">'iter'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'HessUpdate' </span><span >,</span><span style="color: rgb(170, 4, 249);">'bfgs'</span><span >); </span><span style="color: rgb(2, 128, 9);">%bfgs</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%options = optimset(options,'InitialHessType' ,'scaled-identity');</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'LargeScale' </span><span >,</span><span style="color: rgb(170, 4, 249);">'off'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'MaxFunEvals'</span><span >,1e8, </span><span style="color: rgb(170, 4, 249);">'MaxIter'</span><span >,1e8);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >N=size(W,1); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(2, 128, 9);">%T=max(a(a&lt;inf));</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >T=size(data,2)</span></span></div><div  class = 'S3'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>T = 24</div></div></div><div class="inlineWrapper"><div  class = 'S4'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >S=0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">for </span><span >t=1:T</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >S=S+data(t).X(:,vars);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >S=S/T;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >a = adoptiondate</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="3C944EA5" data-scroll-top="null" data-scroll-left="null" data-width="852" data-testid="output_1" style="width: 882px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 852px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">a = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">58×1</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:40,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:58,&quot;charsPerColumn&quot;:6}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 42px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">     9
+    15
+     7
+     7
+    16
+    14
+     9
+    23
+    21
+    17
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div></div></div><div class="inlineWrapper"><div  class = 'S4'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    writematrix(a&lt;inf, </span><span style="color: rgb(170, 4, 249);">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx'</span><span >,</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: rgb(170, 4, 249);">'Sheet'</span><span >, </span><span style="color: rgb(170, 4, 249);">'adoption'</span><span >)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    writematrix(S, </span><span style="color: rgb(170, 4, 249);">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx'</span><span >,</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: rgb(170, 4, 249);">'Sheet'</span><span >, </span><span style="color: rgb(170, 4, 249);">'S'</span><span >)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    writematrix(W, </span><span style="color: rgb(170, 4, 249);">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx'</span><span >,</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >        </span><span style="color: rgb(170, 4, 249);">'Sheet'</span><span >, </span><span style="color: rgb(170, 4, 249);">'W'</span><span >)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >    </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >res0 = sar(a&lt;inf,S,W);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >prt(res0)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="7598FCE0" data-scroll-top="null" data-scroll-left="null" data-width="852" data-height="722" data-hashorizontaloverflow="false" data-testid="output_2" style="max-height: 261px; width: 882px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="textElement" style="white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">Spatial autoregressive Model Estimates 
+R-squared          =    0.3622 
+Rbar-squared       =    0.2871 
+sigma^2            =    0.1425 
+Nobs, Nvars        =     58,     7 
+log-likelihood     =       -6.5646176 
+# of iterations    =     16   
+min and max rho    =   -1.0000,   1.0000 
+total time in secs =    0.2340 
+time for lndet     =    0.0080 
+time for t-stats   =    0.0060 
+time for x-impacts =    0.1770 
+# draws  x-impacts =      1000   
+Pace and Barry, 1999 MC lndet approximation used 
+order for MC appr  =     50  
+iter  for MC appr  =     30  
+***************************************************************
+Variable        Coefficient  Asymptot t-stat    z-probability 
+constant           0.650653         1.964759         0.049442 
+variable 1        -1.419593        -1.668106         0.095295 
+variable 2        -0.036645        -1.077984         0.281041 
+variable 3         0.300931         4.618463         0.000004 
+variable 4        -0.004586        -2.098969         0.035820 
+variable 5        -0.298509        -2.027135         0.042649 
+variable 6         0.111197         0.671492         0.501907 
+rho               -0.393957        -2.044654         0.040889 
+
+Direct          Coefficient           t-stat           t-prob         lower 01         upper 99 
+variable 1        -1.578320        -1.050681         0.297763        -4.221416         0.806108 
+variable 2        -0.039437        -0.889004         0.377673        -0.126041         0.052803 
+variable 3         0.321419         1.461719         0.149215         0.135447         0.488252 
+variable 4        -0.004870        -0.668390         0.506536        -0.011439         0.001029 
+variable 5        -0.315779        -1.616211         0.111476        -0.714023         0.086634 
+variable 6         0.130447         0.418354         0.677233        -0.387021         0.553473 
+
+Indirect        Coefficient           t-stat           t-prob         lower 01         upper 99 
+variable 1        -0.364386        -0.014840         0.988211        -0.385888         1.548074 
+variable 2        -0.007062        -0.012387         0.990159        -0.022221         0.048525 
+variable 3         0.051853         0.011994         0.990472        -0.199819         0.035880 
+variable 4        -0.003117        -0.022343         0.982251        -0.000804         0.004780 
+variable 5         0.001048         0.000401         0.999682        -0.043641         0.273998 
+variable 6         0.132524         0.025386         0.979834        -0.212749         0.140066 
+
+Total           Coefficient           t-stat           t-prob         lower 01         upper 99 
+variable 1        -1.942706        -0.075432         0.940131        -3.384477         0.584622 
+variable 2        -0.046499        -0.077748         0.938296        -0.094637         0.038775 
+variable 3         0.373272         0.082363         0.934642         0.085091         0.435420 
+variable 4        -0.007987        -0.054545         0.956688        -0.008298         0.000721 
+variable 5        -0.314731        -0.114822         0.908983        -0.605247         0.056943 
+variable 6         0.262971         0.047973         0.961902        -0.287360         0.401964 </div></div></div></div><div class="inlineWrapper"><div  class = 'S4'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre"><span >info.lflag = 0; </span><span style="color: rgb(2, 128, 9);">% use full lndet no approximation</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >result0 = sar(a&lt;inf, S, W, info)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableStringElement" uid="01A6443E" data-scroll-top="null" data-scroll-left="null" data-width="852" data-height="495" data-hashorizontaloverflow="false" data-testid="output_3" style="max-height: 506px; width: 882px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="textElement" style="white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">result0 = <span class="headerElement" style="white-space: pre; font-style: italic; color: rgb(179, 179, 179); font-size: 12px;">struct with fields:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">       ndraw: 1000
+       cflag: 1
+           p: 6
+       time2: 0
+       time1: 0.0920
+        iter: 14
+        beta: [7×1 double]
+         rho: -0.4430
+        sige: 0.1416
+        yhat: [58×1 double]
+       resid: [58×1 double]
+         lik: -6.2813
+       tstat: [8×1 double]
+        bstd: [7×1 double]
+        pstd: 0.1928
+       time3: 0.0200
+       time5: 0.1780
+        rsqr: 0.3584
+        meth: 'sar'
+           y: [58×1 logical]
+       total: [1000×6×101 double]
+      direct: [1000×6×101 double]
+    indirect: [1000×6×101 double]
+        nobs: 58
+        nvar: 7
+        rmax: 1
+        rmin: -1
+       lflag: 0
+       order: 50
+       miter: 30
+        rbar: 0.2830
+        time: 0.3860
+       lndet: [2001×2 double]
+</div></div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S5'><span style="white-space: pre"><span >prt(result0)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="F8ECE151" data-scroll-top="null" data-scroll-left="null" data-width="852" data-height="694" data-hashorizontaloverflow="false" data-testid="output_4" style="max-height: 261px; width: 882px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="textElement" style="white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">Spatial autoregressive Model Estimates 
+R-squared          =    0.3584 
+Rbar-squared       =    0.2830 
+sigma^2            =    0.1416 
+Nobs, Nvars        =     58,     7 
+log-likelihood     =       -6.2812881 
+# of iterations    =     14   
+min and max rho    =   -1.0000,   1.0000 
+total time in secs =    0.3860 
+time for lndet     =    0.0920 
+time for t-stats   =    0.0200 
+time for x-impacts =    0.1780 
+# draws  x-impacts =      1000   
+No lndet approximation used 
+***************************************************************
+Variable        Coefficient  Asymptot t-stat    z-probability 
+constant           0.674643         2.043439         0.041009 
+variable 1        -1.411864        -1.664418         0.096029 
+variable 2        -0.037599        -1.109848         0.267065 
+variable 3         0.300658         4.625964         0.000004 
+variable 4        -0.004605        -2.114698         0.034456 
+variable 5        -0.297915        -2.030004         0.042356 
+variable 6         0.112723         0.682942         0.494643 
+rho               -0.442984        -2.297971         0.021563 
+
+Direct          Coefficient           t-stat           t-prob         lower 01         upper 99 
+variable 1        -1.415188        -1.593071         0.116580        -3.923758         0.667241 
+variable 2        -0.039323        -1.159175         0.251135        -0.128126         0.047254 
+variable 3         0.312026         4.571038         0.000026         0.128003         0.483611 
+variable 4        -0.004735        -2.058268         0.044067        -0.011174         0.000815 
+variable 5        -0.303318        -1.994813         0.050770        -0.697008         0.119133 
+variable 6         0.114114         0.674710         0.502541        -0.297766         0.578678 
+
+Indirect        Coefficient           t-stat           t-prob         lower 01         upper 99 
+variable 1         0.433865         1.314864         0.193731        -0.269821         1.365511 
+variable 2         0.012460         1.014270         0.314667        -0.017022         0.052215 
+variable 3        -0.095561        -2.394903         0.019875        -0.210680         0.013503 
+variable 4         0.001490         1.531331         0.131124        -0.000358         0.004705 
+variable 5         0.094379         1.532946         0.130726        -0.043294         0.296280 
+variable 6        -0.036563        -0.627470         0.532813        -0.228169         0.104432 
+
+Total           Coefficient           t-stat           t-prob         lower 01         upper 99 
+variable 1        -0.981323        -1.552174         0.126061        -3.068878         0.428381 
+variable 2        -0.026863        -1.147165         0.256024        -0.089158         0.032129 
+variable 3         0.216465         3.797914         0.000352         0.072923         0.391717 
+variable 4        -0.003245        -2.041362         0.045773        -0.007628         0.000537 
+variable 5        -0.208939        -1.965510         0.054150        -0.488617         0.082509 
+variable 6         0.077551         0.666249         0.507894        -0.222152         0.407716 </div></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+addpath 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\ElhrostHeijnen2017\standard-spatial-probit'
+addpath(genpath('C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\etoolbox'))
+load IT
+
+%Data (See Hanna's XLS-file for details)
+%N REPLACE_WITH_DASH_DASH- The number of countries
+%T REPLACE_WITH_DASH_DASH- The number of time periods (t is the index for time, t=1 corresponds to 1985)
+%adoptiondate REPLACE_WITH_DASH_DASH- A vector of length N with the adoption date
+%W - ten-nearest neighbors matrix
+% A - common language matrix
+% B - common legal origin matrix
+% C - common membership in BIS
+%data.X REPLACE_WITH_DASH_DASH- A struct with T fields containing the exogenous variables
+
+%var. 1 = Intercept
+%var. 2 = Inflation
+%var. 3 = GDP growth
+%var. 4 = Exchange rate regime
+%var. 5 = Government debt
+%var. 6 = Financial development
+%var. 7 = LCBI
+%var. 8 = Duration
+%var. 9-36 - time dummies
+
+% rho1 - spatial effect of countries that switch in the same period
+% rho2 - spatial effect of countries that have already switched
+
+tic
+
+%normalize W
+for i=1:size(W,1)
+    if sum(W(i,:))~=0
+        W(i,:)=W(i,:)/sum(W(i,:));
+    end
+end
+
+%normalize A
+for i=1:size(A,1)
+    if sum(A(i,:))~=0
+        A(i,:)=A(i,:)/sum(A(i,:));
+    end
+end
+
+%normalize B
+for i=1:size(B,1)
+    if sum(B(i,:))~=0
+        B(i,:)=B(i,:)/sum(B(i,:));
+    end
+end
+
+%normalize C
+for i=1:size(C,1)
+    if sum(C(i,:))~=0
+        C(i,:)=C(i,:)/sum(C(i,:));
+    end
+end
+
+vars=[1 2 3 4 5 6 7];
+
+%handy stuff
+options = optimset;
+options = optimset(options,'Display' ,'iter');
+options = optimset(options,'HessUpdate' ,'bfgs'); %bfgs
+%options = optimset(options,'InitialHessType' ,'scaled-identity');
+options = optimset(options,'LargeScale' ,'off');
+options = optimset(options,'MaxFunEvals',1e8, 'MaxIter',1e8);
+N=size(W,1); 
+%T=max(a(a<inf));
+T=size(data,2)
+
+S=0;
+for t=1:T
+S=S+data(t).X(:,vars);
+end
+S=S/T;
+
+a = adoptiondate
+
+    writematrix(a<inf, 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx',...
+        'Sheet', 'adoption')
+    writematrix(S, 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx',...
+        'Sheet', 'S')
+    writematrix(W, 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx',...
+        'Sheet', 'W')
+    
+res0 = sar(a<inf,S,W);
+prt(res0)
+
+info.lflag = 0; % use full lndet no approximation
+result0 = sar(a<inf, S, W, info)
+prt(result0)
+##### SOURCE END #####
+-->
+</div></body></html>

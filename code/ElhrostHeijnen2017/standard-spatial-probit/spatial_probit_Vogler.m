@@ -1,5 +1,9 @@
 function [paramest,paramstd,logL,Varcov]=spatial_probit(a,data,W,vars)
 
+a = adoptiondate
+data = data
+W = B
+
     %In: spatial probit data (a is a vector with adoptiond dates, data is a struct with exo. vars for each period, W the spatial weigth matrix and vars which columns of data(t).X to include)
     %Out: ml-estimates, standard deviation and value of loglikelihood
     %Optimization- and econometrics toolbox are needed
@@ -35,6 +39,13 @@ function [paramest,paramstd,logL,Varcov]=spatial_probit(a,data,W,vars)
             r = sar(Y,S,W);
    %}
     % a<inf generates a dummy var with 1 for countries that adopted IT
+    writematrix(a<inf, 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx',...
+        'Sheet', 'adoption')
+    writematrix(S, 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx',...
+        'Sheet', 'S')
+    writematrix(W, 'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab\ElhrostHeijnen2017\their_data.xlsx',...
+        'Sheet', 'W')
+
     temp = sar(a<inf,S,W); beta_init=[temp.beta; tan(.5*pi*temp.rho)]; clear temp; %get good initial value
     %beta_init=[temp.beta; temp.rho];
     %seed=rand(N,100); %use same random numbers to facilitate convergence;

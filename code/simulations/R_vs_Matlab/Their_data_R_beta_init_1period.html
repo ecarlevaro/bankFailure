@@ -1,0 +1,1010 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2020b"><title>Untitled</title><style type="text/css">.rtcContent { padding: 30px; } .CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S0 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S1 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S2 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S3 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+.embeddedOutputsErrorElement {min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+.embeddedOutputsWarningElement{min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+.diagnosticMessage-wrapper {font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {color: rgb(255,100,0); text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {color: rgb(230,0,0); text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {white-space: pre; word-wrap: initial; min-height: 18px; max-height: 250px; overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .textElement {padding-top: 2px; padding-left: 9px;}
+.variableValue { width: 100% !important; }
+.embeddedOutputsMatrixElement,.eoOutputWrapper .matrixElement {min-height: 18px; box-sizing: border-box;}
+.embeddedOutputsMatrixElement .matrixElement,.eoOutputWrapper .matrixElement,.rtcDataTipElement .matrixElement {position: relative;}
+.matrixElement .variableValue,.rtcDataTipElement .matrixElement .variableValue {white-space: pre; display: inline-block; vertical-align: top; overflow: hidden;}
+.embeddedOutputsMatrixElement.inlineElement {}
+.embeddedOutputsMatrixElement.inlineElement .topHeaderWrapper {display: none;}
+.embeddedOutputsMatrixElement.inlineElement .veTable .body {padding-top: 0 !important; max-height: 100px;}
+.inlineElement .matrixElement {max-height: 300px;}
+.embeddedOutputsMatrixElement.rightPaneElement {}
+.rightPaneElement .matrixElement,.rtcDataTipElement .matrixElement {overflow: hidden; padding-left: 9px;}
+.rightPaneElement .matrixElement {margin-bottom: -1px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer,.eoOutputWrapper .matrixElement .valueContainer,.rtcDataTipElement .matrixElement .valueContainer {white-space: nowrap; margin-bottom: 3px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis.hide,.embeddedOutputsMatrixElement .matrixElement .verticalEllipsis.hide,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis.hide,.eoOutputWrapper .matrixElement .verticalEllipsis.hide,.rtcDataTipElement .matrixElement .valueContainer .horizontalEllipsis.hide,.rtcDataTipElement .matrixElement .verticalEllipsis.hide {display: none;}
+.embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .verticalEllipsis, .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .horizontalEllipsis {display:none;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis {margin-bottom: -3px;}
+.eoOutputWrapper .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer {cursor: default !important;}
+.embeddedOutputsVariableElement {white-space: pre-wrap; word-wrap: break-word; min-height: 18px; max-height: 250px; overflow: auto;}
+.variableElement {}
+.embeddedOutputsVariableElement.inlineElement {}
+.inlineElement .variableElement {}
+.embeddedOutputsVariableElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .variableElement {padding-top: 2px; padding-left: 9px;}
+.variableNameElement {margin-bottom: 3px; display: inline-block;}
+.matrixElement .horizontalEllipsis,.rtcDataTipElement .matrixElement .horizontalEllipsis {display: inline-block; margin-top: 3px; width: 30px; height: 12px; background-repeat: no-repeat; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAJCAYAAADO1CeCAAAAJUlEQVR42mP4//8/A70xw0i29BUDFPxnAEtTW37wWDqakIa4pQDvOOG89lHX2gAAAABJRU5ErkJggg==");}
+.matrixElement .verticalEllipsis,.textElement .verticalEllipsis,.rtcDataTipElement .matrixElement .verticalEllipsis,.rtcDataTipElement .textElement .verticalEllipsis {margin-left: 35px; width: 12px; height: 30px; background-repeat: no-repeat; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAZCAYAAAAIcL+IAAAALklEQVR42mP4//8/AzGYgWyFMECMwv8QddRS+P//KyimlmcGUOFoOI6GI/UVAgDnd8Dd4+NCwgAAAABJRU5ErkJggg==");}
+.S4 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px 0px 4px 4px; padding: 6px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S5 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S6 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px 0px 4px 4px; padding: 0px 45px 4px 13px; line-height: 17.234px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">% Compute standard spatial probit model using 1-period data (T=1). </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">% OUR DATA</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">% The beta_init vector with initial estimates come from R.</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span> </span><span style="color: rgb(2, 128, 9);">%[paramest,paramstd,logL,Varcov] = puto()</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre;"><span> [paramest, paramstd, logL, Varcov ] = puto()</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableStringElement" uid="C49D9343" data-scroll-top="null" data-scroll-left="null" data-width="962" data-height="21" data-hashorizontaloverflow="false" data-testid="output_0" style="max-height: 261px; width: 992px;"><div class="textElement"><div><span class="variableNameElement">path = </span>'C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab'</div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="3C27443B" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_1" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">y = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">58×1</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:40,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:58,&quot;charsPerColumn&quot;:6}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 42px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">     1
+     1
+     1
+     1
+     1
+     1
+     1
+     1
+     1
+     1
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="A232A813" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_2" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">X = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">58×7</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:7,&quot;totalRows&quot;:58,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 464px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">    1.0000    0.0371    3.4543    4.0000   14.4343    0.8806    0.9583
+    1.0000    0.4016    3.0330    3.7500   44.5176    0.8457    0.6250
+    1.0000    0.0260    2.8444    2.2917   46.3081    1.3600    1.0000
+    1.0000    0.0906    5.7945    2.8333   17.1156    0.7811    0.7917
+    1.0000    0.1380    3.7909    3.0000   28.7414    0.4261    0.7083
+    1.0000    0.0618    2.3840    2.1250   30.4374    0.6794    0.6667
+    1.0000    0.0255    2.6140    1.4167   37.6355    0.7073    0.4583
+    1.0000    0.1852    4.9240    3.3750   72.7619    0.2507    0.2917
+    1.0000    0.1070    3.5527    2.5833   22.8380    0.3027    0.2917
+    1.0000    0.1167    1.6170    2.5417   64.3802    0.7756    0.3333
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="9E335B8C" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_3" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">W = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">58×58</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:58,&quot;totalRows&quot;:58,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 860px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">         0         0         0         0         0         0         0         0         0         0         0    0.2000         0         0    0.2000         0         0    0.2000         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0
+         0         0         0         0    0.2000         0         0         0         0         0         0         0         0         0         0         0    0.2000         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0    0.2000         0    0.2000    0.2000         0         0         0         0
+         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0    1.0000         0         0         0         0         0         0         0         0
+         0    0.1667         0         0    0.1667         0         0         0         0         0         0         0         0         0         0         0    0.1667         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0    0.1667         0    0.1667    0.1667         0         0         0         0
+         0    0.1667         0         0         0         0         0         0         0         0         0         0         0         0         0         0    0.1667         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0    0.1667    0.1667    0.1667    0.1667         0         0         0
+         0         0         0         0         0         0         0         0         0    0.1667         0         0         0         0         0         0         0         0    0.1667         0    0.1667         0         0         0         0    0.1667         0         0         0    0.1667         0         0         0    0.1667         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0
+         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0    0.1250         0         0    0.1250         0         0         0         0         0    0.1250         0         0         0         0         0         0    0.1250         0    0.1250         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0
+         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0
+         0         0         0         0         0         0         0         0         0         0         0         0         0    0.2500         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0         0    0.2500         0    0.2500    0.2500         0         0         0
+         0         0         0         0         0    0.1667         0         0         0         0         0         0         0         0         0         0         0         0    0.1667    0.1667    0.1667         0         0         0         0         0         0         0         0    0.1667         0         0         0         0         0         0    0.1667         0         0         0         0         0         0         0         0         0         0         0         0         0
+</div><div class="horizontalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>T = 1</div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="665DDFD7" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_5" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">beta_init = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">8×1</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:8,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 68px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">    0.6569
+   -1.6363
+   -0.0316
+    0.3041
+   -0.0043
+   -0.3129
+    0.1021
+   -0.6278
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement scrollableOutput" uid="3AF61BA5" data-scroll-top="null" data-scroll-left="null" data-width="962" data-height="11399" data-hashorizontaloverflow="false" data-testid="output_6" style="max-height: 261px; width: 992px;"><div class="textElement">Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+ 
+ Iteration   Func-count     min f(x)         Procedure
+     0            1          39.0418         
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     1            9          38.7678         initial simplex
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     2           11          37.8279         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     3           12          37.8279         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     4           13          37.8279         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     5           14          37.8279         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     6           15          37.8279         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     7           17          37.2641         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     8           18          37.2641         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+     9           20           36.558         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    10           21           36.558         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    11           22           36.558         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    12           24          35.7308         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    13           25          35.7308         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    14           27          34.7762         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    15           28          34.7762         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    16           29          34.7762         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    17           31          33.7407         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    18           32          33.7407         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    19           33          33.7407         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    20           35          32.4208         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    21           36          32.4208         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    22           37          32.4208         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    23           38          32.4208         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    24           39          32.4208         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    25           41           32.372         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    26           43          32.3424         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    27           44          32.3424         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    28           46          32.2608         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    29           47          32.2608         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    30           49          32.1444         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    31           51          32.1444         contract inside
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    32           52          32.1444         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    33           53          32.1444         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    34           55           31.962         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    35           57           31.962         contract inside
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    36           58           31.962         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    37           60          31.6863         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    38           62          31.3847         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    39           63          31.3847         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    40           64          31.3847         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    41           65          31.3847         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    42           66          31.3847         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    43           68          30.5622         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    44           69          30.5622         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    45           70          30.5622         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    46           71          30.5622         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    47           73          30.0026         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    48           74          30.0026         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    49           75          30.0026         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    50           77          29.6757         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    51           79          28.9427         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    52           80          28.9427         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    53           81          28.9427         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    54           83          28.3807         expand
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    55           84          28.3807         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    56           85          28.3807         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    57           86          28.3807         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    58           87          28.3807         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero
+as measured by the value of the function tolerance, and
+the problem appears regular as measured by the gradient.
+
+&lt;stopping criteria details&gt;
+    59           89          28.3047         reflect
+
+Equation solved.
+
+fsolve completed because the vector of function values is near zero...</div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="450361AE" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_7" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">paramest = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">8×1</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:8,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 68px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">   -0.0935
+   -4.9214
+   -0.1140
+    1.1428
+   -0.0179
+   -1.2376
+    0.3642
+   -0.4990
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="BB889927" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_8" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">paramstd = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">1×8</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:8,&quot;totalRows&quot;:1,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 530px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">    0.3081    1.1920    3.6419    0.1425    0.3317    0.0088    0.6319    0.7078
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>logL = -26.0453</div><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="BD5321CB" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_10" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">Varcov = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">8×8</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:8,&quot;totalRows&quot;:8,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 530px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">    0.0949    0.0227   -0.0507    0.0017   -0.0157    0.0003    0.0237   -0.0357
+    0.0227    1.4209   -1.5378   -0.1096   -0.1146   -0.0039   -0.2559   -0.3214
+   -0.0507   -1.5378   13.2632    0.1077   -0.5477    0.0010    1.3933   -0.0946
+    0.0017   -0.1096    0.1077    0.0203   -0.0012    0.0001    0.0176    0.0184
+   -0.0157   -0.1146   -0.5477   -0.0012    0.1100   -0.0004   -0.0945    0.0274
+    0.0003   -0.0039    0.0010    0.0001   -0.0004    0.0001   -0.0001    0.0013
+    0.0237   -0.2559    1.3933    0.0176   -0.0945   -0.0001    0.3993   -0.1015
+   -0.0357   -0.3214   -0.0946    0.0184    0.0274    0.0013   -0.1015    0.5010
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre;"><span> </span></span></div></div></div><div  class = 'S5'><span>Paramest is:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S6'><span style="white-space: pre;"><span> paramest</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="3A8E15E3" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_11" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">paramest = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">8×1</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:1,&quot;totalRows&quot;:8,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 68px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">   -0.0935
+   -4.9214
+   -0.1140
+    1.1428
+   -0.0179
+   -1.2376
+    0.3642
+   -0.4990
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre;"><span> </span></span></div></div></div><div  class = 'S5'><span>Std. dev of parameters is:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S6'><span style="white-space: pre;"><span> paramstd</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper embeddedOutputsVariableMatrixElement" uid="B9B868EC" data-scroll-top="null" data-scroll-left="null" data-width="962" data-testid="output_12" style="width: 992px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="matrixElement veSpecifier" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="veVariableName variableNameElement double" style="width: 962px; white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="headerElementClickToInteract" style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><span style="white-space: normal; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">paramstd = </span><span class="veVariableValueSummary veMetaSummary" style="white-space: normal; font-style: normal; color: rgb(179, 179, 179); font-size: 12px;">1×8</span></div></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:66,&quot;totalColumns&quot;:8,&quot;totalRows&quot;:1,&quot;charsPerColumn&quot;:10}" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"><div class="variableValue" style="width: 530px; white-space: pre; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;">    0.3081    1.1920    3.6419    0.1425    0.3317    0.0088    0.6319    0.7078
+</div><div class="horizontalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div><div class="verticalEllipsis hide" style="white-space: nowrap; font-style: normal; color: rgb(64, 64, 64); font-size: 12px;"></div></div></div></div></div></div><div class="inlineWrapper"><div  class = 'S4'><span style="white-space: pre;"><span> </span></span></div></div></div><div  class = 'S5'><span>THe value of the log-lik is:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S6'><span style="white-space: pre;"><span> logL</span></span></div><div  class = 'S3'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>logL = -26.0453</div></div></div></div><div  class = 'S5'><span></span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S0'><span style="white-space: pre;"><span style="color: rgb(14, 0, 255);">function </span><span>[paramest, paramstd, logL, Varcov ] = puto()</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% LOAD DATA</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% THeir data</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    addpath </span><span style="color: rgb(170, 4, 249);">'C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    addpath(genpath(</span><span style="color: rgb(170, 4, 249);">'C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\standardSpatialProbit'</span><span>))</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    path </span><span class="warning_squiggle_rte1794988142 warningHighlight1794988142">=</span><span> </span><span style="color: rgb(170, 4, 249);">'C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span class="nonlocalVariableHighlighting">y</span><span> </span><span class="warning_squiggle_rte1794988142 warningHighlight1794988142">=</span><span> readmatrix(strcat(path, </span><span style="color: rgb(170, 4, 249);">'\ElhrostHeijnen2017\their_data.xlsx'</span><span>),</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            </span><span style="color: rgb(170, 4, 249);">'Sheet'</span><span>, </span><span style="color: rgb(170, 4, 249);">'adoption'</span><span>)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span class="nonlocalVariableHighlighting">X</span><span> </span><span class="warning_squiggle_rte1794988142 warningHighlight1794988142">=</span><span> readmatrix(strcat(path, </span><span style="color: rgb(170, 4, 249);">'\ElhrostHeijnen2017\their_data.xlsx'</span><span>),</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            </span><span style="color: rgb(170, 4, 249);">'Sheet'</span><span>, </span><span style="color: rgb(170, 4, 249);">'S'</span><span>)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span class="nonlocalVariableHighlighting">W</span><span> </span><span class="warning_squiggle_rte1794988142 warningHighlight1794988142">=</span><span> readmatrix(strcat(path, </span><span style="color: rgb(170, 4, 249);">'\ElhrostHeijnen2017\their_data.xlsx'</span><span>),</span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            </span><span style="color: rgb(170, 4, 249);">'Sheet'</span><span>, </span><span style="color: rgb(170, 4, 249);">'W'</span><span>)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%normalize W</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">for </span><span>i=1:size(</span><span class="nonlocalVariableHighlighting">W</span><span>,1)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        </span><span style="color: rgb(14, 0, 255);">if </span><span>sum(</span><span class="nonlocalVariableHighlighting">W</span><span>(i,:))~=0</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            </span><span class="nonlocalVariableHighlighting">W</span><span>(i,:)=</span><span class="nonlocalVariableHighlighting">W</span><span>(i,:)/sum(</span><span class="nonlocalVariableHighlighting">W</span><span>(i,:));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%In: spatial probit data (a is a vector with adoptiond dates, data is a struct with exo. vars for each period, W the spatial weigth matrix and vars which columns of data(t).X to include)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%Out: ml-estimates, standard deviation and value of loglikelihood</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%Optimization- and econometrics toolbox are needed</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%handy stuff</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    options = optimset;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'Display' </span><span>,</span><span style="color: rgb(170, 4, 249);">'iter'</span><span>);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'HessUpdate' </span><span>,</span><span style="color: rgb(170, 4, 249);">'bfgs'</span><span>); </span><span style="color: rgb(2, 128, 9);">%bfgs</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%options = optimset(options,'InitialHessType' ,'scaled-identity');</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'LargeScale' </span><span>,</span><span style="color: rgb(170, 4, 249);">'off'</span><span>);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    options = optimset(options,</span><span style="color: rgb(170, 4, 249);">'MaxFunEvals'</span><span>,1e8, </span><span style="color: rgb(170, 4, 249);">'MaxIter'</span><span>,1e8);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span class="warning_squiggle_rte1794988142">N</span><span>=size(</span><span class="nonlocalVariableHighlighting">W</span><span>,1); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%T=max(a(a&lt;inf));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span class="nonlocalVariableHighlighting">T</span><span class="warning_squiggle_rte1794988142 warningHighlight1794988142">=</span><span>1</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% YOu don't need this since the matrix X is already the average over T</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% See the file, R_vs_Matlab/ELhorstHeijnen2017/Replication.mlx</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">    %{ </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">    S=0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">        for t=1:T</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">            S=S+data(t).X(:,vars);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">        end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">        S=S/T;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(2, 128, 9);">    %}</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">% INITIAL VALUE COMPUTED IN R</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%get good initial value</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%temp = sar(y,X,W); </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%beta_init=[temp.beta; tan(.5*pi*temp.rho)]; </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    beta_init </span><span class="warning_squiggle_rte1794988142 warningHighlight1794988142">=</span><span> [0.6569179 -1.6363411 -0.0316489 0.3040898 -0.0042748 -0.3129218 0.1021059 tan(.5*pi*-0.3569)]'</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%clear temp;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%beta_init=[temp.beta; temp.rho];</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%seed=rand(N,100); %use same random numbers to facilitate convergence;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%find optimal value for rho</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%while not(exist('optbeta','var'))</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%try</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    [optbeta,logL]=fminsearch(@adjlogl,beta_init,options);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%catch err</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%disp('Trying a new seed')</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%seed=rand(N,100); %use new random numbers if convergence fails</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%rethrow(err);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    paramest=[optbeta(1:end-1); 2*atan(optbeta(end))/pi];</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%paramest=optbeta;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    logL=-logL; </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    H=0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">for </span><span class="nonlocalVariableHighlighting warning_squiggle_rte1794988142">t</span><span>=1:</span><span class="nonlocalVariableHighlighting">T</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        </span><span style="color: rgb(2, 128, 9);">% data(1).X(:,vars) is N x k</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        H = H + hessian(@(z)LikeliSALEISProbitcode(</span><span class="nonlocalVariableHighlighting">W</span><span>,</span><span class="nonlocalVariableHighlighting">X</span><span>,</span><span class="nonlocalVariableHighlighting">y</span><span>,3,1000,z), </span><span style="color: rgb(14, 0, 255);">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            [paramest(end); paramest(1:end-1)]);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    Varcov=inv(H);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    paramstd=sqrt(diag(Varcov))';</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(2, 128, 9);">%aux. functions: log-likelihood conditional after transforming rho back to [-1,1]</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">function </span><span>ll=adjlogl(beta)</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        rhoadj=2*atan(beta(end))/pi;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        </span><span style="color: rgb(2, 128, 9);">%rhoadj=beta(end);</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        ll=0;</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        </span><span style="color: rgb(14, 0, 255);">for </span><span class="nonlocalVariableHighlighting warning_squiggle_rte1794988142">t</span><span>=1:</span><span class="nonlocalVariableHighlighting">T</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            </span><span style="color: rgb(2, 128, 9);">%ll=ll+feval(@(z)LikeliSALEISProbitcode(W,data(t).X(:,vars),a&lt;=t,3,1000,[rhoadj; z]),beta(1:end-1));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>            ll= ll + feval(@(z)LikeliSALEISProbitcode(</span><span class="nonlocalVariableHighlighting">W</span><span>, </span><span class="nonlocalVariableHighlighting">X</span><span>, </span><span class="nonlocalVariableHighlighting">y</span><span>, 3, 1000, [rhoadj; z]), beta(1:end-1));</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>        </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span>    </span><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S1'><span style="white-space: pre;"><span style="color: rgb(14, 0, 255);">end</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'></div></div></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+% Compute standard spatial probit model using 1-period data (T=1). 
+% OUR DATA
+% The beta_init vector with initial estimates come from R.
+ %[paramest,paramstd,logL,Varcov] = puto()
+ [paramest, paramstd, logL, Varcov ] = puto()
+ 
+%% 
+% Paramest is:
+
+ paramest
+ 
+%% 
+% Std. dev of parameters is:
+
+ paramstd
+ 
+%% 
+% THe value of the log-lik is:
+
+ logL
+%% 
+% 
+
+function [paramest, paramstd, logL, Varcov ] = puto()
+    % LOAD DATA
+    % THeir data
+    addpath 'C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab'
+    addpath(genpath('C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\standardSpatialProbit'))
+
+    path = 'C:\Users\22457561\OneDrive\UWA PhD\bankFailure\code\simulations\R_vs_Matlab'
+    y = readmatrix(strcat(path, '\ElhrostHeijnen2017\their_data.xlsx'),...
+            'Sheet', 'adoption')
+    X = readmatrix(strcat(path, '\ElhrostHeijnen2017\their_data.xlsx'),...
+            'Sheet', 'S')
+    W = readmatrix(strcat(path, '\ElhrostHeijnen2017\their_data.xlsx'),...
+            'Sheet', 'W')
+    
+    %normalize W
+    for i=1:size(W,1)
+        if sum(W(i,:))~=0
+            W(i,:)=W(i,:)/sum(W(i,:));
+        end
+    end
+    %In: spatial probit data (a is a vector with adoptiond dates, data is a struct with exo. vars for each period, W the spatial weigth matrix and vars which columns of data(t).X to include)
+    %Out: ml-estimates, standard deviation and value of loglikelihood
+    %Optimization- and econometrics toolbox are needed
+
+    %handy stuff
+    options = optimset;
+    options = optimset(options,'Display' ,'iter');
+    options = optimset(options,'HessUpdate' ,'bfgs'); %bfgs
+    %options = optimset(options,'InitialHessType' ,'scaled-identity');
+    options = optimset(options,'LargeScale' ,'off');
+    options = optimset(options,'MaxFunEvals',1e8, 'MaxIter',1e8);
+    N=size(W,1); 
+    %T=max(a(a<inf));
+    T=1
+
+    % YOu don't need this since the matrix X is already the average over T
+    % See the file, R_vs_Matlab/ELhorstHeijnen2017/Replication.mlx
+    %{ 
+    S=0;
+        for t=1:T
+            S=S+data(t).X(:,vars);
+        end
+        S=S/T;
+    %}
+
+    % INITIAL VALUE COMPUTED IN R
+    %get good initial value
+    %temp = sar(y,X,W); 
+    %beta_init=[temp.beta; tan(.5*pi*temp.rho)]; 
+    beta_init = [0.6569179 -1.6363411 -0.0316489 0.3040898 -0.0042748 -0.3129218 0.1021059 tan(.5*pi*-0.3569)]'
+    %clear temp;
+    %beta_init=[temp.beta; temp.rho];
+    %seed=rand(N,100); %use same random numbers to facilitate convergence;
+
+    %find optimal value for rho
+    %while not(exist('optbeta','var'))
+    %try
+    [optbeta,logL]=fminsearch(@adjlogl,beta_init,options);
+    %catch err
+    %disp('Trying a new seed')
+    %seed=rand(N,100); %use new random numbers if convergence fails
+    %rethrow(err);
+    %end
+    %end
+
+    paramest=[optbeta(1:end-1); 2*atan(optbeta(end))/pi];
+    %paramest=optbeta;
+    logL=-logL; 
+    H=0;
+    for t=1:T
+        % data(1).X(:,vars) is N x k
+        H = H + hessian(@(z)LikeliSALEISProbitcode(W,X,y,3,1000,z), ...
+            [paramest(end); paramest(1:end-1)]);
+    end
+    Varcov=inv(H);
+    paramstd=sqrt(diag(Varcov))';
+    
+    %aux. functions: log-likelihood conditional after transforming rho back to [-1,1]
+    function ll=adjlogl(beta)
+        rhoadj=2*atan(beta(end))/pi;
+        %rhoadj=beta(end);
+        ll=0;
+        for t=1:T
+            %ll=ll+feval(@(z)LikeliSALEISProbitcode(W,data(t).X(:,vars),a<=t,3,1000,[rhoadj; z]),beta(1:end-1));
+            ll= ll + feval(@(z)LikeliSALEISProbitcode(W, X, y, 3, 1000, [rhoadj; z]), beta(1:end-1));
+        end
+    end
+end
+##### SOURCE END #####
+--></body></html>

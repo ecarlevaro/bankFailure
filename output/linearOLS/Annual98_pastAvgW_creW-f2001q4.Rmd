@@ -1,0 +1,172 @@
+---
+title: "Annual98_pastAvgW_creW"
+author: "Emi"
+date: "01/09/2021"
+output: html_document
+code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library(tsibble) # Panel data/longitudinal
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(svglite) # export plots to svg
+library(rmatio) # expor to Matlab
+library(spdep)
+library(spatialreg)
+source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+
+```
+
+```{=html}
+<style type="text/css">
+.main-container {
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+```
+
+```{r sample_specs}
+specs <- list(
+  'samFile' = 'sam_s98.Priv.01.onT.rds',
+  'y' = list('minExitDateQ' = 1999.1,
+             'failureHorizon' = 2001.4),
+  'X' = list('from' = 1997.4, 
+             'vars' = c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE',
+                        'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')),
+  'W' = list('from' = '',
+             'to' = '1997q4',
+             #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
+             'wVar' = 'W_A_PR'))
+```
+# INtroduction
+
+-   $\bm{y_t}$ is 1 if the bank fails between `r specs$y$minExitDateQ` and `r specs$y$failureHorizon`.
+
+-   $W$ is the average between 1997q4 and `r specs$W$to`. Hence we use past information about the network.
+
+-   $X$ is the average for 1998.
+
+# Load data
+
+```{r load_bank_data}
+#setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+banksDB <- readRDS(str_c('code/probit/failureTill2001q4/annual/', specs$samFile)) %>%
+  dplyr::mutate(., 
+        #fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
+        exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+        startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+        .after = IDENT) 
+  
+
+banks <- banksDB %>%
+  drop_na %>%
+  filter(startDateQ<= !!specs$X$from & exitDateQ >= !!specs$y$minExitDateQ) 
+```
+
+```{r}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+#banksDB <- haven::read_dta('data/BAFA-main-1997-2001-quarterly.dta') %>%
+#        dplyr::mutate(., 
+#        fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
+#        exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+#        startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+#        .after = IDENT) %>%
+#    drop_na %>%
+#  # For fix W I need to fix banks at the beginning of the sample
+#  filter(startDateQ<= 1997.4 & exitDateQ>=2000.1) %>%
+#  # ONly private banks
+#  filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5)
+
+# Select only entities private and alive on 1997q4
+banksAtStart <- banksDB %>%
+dplyr::group_by(IDENT) %>%
+  summarise('start' = FECHA_A,
+            'startDateQ' = min(startDateQ),
+            NOMRED = first(NOMRED),
+            GRUPO_ID_UNI = first(GRUPO_ID_UNI),
+            P_LOANS_ARS_RATE_W = first(P_LOANS_ARS_RATE_W))
+
+excBanks <- filter(banksDB, startDateQ>1997.4)
+```
+
+I lose `r NROW(excBanks)` banks because a) they don't have complete observations by 1997.4 (missing P_LOANS_ARS_RATE) or b) they were privatised after 1997q4.
+
+```{r}
+excBanks
+```
+
+Hence I end up with `r banks$IDENT %>% unique() %>% NROW()` banks.
+
+```{r load_network_data}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+dbRelations <- read_dta('data/interLoans/cen_deu_1997-06_2001_quarterly.dta') %>%
+  mutate(FECHA_Q = ( as_date(FECHA_D, origin=ymd("1960-01-01")) %>% 
+                     tsibble::yearquarter(.) ),
+         WEIGHT = .data[[ specs$W$wVar]]*100) %>%
+  tsibble(key = c(IDENT_ACREEDORA, IDENT_DEUDORA), 
+          index = FECHA_Q)
+
+# W_A_PR W_D_PR
+thisRelations <- filter_index(dbRelations, ~ specs$W$to) %>%
+  # fechaQ >= 1997.4 &
+  filter(., (IDENT_ACREEDORA != IDENT_DEUDORA) &
+  WEIGHT != 0)
+
+thisRelations
+
+# Number of unique relations (links)
+uLinksN <- select(thisRelations, IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  distinct() %>%
+  nrow()
+
+uLinksN
+
+```
+
+
+# Estimation of a linear ols model
+
+## Build objects
+
+```{r}
+X <- banks %>% select(all_of(specs$X$vars))
+
+# 1: survival, 0: failure during the sample period
+  y <- if_else(banks$EXIT_DATE_Q <= specs$y$failureHorizon, 0, 1)
+  
+```
+
+```{r save, eval=FALSE}
+write.mat(list('Wstd' = Wstd,
+               'X' =  X %>% data.matrix(.),
+               'y' = y),
+          'data.mat')
+```
+
+## Desc stats
+
+```{r descStatsBanks}
+bind_cols('y'=y, X) %>% 
+  descStats2(.)
+```
+
+
+```{r estimation_ols}
+reg <- lm(formula ='y ~ ActivoN + C8Est_w + CAR_IRR_3A6+ P_ROA+ P_DEP_ARS_RATE +
+        P_LOANS_ARS_RATE_W+ APRSpNF_RATE_W+ APR_USD_RATE+ APR_RATE_W',
+        data = bind_cols('y'=y, X))
+
+summary(reg)
+```
+int()
+```

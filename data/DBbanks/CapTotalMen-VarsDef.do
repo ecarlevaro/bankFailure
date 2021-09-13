@@ -16,7 +16,17 @@ order `varOrder'
 // An observation could be missing due to the bank did not report (or we don't have access to) that data or because the balance for that account was zero.  
 // Banks do not report the balance for accounts that are zero. We set to 0 these 'missing' values.
 if missing for all saldo* vars then it is missing
-if one or more saldo* vars are not missing, then put 0 for all 'missing' saldo* vars
+
+egen MISS_ROW = rowtotal(saldo* C8Est), missing
+save
+keep if missing(MISS_ROW)
+list bNombre if !missing(bNombre) & missing(MISS_ROW)
+// Empty!
+// n=27,818, k=4,709
+drop if missing(MISS_ROW)
+// n=26,737, k=4,709
+
+// Now every row (observations) that has missing values in any saldo* var is not missing by 0.
 
 egen missing = rowtotal(saldo*), missing
 label var missing "The sum of all saldo* variables. If missing observation, this variable is missing"
@@ -33,7 +43,7 @@ replace saldo* = 0
 codebook Activo
 drop Activo
 egen Activo = rowtotal(saldo111001-saldo235009), missing 
-//  It creates the (row) sum of the variables in varlist, treating missing as 0.  If missing is specified and all values in varlist are    missing for an observation, newvar is set to missing.
+//  It creates the (row) sum of the variables in varlist, treating missing as 0.  If missing is specified and all values in varlist are missing for an observation, newvar is set to missing.
 label var Activo "Activo en miles de pesos nominal"
 codebook Activo 
 

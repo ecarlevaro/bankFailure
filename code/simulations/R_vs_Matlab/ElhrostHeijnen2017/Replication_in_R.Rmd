@@ -1,0 +1,53 @@
+---
+title: "Replicate_ElhrostHeijnen2017"
+author: "Emi"
+date: "20/08/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(spdep)
+library(spatialreg)
+source('Rutils/Emi_R_utils.R')
+```
+
+# Load data
+```{r load_data}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/simulations/R_vs_Matlab/ElhrostHeijnen2017')
+
+y <- read_excel('their_data.xlsx',
+                sheet = 'adoption', col_names=FALSE) %>%
+    transmute('y' = ...1 * 1)
+  
+X <- read_excel('their_data.xlsx',
+                sheet = 'S', col_names=c('constant', 'x1', 'x2', 'x3', 'x4', 'x5', 'x6'))
+sam <- bind_cols(y, X) 
+sam
+
+W <- read_excel('their_data.xlsx',
+                sheet = 'W', col_names=FALSE) %>%
+    as.matrix()
+network <- mat2listw(W)
+```
+
+
+# Desc stats
+The mean of y is `r mean(sam$y)`
+```{r descStats}
+descStatsT(sam, names(sam))
+
+mean(W[,3])
+```
+
+# Estimation
+```{r estimation}
+reg <- spatialreg::lagsarlm(formula = 'y ~ x1 + x2 + x3+ x4 + x5+ x6', 
+       data = sam,
+       listw = network, 
+       zero.policy=TRUE)
+  list('summary' = summary(reg),
+       'impact' = spatialreg::impacts(reg, listw=network))
+```

@@ -59,20 +59,36 @@ gen W_A_PR = PRESTAMOS / A_APRestamos
 label var W_A_PR "Proporción de prestamos a Préstamos"
 winsor2 W_A_PR , cuts(1 99) suffix("")
 
+// From debtor's side
+gen W_D_A = PRESTAMOS / D_ActivoN
+label var W_D_A "Proporción de prestamos a Activo del deudor"
+winsor2 W_D_A , cuts(1 99) suffix("")
+
+gen W_D_PR = PRESTAMOS / D_APRestamos
+label var W_D_PR "Proporción de prestamos a Préstamos del deudor"
+winsor2 W_D_PR , cuts(1 99) suffix("")
+
 save "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\interLoans\cen_deu_1997-06_2001-quarterly.dta", replace
 
 /* ****************************** */
 gen FECHA_A = year(dofq(FECHA_Q))
 label var FECHA_A "Año de la relación"
 order FECHA_A, after(FECHA_Q)
-// Extract network during 1998
-sum IDENT_ACREEDORA if FECHA_A == 1998
-// n=1866
-collapse (sum) W_A_A W_A_PR , by(FECHA_A IDENT_ACREEDORA IDENT_DEUDORA)
-sum IDENT_ACREEDORA if FECHA_A == 1998
 
-// Divide by four to get quarterly average
-replace W_A_A = W_A_A / 4
-replace W_A_PR= W_A_PR / 4
+gen FECHA_D = dofq(FECHA_Q)
+format FECHA_D %td
+label var FECHA_D "Date with DAY-MONTH-YEAR (days since 1960-01-01). Useful when exporting to R"
+
+
+/* ****************************** */
+// Extract network during 1998
+	sum IDENT_ACREEDORA if FECHA_A == 1998
+	// n=1866
+	collapse (sum) W_A_A W_A_PR , by(FECHA_A IDENT_ACREEDORA IDENT_DEUDORA)
+	sum IDENT_ACREEDORA if FECHA_A == 1998
+
+	// Divide by four to get quarterly average
+	replace W_A_A = W_A_A / 4
+	replace W_A_PR= W_A_PR / 4
 
 save "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\interLoans\cen_deu_annual.dta"

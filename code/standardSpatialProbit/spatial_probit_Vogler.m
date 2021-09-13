@@ -38,7 +38,9 @@ function [paramest,paramstd,logL,Varcov]=spatial_probit(y,X,W)
             r = sar(Y,S,W);
    %}
     % a<inf generates a dummy var with 1 for countries that adopted IT
-    temp = sar(y,X,W); beta_init=[temp.beta; tan(.5*pi*temp.rho)]; clear temp; %get good initial value
+    temp = sar(y,X,W); 
+    beta_init=[temp.beta; tan(.5*pi*temp.rho)];
+    clear temp; %get good initial value
     %beta_init=[temp.beta; temp.rho];
     %seed=rand(N,100); %use same random numbers to facilitate convergence;
 

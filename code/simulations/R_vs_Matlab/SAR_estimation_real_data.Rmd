@@ -1,0 +1,61 @@
+---
+title: "SAR_estimation_real_data"
+author: "Emi"
+date: "20/08/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(spdep)
+library(spatialreg)
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code')
+source('Rutils/Emi_R_utils.R')
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r load_data}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/standardSpatialProbit')
+y <- read_csv('Y_s98.Priv.01.onT.csv', col_names = FALSE)
+X <- read_csv("X_s98.Priv.01.onT.csv", col_names = FALSE) %>%
+      rename(constant = X1)
+sam <- bind_cols(y, X) %>%
+        rename(y = X1)
+
+sam
+
+W = read_csv("W_1998.csv", col_names = FALSE) %>%
+    as.matrix()
+network <- mat2listw(W)
+
+```
+
+# Desc stats
+The mean of y is `r mean(sam$y)`
+```{r descStats}
+descStatsT(sam, names(sam))
+
+mean(W[,3])
+```
+
+
+
+```{r estimation}
+reg <- spatialreg::lagsarlm(formula = 'y ~ X2 + X3 + X4 + X5 +X6 +X7 +X8 + X9 + X10', 
+       data = sam,
+       listw = network, 
+       zero.policy=TRUE)
+results <-  list('summary' = summary(reg),
+                  'impact' = spatialreg::impacts(reg, listw=network))
+
+results
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -5,6 +5,7 @@ The do files are:
 	-This file.
 In this database, the variables that are sums of 'saldo' vars, treted missing values as zero. 
 */
+// a COPY OF capital-allEntities-Monthly.dta
  // this file
 drop if IDENT>99999
 drop if missing(ActivoN)

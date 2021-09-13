@@ -28,16 +28,18 @@ dbRelations <- read_dta('../../data/interLoans/cen_deu_1997-06_2001-06_todas_ent
               dplyr::select(., FECHAdata, IDENT_ACREEDORA, IDENT_DEUDORA, PRESTAMOS) %>%
               dplyr::filter(., !is.na(IDENT_DEUDORA)) %>%
               dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata))
-dbFcialEnts <- read_dta('../../data/DBbanks/capital-allEntities-Monthly.dta', col_select = c(IDent, FECHAdata, bNombre, grupoIDUni, Activo, ActivoR,
+dbFcialEnts <- read_dta('../../data/DBbanks/failures-allEnts-1997-2004.dta', 
+                        col_select = c(IDENT, FECHAdata, bNombre, grupoIDUni, Activo, ActivoR,
                       ALIQs1_1ratio, APRamplio, C8Est_w, CAR_IRR_3A6,
                       P_LOANS_ARS_RATE, P_DEP_ARS_RATE, P_ROA, C8_E)) %>%
-                dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata),                        IDENT_ACREEDORA = IDent) %>%
-                filter(., FECHAdata<ymd("2004-12-01") & FECHAdata>ymd("1997-05-01"))
+        dplyr::mutate(., FECHAdata = ymd("1960-01-01")+months(FECHAdata),                        
+                      IDENT_ACREEDORA = IDENT) %>%
+                filter(., FECHAdata>ymd("1997-05-01") & FECHAdata<ymd("2004-12-01"))
 ```
 
-### Weighting relations
-
-Now we build the wights of each link. We backup the data on Assets and Loans from dbFcialEnts and enter into the dbRelations data frame.
+## Relations (links)
+### Filter
+We recover the data on Assets and Loans OF THE cREDITOR from dbFcialEnts and enter into the dbRelations data frame.
 
 ```{r build_graph}
 relations <- dbRelations %>%
@@ -45,10 +47,6 @@ relations <- dbRelations %>%
               dplyr::left_join(., dbFcialEnts, by = c('IDENT_ACREEDORA', 'FECHAdata'))
 
 ```
-
-## Oh missing values!
-
-### From creditors perspective
 
 The following entities appear in the Central de deudores but not anymore in the balance de saldos:
 
@@ -58,7 +56,6 @@ missCreditors <- dplyr::anti_join(relations, dbFcialEnts,
 missCreditors
 
 ```
-
 The **318 Banco de Salta SA** which was absorbed by Banco Macro on November 1999. I have detailed data only till Sep-1999. I could get more aggregated data if necesary from the balance resumido. **Caja de crédito Universo Cooperativa Limitada 64123** did not report its balance in 2000-10. I treat it as a missing value.
 
 I impute this missing values. Replace with the previous value
@@ -70,9 +67,6 @@ toAddUniverso <- filter(dbFcialEnts, FECHAdata == ym(200009) &IDent == 64123) %>
                   mutate(., FECHAdata = ym(200010))
 dbFcialEnts <- bind_rows(dbFcialEnts, toAddSalta, toAddUniverso) 
 ```
-
-### From debtors perspective
-
 Verify that all nodes involved in relations are in dbFcialEnts. The following table shows the relations in which a debtor does not appear in dbFcialEnts. *anti\_join()*, returns rows in *relations* without a match in *dbFcialEnts*.
 
 ```{r}
@@ -85,29 +79,6 @@ missDebtors
 ```
 
 This could be due to debtors disappearing. A debtor disappears as a financial entitite but the debts do not expire, such that active financial entities still report those debts.
-
-I exclude these relations from the *relations* tibble. We exclude those observations and select a specific month, say, **1999m12**
-
-Get desc stats monthly?
-
-```{r network_by_date}
-#relations <- filter(relations, !is.na(IDent))
-atDate <- ymd("1998-03-01")
-theseRelations <-  relations[ !(relations$IDENT_DEUDORA %in% missDebtors$IDENT_DEUDORA),  ] %>%
-                  dplyr::mutate(., WEIGHT = PRESTAMOS/APRamplio) %>%
-                  dplyr::filter(., WEIGHT>0.005)
-# Nodes
-#
-#sam <- openRDS('../../results/probit/failureUntil2001q4/sam_s1998q1_priv.rds')
-
-grupoStr <- tibble('grupoIDUni' = c(1:9, NA),
-                    'type' = c('Local corporation', 'Cooperative', 'Local corporation', 'State-owned', 'State-owned', 'Foreign branch', 'Caja', 'Non-bank', 'Non-bank', 'Non-bank'))
-
-nodes <- filter(dbFcialEnts, FECHAdata==atDate) %>%
-          dplyr::select(., !FECHAdata) %>%
-          left_join(., grupoStr, by='grupoIDUni')
-```
-
 When did these bank end in 'entidades.dta'?
 
 ```{r, eval=FALSE}
@@ -119,6 +90,41 @@ entsDates <- dbEnts %>%
 #save2Excel(entsDates, 'entsDates',  'entsDates.xlsx')
 entsDates
 ```
+I exclude these relations from the *relations* tibble.
+
+### Weighting relations
+
+Now we build the wights of each link from creditor perspective.
+
+```{r filter}
+theseRelations <-  relations[ !(relations$IDENT_DEUDORA %in% missDebtors$IDENT_DEUDORA),  ] %>%
+                  dplyr::mutate(., WEIGHT = PRESTAMOS/APRamplio) %>%
+                  dplyr::filter(., WEIGHT>0.005)
+# Nodes
+#
+#sam <- openRDS('../../results/probit/failureUntil2001q4/sam_s1998q1_priv.rds')
+
+grupoStr <- tibble('grupoIDUni' = c(1:9, NA),
+                    'type' = c('Local corporation', 'Cooperative', 'Local corporation', 'State-owned', 'State-owned', 'Foreign branch', 'Caja', 'Non-bank', 'Non-bank', 'Non-bank'))
+
+nodes <-  dbFcialEnts%>%
+          left_join(., grupoStr, by='grupoIDUni')
+```
+
+Now `theseRelations` contains all the links for all quarters and `nodes` contains information
+We exclude those observations and select a specific month, say, **1999m12**
+
+Get desc stats monthly?
+
+
+
+```{r network_by_date}
+#relations <- filter(relations, !is.na(IDent))
+atDate <- ymd("1998-03-01")
+
+```
+
+
 
 ## Relations: distribution of weights
 

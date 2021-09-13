@@ -1,4 +1,6 @@
 %load IT
+thisX = data(1).X(:,vars)
+data(t).X(:,vars)
 Y = readmatrix("../
 
 %Data (See Hanna's XLS-file for details)

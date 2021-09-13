@@ -1,0 +1,214 @@
+---
+author: "Emi"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: true
+---
+# Sample specs
+
+```{r sample_specs}
+# RUN THIS BEFORE KNITTING!!!
+specs <- list('idSample' = 'p_A99_b97q4_fh03q4',
+      'savingFolder' = 'output/probit/Annual99/',
+      'y' = list('failureSince' = 2000.1,
+                 'failureHorizon' = 2003.4),
+      'X' = list('freq' = 'annual',
+                 'from' = 1999,
+                 'to' = 1999,
+                 'bankBirthFrom' = 1997.4, 
+                 'vars' = c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA',
+                            'P_DEP_ARS_RATE',
+                            'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE',
+                            'APR_RATE_W')),
+      'W' = list('from' = NULL,
+                 'to' = NULL,
+                 #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
+                 'wVar' = NULL))
+```
+
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library(tsibble) # Panel data/longitudinal
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(svglite) # export plots to svg
+library(rmatio) # expor to Matlab
+library(spdep)
+library(spatialreg)
+source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+
+```
+
+```{=html}
+<style type="text/css">
+  .main-container {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+```
+
+---
+  title: `r specs$idSample`
+  date: `r today()`
+---
+  
+-   Only banks that were alive by ```r specs$X$bankBirthFrom```
+
+-   $\bm{y_t}$ is 1 if the bank fails between ```r specs$y$failureSince``` and ```r specs$y$failureHorizon```.
+
+-   $X$ is data from `r specs$X$from` to `r specs$X$to`.
+
+# Load data
+
+## Banks covariates
+```{r load_bank_data}
+banksDB <- haven::read_dta('data/failures-1997-2001-annual.dta') %>%
+  dplyr::mutate(., 
+                fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
+                exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+                startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+                .after = IDENT) 
+
+banks <- banksDB %>%
+  drop_na %>%
+  filter(FECHA_A == specs$X$from) %>%
+  # ONly private banks
+  filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5) %>%
+  filter(startDateQ<= !!specs$X$bankBirthFrom & exitDateQ >= !!specs$y$failureSince) 
+
+```
+
+```{r}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+#banksDB <- haven::read_dta('data/BAFA-main-1997-2001-quarterly.dta') %>%
+#        dplyr::mutate(., 
+#        fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
+#        exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+#        startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+#        .after = IDENT) %>%
+#    drop_na %>%
+#  # For fix W I need to fix banks at the beginning of the sample
+#  filter(startDateQ<= 1997.4 & exitDateQ>=2000.1) %>%
+#  # ONly private banks
+#  filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5)
+
+# Select only entities private and alive on 1997q4
+banksAtStart <- banksDB %>%
+  dplyr::group_by(IDENT) %>%
+  summarise('start' = FECHA_A,
+            'startDateQ' = min(startDateQ),
+            NOMRED = first(NOMRED),
+            GRUPO_ID_UNI = first(GRUPO_ID_UNI),
+            P_LOANS_ARS_RATE_W = first(P_LOANS_ARS_RATE_W))
+
+excBanks <- filter(banksDB, startDateQ>1997.4)
+```
+
+I lose ```r NROW(excBanks)``` banks because a) they don't have complete observations by 1997.4 (missing P_LOANS_ARS_RATE) or b) they were privatised after 1997q4.
+
+```{r}
+excBanks
+```
+
+Hence I end up with ```r banks$IDENT %>% unique() %>% NROW()``` banks and the mean of IDENT is ```r banks$IDENT %>% mean()```.
+
+
+# Estimation of a probit model
+
+## Build objects
+
+```{r}
+X <- banks %>% select(all_of(specs$X$vars))
+
+# 1: survival, 0: failure during the sample period
+y <- if_else(banks$exitDateQ <= specs$y$failureHorizon, 0, 1)
+
+```
+
+```{r sample_save}
+saveRDS(bind_cols('DEP_VAR' = y, X), file=paste0(specs$savingFolder, specs$idSample, '_sample.rds'))
+#write.mat(list('Wstd' = Wstd,
+#               'X' =  X %>% data.matrix(.),
+#               'y' = y),
+#          'data.mat')
+```
+
+## Desc stats
+
+```{r descStatsBanks}
+dplyr::bind_cols('y'=y, X, 'IDENT'=banks$IDENT) %>%
+  descStats2(.)
+```
+
+## Run!
+```{r estimation_sar}
+model <- glm(formula ='y ~ ActivoN + C8Est_w + CAR_IRR_3A6+ P_ROA+ P_DEP_ARS_RATE +
+        P_LOANS_ARS_RATE_W+ APRSpNF_RATE_W+ APR_USD_RATE+ APR_RATE_W',
+        data = bind_cols('y'=y, X),
+    family=binomial(link='probit'), 
+    x=TRUE)
+
+regSumm <- summary.glm(model)
+
+regSumm
+```
+
+## Compute marginal effects
+
+A $1- \alpha$ confidence interval for $\hat{\beta_k}$ is $\hat{\beta_k} \pm z_{\frac{\alpha}{2}} \: \frac{\hat{\sigma_k}}{\sqrt{n}}$
+
+```{r marginalEffects}
+# Compute marginal effects
+# Marginal probabilities
+pMarginals <- dnorm( model$x %*% model$coefficients )
+
+# Marginal effect of the average bank
+x_Bar <- apply(model$x, MARGIN=2, mean) # Kx1 vector
+pMarginalAvgBank <- dnorm( t(x_Bar) %*% reg$coefficients)
+
+mgEffects <- pmap_dfr(as_tibble( regSumm$coefficients, rownames='var'), 
+         function(var, Estimate, `Std. Error`, ...) { 
+# CAMERON TRIVEDIR p467. Avergae Marginal effect of variable j is the average (over observations) of pdf(X Beta) * \hat{\beta}_j
+  n = NROW(regSumm$deviance.resid)
+  tibble('var' = var, 
+         'AVG_EFFECT_MEAN' = mean(pMarginals * Estimate),
+         'AVG_EFFECT_MIN_90' = AVG_EFFECT_MEAN - 1.645 * (`Std. Error`)*(1/sqrt( n )), 
+         'AVG_EFFECT_MAX_90' = AVG_EFFECT_MEAN + 1.645 * (`Std. Error`)*(1/sqrt( n )))
+}) 
+
+mgEffects
+  
+  
+```
+
+## Save results
+```{r }
+saveRDS(model, file=paste0(specs$savingFolder, specs$idSample, '_reg.rds'))
+
+#outList <- list(NULL)
+#names(outList) <- specs$idSample
+estimatesTibble <- as_tibble(regSumm$coefficients) %>%
+  rename('EST_COEF' = 'Estimate',
+         'STD_ERROR' ='Std. Error',
+         'Z_VALUE' ='z value',
+         'P_VALUE' = 'Pr(>|z|)') %>%
+  mutate('ID_SAMPLE' = specs$idSample,
+    'PREDICTOR' = rownames(regSumm$coefficients), .before=1) %>%
+  bind_cols(., select(mgEffects, 
+            AVG_EFFECT_MEAN, AVG_EFFECT_MIN_90, AVG_EFFECT_MAX_90)) %>%
+  mutate('MODEL_AIC' = regSumm$aic,
+         'MODEL_N' = NROW(regSumm$deviance.resid))
+
+write_excel_csv(estimatesTibble, file = paste0('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/output/probit/results_probit.csv'),
+                append=TRUE)
+```
