@@ -2,8 +2,8 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.771">
-    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+<hook NAME="MapStyle" zoom="1.026">
+    <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -708,6 +708,44 @@
 <node TEXT="No effect" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1510324663" CREATED="1610678592040" MODIFIED="1610678714159">
 <node TEXT="DONG LEE GOU 2019 Regression Discontinuity Designs with a Continuous Treatment" STYLE_REF="AuthorYear" ID="ID_55350926" CREATED="1610678632431" MODIFIED="1610678657222">
 <node TEXT="&quot;We find that increased capital has no impacts on the longrun failure rates of banks&quot;" ID="ID_1233605556" CREATED="1610678635407" MODIFIED="1610678648322"/>
+</node>
+</node>
+</node>
+<node TEXT="Depositors behaviour" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_143910140" CREATED="1631515900614" MODIFIED="1631515907599">
+<node TEXT="LEVY-YEYATI PERIA SCHMUKLER 2010" STYLE_REF="AuthorYear" ID="ID_1728712974" CREATED="1631515909639" MODIFIED="1631516611778" MAX_WIDTH="181.73497964649837 pt" MIN_WIDTH="181.73497964649837 pt">
+<node TEXT="Deposit behaviour under macroeconomic risk" STYLE_REF="PaperTItle" ID="ID_1060120354" CREATED="1631516478246" MODIFIED="1631516492431"/>
+<node TEXT="What explain bank runs: market discipline (bank-specific variables), macro factors or contagion?" ID="ID_311327861" CREATED="1631516400420" MODIFIED="1631516424231"/>
+<node TEXT="Market discipline" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_996583300" CREATED="1631584661921" MODIFIED="1631584871832">
+<node TEXT="weak bank-specific features punish banks, for instance, depositrs ask a hihger interest rate for a higher-risk bank" ID="ID_926706129" CREATED="1631584684841" MODIFIED="1631584715642"/>
+</node>
+<node TEXT="Common random shock" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_498349743" CREATED="1631584666514" MODIFIED="1631584871835">
+<node TEXT="A rand and perhaps generalised run on banks by depositors" ID="ID_1055114296" CREATED="1631584717665" MODIFIED="1631584729219"/>
+</node>
+<node TEXT="Contagion" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_218225712" CREATED="1631584675217" MODIFIED="1631584871836">
+<node TEXT="Wek banks spreading the shock" ID="ID_900689832" CREATED="1631584731817" MODIFIED="1631584737898"/>
+</node>
+<node TEXT="Macro risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_1017133643" CREATED="1631584678625" MODIFIED="1631584871838">
+<node TEXT="Can occur regardless or through bank-specific covariates" ID="ID_1818024234" CREATED="1631584739737" MODIFIED="1631584824802"/>
+<node TEXT="Currency risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_478385123" CREATED="1631584812217" MODIFIED="1631584884622">
+<node TEXT="Depositors may be worried that an upcoming devaluation will erode the value of their deposits and then run on banks, regardless of their fundamentals" ID="ID_1209818987" CREATED="1631584754713" MODIFIED="1631584785458"/>
+</node>
+<node TEXT="Sovereign risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_553182386" CREATED="1631584836777" MODIFIED="1631584884621">
+<node TEXT="Banks hold credits to the govt (bonds and loans)" ID="ID_1296994630" CREATED="1631584841521" MODIFIED="1631584860194"/>
+</node>
+</node>
+<node TEXT="They argue for macro factors." ID="ID_202665083" CREATED="1631516424781" MODIFIED="1631516429631"/>
+<node TEXT="&quot;These macroeconomic factors are initially exogenous to the banking system, hit all banks simultaneously (though not necessarily symmetrically), and tend to become particularly important during crisis times.&quot;" ID="ID_477556951" CREATED="1631515910566" MODIFIED="1631515915762"/>
+<node TEXT=" when trying to explain bank-specific characteristics further into the future, the explanatory power of past bank-specific variables declines relative to that of macroeconomic factors." ID="ID_553213964" CREATED="1631516397981" MODIFIED="1631516399488">
+<node TEXT="Sovereign risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1318329456" CREATED="1631519672473" MODIFIED="1631584895560">
+<node TEXT="Govt. debot/LOANS" ID="ID_200520665" CREATED="1631519644586" MODIFIED="1631519656257">
+<node TEXT="Includes bonds" ID="ID_1158035791" CREATED="1631519657928" MODIFIED="1631519660137"/>
+</node>
+</node>
+<node TEXT="Currency risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_522997627" CREATED="1631519682208" MODIFIED="1631584895560">
+<node TEXT="USD Loans / ASSETS" ID="ID_1342550086" CREATED="1631519686016" MODIFIED="1631519697504"/>
+<node TEXT="USD Liabilities/Total liabilities" ID="ID_702522946" CREATED="1631519700431" MODIFIED="1631519719168"/>
+<node TEXT="USD deposits/Total Deposits" ID="ID_1996010142" CREATED="1631519719670" MODIFIED="1631519730544"/>
+</node>
 </node>
 </node>
 </node>
