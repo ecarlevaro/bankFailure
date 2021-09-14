@@ -2,7 +2,7 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="1.026">
+<hook NAME="MapStyle" zoom="0.637">
     <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
@@ -808,6 +808,11 @@
 <node TEXT="Relationship lending" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1071815677" CREATED="1612773383653" MODIFIED="1612773396311" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
 <node TEXT="KOBAYAHSI TAKAGUCHI 2018 Identifying relationship lending in the interbank market network.pdf" ID="ID_1782301704" CREATED="1612773406149" MODIFIED="1612773406149" LINK="../biblio/network/KOBAYAHSI%20TAKAGUCHI%202018%20Identifying%20relationship%20lending%20in%20the%20interbank%20market%20network.pdf"/>
 <node TEXT="LIBERTI STURGESS 2020 The anatomy of a credit supply shock.pdf" ID="ID_914183040" CREATED="1626669949344" MODIFIED="1626669949345" LINK="../../../InvUNL/LoanDemandSupply/LIBERTI%20STURGESS%202020%20The%20anatomy%20of%20a%20credit%20supply%20shock.pdf"/>
+</node>
+<node TEXT="Others" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1469108127" CREATED="1631588394371" MODIFIED="1631588396223" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
+<node TEXT="CALOMIRIS SCHWEIKART 1991 The panic of 1857" ID="ID_1805234709" CREATED="1631588397164" MODIFIED="1631588406837">
+<node TEXT="Suggest that banks better connected to the East banks were able to cope with the crisis better" ID="ID_213926438" CREATED="1631588407996" MODIFIED="1631588422059"/>
+</node>
 </node>
 <node TEXT="DATA" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1893778359" CREATED="1613365067530" MODIFIED="1613365083704">
 <node TEXT="European banks securities holding" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1568887884" CREATED="1613365085809" MODIFIED="1613365100927">
