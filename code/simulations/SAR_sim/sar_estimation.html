@@ -1,0 +1,239 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>sar_estimation</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-09-22"><meta name="DC.source" content="sar_estimation.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Linear SAR estimation</span>
+addpath(genpath(<span class="string">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\etoolbox'</span>))
+load(<span class="string">'sims_SAR_Wfull.mat'</span>)
+
+<span class="keyword">for</span> i=1:length(sims)
+    estimates = est_SAR(sims(i).data.Y, sims(i).data.X, sims(i).data.W);
+    vnames = strvcat(<span class="string">'dependant'</span>, <span class="string">'intercept'</span>, <span class="string">'capital'</span>, <span class="string">'liquidity'</span>, <span class="string">'shortFunding'</span>);
+    prt(estimates, vnames)
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> estimates =  est_SAR(Y, X, W)
+
+    <span class="comment">%normalize W</span>
+    <span class="keyword">for</span> i=1:size(W,1)
+        <span class="keyword">if</span> sum(W(i,:))~=0
+            W(i,:) = W(i,:)/sum(W(i,:));
+        <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    rng(31, <span class="string">'twister'</span>);
+    info.lflag = 0; <span class="comment">% use full lndet no approximation</span>
+    estimates = sar( Y, X, W, info);
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+Spatial autoregressive Model Estimates 
+Dependent Variable =     dependant    
+R-squared          =    0.2548 
+Rbar-squared       =    0.2061 
+sigma^2            =    1.1002 
+Nobs, Nvars        =     50,     4 
+log-likelihood     =        -57.73244 
+# of iterations    =     16   
+min and max rho    =   -1.0000,   1.0000 
+total time in secs =    0.0880 
+time for lndet     =    0.0220 
+time for t-stats   =    0.0020 
+time for x-impacts =    0.0590 
+# draws  x-impacts =      1000   
+No lndet approximation used 
+***************************************************************
+Variable          Coefficient  Asymptot t-stat    z-probability 
+intercept            0.256394         0.418411         0.675646 
+capital             -6.572063        -2.843961         0.004456 
+liquidity            1.308506         0.736874         0.461199 
+shortFunding         2.050868         1.636760         0.101681 
+rho                 -0.641000        -3.236990         0.001208 
+
+Direct            Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital      -616948900.653159        -0.031623         0.974899     -8579.467025        -0.833793 
+liquidity     71668156.259407         0.031623         0.974899        -3.951178       181.079313 
+shortFunding 136885008.400271         0.031623         0.974899        -1.296664      1507.198247 
+
+Indirect          Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital      -44320117427.781433        -0.031623         0.974899   -615310.032361         6.748303 
+liquidity    5148467031.960269         0.031623         0.974899        -4.321399     12842.182666 
+shortFunding 9833488010.790850         0.031623         0.974899        -2.867500    108094.617025 
+
+Total             Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital      -44937066328.434639        -0.031623         0.974899   -623889.499386        -0.434898 
+liquidity    5220135188.219666         0.031623         0.974899        -4.214723     13023.261978 
+shortFunding 9970373019.191135         0.031623         0.974899        -0.913328    109601.815272 
+
+
+Spatial autoregressive Model Estimates 
+Dependent Variable =     dependant    
+R-squared          =    0.1542 
+Rbar-squared       =    0.1278 
+sigma^2            =    0.9849 
+Nobs, Nvars        =    100,     4 
+log-likelihood     =        -107.3151 
+# of iterations    =     12   
+min and max rho    =   -1.0000,   1.0000 
+total time in secs =    0.1830 
+time for lndet     =    0.1180 
+time for t-stats   =    0.0010 
+time for x-impacts =    0.0600 
+# draws  x-impacts =      1000   
+No lndet approximation used 
+***************************************************************
+Variable          Coefficient  Asymptot t-stat    z-probability 
+intercept           -0.132688        -0.337902         0.735437 
+capital             -2.081000        -1.261537         0.207116 
+liquidity           -1.801748        -1.882069         0.059827 
+shortFunding         3.358940         3.722071         0.000198 
+rho                 -0.317991        -1.991368         0.046440 
+
+Direct            Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital             -2.089142        -1.278662         0.203976        -6.278561         2.107453 
+liquidity           -1.843938        -1.818690         0.071952        -4.364630         0.756730 
+shortFunding         3.456081         3.754149         0.000292         1.146125         5.685012 
+
+Indirect          Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital              0.515579         1.015330         0.312399        -0.760398         2.232817 
+liquidity            0.443808         1.286344         0.201293        -0.357189         1.465526 
+shortFunding        -0.835691        -1.807112         0.073752        -2.158755         0.492987 
+
+Total             Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital             -1.573563        -1.261288         0.210140        -5.352776         1.565384 
+liquidity           -1.400129        -1.750409         0.083115        -3.751548         0.529580 
+shortFunding         2.620389         3.266500         0.001492         0.788292         5.274642 
+
+
+Spatial autoregressive Model Estimates 
+Dependent Variable =     dependant    
+R-squared          =    0.2199 
+Rbar-squared       =    0.2152 
+sigma^2            =    1.0279 
+Nobs, Nvars        =    500,     4 
+log-likelihood     =       -549.42567 
+# of iterations    =     14   
+min and max rho    =   -1.0000,   1.0000 
+total time in secs =    4.1130 
+time for lndet     =    3.9720 
+time for t-stats   =    0.0230 
+time for x-impacts =    0.1080 
+# draws  x-impacts =      1000   
+No lndet approximation used 
+***************************************************************
+Variable          Coefficient  Asymptot t-stat    z-probability 
+intercept            0.283511         1.570649         0.116264 
+capital             -5.057381        -6.965082         0.000000 
+liquidity           -1.417537        -3.063231         0.002190 
+shortFunding         3.380254         8.401255         0.000000 
+rho                 -0.388989        -5.686907         0.000000 
+
+Direct            Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital             -5.206088        -6.895219         0.000000        -7.413201        -3.352207 
+liquidity           -1.470685        -3.149870         0.001731        -2.741247        -0.213171 
+shortFunding         3.490563         8.393315         0.000000         2.396756         4.515768 
+
+Indirect          Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital              1.536014         4.874203         0.000001         0.799595         2.538923 
+liquidity            0.434136         2.812976         0.005102         0.057147         0.892397 
+shortFunding        -1.030031        -5.340482         0.000000        -1.556454        -0.551082 
+
+Total             Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital             -3.670074        -6.407507         0.000000        -5.445392        -2.338376 
+liquidity           -1.036550        -3.106292         0.002002        -1.939926        -0.144559 
+shortFunding         2.460532         7.558805         0.000000         1.629254         3.336993 
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Linear SAR estimation
+addpath(genpath('C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\etoolbox'))
+load('sims_SAR_Wfull.mat')
+
+for i=1:length(sims)
+    estimates = est_SAR(sims(i).data.Y, sims(i).data.X, sims(i).data.W);
+    vnames = strvcat('dependant', 'intercept', 'capital', 'liquidity', 'shortFunding');
+    prt(estimates, vnames)
+end
+
+function estimates =  est_SAR(Y, X, W)
+ 
+    %normalize W
+    for i=1:size(W,1)
+        if sum(W(i,:))~=0
+            W(i,:) = W(i,:)/sum(W(i,:));
+        end
+    end
+
+    rng(31, 'twister');
+    info.lflag = 0; % use full lndet no approximation
+    estimates = sar( Y, X, W, info);   
+    
+end
+
+##### SOURCE END #####
+--></body></html>

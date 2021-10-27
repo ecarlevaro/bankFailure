@@ -1,0 +1,71 @@
+---
+title: "Simulate a network"
+author: "Emi"
+date: "16/09/2021"
+output:
+    html_document:
+    code_folding: hide
+    number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library("igraph")
+library(rmatio) # export to Matlab
+library(tidyverse)
+library(tidygraph)
+library(ggraph)
+```
+
+```{r}
+Ns <- c(50, 100, 500)
+```
+
+## Simulate network
+
+```{r sim_network}
+simNets <- map(Ns, function(N) {
+  set.seed(5)
+  simNet <- play_smallworld(n_dim=1, dim_size=N,
+                              loops=FALSE, multiple=FALSE,
+                              order=3, p_rewire=0.3)
+
+  #Singleton vertex
+  singVs <- runif((1/3)*N, min=1, max=N) %>% round(.)
+ 
+  simNetSparse <- simNet %>%
+    activate(edges) %>%
+    anti_join(., tibble('from' = singVs), by='from') %>%
+    anti_join(., tibble('to' = singVs), by='to')
+
+  list('full' = simNet, 'sparse'= simNetSparse, 
+       'W' = igraph::as_adjacency_matrix(simNet, sparse=FALSE), 
+       'Wsparse' = igraph::as_adjacency_matrix(simNetSparse, sparse=FALSE))
+  
+})
+
+simNets[[1]]$full %>%
+ggraph(., layout = 'kk') +
+geom_edge_fan2(colour='black', check_overlap=TRUE, n = 115) + 
+geom_node_point(shape=21) +
+theme_graph()
+  
+simNets[[1]]$sparse %>%
+ggraph(., layout = 'kk') +
+geom_edge_fan2(colour='black', check_overlap=TRUE, n = 115) + 
+geom_node_point(shape=21) +
+theme_graph()
+
+```
+
+
+```{r export}
+exp <- map(simNets, function(simNet) {
+  list('W'=simNet$W, 'Wsparse'=simNet$Wsparse)
+  })
+  names(exp) <- c('s1', 's2', 's3')
+  write.mat(exp,
+            filename='code/simulations/SAR_sim/Ws.mat')
+
+```

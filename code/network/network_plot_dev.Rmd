@@ -37,8 +37,12 @@ specs$savingFolder <- 'output/SAR/Annual99/'
 network <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds')) %>%
   as_tbl_graph() %>%
   activate(nodes) %>%
+  rename('IDent' = 'name') %>%
+  rename('label' = 'NOMRED') %>%
   mutate(degree = degree(.),
-         colour = if_else(survival==1, 'green', 'red'))
+         colour = if_else(survival==1, 'green', 'red'),
+         value = ActivoN, 
+         title = str_c(label, ', $ ', (ActivoN/10000), ' mill.'))
 
 summary(network)
 ```
@@ -136,7 +140,7 @@ plots$NetworkFailBanks
 ```
 
 # Save
-```{r save}
+```{r save, eval=FALSE, include=FALSE}
 walk2(plots, names(plots), function(plot, fileName) {
   ggsave(paste0(specs$savingFolder, fileName, '.pdf'),
          plot, 
@@ -144,6 +148,34 @@ walk2(plots, names(plots), function(plot, fileName) {
 })
 
 ```
+
+
+## Interactive plot
+
+Using visNetwork package. I use the same 'g' object from iGraph
+
+```{r plot_interactive, eval=TRUE}
+pTblNodes <- network %>%
+  activate(nodes) %>%
+  rename('id'='IDent') %>%
+  as_tibble() %>%
+  select(., id)
+  
+
+pTblRelations <- network %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  select(., from, to)
+
+visNetwork(pTblNodes, pTblRelations, width = "100%") %>%
+  visLayout(randomSeed = 123, improvedLayout=TRUE) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visInteraction(navigationButtons = TRUE) %>%
+  visConfigure(enabled = TRUE)
+
+```
+
+
 
 
 

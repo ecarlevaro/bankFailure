@@ -2,7 +2,7 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.637">
+<hook NAME="MapStyle" zoom="0.771">
     <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
@@ -232,7 +232,7 @@
 </richcontent>
 </node>
 </node>
-<node TEXT="PERIA SCHMUKLER 2001" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_1526370996" CREATED="1610685371744" MODIFIED="1610700950825">
+<node TEXT="PERIA SCHMUKLER 2001" STYLE_REF="AuthorYear" ID="ID_1526370996" CREATED="1610685371744" MODIFIED="1610700950825">
 <hook URI="recursos/Sergio_Schmukler.jpg" SIZE="1.0" NAME="ExternalObject"/>
 <node TEXT="A common test of market discipline is whether the estimates of /3 are individually or jointly different from zero" ID="ID_510557672" CREATED="1610685381399" MODIFIED="1610685536005">
 <hook URI="recursos/PERIA%20SCHMUKLER%202001%20deposits_regression.png" SIZE="0.6329114" NAME="ExternalObject"/>
@@ -687,7 +687,7 @@
 </node>
 <node TEXT="Does capital reduce failure rate?" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_1630578648" CREATED="1610678531441" MODIFIED="1610678697923">
 <node TEXT="Reduce" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1715169996" CREATED="1610678665352" MODIFIED="1610678707166">
-<node TEXT="BERGER BOUWMAN 2013" STYLE_REF="AuthorYear" ID="ID_274037265" CREATED="1578371988091" MODIFIED="1612768215589">
+<node TEXT="BERGER BOUWMAN 2013" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_274037265" CREATED="1578371988091" MODIFIED="1612768215589">
 <attribute NAME="method" VALUE="probit"/>
 <node TEXT="Survival" ID="ID_1289491102" CREATED="1578371992891" MODIFIED="1578371998133">
 <node TEXT="Small banks" ID="ID_1036996417" CREATED="1578372026868" MODIFIED="1578372045091">
@@ -707,7 +707,21 @@
 </node>
 <node TEXT="No effect" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1510324663" CREATED="1610678592040" MODIFIED="1610678714159">
 <node TEXT="DONG LEE GOU 2019 Regression Discontinuity Designs with a Continuous Treatment" STYLE_REF="AuthorYear" ID="ID_55350926" CREATED="1610678632431" MODIFIED="1610678657222">
-<node TEXT="&quot;We find that increased capital has no impacts on the longrun failure rates of banks&quot;" ID="ID_1233605556" CREATED="1610678635407" MODIFIED="1610678648322"/>
+<node ID="ID_1233605556" CREATED="1610678635407" MODIFIED="1634862488590"><richcontent TYPE="NODE">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      &quot;We find that increased capital has <b>no</b>&nbsp;impacts on the longrun failure rates of banks&quot;
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 </node>
 </node>
 </node>
@@ -798,6 +812,10 @@
 <node TEXT="KUO SKEIKE V Y 2013 Identifying term interbank loans from Fedwire.pdf" ID="ID_1676739847" CREATED="1612772392600" MODIFIED="1612772392601" LINK="../biblio/network/KUO%20SKEIKE%20V%20Y%202013%20Identifying%20term%20interbank%20loans%20from%20Fedwire.pdf"/>
 </node>
 <node TEXT="COUNT MOUSSA SANTOS 2016 Network structure and systemic risk in banking Brazil.pdf" STYLE_REF="AuthorYear" ID="ID_1673740794" CREATED="1612772709716" MODIFIED="1613375928816" LINK="../biblio/network/COUNT%20MOUSSA%20SANTOS%202016%20Network%20structure%20and%20systemic%20risk%20in%20banking%20Brazil.pdf"/>
+<node TEXT="VELD LELYVELD 2014 Finding the core interbank Netherlands" STYLE_REF="AuthorYear" ID="ID_635639572" CREATED="1633074994972" MODIFIED="1633074996001">
+<node TEXT="Netherlands" ID="ID_1039531270" CREATED="1633074997181" MODIFIED="1633074999598"/>
+<node TEXT="Combines balance sheet data with an specific report" ID="ID_796886866" CREATED="1633075000013" MODIFIED="1633075010158"/>
+</node>
 </node>
 <node TEXT="Testing spatial association" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_749922540" CREATED="1612772539584" MODIFIED="1612772561393" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
 <node TEXT="RUIZ LOPEZ PAEZ 2008 Testing for spatial association of qualitative data.pdf" ID="ID_1160289227" CREATED="1612772548939" MODIFIED="1612772548940" LINK="../biblio/network/RUIZ%20LOPEZ%20PAEZ%202008%20Testing%20for%20spatial%20association%20of%20qualitative%20data.pdf"/>
@@ -822,7 +840,7 @@
 </node>
 <node TEXT="Publica credit registry" LOCALIZED_STYLE_REF="styles.topic" ID="ID_1241447260" CREATED="1611809430735" MODIFIED="1612768387983">
 <cloud COLOR="#f0f0f0" SHAPE="ARC"/>
-<node TEXT="Do banks have an incentive to lie?" ID="ID_1245439608" CREATED="1611809440472" MODIFIED="1611809446537">
+<node TEXT="Do banks have an incentive to lie?" ID="ID_1245439608" CREATED="1611809440472" MODIFIED="1633075575092" MAX_WIDTH="154.34082656754637 pt" MIN_WIDTH="154.34082656754637 pt">
 <node TEXT="No" ID="ID_1898074036" CREATED="1611809449868" MODIFIED="1611809450616"/>
 <node TEXT="There are several reasons for a bank to report a rating of 2 even when it knows this will be observed by a firm’s other lenders." ID="ID_125601520" CREATED="1611809451135" MODIFIED="1611809464273"/>
 <node TEXT="Since these ratings are used for prudential regulation, a bank that assigns a rating of 1&#xa;to all firms that are not in default would trigger scrutiny by the regulator." ID="ID_322331272" CREATED="1611809464863" MODIFIED="1611809475720"/>

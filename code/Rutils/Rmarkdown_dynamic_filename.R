@@ -1,5 +1,5 @@
 # The input file must have been saved and the sample_spaces chunk run!
-inputRmdFile <- 'code/network/network_plot_dev.Rmd'
+inputRmdFile <- 'code/SAR/SAR_dev.Rmd'
 
 fileName <- paste0('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/', specs$savingFolder, specs$idSample, '.html')
 

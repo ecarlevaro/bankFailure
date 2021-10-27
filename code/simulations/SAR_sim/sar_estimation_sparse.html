@@ -1,0 +1,163 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>sar_estimation_sparse</title><meta name="generator" content="MATLAB 9.10"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-09-20"><meta name="DC.source" content="sar_estimation_sparse.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% Linear SAR estimation</span>
+addpath(genpath(<span class="string">'C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\etoolbox'</span>))
+load(<span class="string">'sim_SAR_Wsparse.mat'</span>)
+<span class="comment">% True parameters are</span>
+rho = sim.info.gamma(1)
+Beta = sim.info.gamma(2:end)
+W = sim.data.W;
+<span class="comment">%normalize W</span>
+<span class="keyword">for</span> i=1:size(W,1)
+    <span class="keyword">if</span> sum(W(i,:))~=0
+        W(i,:) = W(i,:)/sum(W(i,:));
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+rng(31, <span class="string">'twister'</span>);
+vnames = strvcat(<span class="string">'dependant'</span>, <span class="string">'intercept'</span>, <span class="string">'capital'</span>, <span class="string">'liquidity'</span>, <span class="string">'shortFunding'</span>);
+info.lflag = 0; <span class="comment">% use full lndet no approximation</span>
+result0 = sar( sim.data.Y, sim.data.X, W, info);
+prt(result0, vnames)
+</pre><pre class="codeoutput">
+rho =
+
+   -0.3000
+
+
+Beta =
+
+    0.3000
+   -4.0000
+   -2.0000
+    3.0000
+
+
+Spatial autoregressive Model Estimates 
+Dependent Variable =     dependant    
+R-squared          =    0.1860 
+Rbar-squared       =    0.1605 
+sigma^2            =    0.9915 
+Nobs, Nvars        =    100,     4 
+log-likelihood     =       -107.34672 
+# of iterations    =     15   
+min and max rho    =   -1.0000,   1.0000 
+total time in secs =    0.0850 
+time for lndet     =    0.0320 
+time for x-impacts =    0.0530 
+# draws  x-impacts =      1000   
+No lndet approximation used 
+***************************************************************
+Variable          Coefficient  Asymptot t-stat    z-probability 
+intercept           -0.137431        -0.348834         0.727214 
+capital             -2.135903        -1.289886         0.197090 
+liquidity           -1.775258        -1.849100         0.064443 
+shortFunding         3.421079         3.785192         0.000154 
+rho                 -0.243994        -1.665413         0.095830 
+
+Direct            Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital             -2.131712        -1.308282         0.193777        -6.319133         2.026850 
+liquidity           -1.805963        -1.786468         0.077054        -4.351202         0.788907 
+shortFunding         3.498084         3.810327         0.000240         1.202113         5.700870 
+
+Indirect          Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital              0.424438         0.949424         0.344694        -0.773021         1.969656 
+liquidity            0.349044         1.127230         0.262343        -0.404459         1.278820 
+shortFunding        -0.678878        -1.503109         0.135962        -1.917977         0.742031 
+
+Total             Coefficient           t-stat           t-prob         lower 01         upper 99 
+capital             -1.707274        -1.292858         0.199039        -5.629957         1.639713 
+liquidity           -1.456918        -1.734688         0.085877        -3.877691         0.592625 
+shortFunding         2.819207         3.395966         0.000982         0.887897         5.475679 
+
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% Linear SAR estimation
+addpath(genpath('C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\etoolbox'))
+load('sim_SAR_Wsparse.mat')
+% True parameters are
+rho = sim.info.gamma(1)
+Beta = sim.info.gamma(2:end)
+W = sim.data.W;
+%normalize W
+for i=1:size(W,1)
+    if sum(W(i,:))~=0
+        W(i,:) = W(i,:)/sum(W(i,:));
+    end
+end
+
+rng(31, 'twister');
+vnames = strvcat('dependant', 'intercept', 'capital', 'liquidity', 'shortFunding');
+info.lflag = 0; % use full lndet no approximation
+result0 = sar( sim.data.Y, sim.data.X, W, info);
+prt(result0, vnames)
+
+##### SOURCE END #####
+--></body></html>

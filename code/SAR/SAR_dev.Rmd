@@ -40,16 +40,16 @@ source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_u
 
 ```{r sample_specs}
 # RUN THIS BEFORE KNITTING!!!
-specs <- list('idSample' = 'A99_Wtill98q4_creW_b97q4_s03q4',
-              'savingFolder' = 'output/SAR/Annual99/',
+specs <- list('idSample' = 'A99_pastAvgW_creW_b97q4_s03q4',
+              'savingFolder' = 'output/SAR/Annual99_pastAvgW/',
               'y' = list('failureSince' = 2000.1,
                          'failureHorizon' = 2003.4),
               'X' = list('freq' = 'annual',
                          'from' = 1999,
                          'to' = 1999,
                          'bankBirthFrom' = 1997.4, 
-                         'vars' = c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA',
-  'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')),
+                         'vars' = c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE',
+                                    'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')),
               'W' = list('from' = '',
                          'to' = '1998q4',
                          #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
@@ -115,13 +115,13 @@ banksAtStart <- banksDB %>%
 excBanks <- filter(banksDB, startDateQ>1997.4)
 ```
 
-I lose ```r NROW(excBanks)``` banks because a) they don't have complete observations by 1997.4 (missing P_LOANS_ARS_RATE) or b) they were privatised after 1997q4.
+I lose `r NROW(excBanks)` banks because a) they don't have complete observations by 1997.4 (missing P_LOANS_ARS_RATE) or b) they were privatised after 1997q4.
 
 ```{r}
 excBanks
 ```
 
-Hence I end up with ```r banks$IDENT %>% unique() %>% NROW()``` banks and the mean of IDENT is ```r banks$IDENT %>% mean()```.
+Hence I end up with `r banks$IDENT %>% unique() %>% NROW()` banks and the mean of IDENT is `r banks$IDENT %>% mean()`.
 
 ## Network data
 
@@ -192,6 +192,7 @@ avgRelations
 ```
 
 The following entities appear in the network but not in the banks dataframe: NROWS: `r NROW(netExcBanks)`. Should be empty!
+Mean weight is `r mean(thisRelations$WEIGHT)`
 
 #### Export average network as spatial matrix
 
@@ -222,7 +223,7 @@ Wstd <- apply(W_weighted, MARGIN=1, FUN=function(row) {
 spatialRegNetwork <-  spdep::mat2listw(Wstd) 
 ```
 
-There are ```r nrow(thisRelations)``` links in `avgRelations`; ```r uLinksN``` of them are unique. `W` is `r nrow(W)` $\times$ `r ncol(W)` and the number of banks in `banks` is `r NROW(banks)`. They should be equal!
+There are `r nrow(thisRelations)` links in `avgRelations`; `r uLinksN` of them are unique. `W` is `r nrow(W)` $\times$ `r ncol(W)` and the number of banks in `banks` is `r NROW(banks)`. They should be equal!
 
 ## Desc stats
 

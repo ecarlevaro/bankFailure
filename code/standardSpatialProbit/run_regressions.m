@@ -1,11 +1,18 @@
 %load IT
 addpath(genpath('C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\standardSpatialProbit'))
-y = readmatrix("Y_s98.Priv.01.onT.csv")
-X = readmatrix("X_s98.Priv.01.onT.csv")
-W = readmatrix("W_1998.csv")
+%y = readmatrix("Y_s98.Priv.01.onT.csv")
+%X = readmatrix("X_s98.Priv.01.onT.csv")
+%W = readmatrix("W_1998.csv")
 
-result0 = sar(y, X, W, info)
-prt(result0, varNames)
+load('C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\code\simulations\SAR_probit_sim\sim_SAR_probit.mat')
+y = simData.Y
+X = simData.X
+W = simData.W
+
+varNames = strvcat('dependant', 'intercept', 'capital', 'liquidity', 'shortFunding')
+info.lflag = 0; % use full lndet no approximation
+linearSAR = sar(y, X, W, info)
+prt(linearSAR, varNames)
 % Play with a symmetric W
 %symmW = W + W'
 %eig(symmW)
@@ -42,17 +49,16 @@ for i=1:size(W,1)
 end
 % is W invertible? W is not invertible and need not to be. (I - rho W) must
 % be invertible (be a diagonal dominant matrix after row normalisation)
-
+k = size(X, 2)-1
 vars=[1 2 3 4 5 6 7 8 9 10];
 [paramest,paramstd,logL,Varcov]=spatial_probit_Vogler(y,X,W);
 
 fprintf('Distance Matrix B, logL= %3.2f\n',logL)
 fprintf('parameter\t estimate (std)\n')
 fprintf('rho\t %2.4f (%2.4f)\n',paramest(end),paramest(end)/paramstd(end))
-for i=1:length(vars)  
+for i=1:k  
     fprintf('var. %1.0d\t %2.4f (%2.4f)\n',i,paramest(i),paramest(i)/paramstd(i))
 end
-
 
 time_needed=toc;
 fprintf('Elapsed time: '); disp(secs2hms(time_needed));
