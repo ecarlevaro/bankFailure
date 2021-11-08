@@ -1,18 +1,19 @@
-<map version="freeplane 1.8.0">
-<!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
+<map version="freeplane 1.9.8">
+<!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.771">
+<hook NAME="MapStyle" zoom="0.579">
     <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
-<stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
+<stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24 pt">
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="right" STYLE="bubble">
-<stylenode LOCALIZED_TEXT="default" ICON_SIZE="12.0 pt" COLOR="#000000" STYLE="fork" FORMAT="STANDARD_FORMAT">
+<stylenode LOCALIZED_TEXT="default" ID="ID_1512134291" ICON_SIZE="12 pt" COLOR="#000000" STYLE="fork" FORMAT="STANDARD_FORMAT">
+<arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1512134291" STARTARROW="NONE" ENDARROW="DEFAULT"/>
 <font NAME="SansSerif" SIZE="12" BOLD="false" ITALIC="false"/>
 </stylenode>
-<stylenode LOCALIZED_TEXT="defaultstyle.details" BORDER_WIDTH="0.0 px" BORDER_DASH="DISTANT_DOTS"/>
+<stylenode LOCALIZED_TEXT="defaultstyle.details" BORDER_WIDTH="0 px" BORDER_DASH="DISTANT_DOTS"/>
 <stylenode LOCALIZED_TEXT="defaultstyle.attributes">
 <font SIZE="9"/>
 </stylenode>
@@ -21,13 +22,14 @@
 <edge STYLE="hide_edge"/>
 <cloud COLOR="#f0f0f0" SHAPE="ROUND_RECT"/>
 </stylenode>
+<stylenode LOCALIZED_TEXT="defaultstyle.selection" BACKGROUND_COLOR="#ffff00" BORDER_COLOR_LIKE_EDGE="false" BORDER_COLOR="#002080"/>
 </stylenode>
 <stylenode LOCALIZED_TEXT="styles.user-defined" POSITION="right" STYLE="bubble">
 <stylenode LOCALIZED_TEXT="styles.topic" COLOR="#3300cc" BACKGROUND_COLOR="#99ffff" STYLE="fork">
 <font NAME="Liberation Sans" SIZE="18" BOLD="true"/>
 <cloud COLOR="#99ccff" SHAPE="ARC"/>
 </stylenode>
-<stylenode LOCALIZED_TEXT="styles.subtopic" COLOR="#cc3300" BACKGROUND_COLOR="#9999ff" STYLE="bubble" TEXT_ALIGN="CENTER" BORDER_WIDTH_LIKE_EDGE="true" BORDER_WIDTH="4.0 px">
+<stylenode LOCALIZED_TEXT="styles.subtopic" COLOR="#cc3300" BACKGROUND_COLOR="#9999ff" STYLE="bubble" TEXT_ALIGN="CENTER" BORDER_WIDTH_LIKE_EDGE="true" BORDER_WIDTH="4 px">
 <font NAME="Georgia" SIZE="14" BOLD="true"/>
 <edge WIDTH="4"/>
 <cloud COLOR="#ffffff" SHAPE="ARC"/>
@@ -51,15 +53,15 @@
 <font NAME="Liberation Sans" SIZE="14" BOLD="true"/>
 <edge STYLE="sharp_bezier" COLOR="#6666ff" WIDTH="2"/>
 </stylenode>
-<stylenode TEXT="AuthorYear" COLOR="#000000" BORDER_WIDTH="1.0 px">
+<stylenode TEXT="AuthorYear" COLOR="#000000" BORDER_WIDTH="1 px">
 <font NAME="Rockwell" SIZE="14" BOLD="true" STRIKETHROUGH="false" ITALIC="false"/>
 </stylenode>
-<stylenode TEXT="PaperTItle" COLOR="#000000" BACKGROUND_COLOR="#9bff9b" BORDER_WIDTH="1.0 px">
+<stylenode TEXT="PaperTItle" COLOR="#000000" BACKGROUND_COLOR="#9bff9b" BORDER_WIDTH="1 px">
 <font NAME="Rockwell" SIZE="14" BOLD="false" ITALIC="false"/>
 </stylenode>
 </stylenode>
 <stylenode LOCALIZED_TEXT="styles.AutomaticLayout" POSITION="right" STYLE="bubble">
-<stylenode LOCALIZED_TEXT="AutomaticLayout.level.root" COLOR="#000000" STYLE="oval" SHAPE_HORIZONTAL_MARGIN="10.0 pt" SHAPE_VERTICAL_MARGIN="10.0 pt">
+<stylenode LOCALIZED_TEXT="AutomaticLayout.level.root" COLOR="#000000" STYLE="oval" SHAPE_HORIZONTAL_MARGIN="10 pt" SHAPE_VERTICAL_MARGIN="10 pt">
 <font SIZE="18"/>
 </stylenode>
 <stylenode LOCALIZED_TEXT="AutomaticLayout.level,1" COLOR="#ffff00" BACKGROUND_COLOR="#000000" STYLE="oval" TEXT_ALIGN="CENTER">
@@ -141,7 +143,7 @@
 </node>
 <node TEXT="Without distinction of crisis/non-crisis they find capital is positive on ROA" ID="ID_1058313631" CREATED="1580722430043" MODIFIED="1580722451606"/>
 </node>
-<node TEXT="Negative interest rates" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_375906298" CREATED="1605076183654" MODIFIED="1605076449084" MAX_WIDTH="130.43478028009588 pt" MIN_WIDTH="130.43478028009588 pt">
+<node TEXT="Negative interest rates" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_375906298" CREATED="1605076183654" MODIFIED="1605076449084" MAX_WIDTH="130.43478 pt" MIN_WIDTH="130.43478 pt">
 <node TEXT="When the policy rate (interbank rate in the EUro area) went into negative territyory, banks did not pass this negative rates onto depositors." FOLDED="true" ID="ID_1750546974" CREATED="1605076195089" MODIFIED="1605076241258">
 <node TEXT="In particular retail depositors" ID="ID_971797594" CREATED="1605076225711" MODIFIED="1605076234789"/>
 </node>
@@ -211,7 +213,7 @@
 </html>
 </richcontent>
 </node>
-<node ID="ID_1446427260" CREATED="1578390840359" MODIFIED="1602053987451" MAX_WIDTH="453.72011362129365 pt" MIN_WIDTH="453.72011362129365 pt"><richcontent TYPE="NODE">
+<node ID="ID_1446427260" CREATED="1578390840359" MODIFIED="1602053987451" MAX_WIDTH="453.72011 pt" MIN_WIDTH="453.72011 pt"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -237,13 +239,13 @@
 <node TEXT="A common test of market discipline is whether the estimates of /3 are individually or jointly different from zero" ID="ID_510557672" CREATED="1610685381399" MODIFIED="1610685536005">
 <hook URI="recursos/PERIA%20SCHMUKLER%202001%20deposits_regression.png" SIZE="0.6329114" NAME="ExternalObject"/>
 </node>
-<node TEXT="However, the finding that deposits respond to&#xa;bank risk is not enough to conclude that market discipline is at work." ID="ID_938257812" CREATED="1610685481895" MODIFIED="1610686299496" MAX_WIDTH="438.9067262881331 pt" MIN_WIDTH="438.9067262881331 pt"/>
-<node TEXT="Depositors can discipline banks by withdrawing their funds or by requiring higher interest rates on their deposits." ID="ID_532691270" CREATED="1610685521662" MODIFIED="1610686302840" MAX_WIDTH="478.2957914506375 pt" MIN_WIDTH="478.2957914506375 pt"/>
-<node TEXT="If market discipline is present, we should observe that risky banks are forced to pay high interest rates or, at least, that those risky banks do not pay lower interest rates (when, at the same time, they face deposit withdrawals)." ID="ID_552812146" CREATED="1610685513646" MODIFIED="1610686304647" MAX_WIDTH="521.7041489766629 pt" MIN_WIDTH="521.7041489766629 pt">
+<node TEXT="However, the finding that deposits respond to&#xa;bank risk is not enough to conclude that market discipline is at work." ID="ID_938257812" CREATED="1610685481895" MODIFIED="1610686299496" MAX_WIDTH="438.90673 pt" MIN_WIDTH="438.90673 pt"/>
+<node TEXT="Depositors can discipline banks by withdrawing their funds or by requiring higher interest rates on their deposits." ID="ID_532691270" CREATED="1610685521662" MODIFIED="1610686302840" MAX_WIDTH="478.29579 pt" MIN_WIDTH="478.29579 pt"/>
+<node TEXT="If market discipline is present, we should observe that risky banks are forced to pay high interest rates or, at least, that those risky banks do not pay lower interest rates (when, at the same time, they face deposit withdrawals)." ID="ID_552812146" CREATED="1610685513646" MODIFIED="1610686304647" MAX_WIDTH="521.70415 pt" MIN_WIDTH="521.70415 pt">
 <hook URI="recursos/PERIA%20SCHMUKLER%202001%20interest_rate_regression.png" SIZE="0.6256517" NAME="ExternalObject"/>
 </node>
-<node TEXT="&quot;we distinguish between insured and uninsured deposits.&quot;" ID="ID_1119897627" CREATED="1610685597166" MODIFIED="1610699991169" MAX_WIDTH="332.7974078911823 pt" MIN_WIDTH="332.7974078911823 pt"/>
-<node TEXT="They lack MACRO variables, only time-fixed effects to control for crises" LOCALIZED_STYLE_REF="styles.important" ID="ID_672182704" CREATED="1610699969484" MODIFIED="1610699996573" MAX_WIDTH="251.60770176475125 pt" MIN_WIDTH="251.60770176475125 pt"/>
+<node TEXT="&quot;we distinguish between insured and uninsured deposits.&quot;" ID="ID_1119897627" CREATED="1610685597166" MODIFIED="1610699991169" MAX_WIDTH="332.79741 pt" MIN_WIDTH="332.79741 pt"/>
+<node TEXT="They lack MACRO variables, only time-fixed effects to control for crises" LOCALIZED_STYLE_REF="styles.important" ID="ID_672182704" CREATED="1610699969484" MODIFIED="1610699996573" MAX_WIDTH="251.6077 pt" MIN_WIDTH="251.6077 pt"/>
 <node TEXT="Bank fundamentals or contagio?" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" FOLDED="true" ID="ID_1153559553" CREATED="1610686020936" MODIFIED="1610686290416">
 <node TEXT="we study the relative importance of bank fundamentals before, during, and after crises, and among insured and uninsured deposits." ID="ID_1794851742" CREATED="1610686027974" MODIFIED="1610686059183"/>
 <node TEXT="We calculate the proportion of the variance explained by these variables by estimating equations (1) and (2) with time-specific effects, after removing bank-specific effects." ID="ID_558015977" CREATED="1610686037886" MODIFIED="1610686043167"/>
@@ -260,18 +262,18 @@
 <node TEXT="All depositors" ID="ID_1881136291" CREATED="1610699860876" MODIFIED="1610699867405"/>
 <node TEXT="&quot;The evidence shows no significant difference across depositors: Both large and small depositors discipline banks.&quot;" ID="ID_1201482311" CREATED="1610699867812" MODIFIED="1610699935753"/>
 </node>
-<node TEXT="Empirical details" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_987739171" CREATED="1610686453677" MODIFIED="1610686476611" MAX_WIDTH="140.67523291488502 pt" MIN_WIDTH="140.67523291488502 pt">
-<node TEXT="Data Frequency" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_326726028" CREATED="1610700727651" MODIFIED="1610700755884" MAX_WIDTH="140.67523291488502 pt" MIN_WIDTH="140.67523291488502 pt">
+<node TEXT="Empirical details" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_987739171" CREATED="1610686453677" MODIFIED="1610686476611" MAX_WIDTH="140.67523 pt" MIN_WIDTH="140.67523 pt">
+<node TEXT="Data Frequency" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_326726028" CREATED="1610700727651" MODIFIED="1610700755884" MAX_WIDTH="140.67523 pt" MIN_WIDTH="140.67523 pt">
 <node TEXT="For Argentina they have quarterly frequency before the Tequila and monthly later" ID="ID_1420766453" CREATED="1610700730283" MODIFIED="1610700743637"/>
 <node TEXT="Not sure how they introduced that in the regression" ID="ID_1042766019" CREATED="1610700744019" MODIFIED="1610700751156"/>
 </node>
 <node TEXT="Deposits" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_1230009551" CREATED="1610686459085" MODIFIED="1610686484672">
 <node TEXT="&quot;Local currency deposits are expressed in real&#xa;terms (adjusted by the consumer price index), to control for the potential growth in nominal figures that can be due to inflation. &quot;" ID="ID_856039131" CREATED="1610686462101" MODIFIED="1610686469719"/>
 </node>
-<node TEXT="Merger and adquisitions M&amp;A treatment" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_1742728226" CREATED="1610686248878" MODIFIED="1610686285521" MAX_WIDTH="140.67523291488502 pt" MIN_WIDTH="140.67523291488502 pt">
-<node TEXT="&quot; We also controlled for those cases when banks merged, were acquired, or were privatized. Typically, these processes cause a sudden change in the bank accounts. For those cases when a bank merged or was acquired or privatized, we treat the resulting larger bank as a new bank in the sample. &quot;" ID="ID_1163655149" CREATED="1610686261502" MODIFIED="1610686315029" MAX_WIDTH="434.88743392461225 pt" MIN_WIDTH="434.88743392461225 pt"/>
+<node TEXT="Merger and adquisitions M&amp;A treatment" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_1742728226" CREATED="1610686248878" MODIFIED="1610686285521" MAX_WIDTH="140.67523 pt" MIN_WIDTH="140.67523 pt">
+<node TEXT="&quot; We also controlled for those cases when banks merged, were acquired, or were privatized. Typically, these processes cause a sudden change in the bank accounts. For those cases when a bank merged or was acquired or privatized, we treat the resulting larger bank as a new bank in the sample. &quot;" ID="ID_1163655149" CREATED="1610686261502" MODIFIED="1610686315029" MAX_WIDTH="434.88743 pt" MIN_WIDTH="434.88743 pt"/>
 </node>
-<node TEXT="Tequila crisis dating" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_526231526" CREATED="1610699936469" MODIFIED="1610699940804" MAX_WIDTH="140.67523291488502 pt" MIN_WIDTH="140.67523291488502 pt">
+<node TEXT="Tequila crisis dating" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_526231526" CREATED="1610699936469" MODIFIED="1610699940804" MAX_WIDTH="140.67523 pt" MIN_WIDTH="140.67523 pt">
 <node TEXT="Precrisis" FOLDED="true" ID="ID_1540506418" CREATED="1610700358228" MODIFIED="1610700362669">
 <node TEXT="Jun-1993 to Sep-1994" ID="ID_1647766015" CREATED="1610700363396" MODIFIED="1610700374756"/>
 </node>
@@ -310,8 +312,7 @@
 <node TEXT="" LOCALIZED_STYLE_REF="default" ID="ID_102175354" CREATED="1610691340064" MODIFIED="1610691340064"/>
 </node>
 </node>
-<node TEXT="Asset side" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1897645071" CREATED="1602148973576" MODIFIED="1602149224414"><richcontent TYPE="NOTE">
-
+<node TEXT="Asset side" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1897645071" CREATED="1602148973576" MODIFIED="1602149224414"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -321,16 +322,14 @@
       Bank's borrowser will not borrow from the bank if the bank has not enough capital, as opposed to the liability side, where depositors will run the bank if there is not enough capital.
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <node TEXT="ALLEN, CARLETTI, MARQUEZ 2009" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_645257524" CREATED="1602149000004" MODIFIED="1602149867076">
 <attribute NAME="keyword" VALUE="relationship lending"/>
 <attribute NAME="keyword2" VALUE="ownership"/>
 <node TEXT="Why do banks hold more capital that the required minimum?" STYLE_REF="PaperTItle" ID="ID_648661432" CREATED="1602149058398" MODIFIED="1602149093368"/>
 <node TEXT="We show that when credit markets are competitive, market discipline coming from the asset side induces banks to hold positive levels of capital as a way to commit to monitor and attract borrowers." LOCALIZED_STYLE_REF="default" FOLDED="true" ID="ID_374720999" CREATED="1602149310590" MODIFIED="1602149329944">
 <node TEXT=" the model suggests that greater credit market competition increases capital holdings as it introduces market discipline from the asset side." ID="ID_1623474461" CREATED="1602149758491" MODIFIED="1602149791260"/>
-<node TEXT=" the increased commitment to monitor makes a bank with a large amount of capital more attractive to borrowers and thus improves its “product market” opportunities" ID="ID_70964755" CREATED="1602150066224" MODIFIED="1602150145077"><richcontent TYPE="NOTE">
-
+<node TEXT=" the increased commitment to monitor makes a bank with a large amount of capital more attractive to borrowers and thus improves its “product market” opportunities" ID="ID_70964755" CREATED="1602150066224" MODIFIED="1602150145077"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -340,8 +339,7 @@
       Anecdotically, Notice in Argentina during 2016 and 2017 the capital ussiance that private banks made (I think it was Macro a Supervielle that started to quote on the market). They did this in order to carry out new big loans and expan their businesses
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 <node TEXT="Third, the model suggests that banks that are more involved in monitoring-intensive lending should be more capitalized and that, similarly, firms for which monitoring adds the most value should prefer to borrow from banks with high capital" ID="ID_1443038588" CREATED="1602149779008" MODIFIED="1602149786558"/>
 </node>
@@ -384,7 +382,7 @@
 <node TEXT="Blundell, R., Bond, S., 1998, Initial conditions and moment restrictions in dynamic panel data model. J. of&#xa;Econometrics" ID="ID_1258549117" CREATED="1578885203044" MODIFIED="1578885282986"/>
 <node TEXT="OLSZAK ROSZOWKSA KOWALSKA 2018" ID="ID_222901460" CREATED="1578885284245" MODIFIED="1578885350099">
 <node TEXT="Procyclical loan loss provisions" ID="ID_1841870482" CREATED="1578885351788" MODIFIED="1578885359097"/>
-<node TEXT="&quot; Equation (1) involves bank-specific variables that may be&#xa;endogenous. Therefore, we apply an approach that involves instrumental variables, i.e the generalised method of moments (GMM) developed by Blundell and Bond (1998) with robust standard errors and Windmeijer’s (2005) correction. We also report OLS, FE, RE and GMM 1-step (Arellano and Bond, 1991) estimations for the base results, but in the remainder of the paper only report GMM estimates&quot;" ID="ID_1450580567" CREATED="1578885312612" MODIFIED="1602054026073" MAX_WIDTH="379.2270469324679 pt" MIN_WIDTH="379.2270469324679 pt"/>
+<node TEXT="&quot; Equation (1) involves bank-specific variables that may be&#xa;endogenous. Therefore, we apply an approach that involves instrumental variables, i.e the generalised method of moments (GMM) developed by Blundell and Bond (1998) with robust standard errors and Windmeijer’s (2005) correction. We also report OLS, FE, RE and GMM 1-step (Arellano and Bond, 1991) estimations for the base results, but in the remainder of the paper only report GMM estimates&quot;" ID="ID_1450580567" CREATED="1578885312612" MODIFIED="1602054026073" MAX_WIDTH="379.22705 pt" MIN_WIDTH="379.22705 pt"/>
 </node>
 </node>
 <node TEXT="Disequilibrium models" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1364654568" CREATED="1578969986786" MODIFIED="1579571944070">
@@ -416,7 +414,7 @@
 <node TEXT="Two refined measures of efficiency" ID="ID_1677319099" CREATED="1607582333931" MODIFIED="1607582354145"/>
 <node TEXT="Cost efficiency" LOCALIZED_STYLE_REF="styles.important" ID="ID_1251608390" CREATED="1607582343992" MODIFIED="1607582432043"/>
 <node TEXT="Profit efficiency" LOCALIZED_STYLE_REF="styles.important" ID="ID_1835341600" CREATED="1607582347581" MODIFIED="1607582432053"/>
-<node ID="ID_694666475" CREATED="1607582378710" MODIFIED="1607582443316" MAX_WIDTH="373.18839969061287 pt" MIN_WIDTH="373.18839969061287 pt"><richcontent TYPE="NODE">
+<node ID="ID_694666475" CREATED="1607582378710" MODIFIED="1607582443316" MAX_WIDTH="373.1884 pt" MIN_WIDTH="373.1884 pt"><richcontent TYPE="NODE">
 
 <html>
   <head>
@@ -428,8 +426,8 @@
 </html>
 </richcontent>
 </node>
-<node TEXT="This suggests that cost efficiency may better proxy management quality" ID="ID_231679848" CREATED="1607582405461" MODIFIED="1607582444561" MAX_WIDTH="364.73429355201586 pt" MIN_WIDTH="364.73429355201586 pt"/>
-<node TEXT="while profit efficiency may partially reflect temporary high returns during normal times from risky investments that are reversed during subsequent financial crises." ID="ID_582186392" CREATED="1607582413389" MODIFIED="1607582446986" MAX_WIDTH="353.8647285166768 pt" MIN_WIDTH="353.8647285166768 pt"/>
+<node TEXT="This suggests that cost efficiency may better proxy management quality" ID="ID_231679848" CREATED="1607582405461" MODIFIED="1607582444561" MAX_WIDTH="364.73429 pt" MIN_WIDTH="364.73429 pt"/>
+<node TEXT="while profit efficiency may partially reflect temporary high returns during normal times from risky investments that are reversed during subsequent financial crises." ID="ID_582186392" CREATED="1607582413389" MODIFIED="1607582446986" MAX_WIDTH="353.86473 pt" MIN_WIDTH="353.86473 pt"/>
 </node>
 </node>
 <node TEXT="reVIEWS, SURVEYS" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" POSITION="right" ID="ID_1980779721" CREATED="1578300454638" MODIFIED="1580716148826">
@@ -470,8 +468,7 @@
 <node TEXT="The Theory of Bank Risk Taking and Competition Revisited&#xa;JOHN H. BOYD  GIANNI DE NICOLÓ" ID="ID_926028145" CREATED="1578281602476" MODIFIED="1578281603429"/>
 <node TEXT="" ID="ID_1082773751" CREATED="1578281604003" MODIFIED="1578281604003"/>
 </node>
-<node TEXT="Reduces stability" FOLDED="true" ID="ID_1361834510" CREATED="1578281427757" MODIFIED="1578281586520"><richcontent TYPE="NOTE">
-
+<node TEXT="Reduces stability" FOLDED="true" ID="ID_1361834510" CREATED="1578281427757" MODIFIED="1578281586520"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -484,8 +481,7 @@
       Journal of Money, Credit, and Banking,<span>&#160;</span>36<span>&#160;</span>(2004),<span>&#160;</span>
     </div>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <node TEXT="Competition increases bank risk taking" ID="ID_119537277" CREATED="1578281452160" MODIFIED="1578281464630"/>
 <node TEXT="while monopoly powers increases bank charter value for a given risk" ID="ID_1245174450" CREATED="1578281464949" MODIFIED="1578281480774"/>
 </node>
@@ -506,8 +502,7 @@
 </node>
 <node TEXT=" time-varying hazard model" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_267520548" CREATED="1578285039112" MODIFIED="1579571912042">
 <node TEXT="SHUMWAY 2001" ID="ID_293883895" CREATED="1578285045968" MODIFIED="1578285054425"/>
-<node TEXT="The statistical analysis of failure time data&#xa;Kalbfleisch, J. D.; Prentice, Ross L.&#xa;c2002" ID="ID_1716081515" CREATED="1578455438796" MODIFIED="1578455450435"><richcontent TYPE="NOTE">
-
+<node TEXT="The statistical analysis of failure time data&#xa;Kalbfleisch, J. D.; Prentice, Ross L.&#xa;c2002" ID="ID_1716081515" CREATED="1578455438796" MODIFIED="1578455450435"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -517,11 +512,9 @@
       https://onesearch.library.uwa.edu.au/discovery/openurl?institution=61UWA_INST&amp;vid=61UWA_INST:UWA&amp;lang=en&amp;atitle=Introduction&amp;btitle=The%20Statistical%20Analysis%20of%20Failure%20Time%20Data&amp;isbn=0-471-36357-X&amp;rft_dat=ie%3D&amp;title=The%20Statistical%20Analysis%20of%20Failure%20Time%20Data&amp;rft.mms_id=9990617502101&amp;id=doi:10.1002~2F9781118032985.ch1&amp;sid=wiley&amp;genre=book&amp;date=2002
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
-<node TEXT="Applied Survival Analysis Using R&#xa;Authors: Moore, Dirk F." ID="ID_566197459" CREATED="1578455633143" MODIFIED="1578455643266"><richcontent TYPE="NOTE">
-
+<node TEXT="Applied Survival Analysis Using R&#xa;Authors: Moore, Dirk F." ID="ID_566197459" CREATED="1578455633143" MODIFIED="1578455643266"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -531,14 +524,12 @@
       <a href="https://www.springer.com/gp/book/9783319312439">https://www.springer.com/gp/book/9783319312439</a>
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 <node TEXT="MOLINA 2002 Predicting bank failures using a hazard model: the Venezuelan banking crisis" FOLDED="true" ID="ID_237086964" CREATED="1578455244795" MODIFIED="1578455274333">
 <node TEXT="" ID="ID_1437238785" CREATED="1578455267936" MODIFIED="1578455267936"/>
 </node>
-<node TEXT="WHEELOCK WILSON 2006 Why do banks disappear_" ID="ID_19730632" CREATED="1578455324810" MODIFIED="1578455355975"><richcontent TYPE="NOTE">
-
+<node TEXT="WHEELOCK WILSON 2006 Why do banks disappear_" ID="ID_19730632" CREATED="1578455324810" MODIFIED="1578455355975"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -548,8 +539,7 @@
       <a href="https://www.mitpressjournals.org/doi/abs/10.1162/003465300558560">https://www.mitpressjournals.org/doi/abs/10.1162/003465300558560</a>
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
 <node TEXT="Harzard vs probit" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_332623926" CREATED="1578284638783" MODIFIED="1579571912046">
@@ -719,14 +709,13 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
 </node>
 </node>
 <node TEXT="Depositors behaviour" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_143910140" CREATED="1631515900614" MODIFIED="1631515907599">
-<node TEXT="LEVY-YEYATI PERIA SCHMUKLER 2010" STYLE_REF="AuthorYear" ID="ID_1728712974" CREATED="1631515909639" MODIFIED="1631516611778" MAX_WIDTH="181.73497964649837 pt" MIN_WIDTH="181.73497964649837 pt">
+<node TEXT="LEVY-YEYATI PERIA SCHMUKLER 2010" STYLE_REF="AuthorYear" ID="ID_1728712974" CREATED="1631515909639" MODIFIED="1631516611778" MAX_WIDTH="181.73498 pt" MIN_WIDTH="181.73498 pt">
 <node TEXT="Deposit behaviour under macroeconomic risk" STYLE_REF="PaperTItle" ID="ID_1060120354" CREATED="1631516478246" MODIFIED="1631516492431"/>
 <node TEXT="What explain bank runs: market discipline (bank-specific variables), macro factors or contagion?" ID="ID_311327861" CREATED="1631516400420" MODIFIED="1631516424231"/>
 <node TEXT="Market discipline" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_996583300" CREATED="1631584661921" MODIFIED="1631584871832">
@@ -763,10 +752,10 @@
 </node>
 </node>
 </node>
-<node TEXT="NETWORK EFFECTS SYSTEMIC RISK" LOCALIZED_STYLE_REF="styles.subtopic" ID="ID_239036485" CREATED="1607911519363" MODIFIED="1612770389252" MAX_WIDTH="285.62801453974254 pt" MIN_WIDTH="285.62801453974254 pt">
+<node TEXT="NETWORK EFFECTS SYSTEMIC RISK" LOCALIZED_STYLE_REF="styles.subtopic" ID="ID_239036485" CREATED="1607911519363" MODIFIED="1612770389252" MAX_WIDTH="285.62801 pt" MIN_WIDTH="285.62801 pt">
 <node TEXT="Dynamics" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_1311836058" CREATED="1607911536426" MODIFIED="1612772569399">
 <node TEXT="The network changes" ID="ID_1983552799" CREATED="1607911545162" MODIFIED="1607911550364"/>
-<node TEXT="SQUARTINI VAN lELYVED GARLASCHELLI (2013)" STYLE_REF="AuthorYear" ID="ID_1104227024" CREATED="1607911570723" MODIFIED="1612768081360" MAX_WIDTH="200.07132753535737 pt" MIN_WIDTH="200.07132753535737 pt">
+<node TEXT="SQUARTINI VAN lELYVED GARLASCHELLI (2013)" STYLE_REF="AuthorYear" ID="ID_1104227024" CREATED="1607911570723" MODIFIED="1612768081360" MAX_WIDTH="200.07133 pt" MIN_WIDTH="200.07133 pt">
 <node TEXT="Early-warning signlas of topological collapse in interbank networks" ID="ID_223045654" CREATED="1607911582650" MODIFIED="1607911596780"/>
 <node TEXT="" ID="ID_520015808" CREATED="1607911623250" MODIFIED="1607911623251">
 <node TEXT="It turns out that the minimization of (standard measures of) individual risk can often increase the level of systemic risk, which in turn can hurt individual financial entities1,2" ID="ID_551972077" CREATED="1607911630221" MODIFIED="1607911630221"/>
@@ -801,7 +790,7 @@
 </node>
 </node>
 <node TEXT="Empirics" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_1334015093" CREATED="1612770088505" MODIFIED="1612772569397">
-<node TEXT="Estimation of networks in banking" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1985299846" CREATED="1612770091257" MODIFIED="1612772561394" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
+<node TEXT="Estimation of networks in banking" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1985299846" CREATED="1612770091257" MODIFIED="1612772561394" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="IORI MANTEGNA Empirical Analyses of networks in finance, Review" STYLE_REF="AuthorYear" ID="ID_306022202" CREATED="1615265420307" MODIFIED="1615265437000"/>
 <node TEXT="ANAND CRAIG VON PETER 2014 Filling in the banks network structure and interbank contagion" STYLE_REF="AuthorYear" ID="ID_1407147442" CREATED="1612770106121" MODIFIED="1612770142796">
 <node TEXT="Filling in the blanks network structure and interbank contagion.pdf" ID="ID_806768814" CREATED="1612770137635" MODIFIED="1612770137638" LINK="../biblio/network/Filling%20in%20the%20blanks%20network%20structure%20and%20interbank%20contagion.pdf"/>
@@ -817,17 +806,17 @@
 <node TEXT="Combines balance sheet data with an specific report" ID="ID_796886866" CREATED="1633075000013" MODIFIED="1633075010158"/>
 </node>
 </node>
-<node TEXT="Testing spatial association" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_749922540" CREATED="1612772539584" MODIFIED="1612772561393" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
+<node TEXT="Testing spatial association" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_749922540" CREATED="1612772539584" MODIFIED="1612772561393" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="RUIZ LOPEZ PAEZ 2008 Testing for spatial association of qualitative data.pdf" ID="ID_1160289227" CREATED="1612772548939" MODIFIED="1612772548940" LINK="../biblio/network/RUIZ%20LOPEZ%20PAEZ%202008%20Testing%20for%20spatial%20association%20of%20qualitative%20data.pdf"/>
 </node>
-<node TEXT="Failure with spatial dependance" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1641696209" CREATED="1613375957920" MODIFIED="1613375962537" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
+<node TEXT="Failure with spatial dependance" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1641696209" CREATED="1613375957920" MODIFIED="1613375962537" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="BEREAU DEBARSY D G 2020 Contagion in the banking industry endogeneity.pdf" ID="ID_255459582" CREATED="1613376025003" MODIFIED="1613376025004" LINK="../biblio/network/BEREAU%20DEBARSY%20D%20G%202020%20Contagion%20in%20the%20banking%20industry%20endogeneity.pdf"/>
 </node>
-<node TEXT="Relationship lending" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1071815677" CREATED="1612773383653" MODIFIED="1612773396311" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
+<node TEXT="Relationship lending" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1071815677" CREATED="1612773383653" MODIFIED="1612773396311" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="KOBAYAHSI TAKAGUCHI 2018 Identifying relationship lending in the interbank market network.pdf" ID="ID_1782301704" CREATED="1612773406149" MODIFIED="1612773406149" LINK="../biblio/network/KOBAYAHSI%20TAKAGUCHI%202018%20Identifying%20relationship%20lending%20in%20the%20interbank%20market%20network.pdf"/>
 <node TEXT="LIBERTI STURGESS 2020 The anatomy of a credit supply shock.pdf" ID="ID_914183040" CREATED="1626669949344" MODIFIED="1626669949345" LINK="../../../InvUNL/LoanDemandSupply/LIBERTI%20STURGESS%202020%20The%20anatomy%20of%20a%20credit%20supply%20shock.pdf"/>
 </node>
-<node TEXT="Others" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1469108127" CREATED="1631588394371" MODIFIED="1631588396223" MAX_WIDTH="211.37971317759622 pt" MIN_WIDTH="211.37971317759622 pt">
+<node TEXT="Others" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" ID="ID_1469108127" CREATED="1631588394371" MODIFIED="1631588396223" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="CALOMIRIS SCHWEIKART 1991 The panic of 1857" ID="ID_1805234709" CREATED="1631588397164" MODIFIED="1631588406837">
 <node TEXT="Suggest that banks better connected to the East banks were able to cope with the crisis better" ID="ID_213926438" CREATED="1631588407996" MODIFIED="1631588422059"/>
 </node>
@@ -840,7 +829,7 @@
 </node>
 <node TEXT="Publica credit registry" LOCALIZED_STYLE_REF="styles.topic" ID="ID_1241447260" CREATED="1611809430735" MODIFIED="1612768387983">
 <cloud COLOR="#f0f0f0" SHAPE="ARC"/>
-<node TEXT="Do banks have an incentive to lie?" ID="ID_1245439608" CREATED="1611809440472" MODIFIED="1633075575092" MAX_WIDTH="154.34082656754637 pt" MIN_WIDTH="154.34082656754637 pt">
+<node TEXT="Do banks have an incentive to lie?" ID="ID_1245439608" CREATED="1611809440472" MODIFIED="1633075575092" MAX_WIDTH="154.34083 pt" MIN_WIDTH="154.34083 pt">
 <node TEXT="No" ID="ID_1898074036" CREATED="1611809449868" MODIFIED="1611809450616"/>
 <node TEXT="There are several reasons for a bank to report a rating of 2 even when it knows this will be observed by a firm’s other lenders." ID="ID_125601520" CREATED="1611809451135" MODIFIED="1611809464273"/>
 <node TEXT="Since these ratings are used for prudential regulation, a bank that assigns a rating of 1&#xa;to all firms that are not in default would trigger scrutiny by the regulator." ID="ID_322331272" CREATED="1611809464863" MODIFIED="1611809475720"/>
@@ -876,12 +865,11 @@
 </node>
 <node TEXT="Effects on Argentinian economy" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_810852976" CREATED="1602571723884" MODIFIED="1602571749514"/>
 <node TEXT="TEquila" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_171453314" CREATED="1603688658000" MODIFIED="1603688660028">
-<node TEXT="No deposit insurance &amp; no lender of last resort" STYLE_REF="Highlight1" ID="ID_1805588591" CREATED="1603688662339" MODIFIED="1610682669891" MAX_WIDTH="107.06441393735449 pt" MIN_WIDTH="107.06441393735449 pt">
+<node TEXT="No deposit insurance &amp; no lender of last resort" STYLE_REF="Highlight1" ID="ID_1805588591" CREATED="1603688662339" MODIFIED="1610682669891" MAX_WIDTH="107.06441 pt" MIN_WIDTH="107.06441 pt">
 <node TEXT="&quot;Note that throughout this period in Argentina  here was no official deposit insurance in operation and the Convertibility program was widely believed to imply that there were only very limited lender of last resort facilities available. In this context, we would expect variables related to bank safety to be important fundamentals&quot;" ID="ID_207355071" CREATED="1603688667705" MODIFIED="1603688679827"/>
 </node>
-<node TEXT="DAMATO GRUBISIC POWELL 1997" STYLE_REF="AuthorYear" ID="ID_1482083070" CREATED="1603688823361" MODIFIED="1610682700817" MAX_WIDTH="160.96697802479358 pt" MIN_WIDTH="160.96697802479358 pt">
-<node TEXT="Variables" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_689359738" CREATED="1603688831849" MODIFIED="1617182162125"><richcontent TYPE="NOTE">
-
+<node TEXT="DAMATO GRUBISIC POWELL 1997" STYLE_REF="AuthorYear" ID="ID_1482083070" CREATED="1603688823361" MODIFIED="1610682700817" MAX_WIDTH="160.96698 pt" MIN_WIDTH="160.96698 pt">
+<node TEXT="Variables" LOCALIZED_STYLE_REF="AutomaticLayout.level,3" ID="ID_689359738" CREATED="1603688831849" MODIFIED="1617182162125"><richcontent TYPE="NOTE" CONTENT-TYPE="xml/">
 <html>
   <head>
     
@@ -891,8 +879,7 @@
       Daily data!
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <node TEXT="Bank level" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1438878854" CREATED="1603689135584" MODIFIED="1617182155177">
 <node TEXT="Pasive rates in USD and ARS" ID="ID_1037170463" CREATED="1603688834137" MODIFIED="1603688843970">
 <node TEXT="&quot;It is the return required by the market given the market&apos;s perception of the bank&apos;s risk&quot;" ID="ID_980470138" CREATED="1603688914321" MODIFIED="1603688919914"/>
@@ -914,7 +901,7 @@
 </node>
 <node TEXT="https://macroavanzadauba.wordpress.com/" ID="ID_653527620" CREATED="1603695800959" MODIFIED="1603695802225"/>
 <node TEXT="https://www.iadb.org/es/investigacion-y-datos/autor/andrew-powell" ID="ID_22226168" CREATED="1603695898057" MODIFIED="1603695899197"/>
-<node TEXT="Fundamentals, contagio or macro shocks?" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1683989343" CREATED="1610682324852" MODIFIED="1610682693470" MAX_WIDTH="158.31367618574424 pt" MIN_WIDTH="158.31367618574424 pt">
+<node TEXT="Fundamentals, contagio or macro shocks?" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1683989343" CREATED="1610682324852" MODIFIED="1610682693470" MAX_WIDTH="158.31368 pt" MIN_WIDTH="158.31368 pt">
 <node TEXT="They claim that 27% of variation in daily deposits is due to bank fundamentals." ID="ID_994187741" CREATED="1610682337755" MODIFIED="1610682355516"/>
 <node TEXT="Fundamentals 27%" ID="ID_492091428" CREATED="1610682540162" MODIFIED="1610682546604"/>
 <node TEXT="Contagio 17%" ID="ID_937746334" CREATED="1610682547018" MODIFIED="1610682550228"/>
@@ -922,9 +909,9 @@
 <node TEXT="&quot;although the results give some support that depositors did discriminate according to ‘bank fundamentals’ and indeed this appeared to be the single largest determinant of the explained movement in deposits, contagion effects were also evident.&quot;" ID="ID_1163174079" CREATED="1610682559722" MODIFIED="1610682566852"/>
 </node>
 </node>
-<node TEXT="PERIA SCHMUKLER 2001" STYLE_REF="AuthorYear" ID="ID_59824634" CREATED="1610701005227" MODIFIED="1610701026496" LINK="#ID_526231526" MAX_WIDTH="160.96697802479358 pt" MIN_WIDTH="160.96697802479358 pt"/>
+<node TEXT="PERIA SCHMUKLER 2001" STYLE_REF="AuthorYear" ID="ID_59824634" CREATED="1610701005227" MODIFIED="1610701026496" LINK="#ID_526231526" MAX_WIDTH="160.96698 pt" MIN_WIDTH="160.96698 pt"/>
 </node>
-<node TEXT="Prediction of crises" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_670089910" CREATED="1607575344525" MODIFIED="1607575832633" MAX_WIDTH="244.15203388646 pt" MIN_WIDTH="244.15203388646 pt">
+<node TEXT="Prediction of crises" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_670089910" CREATED="1607575344525" MODIFIED="1607575832633" MAX_WIDTH="244.15203 pt" MIN_WIDTH="244.15203 pt">
 <node TEXT="BERGER BOUWMAN 2017" STYLE_REF="AuthorYear" ID="ID_321162789" CREATED="1607575348022" MODIFIED="1612768251756">
 <attribute NAME="method" VALUE="logit"/>
 <node TEXT="Bank liquidty creation, monetary policy and financial crises" STYLE_REF="PaperTItle" ID="ID_274508486" CREATED="1607575374149" MODIFIED="1607575465018"/>
