@@ -3,15 +3,18 @@
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
 <hook NAME="MapStyle" zoom="0.579">
-    <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24 pt">
 <font SIZE="24"/>
 <stylenode LOCALIZED_TEXT="styles.predefined" POSITION="right" STYLE="bubble">
-<stylenode LOCALIZED_TEXT="default" ID="ID_1512134291" ICON_SIZE="12 pt" COLOR="#000000" STYLE="fork" FORMAT="STANDARD_FORMAT">
+<stylenode LOCALIZED_TEXT="default" ID="ID_1512134291" ICON_SIZE="12 pt" FORMAT_AS_HYPERLINK="false" COLOR="#000000" STYLE="fork" NUMBERED="false" FORMAT="STANDARD_FORMAT" TEXT_ALIGN="DEFAULT" MAX_WIDTH="10 cm" MIN_WIDTH="0 cm" VGAP_QUANTITY="2 pt" BORDER_WIDTH_LIKE_EDGE="false" BORDER_WIDTH="1 px" BORDER_COLOR_LIKE_EDGE="true" BORDER_COLOR="#808080" BORDER_DASH_LIKE_EDGE="false" BORDER_DASH="SOLID">
 <arrowlink SHAPE="CUBIC_CURVE" COLOR="#000000" WIDTH="2" TRANSPARENCY="200" DASH="" FONT_SIZE="9" FONT_FAMILY="SansSerif" DESTINATION="ID_1512134291" STARTARROW="NONE" ENDARROW="DEFAULT"/>
-<font NAME="SansSerif" SIZE="12" BOLD="false" ITALIC="false"/>
+<font NAME="SansSerif" SIZE="12" BOLD="false" STRIKETHROUGH="false" ITALIC="false"/>
+<richcontent CONTENT-TYPE="plain/html" TYPE="DETAILS"/>
+<richcontent TYPE="NOTE" CONTENT-TYPE="plain/html"/>
+<edge STYLE="bezier" COLOR="#808080" WIDTH="1" DASH="SOLID"/>
 </stylenode>
 <stylenode LOCALIZED_TEXT="defaultstyle.details" BORDER_WIDTH="0 px" BORDER_DASH="DISTANT_DOTS"/>
 <stylenode LOCALIZED_TEXT="defaultstyle.attributes">

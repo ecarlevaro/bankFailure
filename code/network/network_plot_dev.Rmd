@@ -7,6 +7,18 @@ output:
     number_sections: true
 ---
 
+```{=html}
+<style type="text/css">
+  .main-container {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+```
+
+If you want to save this code together with the output, mody this file, save it and then run (call) it from 'Rutils\Rmarkdown_dynamic_filename.R'. Path is 'code/network/network_plot_dev.Rmd'
+
 # Setup 
 
 ```{r setup, include=FALSE}
@@ -23,9 +35,8 @@ source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_u
 
 plots <- list('banksLinks'=NULL, 'linksWeights'=NULL, 
           'fullNetwork'=NULL, 'networkFailBanks'=NULL)
-specs <- list('savingFolder'=NULL, 
-              'idSample'= 'A99_Wtill98q4_creW_b97q4_s03q4_network')
-specs$savingFolder <- 'output/SAR/Annual99/'
+specs <- list('savingFolder'='output/SAR/Annual99/', 
+              'idSample'= 'A99_Wtill98q4_creW_b97q4_s03q4')
 
 ```
 
@@ -34,7 +45,8 @@ specs$savingFolder <- 'output/SAR/Annual99/'
 ---
 
 ```{r load_network}
-network <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds')) %>%
+netIg <- readRDS(paste0(specs$savingFolder, specs$idSample, '_network.rds'))
+network <- readRDS(paste0(specs$savingFolder, specs$idSample, '_network.rds')) %>%
   as_tbl_graph() %>%
   activate(nodes) %>%
   rename('IDent' = 'name') %>%
@@ -47,9 +59,24 @@ network <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds')) %>%
 summary(network)
 ```
 
+## Distribution of entities (nodes)
+
+* There are 
+How many entities as lenders?
 
 ## Distribution of links
 ```{r}
+network %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  count(from) %>% NROW()
+
+network %>%
+  activate(edges) %>%
+  as_tibble() %>%
+  count(to) %>% NROW()
+
+
 plots$banksLinks <- network %>%
   activate(nodes) %>%
   as_tibble(.) %>%
@@ -154,24 +181,51 @@ walk2(plots, names(plots), function(plot, fileName) {
 
 Using visNetwork package. I use the same 'g' object from iGraph
 
-```{r plot_interactive, eval=TRUE}
+```{r plot_interactive, eval=FALSE, include=FALSE}
+# This does not work because as_tbl_graph() has sequential IDs in the edges tibble but the original bank IDs in the nodes tibble
+
 pTblNodes <- network %>%
   activate(nodes) %>%
   rename('id'='IDent') %>%
   as_tibble() %>%
   select(., id)
-  
 
 pTblRelations <- network %>%
   activate(edges) %>%
-  as_tibble() %>%
-  select(., from, to)
+  as_tibble()
 
 visNetwork(pTblNodes, pTblRelations, width = "100%") %>%
   visLayout(randomSeed = 123, improvedLayout=TRUE) %>%
   visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE) %>%
   visConfigure(enabled = TRUE)
+
+
+```
+
+
+```{r}
+#visIgraph(network)
+# Provde the initial igraph network rather than tidygraph.IDgraphs names edges with sequential IDs. Tidygraph breaks the association between IDs.
+visNetData <- toVisNetworkData(netIg)
+visNetData$nodes <- visNetData$nodes %>%
+                      mutate('value' = ActivoN,
+                      'group' = if_else(as.logical(survival), 'survivors', 'failing'),
+                      'label' = NOMRED)
+visNetData$edges <- visNetData$edges %>%
+                      mutate('value' = WEIGHT)
+
+visNetwork(nodes=visNetData$nodes, edges=visNetData$edges, width = '100%') %>%
+  visNodes(scaling = list('min'=40, 'max'=80)) %>%
+  visEdges(color = list('color'='grey', 'opacity'=0.4)) %>%
+  visGroups(groupname = 'survivors', color=list('background'='yellow', 'border'='black')) %>%
+  visGroups(groupname = 'failing', color=list('background'='red', 'border'='black')) %>%
+  visLayout(randomSeed = 123, improvedLayout=TRUE) %>%
+  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visInteraction(navigationButtons = TRUE) %>%
+  visConfigure(enabled = TRUE) %>%
+  visPhysics(solver = "forceAtlas2Based", 
+            forceAtlas2Based = list(gravitationalConstant = -1000))
 
 ```
 
