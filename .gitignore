@@ -125,3 +125,10 @@ Backup of *.doc*
 # Visio autosave temporary files
 *.~vsd*
 # End of https://www.toptal.com/developers/gitignore/api/windows,r,stata
+*.mat
+*.rds
+*.zip
+*.asv
+*.xls
+*.pptx
+*.pptx

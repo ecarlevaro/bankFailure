@@ -1,0 +1,175 @@
+---
+title: "ESD DB descStats"
+author: "Emi"
+date: "24/02/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(haven)
+library(tidyverse)
+library(lubridate)
+library(xlsx)
+library(DT)
+library(htmltools)
+```
+
+# Loading data
+
+```{r db}
+db <- haven::read_dta('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/data/DBBanks/ESD/ESD_BAFA_quarterly.dta') %>%
+        dplyr::mutate(., 
+          FECHAdata = quarter(ymd("1960-01-01")+months(FECHA_Q*3), with_year=TRUE),
+          FECHAdataAnio = year(ymd("1960-01-01")+months(FECHA_Q*3)),
+          .after = IDENT) %>%
+        filter(FECHAdata>=1997.4 & FECHAdata<=2001.4)
+
+varList <- c('TFG', 'CAR_IRR_2A6', 'CAR_IRR_3A6', 'CCOM_RATIO_TF', 'CCONVIV_RATIO_TF', 'CCOM200_RATIO_TF', 'TG', 'TGO')
+```
+
+# Descriptive statistics
+## From 1997q4 to 2001q4
+### Missing values
+
+Percentage (%) of fully complete observations by quarter (all variables)
+```{r }
+NperQ <- db %>% 
+  group_by(FECHAdata) %>%
+  summarise(N = n())
+completeNperQ <- db %>% 
+  filter_all(all_vars(!is.na(.))) %>% 
+  group_by(FECHAdata) %>%
+  summarise(completeN = n())
+
+dplyr::inner_join(NperQ, completeNperQ, by="FECHAdata") %>%
+  dplyr::mutate('Complete observations (%)' = round((completeN/N)*100))
+
+```
+
+db %>%
+filter(FECHAdata == 2000.4 & is.na(TFG)) %>%
+select(IDENT) %>% sort(.$IDENT)
+
+
+Missing by year (% of total observations)
+
+```{r mssingByYear}
+db %>% select(c(IDENT, FECHAdata, !!varList)) %>% filter(is.na(CAR_IRR_3A6)) %>% 
+  write.xlsx(., file='CAR_IRR_3A6_missing.xlsx')
+
+db %>% 
+  group_by(FECHAdataAnio) %>%
+    summarise(across(!!varList, 
+                   list(M = ~round(( sum(is.na(.x))/sum(!is.na(IDENT)))*100)) ) ) %>%
+  #filter(., Activo_N_MISSING > 0) %>%
+  #kable(., caption='Missinv values for Activo')
+  datatable(.)
+
+```
+
+### Desc stats table
+```{r desc_stats_table}
+
+dSVals <- db %>% 
+  summarise(across(all_of(!!varList), list(
+    'min' = ~min(.x, na.rm=TRUE),
+    'median' = ~round(median(.x, na.rm=TRUE)),
+    'mean' = ~mean(.x, na.rm=TRUE),
+    'max' = ~round(max(.x, na.rm=TRUE)),
+    'SD' = ~round(sd(.x, na.rm=TRUE))
+    )))
+
+colName = c('min', 'median', 'mean', 'sd', 'max')
+out <- map_dfc(colName, function(colName) {
+ colVector <- select(dSVals, ends_with(colName)) %>%
+  map_dbl(., function(col) { 
+    as_vector(col)
+    round(col, digits=2) 
+    })
+})
+  
+descStatsTibble <- tibble('min' = as_vector(select(dSVals, ends_with('min'))),
+                    'median' = as_vector(select(dSVals, ends_with('median'))),
+                    'mean' = as_vector(select(dSVals, ends_with('mean'))),
+                    'sd' = as_vector(select(dSVals, ends_with('sd'))),
+                    'max' = as_vector(select(dSVals, ends_with('max'))))
+rownames(descStatsTibble) <- varList
+  datatable(descStatsTibble) %>%
+    formatRound(columns=c('min', 'median', 'mean', 'sd', 'max'))
+```
+
+## Correlation table
+```{r corrTable}
+
+# corr$r contains the correlation coefficients and corr$p the p-values (H0: r==0)
+corr <- Hmisc::rcorr(as.matrix(select(db, !!varList)), type='pearson')
+
+colnames(corr$P) <- str_c( colnames(corr$r), '_P') 
+corrData <- cbind(corr$r, corr$P) %>% 
+            as_tibble(., rownames='Variable')
+
+corrTable <-  DT::datatable(corrData, rownames = FALSE, 
+                  caption='Correlation table. Bold correlations with p-value < 0.15',
+                  extensions = 'FixedColumns',
+                    options = list(dom = 'Variable', scrollX = TRUE, fixedColumns = TRUE))
+
+# Add format for significant correlations (p-value < 0.15)
+walk(colnames(corr$r), function(colName) {
+  #browser()
+  corrTable <<- formatStyle(corrTable, 
+                  colName, str_c(colName, '_P'),
+                  fontWeight = styleInterval(c(0.15), c('bold', 'normal')))
+  corrTable <<- formatStyle(corrTable, 
+                  str_c(colName, '_P'),
+                  visibility= 'hidden')
+})
+  #browser()
+corrTable  %>% formatRound(columns=c(2:NCOL(corrData)))
+
+```
+
+## Variable tables
+
+```{r Nonperforming, results='asis'}
+map(varList, function(thisVar) {
+ # generate new tab
+  cat(str_c('### ', thisVar, ' {.tabset .tabset-fade .tabset-pills} \n'))
+  
+  #cat(str_c('#### N \n'))
+  #table <- db %>%
+  #  summarise(across(!!thisVar,
+  #                   list(mean = ~mean(.x, na.rm=TRUE),
+  #                        sd = ~sd(.x, na.rm=TRUE))))
+  #
+  #print(htmltools::tagList(datatable(table)))
+  
+  cat(str_c('#### By year \n'))
+  table <- db %>% 
+    group_by(FECHAdataAnio) %>%
+    summarise(across(!!thisVar, 
+                     list('min' = min,
+                          'mean' = ~mean(.x, na.rm=TRUE),
+                          'max' = max,
+                          'N_MISSING' = ~sum(is.na(.x))))) 
+    #filter(., Activo_N_MISSING > 0) %>%
+    #kable(., caption='Missinv values for Activo')
+  print(htmltools::tagList(datatable(table) %>% formatRound(c(2,3, 4)) ))
+   
+  cat('\n')
+  
+  # By IDENT
+  cat(str_c('#### By IDENT \n'))
+  table <- db %>% 
+    group_by(IDENT) %>%
+    summarise(across(!!thisVar, 
+                     list(mean = ~mean(.x, na.rm=TRUE),
+                          sd = ~sd(.x, na.rm=TRUE),
+                          N_MISSING = ~sum(is.na(.x)))))
+  print(htmltools::tagList(datatable(table) %>% formatRound(c(2,3)) ))
+  
+  cat('\n')
+})
+  
+```

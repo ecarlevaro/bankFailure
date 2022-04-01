@@ -1,4 +1,7 @@
- load IT
+%load IT
+load BAFA_data
+BAFAd = struct('X', X')
+adoptiondate = y' - 151
 
 %N --- The number of countries
 %T --- The number of time periods (t is the index for time, t=1 corresponds to 1985)
@@ -23,6 +26,7 @@
 % rho2 - spatial effect of countries that have already switched
 
 tic
+W = Wstd
 
 %normalize W
 for i=1:size(W,1)
@@ -31,29 +35,10 @@ for i=1:size(W,1)
     end
 end
 
-%normalize A
-for i=1:size(A,1)
-    if sum(A(i,:))~=0
-        A(i,:)=A(i,:)/sum(A(i,:));
-    end
-end
 
-%normalize B
-for i=1:size(B,1)
-    if sum(B(i,:))~=0
-        B(i,:)=B(i,:)/sum(B(i,:));
-    end
-end
 
-%normalize C
-for i=1:size(C,1)
-    if sum(C(i,:))~=0
-        C(i,:)=C(i,:)/sum(C(i,:));
-    end
-end
-
-vars=[1 2 3 4 5 6 7];
-[paramest,paramstd,logL,H]=spatial_duration3(adoptiondate,data,B,vars);
+vars=[1];
+[paramest,paramstd,logL,H]=spatial_duration3(adoptiondate,BAFAd,W,vars);
 
 fprintf('Distance Matrix B, logL= %3.2f\n',logL)
 fprintf('parameter\t estimate (std)\n')

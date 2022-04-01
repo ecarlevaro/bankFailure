@@ -35,8 +35,8 @@ source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_u
 
 plots <- list('banksLinks'=NULL, 'linksWeights'=NULL, 
           'fullNetwork'=NULL, 'networkFailBanks'=NULL)
-specs <- list('savingFolder'='output/SAR/Annual99/', 
-              'idSample'= 'A99_Wtill98q4_creW_b97q4_s03q4')
+specs <- list('savingFolder'='data/SAMS/', 
+              'idSample'= 'n80_fs98q4_ft01q4_Lag4_logAssets_Wrest_sample')
 
 ```
 
@@ -44,17 +44,22 @@ specs <- list('savingFolder'='output/SAR/Annual99/',
   date: `r today()`
 ---
 
+# Load network data
 ```{r load_network}
-netIg <- readRDS(paste0(specs$savingFolder, specs$idSample, '_network.rds'))
-network <- readRDS(paste0(specs$savingFolder, specs$idSample, '_network.rds')) %>%
+Wig <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds'))$network
+network <- Wig %>%
   as_tbl_graph() %>%
   activate(nodes) %>%
-  rename('IDent' = 'name') %>%
-  rename('label' = 'NOMRED') %>%
+  rename('IDENT' = 'name') %>%
+  rename('label' = 'B_NAME') %>%
   mutate(degree = degree(.),
-         colour = if_else(survival==1, 'green', 'red'),
-         value = ActivoN, 
-         title = str_c(label, ', $ ', (ActivoN/10000), ' mill.'))
+         colour = if_else(failure==1, 'red', 'green'),
+         value = ActivoN_L4, 
+         title = str_c(label, ', $ ', (ActivoN_L4), ' log of.'),
+         B_SIZE = ActivoN_L4)
+network <- network %>%
+            activate(edges) %>%
+            mutate('WEIGHT' = WEIGHT/100)
 
 summary(network)
 ```
@@ -118,7 +123,6 @@ plots$linksWeights
 
 
 ```{r}
-
 networkFplot <- network %>%
   activate(edges) %>%
   filter(., WEIGHT>0.1)
@@ -130,7 +134,7 @@ networkFplot <- network %>%
 plots$fullNetwork <- networkFplot %>%
   ggraph(., layout = 'kk') +
   geom_edge_fan2(aes(alpha = WEIGHT), colour='black', check_overlap=TRUE, n = 115) + 
-    geom_node_point(aes(size=ActivoN), shape=21, fill=V(networkFplot)$colour) +
+    geom_node_point(aes(size=B_SIZE), shape=21, fill=V(networkFplot)$colour) +
   theme_graph()
 
 plots$fullNetwork
@@ -139,16 +143,16 @@ plots$fullNetwork
 
 
 ```{r }
-networkFailBanks  <- networkFplot %>%
+WigFails  <- networkFplot %>%
   activate(nodes) %>%
-  filter(., survival==0) 
+  filter(., failure==1) 
 
-networkFailBanks
+WigFails
 
 ```
 Which failing banks are isolated?
 ```{r}
-networkFailBanks %>% activate(nodes) %>% 
+WigFails %>% activate(nodes) %>% 
   filter(node_is_isolated())
 
 ```
@@ -156,10 +160,10 @@ networkFailBanks %>% activate(nodes) %>%
                     
 ```{r plot_fail_banks_network}
 
-plots$NetworkFailBanks <- networkFailBanks %>%
+plots$WigFails <- WigFails %>%
   {ggraph(., layout = 'kk') +
   geom_edge_fan2(aes(alpha = WEIGHT), colour='black', check_overlap=TRUE, n = 115, show.legend = FALSE) + 
-  geom_node_point(aes(size=ActivoN), shape=21, fill=V(.)$colour, show.legend=FALSE) +
+  geom_node_point(aes(size=B_SIZE), shape=21, fill=V(.)$colour, show.legend=FALSE) +
       theme_graph()}
     
 plots$NetworkFailBanks
@@ -186,7 +190,7 @@ Using visNetwork package. I use the same 'g' object from iGraph
 
 pTblNodes <- network %>%
   activate(nodes) %>%
-  rename('id'='IDent') %>%
+  rename('id'='IDENT') %>%
   as_tibble() %>%
   select(., id)
 
@@ -209,7 +213,7 @@ visNetwork(pTblNodes, pTblRelations, width = "100%") %>%
 # Provde the initial igraph network rather than tidygraph.IDgraphs names edges with sequential IDs. Tidygraph breaks the association between IDs.
 visNetData <- toVisNetworkData(netIg)
 visNetData$nodes <- visNetData$nodes %>%
-                      mutate('value' = ActivoN,
+                      mutate('value' = B_SIZE,
                       'group' = if_else(as.logical(survival), 'survivors', 'failing'),
                       'label' = NOMRED)
 visNetData$edges <- visNetData$edges %>%

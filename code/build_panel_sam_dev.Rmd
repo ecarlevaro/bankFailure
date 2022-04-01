@@ -1,0 +1,398 @@
+---
+author: "Emi"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: true
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library(tsibble) # Panel data/longitudinal
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(svglite) # export plots to svg
+library(rmatio) # expor to Matlab
+library(spdep)
+library(spatialreg)
+library(huxtable) # export tables (tibble) to Latex/Excel
+source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+
+```
+
+```{=html}
+<style type="text/css">
+  .main-container {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+```
+
+# Sample specs
+
+```{r sample_specs}
+# RUN THIS BEFORE KNITTING!!!
+specs <- list('idSample' = 'n80_fs98q4_ft01q4_Lag4_logAssets_Wrest_NotBPS',
+              'samFile' = '98q4_01q4_lag4.dta',
+              'savingFolder' = 'output/SAR/Annual99_pastAvgW/',
+              'y' = list(
+                'failureSince' = 155,
+                         # Stata: di tq(2001q4)
+                         'failureHorizon' = 167),
+              'X' = list('freq' = 'quarterly',
+                         #1998.4 (we use the past 4 lags). time 1 is 155
+                         'from' = 155 ,
+                         #2000.4
+                         'to' = 167 ,
+                          #1997.
+                         'bankBirthFrom' = 155, 
+                         'vars' = c('ActivoN_L4', 'C8Est_L4', 'CAR_IRR_3A6_IMP_L4', 'P_ROA_L4',
+                                    'P_LOANS_ARS_RATE_IS_IMP_L4', 'APRSpNF_RATE_W_L4', 
+                                    'APR_USD_RATE_L4', 'APR_RATE_W_L4',
+                                    'GDP_D_Q', 'ARG_YTM')),
+              'W' = list(
+                # 1997q4
+                'from' = 151 ,
+                 # 2000.4
+                'to' = 163 ,
+                         #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
+                         'wVar' = 'W_A_PR'))
+```
+
+---
+  title: `r specs$idSample`
+  date: `r today()`
+---
+
+## Output
+The vector $\bm{a}$ which contains the failure time for each bank in the whole sample.
+`data(t).X`
+The covariates for each bank at each $t$
+`W`
+It is the fixed network. 
+  
+-   Only banks that were alive by ```r specs$X$bankBirthFrom```
+
+-   $\bm{y_t}$ is 1 if the bank fails between ```r specs$y$failureSince``` and ```r specs$y$failureHorizon```.
+
+-   $W$ is the average between the beginning of data (around 1997q3) and ```r specs$W$to```. Hence we use past information about the network.
+
+-   $X$ is data from `r specs$X$from` to `r specs$X$to`.
+
+# Load data
+
+# Banks per quarter form failure_time.dta
+```{r cars, eval=FALSE, include=FALSE}
+failTime <- haven::read_dta('data/failures/failure_time.dta') %>%
+  dplyr::mutate(., 
+                FirstDate = quarter(ymd('1960-01-01')+months(FIRST_DATE_Q*3), type='year.quarter'),
+                FailDate = quarter(ymd('1960-01-01') + months(FAIL_DATE_Q*3), type = 'year.quarter'),
+                .after = IDENT) 
+
+quarters <- c(1997.1, 1997.2, 1997.3, 1997.4,
+              1998.1, 1998.2, 1998.3, 1998.4, 
+1999.1, 1999.2, 1999.3, 1999.4, 
+2000.1, 2000.2, 2000.3, 2000.4,
+2001.1, 2001.2, 2001.3, 2001.4,
+2002.1, 2002.2, 2002.3, 2002.4)
+byQ <- map(quarters, function(thisQ) 
+  {
+    filter(failTime, FirstDate<=thisQ & (FailDate>thisQ | is.na(FailDate)))  %>% 
+    select(., IDENT)
+  })
+names(byQ) <- quarters
+nAliveByQ <- map_dbl(byQ, NROW)
+names(nAliveByQ) <- quarters
+nAliveByQ
+```
+
+## Banks covariates
+```{r load_bank_data}
+# Forget about changing Stata quarter format. It's the best, the only that treat time as a distance and hence allows you aritmetic.
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure')
+banksDB <- haven::read_dta(paste0('data/SAMS/', specs$samFile)) 
+#q_2S_q <- function(date) {}
+bVars <- banksDB %>%
+  mutate(ActivoN_L4 = log(ActivoN_S_L4)) %>%
+  select(., IDENT, B_NAME, FQ, FIRST_DATE_Q, FAIL_DATE_Q, all_of(specs$X$vars)) %>%
+  filter(., !(IDENT %in% c(141, 148, 149, 179, 253, 269, 311, 
+                         44068, 44088, 45056, 45118, 65201, 65203)))
+#filter(., (IDENT %in% c(6, 39, 50, 54,  167,  178,  229,  
+  #                       3, 18, 43, 46, 59, 67,113, 153, 236,  255)))
+
+theBanks <- bVars[ (bVars$FQ==specs$X$from), 'IDENT']
+
+ #filter(., FQ >= specs$X$from & FQ <= specs$X$to) %>%
+  # 141 148 149 179 253 269 311 44068 44088 45056 45118 65201 65203
+
+  #filter(., !(IDENT %in% c(1, 93, 81,133,141,149)))
+#%>%
+  # ONly private banks
+ # filter(BANK_TYPE != 4 & BANK_TYPE !=5) %>%
+  # Only active banks at the beginning of the period
+  #filter(., FIRST_DATE_Q <= !!specs$X$bankBirthFrom & (FAIL_DATE_Q >= !!specs$y$failureSince) | is.na(FAIL_DATE_Q) ) 
+
+# Select banks
+# allive at 1997q3
+
+
+# with complete obs till death
+```
+
+
+```{r desc_stats_banks}
+# Select only entities private and alive on 1997q4
+bVars %>%
+  dplyr::group_by(IDENT) %>%
+  summarise('firstObsDate' = first(FQ),
+            'startDate' = min(FIRST_DATE_Q),
+            'B_NAME' = first(B_NAME),
+            #'BANK_TYPE' = first(B_TYPE),
+            'P_LOANS_ARS_RATE3_IMP_L4' = first(P_LOANS_ARS_RATE_IS_IMP_L4))
+
+```
+
+
+Hence I end up with `r NROW(theBanks)` banks and the mean of IDENT is `r mean(theBanks$IDENT)`.
+
+## Network data
+
+```{r load_network_data}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+dbRelations <- read_dta('data/interLoans/cen_deu_1997-06_2001_quarterly.dta') %>%
+  # WEIGHT in basis point (the original data is a proportion)
+  mutate(WEIGHT = .data[[ specs$W$wVar]]*100) %>%
+  tsibble(key = c(IDENT_ACREEDORA, IDENT_DEUDORA), 
+          index = FECHA_Q)
+# W_A_PR W_D_PR
+thisRelations <- select(dbRelations, 
+                        FECHA_Q, IDENT_ACREEDORA, IDENT_DEUDORA, PRESTAMOS, WEIGHT) %>%
+  filter_index(.  , specs$W$from ~ specs$W$to) %>%
+  filter(., (IDENT_ACREEDORA != IDENT_DEUDORA) &  WEIGHT != 0)
+
+
+# Number of unique relations (links)
+uLinksN <- select(thisRelations, IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  distinct() %>%
+  nrow()
+
+```
+
+# Build objects
+
+
+### X and Y
+```{r}
+# Store data for each quarter
+# p x k
+# X vars are 4 quarters lagged
+XT <- map(seq(from=specs$X$from, to=specs$X$to), function(thisDate) { 
+  # For each quarter I extract observations relative to the last 4 quarters and keep with NAs data on failing banks
+    # thisDate==155
+    #filter(bVars, FQ>thisDate-4 & FQ<=thisDate ) %>%
+    filter(bVars, FQ==thisDate ) %>%
+    right_join(., theBanks, by='IDENT') %>%
+    arrange(IDENT) %>%
+    select(., all_of(specs$X$vars)) %>%
+    as.matrix(.) %>%
+    round(., digits=4) %>%
+    # Add constant for intercept
+    cbind('Constant' = 1, .)
+
+  })
+y <- filter(bVars, FQ==specs$X$from)$FAIL_DATE_Q %>%
+      if_else(is.na(.), Inf, .) %>%
+  {. - (specs$y$failureSince)}
+
+```
+### Build the Average Network
+
+$W$ is the average for each link between the beginning and ```r specs$W$to``` for all banks
+
+```{r}
+nodes <- filter(bVars, FQ==specs$X$from) %>%
+  select(., IDENT, B_NAME, ActivoN_L4) %>%
+  mutate(failure = if_else(y <= specs$y$failureHorizon, 1, 0))
+
+# Reconvert to tibble because tsibble cannot drop the groupping by time (index)
+avgRelations <- thisRelations %>%
+  as_tibble(.) %>%
+  group_by(IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  summarise(WEIGHT = mean(WEIGHT)) %>%
+  # W can only contains entities that are in the sample. 
+  semi_join(., select(nodes, IDENT), 
+    by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
+  semi_join(., select(nodes, IDENT), 
+    by= c('IDENT_DEUDORA' = 'IDENT')) 
+  #filter(., WEIGHT<0.1)
+# This dataframe should be empty
+netExcBanks <- bind_rows(anti_join(avgRelations, bVars, by=c('IDENT_ACREEDORA' = 'IDENT')),
+                    anti_join(avgRelations, bVars, by=c('IDENT_DEUDORA' = 'IDENT')))
+
+#avgRelations
+
+```
+
+The following entities appear in the network but not in the banks dataframe: NROWS: `r NROW(netExcBanks)`. Should be empty!
+Mean weight is `r mean(thisRelations$WEIGHT)`
+
+#### Export average network as spatial matrix
+
+Create a network (igraph) object and the spatial matrix `W` which only contains banks that are in `banks`
+
+```{r }
+Wig <- igraph::graph_from_data_frame(d = avgRelations, 
+                           vertices = nodes,
+                          directed = TRUE)
+
+# Export adjacency matrix
+W_weighted <- as_adjacency_matrix(Wig, attr='WEIGHT', sparse=FALSE)
+W <- as_adjacency_matrix(Wig, attr=NULL, sparse=FALSE)
+# Dimensions of W should equal # of banks str(W)
+# Row-normalised weight matrix
+Wstd <- apply(W_weighted, MARGIN=1, FUN=function(row) { 
+  row = round(row, digits=6)
+  rowSum = sum(row)
+  if (rowSum != 0) {
+    row/rowSum
+  } else {
+    row
+  }}) %>% t(.)
+
+if(any(abs(Matrix::rowSums(Wstd) - 1) > 1e-12)) { 
+  warning("The spatial matrix is not appropiately standarised. Perhaps some entities are not connected to any other entitiy?")}
+
+```
+
+There are `r nrow(thisRelations)` links in `avgRelations`; `r uLinksN` of them are unique. `W` is `r nrow(W)` $\times$ `r ncol(W)` and the number of banks in `theBanks` is `r NROW(theBanks)`. They should be equal!
+
+# Analysis
+
+## Desc stats
+
+```{r descStatsBanks}
+dplyr::bind_cols('y'=y, 'IDENT'=theBanks) %>%
+  descStats2(.)
+
+descStatsT <- dplyr::bind_cols(map_dfr(XT, function(aMatrix) { as.tibble(aMatrix) })) %>%
+  descStats2(.)
+
+  descStatsT %>%
+    datatable() %>%
+    formatRound(columns=c('min', 'median', 'mean', 'SD', 'max', 'CV'))
+```
+
+```{r descStats_network}
+#plot(Wig)
+summary(spdep::mat2listw(Wstd), zero.policy=TRUE)
+```
+
+## Initial values with linear model
+```{r pool_data}
+# Pooled estimate
+Xpool <- bVars %>%
+          right_join(., theBanks, by='IDENT') %>%
+          arrange(IDENT) %>%
+          select(., IDENT, all_of(specs$X$vars)) %>%
+          dplyr::group_by(IDENT) %>% 
+          summarise(across(ActivoN_L4:ARG_YTM, mean)) %>%
+          select(!IDENT)
+# FOr the pool estimation
+#+ C8Est_L4 + CAR_IRR_3A6_IMP_L4 + P_ROA_L4 + P_LOANS_ARS_RATE_IS_IMP_L4 + APRSpNF_RATE_W_L4 + APR_USD_RATE_L4 + APR_RATE_W_L4
+T <- specs$y$failureHorizon - specs$y$failureSince
+poolData <- bind_cols('y'=(y<=T)*1, Xpool)
+```
+
+
+```{r linear_SAR}
+linearSAR <- spatialreg::lagsarlm(formula ='y ~ 1 + ActivoN_L4 + C8Est_L4 + CAR_IRR_3A6_IMP_L4 + P_ROA_L4 + P_LOANS_ARS_RATE_IS_IMP_L4 + APRSpNF_RATE_W_L4 + APR_USD_RATE_L4 + APR_RATE_W_L4 + GDP_D_Q + ARG_YTM',
+        data = poolData,
+        listw =spdep::mat2listw(Wstd) )
+        # If you have mbanks with no connections (0s in the W)
+        #zero.policy = TRUE)
+summary(linearSAR)
+```
+
+
+
+```{r spatial_probit, eval=FALSE, include=FALSE}
+theR <- ProbitSpatial::ProbitSpatialFit(y ~ 1 + ActivoN_L4 + C8Est_L4 + CAR_IRR_3A6_IMP_L4 + P_ROA_L4 + P_LOANS_ARS_RATE_IS_IMP_L4 + APRSpNF_RATE_W_L4 + APR_USD_RATE_L4 + APR_RATE_W_L4 + GDP_D_Q + ARG_YTM,
+                                data= poolData,
+                                #as_dgRMatrix_listw(Wlist),
+                                W=Matrix(Wstd, sparse=TRUE),
+                                DGP='SAR',
+                                method='conditional',
+                                varcov='precision')
+
+summary(theR)
+```
+
+
+
+Impacts:
+
+```{r impacts, eval=FALSE, include=FALSE}
+spatialreg::impacts(model, listw=spdep::mat2listw(Wstd) ) %>%
+  print()
+```
+
+# Save
+
+## Sample
+```{r sample_save}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+
+# Matlab
+write.mat(list('Wstd' = Wstd,
+               'X' =  XT,
+               'varNames' = c('Intercept', specs$X$vars),
+               'iniValues' = c(linearSAR$coefficients, linearSAR$rho),
+               # time 1 is 1 (instead of 0)
+               'y' = y),
+          paste0('data/SAMS/', specs$idSample, '.mat'))
+
+saveRDS(list('specs' = specs,
+              'XT' = XT,
+             'y' = y, 
+             'network' = Wig),
+        file=paste0('data/SAMS/', specs$idSample, '.rds'))
+```
+
+## Results
+```{r eval=FALSE, include=FALSE}
+
+as_hux(descStatsT) %>% quick_xlsx(paste0(specs$savingFolder, 'desc_stats_table.xlsx'))
+
+saveRDS(model, file=paste0(specs$savingFolder, specs$idSample, '_model.rds'))
+
+rhoZvalue <- (regSumm$rho / regSumm$rho.se) %>% abs()
+rhoPvalue = (1-pnorm(rhoZvalue))*2
+
+#outList <- list(NULL)
+#names(outList) <- specs$idSample
+estimatesTibble <- as_tibble(regSumm$Coef) %>%
+  rename('EST_COEF' = 'Estimate',
+         'STD_ERROR' ='Std. Error',
+         'Z_VALUE' ='z value',
+         'P_VALUE' = 'Pr(>|z|)') %>%
+  mutate('ID_SAMPLE' = specs$idSample,
+    'PREDICTOR' = rownames(regSumm$Coef), .before=1) %>%
+  add_row(ID_SAMPLE = specs$idSample, PREDICTOR='rho', 
+          EST_COEF = regSumm$rho, STD_ERROR = regSumm$rho.se,  Z_VALUE = rhoZvalue, 
+          P_VALUE = rhoPvalue) %>%
+  mutate('MODEL_LOG_LIK_LM' = regSumm$logLik_lm.model,
+         'MODEL_N' = NROW(regSumm$fitted.values),
+         'WALD_TEST_SDEPENDANCE_PVALUE' = regSumm$Wald1$p.value,
+         'LR_TEST_SDEPENDANCE_PVALUE' = regSumm$LR1$p.value)
+
+write_excel_csv(estimatesTibble, file = paste0('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/output/results_main.csv'),
+                append=TRUE)
+```

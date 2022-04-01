@@ -1,0 +1,61 @@
+---
+author: "Emi"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: true
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library(tsibble) # Panel data/longitudinal
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(svglite) # export plots to svg
+library(rmatio) # expor to Matlab
+library(spdep)
+library(spatialreg)
+library(huxtable) # export tables (tibble) to Latex/Excel
+source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+
+```
+
+```{=html}
+<style type="text/css">
+  .main-container {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+```
+
+```{r sample_specs}
+# RUN THIS BEFORE KNITTING!!!
+idSample = 'n80_fs98q4_ft01q4_Lag4_logAssets_Wrest'
+sam <- readRDS(paste0('data/SAMS/', specs$idSample, '.rds'))
+```
+
+---
+  title: `r idSample`
+  date: `r today()`
+---
+
+
+```{r spatial_probit, eval=FALSE, include=FALSE}
+theR <- ProbitSpatial::ProbitSpatialFit(y ~ 1 + ActivoN_L4 + C8Est_L4 + CAR_IRR_3A6_IMP_L4 + P_ROA_L4 + P_LOANS_ARS_RATE_IS_IMP_L4 + APRSpNF_RATE_W_L4 + APR_USD_RATE_L4 + APR_RATE_W_L4 + GDP_D_Q + ARG_YTM,
+                                data= poolData,
+                                #as_dgRMatrix_listw(Wlist),
+                                W=Matrix(Wstd, sparse=TRUE),
+                                DGP='SAR',
+                                method='conditional',
+                                varcov='precision')
+
+summary(theR)
+```

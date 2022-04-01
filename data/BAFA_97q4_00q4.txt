@@ -1,0 +1,27 @@
+/**/
+1997q4 to 2000q4
+
+use "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\BAFA-main-1997-2001-quarterly.dta" 
+keep if FIRST_DATE_Q < yq(1997,4) & (FAIL_DATE_Q > yq(1997,4) | missing(FAIL_DATE_Q) )
+drop if FQ<yq(1997,4) | FQ>yq(2000,4)
+// Drop observations of the failing quarter
+drop if FQ==FAIL_DATE_Q
+
+save "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\BAFA_97q4_00q4.dta", replace
+
+# get rid of american express and citicorp
+drop if IDENT==256
+drop if IDENT==295
+drop if IDENT==300
+drop if IDENT==307
+drop if IDENT==64123
+
+
+
+// dont' do this since it adds empty observations to balance the panel
+// Only preserve initial entities in 1997q4
+// reshape wide B_NAME-P_LOANS_ARS_RATE3_IMP, i(IDENT) j(FQ)
+// drop if ActivoN151 == .
+// All 132 observations are alive at 1997q4
+// reshape long
+APRSpNF_RATE_W APR_USD_RATE

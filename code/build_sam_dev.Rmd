@@ -1,0 +1,383 @@
+---
+author: "Emi"
+output: 
+  html_document:
+    code_folding: hide
+    number_sections: true
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(tidyverse)
+library(lubridate)
+library(tsibble) # Panel data/longitudinal
+library(haven) # Access to Stata databases
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(svglite) # export plots to svg
+library(rmatio) # expor to Matlab
+library(spdep)
+library(spatialreg)
+library(huxtable) # export tables (tibble) to Latex/Excel
+source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+
+```
+
+```{=html}
+<style type="text/css">
+  .main-container {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+```
+
+# Sample specs
+
+```{r sample_specs}
+# RUN THIS BEFORE KNITTING!!!
+specs <- list('idSample' = 'A99_pastAvgW_creW_b97q4_s03q4',
+              'savingFolder' = 'output/SAR/Annual99_pastAvgW/',
+              'y' = list('failureSince' = 152,
+                         # Stata: di tq(2003q4)
+                         'failureHorizon' = 175),
+              'X' = list('freq' = 'quarterly',
+                         #1997.4
+                         'from' = 151 ,
+                         #2000.4
+                         'to' = 163 ,
+                          #1997.
+                         'bankBirthFrom' = 151, 
+                         'vars' = c('ActivoN',  'APRestamos',  'C8Est',  'CAR_IRR_3A6_IMP',  'P_ROA',  'P_LOANS_ARS_RATE_IS_IMP',  'APRSpNF_RATE_W',  'APR_USD_RATE',  'APR_RATE_W')),
+              'W' = list(
+                # 1997q4
+                'from' = 151 ,
+                 # 2000.4
+                'to' = 163 ,
+                         #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
+                         'wVar' = 'W_A_PR'))
+```
+
+---
+  title: `r specs$idSample`
+  date: `r today()`
+---
+
+## Output
+The vector $\bm{a}$ which contains the failure time for each bank in the whole sample.
+`data(t).X`
+The covariates for each bank at each $t$
+`W`
+It is the fixed network. 
+  
+-   Only banks that were alive by ```r specs$X$bankBirthFrom```
+
+-   $\bm{y_t}$ is 1 if the bank fails between ```r specs$y$failureSince``` and ```r specs$y$failureHorizon```.
+
+-   $W$ is the average between the beginning of data (around 1997q3) and ```r specs$W$to```. Hence we use past information about the network.
+
+-   $X$ is data from `r specs$X$from` to `r specs$X$to`.
+
+# Load data
+
+# Banks per quarter form failure_time.dta
+```{r cars}
+failTime <- haven::read_dta('data/failures/failure_time.dta') %>%
+  dplyr::mutate(., 
+                FirstDate = quarter(ymd('1960-01-01')+months(FIRST_DATE_Q*3), type='year.quarter'),
+                FailDate = quarter(ymd('1960-01-01') + months(FAIL_DATE_Q*3), type = 'year.quarter'),
+                .after = IDENT) 
+
+quarters <- c(1997.1, 1997.2, 1997.3, 1997.4,
+              1998.1, 1998.2, 1998.3, 1998.4, 
+1999.1, 1999.2, 1999.3, 1999.4, 
+2000.1, 2000.2, 2000.3, 2000.4,
+2001.1, 2001.2, 2001.3, 2001.4,
+2002.1, 2002.2, 2002.3, 2002.4)
+byQ <- map(quarters, function(thisQ) 
+  {
+    filter(failTime, FirstDate<=thisQ & (FailDate>thisQ | is.na(FailDate)))  %>% 
+    select(., IDENT)
+  })
+names(byQ) <- quarters
+nAliveByQ <- map_dbl(byQ, NROW)
+names(nAliveByQ) <- quarters
+nAliveByQ
+```
+
+## Banks covariates
+```{r load_bank_data}
+# Forget about changing Stata quarter format. It's the best, the only that treat time as a distance and hence allows you aritmetic.
+banksDB <- haven::read_dta('data/BAFA-main-1997-2000-quarterly.dta') 
+#q_2S_q <- function(date) {}
+bVars <- banksDB %>%
+  select(., IDENT, FQ, FIRST_DATE_Q, FAIL_DATE_Q, all_of(specs$X$vars)) %>%
+  filter(., FQ >= specs$X$from & FQ <= specs$X$to) %>%
+#%>%
+  # ONly private banks
+ # filter(BANK_TYPE != 4 & BANK_TYPE !=5) %>%
+  # Only active banks at the beginning of the period
+  filter(., FIRST_DATE_Q <= !!specs$X$bankBirthFrom & (FAIL_DATE_Q >= !!specs$y$failureSince) | is.na(FAIL_DATE_Q) ) 
+
+# Select banks
+# allive at 1997q3
+
+
+# with complete obs till death
+```
+
+```{r eval=FALSE, include=FALSE}
+# Select only banks with complete obs
+XT <- select(banks, IDENT, Date, all_of(specs$X$vars))
+#From 1997q3 there should be 140 banks according to failure_time.dta but I have 115 in banks
+# These are the 136 banks that will be included in the analysis. I'll do imputation if necesarry
+banks <- filter(bVars, FQ==specs$X$from) %>%
+  # N is the # of obs per bank we should have
+  mutate('N' = (.$FAIL_DATE_Q - specs$X$from))
+# Of the 136 banks, find the NA values that appear for each variable
+`
+# Count for each bank, how many valid obs you have for each var
+
+NperQ <- XT %>% 
+  group_by(Date) %>%
+  summarise(N = n())
+completeNperQ <- db %>% 
+  filter_all(all_vars(!is.na(.))) %>% 
+  group_by(FECHAdata) %>%
+  summarise(completeN = n())
+
+dplyr::inner_join(NperQ, completeNperQ, by="FECHAdata") %>%
+  dplyr::mutate('Complete observations (%)' = round(completeN/N*100))
+
+
+byQ <- map(quarters, function(thisQ) 
+  {
+    # How many complete observations per quarter
+    filter(failTime, FirstDate<=thisQ & (FailDate>thisQ | is.na(FailDate)))  %>% 
+    select(., IDENT)
+  })
+```
+
+```{r}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+#banksDB <- haven::read_dta('data/BAFA-main-1997-2001-quarterly.dta') %>%
+#        dplyr::mutate(., 
+#        dateQ = quarter(as_date(date_D, origin=ymd('1960-01-01')), with_year=TRUE),
+#        failDate = quarter(as_date(FAIL_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+#        startDate = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+#        .after = IDENT) %>%
+#    drop_na %>%
+#  # For fix W I need to fix banks at the beginning of the sample
+#  filter(startDate<= 1997.4 & failDate>=2000.1) %>%
+#  # ONly private banks
+#  filter(BANK_TYPE != 4 & BANK_TYPE !=5)
+
+# Select only entities private and alive on 1997q4
+banksAtStart <- banksDB %>%
+  dplyr::group_by(IDENT) %>%
+  summarise('firstObsDate' = first(FQ),
+            'startDate' = min(FIRST_DATE_Q),
+            'B_NAME' = first(B_NAME),
+            'BANK_TYPE' = first(B_TYPE),
+            'P_LOANS_ARS_RATE3_IMP' = first(P_LOANS_ARS_RATE_IS_IMP))
+
+banksAtStart
+```
+
+I lose `r NROW(excBanks)` banks because a) they don't have complete observations by 1997.4 (missing P_LOANS_ARS_RATE3_IMP) or b) they were privatised after 1997q4.
+
+```{r eval=FALSE, include=FALSE}
+# NO LONGER needed since i'm filtering in Stata
+excBanks <- filter(banksAtStart, startDate>1997.4)
+excBanks
+```
+
+Hence I end up with `r banks$IDENT %>% unique() %>% NROW()` banks and the mean of IDENT is `r banks$IDENT %>% mean()`.
+
+## Network data
+
+```{r load_network_data}
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+dbRelations <- read_dta('data/interLoans/cen_deu_1997-06_2001_quarterly.dta') %>%
+  mutate(WEIGHT = .data[[ specs$W$wVar]]*100) %>%
+  tsibble(key = c(IDENT_ACREEDORA, IDENT_DEUDORA), 
+          index = FECHA_Q)
+
+# W_A_PR W_D_PR
+
+thisRelations <- select(dbRelations, 
+                        FECHA_Q, IDENT_ACREEDORA, IDENT_DEUDORA, PRESTAMOS, WEIGHT) %>%
+  filter_index(.  , specs$W$from ~ specs$W$to) %>%
+  filter(., (IDENT_ACREEDORA != IDENT_DEUDORA) &  WEIGHT != 0)
+
+thisRelations
+
+# Number of unique relations (links)
+uLinksN <- select(thisRelations, IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  distinct() %>%
+  nrow()
+
+uLinksN
+
+```
+
+# Build objects
+
+
+### X and Y
+```{r}
+X <- banks %>% select(all_of(specs$X$vars))
+# Store data for each quarter
+Xs <- map(unique(banks$Date), function(thisDate) { filter(banks, Date==thisDate) })
+# 1: FAILURE, 0: SURVIVAL during the sample period
+y <- if_else(banks$FAIL_DATE_Q <= specs$y$failureHorizon, 1, 0)
+
+```
+### Build the Average Network
+
+$W$ is the average for each link between the beginning and ```r specs$W$to``` for all banks
+
+```{r}
+# Reconvert to tibble because tsibble cannot drop the groupping by time (index)
+avgRelations <- thisRelations %>%
+  as_tibble(.) %>%
+  group_by(IDENT_ACREEDORA, IDENT_DEUDORA) %>%
+  summarise(WEIGHT = mean(WEIGHT)) %>%
+  # W can only contains entities that are in the sample. 
+  semi_join(., select(banks, IDENT), 
+    by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
+  semi_join(., select(banks, IDENT), 
+    by= c('IDENT_DEUDORA' = 'IDENT')) 
+  #filter(., WEIGHT<0.1)
+# This dataframe should be empty
+netExcBanks <- bind_rows(anti_join(avgRelations, banks, by=c('IDENT_ACREEDORA' = 'IDENT')),
+                    anti_join(avgRelations, banks, by=c('IDENT_DEUDORA' = 'IDENT')))
+
+avgRelations
+
+#setwd(samPath)
+#writexl::write_xlsx(avgRelations, path='avgRelations.xlsx')
+
+```
+
+The following entities appear in the network but not in the banks dataframe: NROWS: `r NROW(netExcBanks)`. Should be empty!
+Mean weight is `r mean(thisRelations$WEIGHT)`
+
+#### Export average network as spatial matrix
+
+Create a network (igraph) object and the spatial matrix `W` which only contains banks that are in `banks`
+
+```{r }
+nodes <- banks %>%
+  select(., IDENT, B_NAME, ActivoN) %>%
+  mutate(survival = y)
+  
+network <- igraph::graph_from_data_frame(d = avgRelations, 
+                           vertices = nodes,
+                          directed = TRUE)
+
+# Export adjacency matrix
+W_weighted <- as_adjacency_matrix(network, attr='WEIGHT', sparse=FALSE)
+W <- as_adjacency_matrix(network, attr=NULL, sparse=FALSE)
+# Dimensions of W should equal # of banks
+# Row-normalised weight matrix
+Wstd <- apply(W_weighted, MARGIN=1, FUN=function(row) { 
+  rowSum = sum(row)
+  if (rowSum != 0) {
+    row/rowSum
+  } else {
+    row
+  }}) %>% t(.)
+
+spatialRegNetwork <-  spdep::mat2listw(Wstd) 
+```
+
+There are `r nrow(thisRelations)` links in `avgRelations`; `r uLinksN` of them are unique. `W` is `r nrow(W)` $\times$ `r ncol(W)` and the number of banks in `banks` is `r NROW(banks)`. They should be equal!
+
+## Desc stats
+
+```{r descStatsBanks}
+descStatsT <- dplyr::bind_cols('y'=y, X, 'IDENT'=banks$IDENT) %>%
+  descStats2(.)
+
+  descStatsT %>%
+    datatable() %>%
+    formatRound(columns=c('min', 'median', 'mean', 'SD', 'max', 'CV'))
+```
+
+```{r descStats_network}
+summary(spatialRegNetwork, zero.policy=TRUE)
+```
+
+
+
+## Run!
+```{r estimation_sar}
+model <- spatialreg::lagsarlm(formula ='y ~ ActivoN+ C8Est_w+ CAR_IRR_3A6+ P_ROA+ P_DEP_ARS_RATE +
+  P_LOANS_ARS_RATE_W+ APRSpNF_RATE_W+ APR_USD_RATE+ APR_RATE_W',
+        data = bind_cols('y'=y, X),
+        listw = spatialRegNetwork,
+        zero.policy = TRUE)
+
+regSumm <- summary(model)
+
+regSumm
+
+```
+
+Impacts:
+
+```{r}
+spatialreg::impacts(model, listw=spatialRegNetwork) %>%
+  print()
+```
+
+# Save
+
+## Sample
+```{r sample_save}
+saveRDS(bind_cols('DEP_VAR' = y, X), 
+        file=paste0(specs$savingFolder, specs$idSample, '_sample.rds'))
+
+saveRDS(network, 
+        file=paste0(specs$savingFolder, specs$idSample, '_network.rds'))
+#write.mat(list('Wstd' = Wstd,
+#               'X' =  X %>% data.matrix(.),
+#               'y' = y),
+#          'data.mat')
+```
+
+## Results
+```{r }
+
+as_hux(descStatsT) %>% quick_xlsx(paste0(specs$savingFolder, 'desc_stats_table.xlsx'))
+
+saveRDS(model, file=paste0(specs$savingFolder, specs$idSample, '_model.rds'))
+
+rhoZvalue <- (regSumm$rho / regSumm$rho.se) %>% abs()
+rhoPvalue = (1-pnorm(rhoZvalue))*2
+
+#outList <- list(NULL)
+#names(outList) <- specs$idSample
+estimatesTibble <- as_tibble(regSumm$Coef) %>%
+  rename('EST_COEF' = 'Estimate',
+         'STD_ERROR' ='Std. Error',
+         'Z_VALUE' ='z value',
+         'P_VALUE' = 'Pr(>|z|)') %>%
+  mutate('ID_SAMPLE' = specs$idSample,
+    'PREDICTOR' = rownames(regSumm$Coef), .before=1) %>%
+  add_row(ID_SAMPLE = specs$idSample, PREDICTOR='rho', 
+          EST_COEF = regSumm$rho, STD_ERROR = regSumm$rho.se,  Z_VALUE = rhoZvalue, 
+          P_VALUE = rhoPvalue) %>%
+  mutate('MODEL_LOG_LIK_LM' = regSumm$logLik_lm.model,
+         'MODEL_N' = NROW(regSumm$fitted.values),
+         'WALD_TEST_SDEPENDANCE_PVALUE' = regSumm$Wald1$p.value,
+         'LR_TEST_SDEPENDANCE_PVALUE' = regSumm$LR1$p.value)
+
+write_excel_csv(estimatesTibble, file = paste0('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/output/results_main.csv'),
+                append=TRUE)
+```
