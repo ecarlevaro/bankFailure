@@ -2,8 +2,8 @@
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.933">
-    <properties show_icon_for_attributes="true" fit_to_viewport="false" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+<hook NAME="MapStyle" zoom="0.435">
+    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24 pt">
@@ -954,6 +954,11 @@
 <node TEXT="Relationship lending" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_1071815677" CREATED="1612773383653" MODIFIED="1612773396311" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="KOBAYAHSI TAKAGUCHI 2018 Identifying relationship lending in the interbank market network.pdf" ID="ID_1782301704" CREATED="1612773406149" MODIFIED="1612773406149" LINK="../biblio/network/KOBAYAHSI%20TAKAGUCHI%202018%20Identifying%20relationship%20lending%20in%20the%20interbank%20market%20network.pdf"/>
 <node TEXT="LIBERTI STURGESS 2020 The anatomy of a credit supply shock.pdf" ID="ID_914183040" CREATED="1626669949344" MODIFIED="1626669949345" LINK="../../../InvUNL/LoanDemandSupply/LIBERTI%20STURGESS%202020%20The%20anatomy%20of%20a%20credit%20supply%20shock.pdf"/>
+<node TEXT="ANASTASI ELOSEGUI SANGIÁCOMO 2009 Determinantes de la tasa interbancaria prestamos Argentina BCRA" ID="ID_1424863531" CREATED="1650418128637" MODIFIED="1650418349200">
+<node TEXT="&quot;Por su parte, los vínculos establecidos entre dos entidades reducen la tasa de interés." ID="ID_1768758366" CREATED="1650418134455" MODIFIED="1650418170316">
+<node TEXT="&quot;Este efecto se mantiene ya sea que las entidades pertenezcan a un mismo grupo económico (vinculadas) o porque mantienen vínculos comerciales lo cual es captado por un mayor número de operaciones entre dos entidades particulares. El resultado coincide con lo que predice la teoría, ya que la relación entre las partes coadyuva a reducir el diferencial de información entre las mismas&quot;" ID="ID_1460757192" CREATED="1650418172385" MODIFIED="1650418177475"/>
+</node>
+</node>
 </node>
 <node TEXT="Others" LOCALIZED_STYLE_REF="AutomaticLayout.level,2" FOLDED="true" ID="ID_1469108127" CREATED="1631588394371" MODIFIED="1631588396223" MAX_WIDTH="211.37971 pt" MIN_WIDTH="211.37971 pt">
 <node TEXT="CALOMIRIS SCHWEIKART 1991 The panic of 1857" FOLDED="true" ID="ID_1805234709" CREATED="1631588397164" MODIFIED="1631588406837">

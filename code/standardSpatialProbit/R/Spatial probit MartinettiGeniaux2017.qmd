@@ -1,0 +1,105 @@
+---
+title: "Spatial probit MartinettiGeniaux2017"
+format: html
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(writexl)
+library(spdep)
+library(spatialreg)
+library(huxtable) # export tables (tibble) to Latex/Excel
+library(Matrix)
+library(ProbitSpatial)
+source('/Rutils/Emi_R_utils.R')
+
+```
+
+# Load sample
+```{r}
+# n80_fs98q4_ft01q4_Lag4_logAssets_Wrest_sample
+sam1 <- readRDS("C:/Users/emi/OneDrive/UWA PhD/bankFailure/output/SAR/Annual99_pastAvgW/n80_fs98q4_ft01q4_Lag4_logAssets_Wrest_sample.rds")
+list2env(sam1, envir=environment())
+W <- spdep::listw2mat(network) %>%
+  Matrix(., sparse=TRUE)
+  
+
+```
+
+```{r sam}
+X <- banks %>% select(all_of(specs$X$vars))
+
+# 1: survival, 0: failure during the sample period
+y <- if_else(banks$exitDateQ <= specs$y$failureHorizon, 0, 1)
+
+# Row-normalised weight matrix
+Wstd <- apply(W_weighted, MARGIN=1, FUN=function(row) { 
+  rowSum = sum(row)
+  if (rowSum != 0) {
+    row/rowSum
+  } else {
+    row
+  }}) %>% t(.)
+```
+# Estimate
+## Desc stats
+
+```{r descStatsBanks}
+
+descStatsT <- dplyr::bind_cols('y'=y, X, 'IDENT'=banks$IDENT) %>%
+  descStats2(.)
+
+  descStatsT %>%
+    datatable() %>%
+    formatRound(columns=c('min', 'median', 'mean', 'SD', 'max', 'CV'))
+```
+
+```{r descStats_network}
+summary(spatialRegNetwork, zero.policy=TRUE)
+```
+
+
+
+## Run!
+```{r estimation_sar}
+model <- spatialreg::lagsarlm(formula ='y ~ ActivoN+ C8Est_w+ CAR_IRR_3A6+ P_ROA+ P_DEP_ARS_RATE +
+  P_LOANS_ARS_RATE_W+ APRSpNF_RATE_W+ APR_USD_RATE+ APR_RATE_W',
+        data = bind_cols('y'=y, X),
+        listw = spdep::mat2listw(Wstd) )
+regSumm <- summary(model)
+
+regSumm
+
+```
+
+Impacts:
+
+```{r}
+spatialreg::impacts(model, listw=spatialRegNetwork) %>%
+  print()
+```
+
+```{r}
+
+
+
+res1 <- ProbitSpatial::ProbitSpatialFit(formula = y ~ ActivoN+ C8Est_w+ CAR_IRR_3A6+ P_ROA+ P_DEP_ARS_RATE +
+  P_LOANS_ARS_RATE_W+ APRSpNF_RATE_W+ APR_USD_RATE+ APR_RATE_W, 
+                                data= X, 
+                                W = Matrix(Wstd, sparse=TRUE))
+
+summary(res1)
+
+```
+```{r effects}
+mgEff <- effects_ProbitSpatial(res1)
+m
+
+```
+
+

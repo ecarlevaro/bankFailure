@@ -24,6 +24,7 @@ If you want to save this code together with the output, mody this file, save it 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+library(readxl)
 library(tidyverse)
 library(lubridate)
 library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
@@ -32,34 +33,69 @@ library(ggraph)
 require(visNetwork)
 library(svglite) # export plots to svg
 source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
-
-plots <- list('banksLinks'=NULL, 'linksWeights'=NULL, 
-          'fullNetwork'=NULL, 'networkFailBanks'=NULL)
-specs <- list('savingFolder'='data/SAMS/', 
-              'idSample'= 'n80_fs98q4_ft01q4_Lag4_logAssets_Wrest_sample')
-
 ```
 
 ---
   date: `r today()`
 ---
+# Specs
+```{r}
+specs <- list('idSample' = 'A99_pastAvgW_creW_b97q4_s03q4',
+              'savingFolder' = 'output/SAR/Annual99_pastAvgW/',
+'y' = list('failureSince' = 2000.1,
+                         'failureHorizon' = 2003.4),
+              'X' = list('freq' = 'annual',
+                         'from' = 1999,
+                         'to' = 1999,
+                         'bankBirthFrom' = 1997.4, 
+                         'vars' = c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE',
+                                    'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')),
+              'W' = list('from' = '',
+                         'to' = '1998q4',
+                         #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
+                         'wVar' = 'W_A_PR'))
+
+plots <- list('banksLinks'=NULL, 'linksWeights'=NULL, 
+          'fullNetwork'=NULL, 'networkFailBanks'=NULL)
+
+```
 
 # Load network data
 ```{r load_network}
-Wig <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds'))$network
-network <- Wig %>%
+setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+
+banksDB <- haven::read_dta('data/BAFAannual/failures-1997-2001-annual.dta') %>%
+  dplyr::mutate(., 
+                fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
+                exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+                startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
+                .after = IDENT) 
+
+banks <- banksDB %>%
+  drop_na %>%
+  filter(FECHA_A == specs$X$from) %>%
+  # ONly private banks
+  filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5) %>%
+  filter(startDateQ<= !!specs$X$bankBirthFrom & exitDateQ >= !!specs$y$failureSince)  %>%
+  mutate('FAIL' = if_else(exitDateQ<=specs$y$failureHorizon, 1, 0),
+         'NAME' = as.character(IDENT)) %>%
+  select(., NAME, NOMRED, ActivoN, FAIL)
+
+Wtb <- read_excel(paste0(specs$savingFolder,'avgRelations.xlsx'))
+#Wig <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds'))$network
+network <- Wtb %>%
   as_tbl_graph() %>%
   activate(nodes) %>%
-  rename('IDENT' = 'name') %>%
-  rename('label' = 'B_NAME') %>%
+  rename('NAME' = 'name') %>%
+  right_join(., banks, by='NAME') %>%
   mutate(degree = degree(.),
-         colour = if_else(failure==1, 'red', 'green'),
-         value = ActivoN_L4, 
-         title = str_c(label, ', $ ', (ActivoN_L4), ' log of.'),
-         B_SIZE = ActivoN_L4)
+         colour = if_else(FAIL==1, 'red', 'green'),
+         value = ActivoN, 
+         #title = str_c(label, ', $ ', (ActivoN), ' log of.'),
+         'Assets' = ActivoN/1000000)
 network <- network %>%
             activate(edges) %>%
-            mutate('WEIGHT' = WEIGHT/100)
+            mutate('Weight (%)' = WEIGHT)
 
 summary(network)
 ```
@@ -104,7 +140,7 @@ plots$banksLinks
 plots$linksWeights <- network %>%
   activate(edges) %>%
   as_tibble(.) %>%
-  { ggplot(., mapping=aes(x=WEIGHT)) +
+  { ggplot(., mapping=aes(x=`Weight (%)`)) +
       geom_histogram(binwidth=1, colour='grey') +
       scale_x_continuous(name='Link weight as percentage of Loans', breaks=0:20) +
       scale_y_continuous(name='Number of links') +
@@ -116,6 +152,9 @@ plots$linksWeights <- network %>%
                      legend.position = 'bottom', legend.key.height=unit(3.5, 'cm'))}
 
 plots$linksWeights
+
+ggsave(paste0(specs$savingFolder, 'linksWeights.pdf'), plots$linksWeights,
+       width=22.5, height=15, units='cm')
 ```
 
 
@@ -124,8 +163,8 @@ plots$linksWeights
 
 ```{r}
 networkFplot <- network %>%
-  activate(edges) %>%
-  filter(., WEIGHT>0.1)
+  activate(edges) 
+  #filter(., WEIGHT>0.1)
 
 #thisLayout <- layout_with_lgl(pNetwork, options=list(fixed=))
 #thisLayout <- layout_with_lgl(pNetwork, options=list(fixed=))
@@ -133,26 +172,28 @@ networkFplot <- network %>%
 
 plots$fullNetwork <- networkFplot %>%
   ggraph(., layout = 'kk') +
-  geom_edge_fan2(aes(alpha = WEIGHT), colour='black', check_overlap=TRUE, n = 115) + 
-    geom_node_point(aes(size=B_SIZE), shape=21, fill=V(networkFplot)$colour) +
-  theme_graph()
+  geom_edge_fan2(aes(alpha = `Weight (%)`), colour='black', check_overlap=TRUE, n = 115) + 
+  geom_node_point(aes(size=Assets), shape=21, fill=V(networkFplot)$colour) +
+  theme_graph() +
+  theme(legend.position = 'bottom')
 
 plots$fullNetwork
-  
+
 ```
 
 
 ```{r }
 WigFails  <- networkFplot %>%
   activate(nodes) %>%
-  filter(., failure==1) 
+  filter(., FAIL==1) 
 
 WigFails
 
 ```
 Which failing banks are isolated?
 ```{r}
-WigFails %>% activate(nodes) %>% 
+WigFails %>% 
+  activate(nodes) %>% 
   filter(node_is_isolated())
 
 ```
@@ -160,20 +201,23 @@ WigFails %>% activate(nodes) %>%
                     
 ```{r plot_fail_banks_network}
 
-plots$WigFails <- WigFails %>%
-  {ggraph(., layout = 'kk') +
-  geom_edge_fan2(aes(alpha = WEIGHT), colour='black', check_overlap=TRUE, n = 115, show.legend = FALSE) + 
-  geom_node_point(aes(size=B_SIZE), shape=21, fill=V(.)$colour, show.legend=FALSE) +
-      theme_graph()}
-    
-plots$NetworkFailBanks
+plots$WigFails <- networkFplot %>%
+  activate('edges') %>%
+  mutate(`Weight (%)` = WEIGHT * (.N()$FAIL[from] + .N()$FAIL[to] )) %>%
+  ggraph(., layout = 'kk') +
+  geom_edge_fan2(aes(filter=`Weight (%)`>0, alpha = `Weight (%)`),colour='black',
+                 check_overlap=TRUE, n = 115) + 
+  geom_node_point(aes(size=Assets), shape=21, fill=V(networkFplot)$colour) +
+  theme_graph() +
+  theme(legend.position = 'bottom')
+
 
 ```
 
 # Save
 ```{r save, eval=FALSE, include=FALSE}
 walk2(plots, names(plots), function(plot, fileName) {
-  ggsave(paste0(specs$savingFolder, fileName, '.pdf'),
+  ggsave(paste0(specs$savingFolder, fileName, '.jpeg'),
          plot, 
    width=22.5, height=15, units='cm')
 })

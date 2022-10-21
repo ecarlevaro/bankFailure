@@ -40,7 +40,7 @@ source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_u
 
 ```{r sample_specs}
 # RUN THIS BEFORE KNITTING!!!
-specs <- list('idSample' = 'n80_fs98q4_ft01q4_Lag4_logAssets_Wrest_NotBPS',
+specs <- list('idSample' = 'n17_fs98q4_ft01q4_Lag4_logAssets_Wrest_NotBPS',
               'samFile' = '98q4_01q4_lag4.dta',
               'savingFolder' = 'output/SAR/Annual99_pastAvgW/',
               'y' = list(
@@ -118,15 +118,16 @@ nAliveByQ
 ```{r load_bank_data}
 # Forget about changing Stata quarter format. It's the best, the only that treat time as a distance and hence allows you aritmetic.
 setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure')
+
 banksDB <- haven::read_dta(paste0('data/SAMS/', specs$samFile)) 
 #q_2S_q <- function(date) {}
 bVars <- banksDB %>%
   mutate(ActivoN_L4 = log(ActivoN_S_L4)) %>%
   select(., IDENT, B_NAME, FQ, FIRST_DATE_Q, FAIL_DATE_Q, all_of(specs$X$vars)) %>%
-  filter(., !(IDENT %in% c(141, 148, 149, 179, 253, 269, 311, 
-                         44068, 44088, 45056, 45118, 65201, 65203)))
-#filter(., (IDENT %in% c(6, 39, 50, 54,  167,  178,  229,  
-  #                       3, 18, 43, 46, 59, 67,113, 153, 236,  255)))
+  #filter(., !(IDENT %in% c(141, 148, 149, 179, 253, 269, 311, 
+  #                       44068, 44088, 45056, 45118, 65201, 65203)))
+  filter(., (IDENT %in% c(6, 39, 50, 54,  167,  178,  229,  
+                         3, 18, 43, 46, 59, 67,113, 153, 236,  255)))
 
 theBanks <- bVars[ (bVars$FQ==specs$X$from), 'IDENT']
 

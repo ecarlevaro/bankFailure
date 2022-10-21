@@ -39,7 +39,8 @@ source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_u
 ```{r sample_specs}
 # RUN THIS BEFORE KNITTING!!!
 idSample = 'n80_fs98q4_ft01q4_Lag4_logAssets_Wrest'
-sam <- readRDS(paste0('data/SAMS/', specs$idSample, '.rds'))
+sam <- readRDS(paste0('data/SAMS/', idSample, '.rds'))
+Wig <- sam$network
 ```
 
 ---
@@ -52,7 +53,7 @@ sam <- readRDS(paste0('data/SAMS/', specs$idSample, '.rds'))
 theR <- ProbitSpatial::ProbitSpatialFit(y ~ 1 + ActivoN_L4 + C8Est_L4 + CAR_IRR_3A6_IMP_L4 + P_ROA_L4 + P_LOANS_ARS_RATE_IS_IMP_L4 + APRSpNF_RATE_W_L4 + APR_USD_RATE_L4 + APR_RATE_W_L4 + GDP_D_Q + ARG_YTM,
                                 data= poolData,
                                 #as_dgRMatrix_listw(Wlist),
-                                W=Matrix(Wstd, sparse=TRUE),
+                                W=as_adjacency_matrix(Wig),
                                 DGP='SAR',
                                 method='conditional',
                                 varcov='precision')

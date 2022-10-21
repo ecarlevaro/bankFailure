@@ -1,82 +1,49 @@
-# Ignore Stata database binary files
-# https://git-scm.com/docs/gitignore
-# https://www.atlassian.com/git/tutorials/saving-changes/gitignore
-# git rm --cached \*.dta
-.Rproj.user
-.Rhistory
-.RData
-.Ruserdata
-# Ignore Stata log files and Stata databases everywhere
-*.dta
-*.smcl
-# Ignore video files
-.mp4
+# Ignore results folder since the output files from Matlab could be well over 100MB
+Codes/Identification_Robust_Tests/Monetary_Policy/Constant_Target/results/*
 
-# Example code in package build process
-*-Ex.R
+# Created by https://www.toptal.com/developers/gitignore/api/windows,matlab
+# Edit at https://www.toptal.com/developers/gitignore?templates=windows,matlab
 
-# Output files from R CMD build
-/*.tar.gz
+Results/
+Data/
 
-# Output files from R CMD check
-/*.Rcheck/
+*.xlsx
+*.xls
+*.pdf
 
-# RStudio files
-.Rproj.user/
+### MATLAB ###
+# Windows default autosave extension
+*.asv
+*.mat
 
-# produced vignettes
-vignettes/*.html
-vignettes/*.pdf
+# OSX / *nix default autosave extension
+*.m~
 
-# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
-.httr-oauth
+# Compiled MEX binaries (all platforms)
+*.mex*
 
-# knitr and R markdown default cache directories
-*_cache/
-/cache/
+# Packaged app and toolbox files
+*.mlappinstall
+*.mltbx
 
-# Temporary files created by R markdown
-*.utf8.md
-*.knit.md
+# Generated helpsearch folders
+helpsearch*/
 
-# R Environment Variables
-.Renviron
+# Simulink code generation folders
+slprj/
+sccprj/
 
-# pkgdown site
-docs/
+# Matlab code generation folders
+codegen/
 
-# translation temp files
-po/*~
+# Simulink autosave extension
+*.autosave
 
-### R.Bookdown Stack ###
-# R package: bookdown caching files
-/*_files/
+# Simulink cache files
+*.slxc
 
-### Stata ###
-# .gitignore file for git projects containing Stata files
-# Commercial statistical software: http://www.stata.com
-
-# Stata dataset and output files
-*.dta
-*.gph
-*.log
-*.smcl
-*.stpr
-*.stsem
-
-# Graphic export files from Stata
-# Stata command graph export: http://www.stata.com/manuals14/g-2graphexport.pdf
-#
-# You may add graphic export files to your .gitignore. However you should be
-# aware that this will exclude all image files from this main directory
-# and subdirectories.
-# *.ps
-# *.eps
-# *.wmf
-# *.emf
-# *.pdf
-# *.png
-# *.tif
+# Octave session info
+octave-workspace
 
 ### Windows ###
 # Windows thumbnail cache files
@@ -104,31 +71,12 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-### MicrosoftOffice ###
-*.tmp
-
-# Word temporary
-~$*.doc*
-
-# Word Auto Backup File
-Backup of *.doc*
-
-# Excel temporary
-~$*.xls*
-
-# Excel Backup File
-*.xlk
-
-# PowerPoint temporary
-~$*.ppt*
-
-# Visio autosave temporary files
-*.~vsd*
-# End of https://www.toptal.com/developers/gitignore/api/windows,r,stata
-*.mat
+# End of https://www.toptal.com/developers/gitignore/api/windows,matlab
+*.Rproj.user
+*.Rdata
+*.RdataTmp
 *.rds
-*.zip
-*.asv
-*.xls
-*.pptx
-*.pptx
+.Rproj.user
+*.rdb
+*.rdx
+*.Rhistory

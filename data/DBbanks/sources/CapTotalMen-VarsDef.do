@@ -505,13 +505,19 @@ gen sinRatioM =  (saldo580031M/ALIQs1_1)*100
 /*
 /*	*********************************************************	*/
 
+// C8_E es el indicador del BCRA C8 
+// "C:\Users\emi.ABLE-22868\OneDrive\InvUNL\BasesBCRA-IEF\indicadores\variablesIndividuales\C8_E-1995-2020.dta"
+
 // Capital ratio
 drop C8Est C8Est_w
 gen C8Est = (PNtotal/ActivoN)*100
 winsor2 C8Est , cuts(1 99)
 label variable C8Est_w "PNTotal/Activo * 100 winsorized at 99%"
 
-order C8_E C8Est C8Est_w, after(A10)
+gen CAPITAL = C8_E 
+replace CAPITAL = C8Est if missing(C8_E)
+label variable CAPITAL "Ratio capital a Activo (combina C8 y C8Est)"
+order CAPITAL C8_E C8Est C8Est_w, after(AprevActPRratioW)
 
 // MARKET SHARE
 sort FECHAdata IDENT
