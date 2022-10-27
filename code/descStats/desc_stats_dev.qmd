@@ -1,0 +1,68 @@
+---
+title: "Desc stats BAFA"
+format: html
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+## Running Code
+
+When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+You can add options to executable code like this 
+
+```{r}
+#| echo: false
+2 * 2
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
+
+```{r survival_plot}
+q_of_Rq <- function(Rquarter) {
+  # Integer and decimal part. Origin is 1960q1 (7840 quarters since 1900)
+  floor(Rquarter)*4 + (Rquarter %% 1)*10 - 7840
+  
+}
+seq_Rqtr <- function(from, to){
+  # Build for years
+  yearTo = floor(to)
+  yearFrom = floor(from)
+  years_distance = yearTo - yearFrom
+  
+  qts <- rep(1:4, times=years_distance+1)/10
+  years <- rep(yearFrom:yearTo, each=4)
+  qtySeries <- years + qts
+  
+  # Trim beginning and end
+  iniPos = match(from, table=qtySeries)
+  endPos = match(to, table=qtySeries)
+  
+  qtySeries[iniPos:endPos]
+  
+}
+
+specs$X$bankBirthFrom
+# Generate a sequence of quarters
+allQs <- seq_Rqtr(from=specs$X$bankBirthFrom, to=specs$y$failureHorizon) 
+# For each quarter, count alives at the beginning of the quarter
+alives <- map_int(allQs, function(thisQ)
+{
+  thisQ = 1997.4
+  banksDB %>% arrange(IDENT) %>% filter(fechaQ==thisQ)
+  filter(., (fechaQ == thisQ) & (startDateQ <= thisQ) & (exitDateQ > thisQ)) %>%
+  nrow()
+})
+failsByTime <- left_join( tibble('Q' = allQs,'TOTAL_ENTS' = alives),
+failuresByQ,
+by='Q') %>%
+replace(., is.na(.), 0) %>%
+mutate(., HAZ_RATE = (N_FAILS/TOTAL_ENTS)*100,
+SUR_RATE = (TOTAL_ENTS/139)*100)
+```

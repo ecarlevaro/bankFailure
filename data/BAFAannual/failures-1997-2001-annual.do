@@ -41,7 +41,9 @@ format FECHAdata %tm
 label var FECHAdata "Monthly date of the first month of the year. To bring data from other DBs"
 order FECHAdata, after(FECHA_A)
 
-gen FECHA_D = FECHAdata
+gen FECHA_D = dofm(FECHAdata)
+label var FECHA_D "FECHAdata as a full date that R can understand"
+format %td FECHA_D
 
 xtsum IDENT
 // N=655, n=162, t-bar=4304, k=15
