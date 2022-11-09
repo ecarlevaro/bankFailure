@@ -118,3 +118,32 @@ save2Excel <- function(obj, sName, file) {
   write.xlsx2(obj, file, 
               sheetName=sName, append=TRUE)
 }
+
+df <- tibble('col1' = c('a'),
+             'col2' = 3)
+df_2_latex <- function(df) {
+  
+  content <- unite(df, col="str", sep=" & ") %>%
+              {str_c(.$str,  collapse=" \\\\ \n")}
+  header <- colnames(df)%>%
+    str_c(., collapse = " & ") %>%
+    str_c(.,"  \\\\ \n")
+  cat(header)
+  cat(content)
+  cat("  \\\\ \n")
+  cat("  \\\\ \n")
+  
+} 
+# Converts a matrix to a latex matrix (outputs text)
+matrix_2_latex <- function(matr) {
+  
+  printmrow <- function(x) {
+    
+    cat(cat(x,sep=" & "),"\\\\ \n")
+  }
+  
+  cat("\n")
+  cat("\\begin{bmatrix}","\n")
+  body <- apply(matr,1,printmrow)
+  cat("\\end{bmatrix}\n\n")
+}

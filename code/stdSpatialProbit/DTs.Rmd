@@ -1,0 +1,19 @@
+---
+title: "loop DT in ioslides"
+author: "shrektan"
+date: "2018/10/2"
+format: html
+---
+
+# Test
+
+
+```{r test, results='asis', echo = FALSE}
+for (i in 1:3) {
+  nm <- colnames(iris)[i]
+  cat(sprintf("\n\n## %s\n\n", nm))
+  cat("\n\n")
+  cat(knitr::knit_print(DT::datatable(iris, width = "100%")))
+  cat("\n\n")
+}
+```

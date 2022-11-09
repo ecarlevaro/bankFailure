@@ -1,11 +1,12 @@
 ---
 author: "Emi"
 params:
-  IDSAM: "A99_pastAvgW_creWs_b97q4_s03q4"
+  IDSAM: "A99_W00_creWs_b97q4_s03q4"
 output: 
   html_document:
     code_folding: hide
     number_sections: true
+    self_contained: true
 ---
   
 ```{r setup, include=FALSE}
@@ -24,6 +25,7 @@ library(spdep)
 library(spatialreg)
 library(huxtable) # export tables (tibble) to Latex/Excel
 source('Rutils/Emi_R_utils.R')
+source('BAFA_funs.R')
 
 ```
 
@@ -120,15 +122,16 @@ Hence I end up with `r banks$IDENT %>% unique() %>% NROW()` banks.
 dbRelations <- read_dta('../data/interLoans/cen_deu_1997-06_2001_quarterly.dta') %>%
   mutate(FECHA_Q = ( as_date(FECHA_D, origin=ymd("1960-01-01")) %>% 
                      tsibble::yearquarter(.) ),
-         WEIGHT = .data[[ SS$W.WVAR]]*100) %>%
+         weight = .data[[ SS$W.WVAR]]*100) %>%
   tsibble(key = c(IDENT_ACREEDORA, IDENT_DEUDORA), 
           index = FECHA_Q)
+# igraph needs weight in lower case
 
 # W_A_PR W_D_PR
 thisRelations <- filter_index(dbRelations, SS$W.FROM ~ SS$W.TO) %>%
   # fechaQ >= 1997.4 &
   filter(., (IDENT_ACREEDORA != IDENT_DEUDORA)) %>%
-  filter(., WEIGHT != 0 & !is.na(WEIGHT))
+  filter(., weight != 0 & !is.na(weight))
        
 head(thisRelations)
 
@@ -152,12 +155,12 @@ $W$ is the average for each link between `r SS$W.FROM` and `r SS$W.TO` for all b
 avgRelations <- thisRelations %>%
   as_tibble(.) %>%
   group_by(IDENT_ACREEDORA, IDENT_DEUDORA) %>%
-  summarise(WEIGHT = mean(WEIGHT)) %>%
+  summarise(weight = mean(weight)) %>%
   # W can only contains entities that are in the sample. 
   # So both, IDENT_ACREEDORA and IDENT_DEUDORA must refer to IDENT that are in banks
   semi_join(., select(banks, IDENT),  by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
   semi_join(., select(banks, IDENT),  by= c('IDENT_DEUDORA' = 'IDENT')) 
-  #filter(., WEIGHT<0.1)
+  #filter(., weight<0.1)
 # This dataframe should be empty
 netExcBanks <- bind_rows(anti_join(avgRelations, banks, by=c('IDENT_ACREEDORA' = 'IDENT')),
                     anti_join(avgRelations, banks, by=c('IDENT_DEUDORA' = 'IDENT')))
@@ -174,14 +177,88 @@ There are `r uLinksN` unique links in the average network `avgRelations`.
 
 You dont want to have a row of zeros (an entitiy with no relationship). If the graph is **directed** based on lender that means that all entities that do not lend should not be in the graph and this in the analysis. If the graph is **undirected** it does not matter.
 
+```{r}
+thisVars <- str_split(SS$X.VARS, ", ", simplify=TRUE)[1,] %>%
+  str_trim(., side='both')
+X <- banks %>% select(all_of(thisVars))
+
+# 1: failure, 0: survival during the sample period
+y <- if_else(banks$exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)
+
+samRelations <- 
+  if(SS$W.WVAR == "W_A_PR") {
+    # lender perspective
+    samRelations <- select(avgRelations, IDENT_ACREEDORA, IDENT_DEUDORA, weight)
+  } else if (SS$W.WVAR == "W_D_PR") {
+    # borrower perspective
+    samRelations <- select(avgRelations, IDENT_DEUDORA, IDENT_ACREEDORA, weight)
+  }
+
+nodes <- banks %>%
+  select(., IDENT, NOMRED, ActivoN) %>%
+  mutate(survival = y)
+
+network <- igraph::graph_from_data_frame(d = samRelations, 
+                           vertices = nodes,
+                          directed = if_else((SS$W.WVAR == ''), FALSE, TRUE))
+
+summary(network)
+# FOR DIRECTED GRAPH
+if (is.directed(network)){
+  # Delete isolated nodes
+  # I prune the graph until all nodes are connected
+  Gd <- network
+  edgeMode <- 'out' # out for directed graph
+  isolated = which(degree(Gd, mode=edgeMode)==0)
+  excBanks <- isolated
+  while (length(isolated)>0) {
+    Gd = delete.vertices(Gd, isolated)
+    excBanks <- c(excBanks, isolated)
+    
+    isolated = which(degree(Gd, mode=edgeMode)==0)
+  }
+}
+
+summary(Gd)
+summary(network)
+
+Wstd <- create_adj_matrix(network)
+spatialRegNetwork <-  spdep::mat2listw(Wstd) 
+summary(spatialRegNetwork, zero.policy=TRUE)
+
+WdStd <- create_adj_matrix(Gd)
+spatialRegGd <-  spdep::mat2listw(WdStd) 
+summary(spatialRegGd, zero.policy=FALSE)
+
+```
+
+Identify lenders and borrowers
+```{r lenders_and_borrowers}
+borrowers <- unique(avgRelations$IDENT_DEUDORA)
+lenders <- unique(avgRelations$IDENT_ACREEDORA)
+banks <- mutate(banks, 'IS_BORROWER' = (IDENT %in% borrowers),
+                            'IS_LENDER' = (IDENT %in% lenders))
+# The borrower is also a lender
+strictLenders <- filter(avgRelations,
+                        IDENT_DEUDORA %in% lenders)$IDENT_ACREEDORA %>%
+  unique()
+# The lender is also a borrower
+strictBorrowers <- filter(avgRelations,
+                        IDENT_ACREEDORA %in% borrowers)$IDENT_DEUDORA %>%
+  unique()
+    
+```
+
+Filter network: restrict to only lenders, only borrowers or both. 
 
 ```{r filter_network}
 if (SS$W.WVAR == '') {
   #
   # UNDIRECTED GRAPH
   #
+  print('Graph is UNDIRECTED')
   samBanks = banks
-  samRelations = avgRelations # no need to exclude banks not arleady excluded above
+  samRelations = select(avgRelations, c(IDENT_DEUDORA, IDENT_ACREEDORA)) # no need to exclude banks not arleady excluded above; don't need the weight column
   excBanks <- tibble()
   
 } else 
@@ -192,51 +269,66 @@ if (SS$W.WVAR == '') {
   # Retain banks that appear in the network
   if (SS$W.WVAR == "W_A_PR") {
     # LENDER PERSPECTIVE (banks that don't lend are excluded)
-    excBanks <- anti_join(banks, 
-            tibble('IDENT' = avgRelations$IDENT_ACREEDORA))
-     # if STRICT, I also exclude banks that dont lend
+    #All relations in the network have to have units that are both lenders
+      # The current problem is a bank (45072) that lends but only to a bank that is not in the network (45118) in included. Bank 45072 should not be included.
+    print('Graph is DIRECTED weighted from lenders perspective. Only lender banks.')
+    # borrowers that are lenders
     if (SS$W.STRICT == TRUE) {
-      excBanks <- rbind(excBanks, 
-                        anti_join(banks, tibble('IDENT' = avgRelations$IDENT_DEUDORA)))
+      # if STRICT, I also exclude banks that dont borrow
+      print("W is strict, so banks that don't borrow are also excluded")
+      samRelations <- avgRelations %>%
+        # W can only contains entities that are in the NEW sample samBanks. 
+        # and only lenders
+        filter(., (IDENT_ACREEDORA %in% strictLenders) & (IDENT_DEUDORA %in% strictLenders)) %>%
+        select(., IDENT_ACREEDORA, IDENT_DEUDORA, weight)
+        incBanks <- unique(samRelations$IDENT_ACREEDORA) # borrowers are not needed here since we only care about lenders
+      
+      # UPdate samBanks
+      samBanks <- filter(banks,  IDENT %in% incBanks)
+      
+    } else
+    {
+      print("W is NOT strict, so borrowers don't need to be lenders themselves")
+      samBanks <- banks
+      samRelations <- avgRelations %>%
+        select(., IDENT_ACREEDORA, IDENT_DEUDORA, weight)
     }
-    # NEW bank sample. Exclude banks that don't lend
-    samBanks <- filter(banks, !(IDENT %in% excBanks$IDENT))
-    samRelations <- avgRelations %>%
-      # W can only contains entities that are in the NEW sample samBanks. 
-      # Thus IDENT_ACREEDORA and IDENT_DEUDORA have to have a match in samBank
-      semi_join(., select(samBanks, IDENT),  by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
-      semi_join(., select(samBanks, IDENT),  by= c('IDENT_DEUDORA' = 'IDENT')) %>%
-      # The first column is 'from' the second 'to' in a directed graph
-      select(., c(IDENT_ACREEDORA, IDENT_DEUDORA, WEIGHT))
   }  
   else   
   {
     # DEBTOR PERSPECTIVE (banks that don't borrow are excluded)
-    excBanks <- anti_join(banks, 
-                          tibble('IDENT' = avgRelations$IDENT_DEUDORA))
-    # if STRICT, I also exclude banks that dont lend
+    print('Graph is DIRECTED weighted from borrowers perspective')
+    # if STRICT, I also exclude banks that dont borrow
     if (SS$W.STRICT == TRUE) {
-      excBanks <- rbind(excBanks, 
-                        anti_join(banks, tibble('IDENT' = avgRelations$IDENT_ACREEDORA)))
+      samRelations <- avgRelations %>%
+      # W can only contains entities that are in the NEW sample samBanks. 
+      # and only borrowers
+      filter(., (IDENT_ACREEDORA %in% strictBorrowers) & (IDENT_DEUDORA %in% strictBorrowers)) %>%
+      select(., IDENT_DEUDORA, IDENT_ACREEDORA, weight)
+      incBanks <- unique(samRelations$IDENT_DEUDORA) # lenders are not needed here since we only care about borrowers
+      
+      # UPdate samBanks
+      samBanks <- filter(banks,  IDENT %in% incBanks)
+        
+    } else {
+      print("W is NOT strict, so lenders don't need to be borrowers themselves")
+      samBanks <- banks
+      samRelations <- avgRelations %>%
+        select(., IDENT_DEUDORA, IDENT_ACREEDORA, weight)
+
     }
-    # NEW bank sample. Exclude banks that don't borrow
-    samBanks <- filter(banks, !(IDENT %in% excBanks$IDENT))
-    samRelations <- avgRelations %>%
-      # W can only contains entities that are in the NEW sample samBanks
-      # Thus IDENT_ACREEDORA and IDENT_DEUDORA have to have a match in samBank
-      semi_join(., select(samBanks, IDENT),  by= c('IDENT_ACREEDORA' = 'IDENT')) %>%
-      semi_join(., select(samBanks, IDENT),  by= c('IDENT_DEUDORA' = 'IDENT')) %>%
-      # The first column is 'from' the second 'to' in a directed graph
-      select(., c(IDENT_DEUDORA, IDENT_ACREEDORA, WEIGHT))
   }
 }
 
 samRelations
 ```
 
-These banks are excluded because they don't borrow or lend.
+These banks are excluded because they don't borrow and/or lend.
 ```{r}
-select(excBanks, NOMRED, IDENT, exitDateQ) %>%
+excBanks <- anti_join(banks, samBanks, by="IDENT") %>%
+  select(NOMRED, IDENT, exitDateQ, IS_LENDER, IS_BORROWER)
+
+excBanks %>%
   datatable(.)
 ```
 
@@ -248,10 +340,13 @@ nBanks <- samBanks %>% summarise(n=n_distinct(IDENT)) %>% .$n
 
 ```
 
-I exclude `r NROW(excBanks)` because they are not debtors. Now I have an directed graph.
+I exclude `r NROW(excBanks)` because they are not debtors. Now I have a directed graph.
 
 There are `r nLenders `  lenders, `r nBorrowers`  borrowers and `r uLinksN` unique linkes (edges) in the sample network (the final one). There are `r nBanks` entities in `samBank`.
 
+## Build X and Y
+
+Y is the failure vector, X the covariates vector
 
 ```{r X_Y}
 thisVars <- str_split(SS$X.VARS, ", ", simplify=TRUE)[1,] %>%
@@ -274,23 +369,7 @@ network <- igraph::graph_from_data_frame(d = samRelations,
                           directed = if_else((SS$W.WVAR == ''), FALSE, TRUE))
 
 summary(network)
-# Export adjacency matrix
-if (SS$W.WVAR == '') {
-  W <- as_adjacency_matrix(network, attr=NULL, sparse=FALSE)  
-} else {
- W <- as_adjacency_matrix(network, attr='WEIGHT', sparse=FALSE) 
-}
-
-# Dimensions of W should equal # of banks
-# Row-normalised weight matrix
-Wstd <- apply(W, MARGIN=1, FUN=function(row) { 
-  
-  rowSum = sum(row)
-  if (rowSum != 0) {
-    row/rowSum
-  } else {
-    row
-  }}) %>% t(.)
+Wstd <- create_adj_matrix(network)
 
 spatialRegNetwork <-  spdep::mat2listw(Wstd) 
 ```
@@ -299,7 +378,7 @@ There are `r nrow(samRelations)` links in `samRelations`; `r uLinksN` of them ar
 
 
 The following entities appear in the network but not in the banks dataframe: NROWS: `r NROW(netExcBanks)`. Should be empty!
-Mean weight is `r mean(samRelations$WEIGHT)`
+Mean weight is `r mean(samRelations$weight)`
 
 
 ## Desc stats
@@ -346,7 +425,7 @@ fileName <- paste0('../', SS$SAMSAVINGFOLDER, SS$IDSAM, '.rds')
 if (file.exists(fileName)) { 
   warning('the file already exists. I dont overwrite it')
 } else {
-  saveRDS(list('y'=y, 'X'=X, 'network'=network, 
+  saveRDS(list('y'=y, 'X'=X, 'network'=network, 'Wstd'=Wstd, 
                'samBanks'=samBanks, 'specs'=SS), 
         file=fileName)
 }

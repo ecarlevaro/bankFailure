@@ -1,9 +1,9 @@
-<map version="freeplane 1.9.8">
+<map version="freeplane 1.9.13">
 <!--To view this file, download free mind mapping software Freeplane from https://www.freeplane.org -->
 <node LOCALIZED_TEXT="new_mindmap" FOLDED="false" ID="ID_639737442" CREATED="1578279805359" MODIFIED="1578279805359" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.435">
-    <properties fit_to_viewport="false" show_icon_for_attributes="true" show_note_icons="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
+<hook NAME="MapStyle" zoom="1.244">
+    <properties show_icon_for_attributes="true" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" show_note_icons="true" fit_to_viewport="false"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24 pt">
@@ -570,7 +570,7 @@
 </node>
 <node TEXT="MOdeling bank risk" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_308018962" CREATED="1578389957841" MODIFIED="1580704613372"/>
 <node TEXT="Applied" LOCALIZED_STYLE_REF="AutomaticLayout.level,1" ID="ID_477474199" CREATED="1580704615762" MODIFIED="1612868507577">
-<node TEXT="DABOS, SOSA ESCUDERO 2004" STYLE_REF="AuthorYear" FOLDED="true" ID="ID_1366688368" CREATED="1580704624634" MODIFIED="1612768191429">
+<node TEXT="DABOS, SOSA ESCUDERO 2004" STYLE_REF="AuthorYear" ID="ID_1366688368" CREATED="1580704624634" MODIFIED="1612768191429">
 <attribute NAME="method" VALUE="survival"/>
 <node TEXT="Only Tequila Crisis" ID="ID_1452609538" CREATED="1580704650259" MODIFIED="1580704666188"/>
 <node TEXT="Only mutual (cooperative) and private banks" FOLDED="true" ID="ID_1339970020" CREATED="1580704666660" MODIFIED="1580704680367">
@@ -697,25 +697,24 @@
 <node TEXT="Probit including covariates related to the network properties" LOCALIZED_STYLE_REF="default" ID="ID_446609968" CREATED="1642125634850" MODIFIED="1642125654378"/>
 </node>
 <node TEXT="Logit model augmented with network measures" STYLE_REF="PaperTItle" ID="ID_91915976" CREATED="1643596237448" MODIFIED="1643596251795">
-<node TEXT="CONSTANTIN PELTONEN SARLIN 2018 Network lingakes to predict bank distress" ID="ID_1087900287" CREATED="1643596299411" MODIFIED="1643596301477">
+<node TEXT="CONSTANTIN PELTONEN SARLIN 2018 Network lingakes to predict bank distress" STYLE_REF="AuthorYear" ID="ID_1087900287" CREATED="1643596299411" MODIFIED="1666738499130">
 <node TEXT="Estimated network from equity data" ID="ID_490533239" CREATED="1643596253049" MODIFIED="1643596263894"/>
 <node TEXT="This paper contributes to the field by combining a model of bank distress with bank networks of interconnectedness, in order to account for the propensity of distress to spread in early-warning exercises" ID="ID_572845812" CREATED="1643596398446" MODIFIED="1643596408986"/>
-<node TEXT="contributes to the field by combining a model of bank distress with bank networks of interconnectedness, in order to account for the propensity of distress to spread in early-warning exercises" ID="ID_183303683" CREATED="1643596410771" MODIFIED="1643596460124"/>
 <node TEXT="the key contribution of the paper is that it explicitly combines potential contagion effects through tail dependencies in a bank failure mode" ID="ID_337862773" CREATED="1643596410683" MODIFIED="1643596410701"/>
 <node TEXT="he network perspective is modeled with the multivariate extreme value theory approach of Poon et al. (2004) to estimate tail-dependence networks based on equity prices, which proxy markets’ view of bank interconnectedness via direct bilateral or common exposures" ID="ID_1371601524" CREATED="1643596410559" MODIFIED="1643596410576"/>
 <node TEXT="We apply our approach in a European setting with 171 listed banks over 1999Q1–2012Q3" ID="ID_1637700551" CREATED="1643596410384" MODIFIED="1643596410398"/>
-<node TEXT="for the in-sample estimations" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1118048356" CREATED="1643596410207" MODIFIED="1643596537833">
+<node TEXT="for the in-sample estimations" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_1118048356" CREATED="1643596410207" MODIFIED="1643596537833">
 <node TEXT="all country and network contagion coefficients are statistically significant and have the expected sign" ID="ID_982909824" CREATED="1643596410240" MODIFIED="1643596410254"/>
 <node TEXT="he probability of banks being vulnerable increases if the bank is exposed to contagion from already vulnerable neighbors. The network contagion coefficients also have the highest magnitude when compared to the country contagion ones" ID="ID_464163738" CREATED="1643596410094" MODIFIED="1643596410107"/>
 </node>
-<node TEXT="out-of-sample evaluations," LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_1048802555" CREATED="1643596410065" MODIFIED="1643596542586">
+<node TEXT="out-of-sample evaluations," LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_1048802555" CREATED="1643596410065" MODIFIED="1643596542586">
 <node TEXT="the magnitude of the improvement in out-of-sample performance for the two models with network contagion variables is modest, it is statistically significan" ID="ID_1353604756" CREATED="1643596410034" MODIFIED="1643596410047"/>
 </node>
 <node TEXT="On a more general note, the literature has its basis in network structures and contagion as described in a seminal paper by Allen and Gale (2000), as well as in Battiston et al. (2012), Gai et al. (2011" ID="ID_96281586" CREATED="1643596409850" MODIFIED="1643596409862"/>
 <node TEXT="Yet, in relation to the present paper, these are all at the country level and compute only overall interconnectedness as a vulnerability rather than allowing for distress pass through in networks." ID="ID_1327122023" CREATED="1643596409760" MODIFIED="1643596409770"/>
 <node TEXT="n contrast, this paper builds upon and extends the bank failure model by Betz et al. (2014), by complementing it with the estimated tail-dependence network" ID="ID_650089171" CREATED="1643596409660" MODIFIED="1643596409670"/>
 <node TEXT="The paper finds that models including estimated tail dependencies consistently outperform the benchmark model, which is based solely on bank-specific and country-specific data and does not account for any type of vulnerability transmission" ID="ID_1624253508" CREATED="1643596409571" MODIFIED="1643596409581"/>
-<node TEXT="Estimated network" ID="ID_654189021" CREATED="1643596687650" MODIFIED="1643596691216">
+<node TEXT="Estimated network" FOLDED="true" ID="ID_654189021" CREATED="1643596687650" MODIFIED="1643596691216">
 <node TEXT="signal evaluation" ID="ID_483342497" CREATED="1643596409494" MODIFIED="1643596409503"/>
 <node TEXT="concepts for classification problems" ID="ID_473426739" CREATED="1643596409481" MODIFIED="1643596409490"/>
 <node TEXT="" ID="ID_1439205002" CREATED="1643596409472" MODIFIED="1643596409477"/>
@@ -724,16 +723,13 @@
 <node TEXT="We thus use an extrema dependence measure that is based on the probability of having extreme negative values that occur simultaneously for any two banks’ return series." ID="ID_1771927805" CREATED="1643596409382" MODIFIED="1643596409389"/>
 <node TEXT="We interpret that there is a link between two banks if the measure" ID="ID_855630225" CREATED="1643596409326" MODIFIED="1643596409333"/>
 </node>
-<node TEXT="Logit" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" ID="ID_621288228" CREATED="1643596666987" MODIFIED="1643596678781">
+<node TEXT="Logit" LOCALIZED_STYLE_REF="AutomaticLayout.level,4" FOLDED="true" ID="ID_621288228" CREATED="1643596666987" MODIFIED="1643596678781">
 <node TEXT="we estimate a logit model using pooled data of the following form" ID="ID_356032991" CREATED="1643596409267" MODIFIED="1643596409273"/>
 <node TEXT="rather than using lagged explanatory variables, the dependent variable (denoting the vulnerable state) is defined as 1 eight quarters prior to distress events and 0 otherwise" ID="ID_1285243218" CREATED="1643596409218" MODIFIED="1643596409224"/>
 <node TEXT="is a recursive logit model that makes a prediction at each quarter t = 1, 2, . . ., T with an estimation sample that grows in an expanding-window fashio" ID="ID_1173480073" CREATED="1643596409151" MODIFIED="1643596409159"/>
 <node TEXT="As independent variables, the vector Xit includes country fixed effects and measures of tail dependence and other contagion proxies beyond bank-specific, banking sector and macro-financial variables (see Sections 2.3 and 3 for a precise definition of the variables)" ID="ID_326294559" CREATED="1643596409102" MODIFIED="1643596409110"/>
 </node>
 <node TEXT="the necessity for including information on the structure of the banking system to complement macro and micro-prudential analysis of individual bank’s risk." ID="ID_691958750" CREATED="1643596409001" MODIFIED="1643596409004"/>
-<node TEXT="" ID="ID_1489564580" CREATED="1643596408998" MODIFIED="1643596409000"/>
-<node TEXT="the necessity for including information on the structure of the banking system to complement macro" ID="ID_1550915760" CREATED="1643596408993" MODIFIED="1643596408996"/>
-<node TEXT="and micro-prudential analysis of individual bank’s risk." ID="ID_56494652" CREATED="1643596408990" MODIFIED="1643596408992"/>
 </node>
 </node>
 </node>
