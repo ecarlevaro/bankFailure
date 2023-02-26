@@ -1,0 +1,71 @@
+---
+title: "LaTeX tables for ProbitSpatial objects"
+author: "Emi Carlevaro"
+format: html
+---
+
+Example of using `texreg` with a `ProbitSpatial` object from the `ProbitSpatial` Martinetti & Geniaux (2017) package (http://dx.doi.org/10.1016/j.regsciurbeco.2017.02.002)
+
+```{r ini_setup}
+library(ProbitSpatial)
+library(texreg)
+library(Matrix)
+source('texreg_extension_ProbitSpatial.R')
+```
+
+Usa example data from Katrina included in the package
+
+```{r data}
+data(Katrina)
+attach(Katrina)
+table(y1) # 300 of the 673 firms reopened during 0-3 months horizon, p.1016
+table(y2) # 425 of the 673 firms reopened during 0-6 months horizon, p.1016
+table(y3) # 478 of the 673 firms reopened during 0-12 months horizon, p.1016
+detach(Katrina)
+# replicate LeSage et al. (2011), Table 3, p.1017
+require(spdep)
+# (a) 0-3 months time horizon
+# LeSage et al. (2011) use k=11 nearest neighbors in this case
+nb <- knn2nb(knearneigh(cbind(Katrina$lat, Katrina$long), k=11))
+listw <- nb2listw(nb, style="W")
+W1 <- Matrix(listw2mat(listw))
+#as_dgRMatrix_listw(listw), "CsparseMatrix")
+
+```
+Estimation
+
+```{r estimation}
+
+fit1_cond <- ProbitSpatialFit(y1 ~ flood_depth + log_medinc + small_size +
+  large_size +low_status_customers + high_status_customers +
+  owntype_sole_proprietor + owntype_national_chain,
+  W=W1, data=Katrina, DGP='SAR', method="conditional", varcov="varcov")
+
+
+fit1_FL <- ProbitSpatialFit(y1 ~ flood_depth + log_medinc + small_size +
+  large_size +low_status_customers + high_status_customers +
+  owntype_sole_proprietor + owntype_national_chain,
+  W=W1, data=Katrina, DGP='SAR', method="full-lik", varcov="varcov")
+
+
+fit1_cond_10nn <- ProbitSpatialFit(y1 ~ flood_depth+ log_medinc+ small_size+
+  large_size +low_status_customers + high_status_customers +
+  owntype_sole_proprietor + owntype_national_chain,
+  W=W1, data=Katrina, DGP='SAR', method="conditional", varcov="varcov",
+  control=list(iW_CL=10))
+
+```
+
+Table in the screen
+
+```{r screen_table}
+screenreg(list(fit1_cond, fit1_FL, fit1_cond_10nn))
+```
+
+Table in Latex
+
+```{r latex_table}
+texreg(list(fit1_cond, fit1_FL, fit1_cond_10nn))
+```
+
+```

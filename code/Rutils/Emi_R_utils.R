@@ -147,3 +147,29 @@ matrix_2_latex <- function(matr) {
   body <- apply(matr,1,printmrow)
   cat("\\end{bmatrix}\n\n")
 }
+
+# Quarter from R date quarter
+q_of_Rq <- function(Rquarter) {
+  # Integer and decimal part. Origin is 1960q1 (7840 quarters since 1900)
+  floor(Rquarter)*4 + (Rquarter %% 1)*10 - 7840
+  
+}
+
+# Generate a sequence of quarters
+seq_Rqtr <- function(from, to){
+  # Build for years
+  yearTo = floor(to)
+  yearFrom = floor(from)
+  years_distance = yearTo - yearFrom
+  
+  qts <- rep(1:4, times=years_distance+1)/10
+  years <- rep(yearFrom:yearTo, each=4)
+  qtySeries <- years + qts
+  
+  # Trim beginning and end
+  iniPos = match(from, table=qtySeries)
+  endPos = match(to, table=qtySeries)
+  
+  qtySeries[iniPos:endPos]
+  
+}

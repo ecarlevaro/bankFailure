@@ -1,5 +1,5 @@
 
-use "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\interLoans\cen_deu_1997-06_2001-06_todas_ent_fcieras.dta" 
+use "C:\Users\emi\OneDrive\UWA PhD\bankFailure\data\interLoans\cen_deu_1997-06_2001-06_todas_ent_fcieras.dta" 
 // keep only bank links 
 drop if missing(IDENT_ACREEDORA) || missing(IDENT_DEUDORA)
 
@@ -13,10 +13,12 @@ codebook IDENT_DEUDORA
 
 collapse PRESTAMOS, by(FECHA_Q IDENT_ACREEDORA IDENT_DEUDORA)
 
+gen FQ = FECHA_Q
+label var FQ "FECHA_Q"
 // n=9697, k=4, IDENT_ACREEDORA unique values=135, IDENT_DEUDORA unique values=147
 
 /* ********************************************** */
-/*		BANK BALANCE SHEET DATA
+/*		BANK BALANCE SHEET DATA*/
 /* ********************************************** */
 // Import Assets and Loans to compute weights
 
@@ -25,24 +27,36 @@ gen IDENT = IDENT_ACREEDORA
 sum IDENT_ACREEDORA
 codebook IDENT_ACREEDORA
 // unique values:  135 , n=9,697, k=5
-merge m:1 IDENT FECHA_Q using "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\failures-1997-2001-quarterly.dta", assert(master match) keep(master match) keepusing(GRUPO_ID_UNI ActivoN APRestamos)
+merge m:1 IDENT FQ using "C:\Users\emi\OneDrive\UWA PhD\bankFailure\data\BAFA-main-1997-2004-quarterly.dta", assert(master match) keep(master match) keepusing(B_TYPE ActivoN APRestamos Pdep PdepARS PN)
 
-rename 	GRUPO_ID_UNI A_GRUPO_ID_UNI
-label var A_GRUPO_ID_UNI "Grupo uniforme entidad acreedora"				  
+rename 	B_TYPE A_GRUPO_ID_UNI
+label var A_GRUPO_ID_UNI "Grupo uniforme entidad acreedora"	
+			  
 rename 	ActivoN A_ActivoN
 label var A_ActivoN "Activo neto entidad acreedora"
+
 rename 	APRestamos A_APRestamos	
 label var A_APRestamos "Prestamos totales entidad acreedora"
+
+rename 	Pdep A_Pdep	
+label var A_Pdep "Depositos totalesentidad acreedora"
+
+rename 	PdepARS A_PdepARS	
+label var A_PdepARS "Depositos en ARS totales entidad acreedora"
+
+rename 	PN A_PN	
+label var A_PN "Patrimonio neto entidad acreedora"
+
 
 replace IDENT = IDENT_DEUDORA
 sum IDENT_DEUDORA
 codebook IDENT_DEUDORA
 // unique values:  147 , n=9,697, k=9
 drop _merge
-merge m:1 IDENT FECHA_Q using "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\failures-1997-2001-quarterly.dta", assert(master match) keep(master match) keepusing(GRUPO_ID_UNI ActivoN APRestamos)
+merge m:1 IDENT FECHA_Q using "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\failures-1997-2001-quarterly.dta", assert(master match) keep(master match) keepusing(B_TYPE ActivoN APRestamos)
 //  n=9,697, k=12
 
-rename 	GRUPO_ID_UNI D_GRUPO_ID_UNI
+rename 	B_TYPE D_GRUPO_ID_UNI
 label var D_GRUPO_ID_UNI "Grupo uniforme entidad deudora"				  
 rename 	ActivoN D_ActivoN
 label var D_ActivoN "Activo neto entidad deudora"

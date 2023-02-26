@@ -1,18 +1,19 @@
+A99_W00_creWs_b97q4_s01q4,
+A99_W00_creWu_b97q4_s01q4,
+A99_W00q3q4_creW_b97q4_s01q4,
+A99_W00q3q4_creWu_b97q4_s01q4
 # The input file must have been saved and the sample_spaces chunk run!
-inputRmdFile <- 'code/build_panel_sam_dev.Rmd'
-#inputRmdFile <- 'Spatial probit MartinettiGeniaux2017.qmd'
+#inputRmdFile <- 'code/build_panel_sam_dev.Rmd'
+inputRmdFile <- 'Spatial probit MartinettiGeniaux2017.qmd'
 #inputRmdFile <- 'quarto_test.qmd'
 
 #outFileHTML <- paste0('presentations/PhD Conference 34/', specs$savingFolder, specs$idSample, '.html')
 IDSAMS = 'A99_pastAvgW_creWs_b97q4_s01q4'
 
 
-IDRESULT = 'stdSpProbit_W_creditors_debtors'
-RESULT_TITLE = ""
-RESULT_DESC = ""
 
 #outFileHTML <- paste0("../../output/stdSpatialProbit/", IDRESULT, '.html')
-outFileHTML <- paste0('A99_pastAvgW_creWs_b97q4_s01q4', '.html')
+outFileHTML <- paste0('stdSpProbit_A99_f03q4_W99_W00_cre_UNweighted', '.html')
 
 library(here)
 library(tidyverse)

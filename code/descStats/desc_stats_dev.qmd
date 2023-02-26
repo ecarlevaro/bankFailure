@@ -3,66 +3,320 @@ title: "Desc stats BAFA"
 format: html
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
+library(tidyverse)
+library(lubridate)
+library(haven) # Access to Stata databases
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+source('../Rutils/Emi_R_utils.R')
+source('../BAFA_funs.R')
+```
+# Failures unconditional
+
+I don't filter by banks that have a relationshipo in the network.
+
+```{r load_data_from_DB}
+# TODO: The best way to do this is to update this DTA with data till 2004 and have there failure time data
+DBq <- banks <- haven::read_dta('../../data/BAFA-main-1997-2004-quarterly.dta') %>%
+  dplyr::mutate(., 
+        fechaQ = quarter(as_date(F_D, origin=ymd('1960-01-01')), with_year=TRUE),
+        exitDateQ = quarter(as_date(FAIL_DATE_D, origin=ymd('1960-01-01')), with_year=TRUE),
+        startDateQ = quarter(as_date(FIRST_DATE_D, origin=ymd('1960-01-01')), with_year=TRUE),
+        .after = IDENT)
+  
+DBm <- read_dta('../../data/DBbanks/BAFA_banksData_monthly_1997-2004.dta')
+
+DBembi <- read_dta('../../data/DBmacro/SovereignRisk-quarterly.dta') %>%
+  mutate(fechaQ = quarter(as_date(F_D, origin=ymd('1960-01-01')), with_year=TRUE))
+
 ```
 
-You can add options to executable code like this 
+## All banks
 
-```{r}
-#| echo: false
-2 * 2
+
+```{r count_failures}
+nFailsByQ <- DBq %>%
+  # Only these banks
+  filter(startDateQ <= 1997.4 & fechaQ==1997.4) %>%
+  # ONly local private banks
+  #filter(B_TYPE != 4 & B_TYPE !=5) %>%
+  group_by(exitDateQ) %>%
+  rename(Quarter = exitDateQ) %>%
+  summarise(N_FAIL = n())
+
+quarters <- tibble('Quarter' = seq_Rqtr(from=1997.2, to=2003.4))
+
+fByQ <- left_join(quarters, nFailsByQ , by='Quarter')
+
+fByQ
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+Equivalent Stata commands:
+`
+xtsum IDENT if FAIL_DATE_Q == tq(1998q1) & FIRST_DATE_Q <=tq(1997q4) & FQ==tq(1997q4)
+xtsum IDENT if FAIL_DATE_Q == tq(1998q2) & FIRST_DATE_Q <=tq(1997q4) & FQ==tq(1997q4)
+xtsum IDENT if FAIL_DATE_Q == tq(1998q3) & FIRST_DATE_Q <=tq(1997q4) & FQ==tq(1997q4)
+`
+Survival plot
 
 ```{r survival_plot}
-q_of_Rq <- function(Rquarter) {
-  # Integer and decimal part. Origin is 1960q1 (7840 quarters since 1900)
-  floor(Rquarter)*4 + (Rquarter %% 1)*10 - 7840
-  
-}
-seq_Rqtr <- function(from, to){
-  # Build for years
-  yearTo = floor(to)
-  yearFrom = floor(from)
-  years_distance = yearTo - yearFrom
-  
-  qts <- rep(1:4, times=years_distance+1)/10
-  years <- rep(yearFrom:yearTo, each=4)
-  qtySeries <- years + qts
-  
-  # Trim beginning and end
-  iniPos = match(from, table=qtySeries)
-  endPos = match(to, table=qtySeries)
-  
-  qtySeries[iniPos:endPos]
-  
-}
 
-specs$X$bankBirthFrom
+#specs$X$bankBirthFrom
 # Generate a sequence of quarters
-allQs <- seq_Rqtr(from=specs$X$bankBirthFrom, to=specs$y$failureHorizon) 
+#allQs <- seq_Rqtr(from=specs$X$bankBirthFrom, to=specs$y$failureHorizon)
+allQs <- seq_Rqtr(from=1997.2, to=2003.4) 
 # For each quarter, count alives at the beginning of the quarter
-alives <- map_int(allQs, function(thisQ)
+aliveByQ <- map_dfr(fByQ$Quarter, function(thisQ)
 {
-  thisQ = 1997.4
-  banksDB %>% arrange(IDENT) %>% filter(fechaQ==thisQ)
-  filter(., (fechaQ == thisQ) & (startDateQ <= thisQ) & (exitDateQ > thisQ)) %>%
-  nrow()
+  nAlive = filter(DBq, (fechaQ == thisQ) & (exitDateQ >= thisQ)) %>%
+            nrow()
+  # & (startDateQ <= thisQ) & (exitDateQ > thisQ)
+  c('Quarter' = thisQ, 'N_ALIVE' = nAlive)
 })
-failsByTime <- left_join( tibble('Q' = allQs,'TOTAL_ENTS' = alives),
-failuresByQ,
-by='Q') %>%
-replace(., is.na(.), 0) %>%
-mutate(., HAZ_RATE = (N_FAILS/TOTAL_ENTS)*100,
-SUR_RATE = (TOTAL_ENTS/139)*100)
+
+
+# I think the number of banks in the DB does not coindice because some bankes were eliminated due to missing values! Use SUR_RATE_IMPLIED.
+nIniBanks = filter(aliveByQ, Quarter == 1997.4)$N_ALIVE
+sur <- left_join(aliveByQ, fByQ, by='Quarter') %>%
+  mutate(., N_FAIL_2 = replace_na(N_FAIL, 0),
+         HAZ_RATE = (N_FAIL_2/N_ALIVE)*100,
+         HAZ_RATE = (N_FAIL_2/N_ALIVE)*100,
+         CUM_FAIL_2 = cumsum(N_FAIL_2),
+          SUR_RATE = (N_ALIVE/nIniBanks)*100,
+          SUR_RATE_IMPLIED = {((nIniBanks - CUM_FAIL_2)/nIniBanks) %>%
+                              round(., digits=2)})
+sur
+
 ```
+
+### Plot
+```{r}
+pData <- filter(sur, Quarter >= 1997.4) %>% select(., Quarter, N_FAIL, SUR_RATE_IMPLIED)
+  ggplot(pData, mapping=aes(x=Quarter)) + 
+  geom_line(mapping=aes(y=SUR_RATE_IMPLIED))
+```
+
+
+## Local private banks
+
+```{r count_failures}
+bankBirthFrom = 1997.4
+failureSince = 1999.1
+X_VARS = "ActivoN, C8Est_w, CAR_IRR_3A6, P_ROA, P_DEP_ARS_RATE, P_LOANS_ARS_RATE_W, APRSpNF_RATE_W, APR_USD_RATE, APR_RATE_W"
+nFailsByQ <- DBq %>%
+  # Only these banks
+  filter(., startDateQ <= !!bankBirthFrom & exitDateQ >= !!failureSince) %>%
+  drop_na(., any_of(X_VARS)) %>%
+  # ONly local private banks
+  filter(., B_TYPE != 4 & B_TYPE !=5) %>%
+  # a date
+  filter(., fechaQ==1997.4) %>%
+  group_by(exitDateQ) %>%
+  rename(Quarter = exitDateQ) %>%
+  summarise(N_FAIL = n())
+
+quarters <- tibble('Quarter' = seq_Rqtr(from=1997.2, to=2004.4))
+
+fByQ <- left_join(quarters, nFailsByQ , by='Quarter')
+
+# These does NOT exclude banks with zero links in the network
+# Using the sample will give you different values because banks with no links are excluded in the sample
+fByQ
+
+#caca = aSam$samBanks %>%
+#  group_by(exitDateQ) %>%
+#  rename(Quarter = exitDateQ) %>%
+#  summarise(N_FAIL = n())
+
+  
+```
+
+Survival plot
+
+```{r survival_plot}
+
+#specs$X$bankBirthFrom
+# Generate a sequence of quarters
+#allQs <- seq_Rqtr(from=specs$X$bankBirthFrom, to=specs$y$failureHorizon)
+allQs <- seq_Rqtr(from=1997.2, to=2003.4) 
+# For each quarter, count alives at the BEGINNING of the quarter
+aliveByQ <- map_dfr(fByQ$Quarter, function(thisQ)
+{
+  #thisQ = 1998.4
+  nAlive = DBq %>%
+  # ONly local private banks
+  filter(., B_TYPE != 4 & B_TYPE !=5) %>%
+  # that are not young
+  filter(., startDateQ<= !!bankBirthFrom & exitDateQ >= !!failureSince) %>%
+  filter(., fechaQ == thisQ) %>%
+  nrow()
+  
+  c('Quarter' = thisQ, 'N_ALIVE' = nAlive)
+})
+
+
+nIniBanks = filter(aliveByQ, Quarter == 1997.4)$N_ALIVE
+sur <- left_join(aliveByQ, fByQ, by='Quarter') %>%
+  mutate(., 
+         N_FAIL_2 = replace_na(N_FAIL, 0),
+         HAZ_RATE = (N_FAIL_2/N_ALIVE)*100,
+         SUR_RATE = (N_ALIVE/nIniBanks)*100,
+         SUR_RATE_IMPLIED = nIniBanks - cumsum(N_FAIL_2))
+
+sur
+## WARNING! N_ALIVE and N_FAIL don't coincide. I don't know why. Just use N_FAIL and SUR_RATE. In any case these data are not the same as the one in the samples
+```
+
+### Plot
+```{r}
+pData <- filter(sur, Quarter >= 1999.1) %>% 
+  select(., Quarter, N_FAIL, HAZ_RATE, SUR_RATE_IMPLIED) %>%
+  left_join(., 
+            select(DBembi, fechaQ, ARG_YTM),
+            by=c('Quarter' = 'fechaQ')) %>%
+  mutate('pQuarter' = floor(Quarter) + ((Quarter-floor(Quarter))*10*0.25)-0.25)
+
+
+  
+```
+
+```{r}
+pSur <- ggplot(pData, mapping=aes(x=pQuarter)) +   
+  theme_bw() + theme(panel.grid=element_line(colour='#999999', linetype='14'), 
+                     panel.grid.minor=element_line(colour='white'), text=element_text(size=11), 
+                     axis.text.x = element_text(angle=90, vjust=0.5),
+                     axis.text.y = element_text(size=10),
+                     legend.position = 'bottom', 
+                     legend.key.height=unit(0.5, 'cm')) +
+  scale_colour_manual("", 
+                      breaks = c("Empirical survival rate", "Hazard rate"),
+                      values = c("blue", "red"),
+                      aesthetics = c("colour", "fill")) +
+  labs(title='Survival and hazard rate',
+       caption= "") +
+  geom_line(mapping=aes(y=SUR_RATE_IMPLIED, colour="Empirical survival rate", fill="Empirical survival rate")) +
+  geom_point(mapping=aes(y=SUR_RATE_IMPLIED, colour="Empirical survival rate")) +
+  geom_col(mapping=aes(y=HAZ_RATE, colour='Hazard rate', fill="Hazard rate")) +
+  scale_y_continuous(name='Percentage of banks', breaks=seq(0, 100, by=25)) +
+                     #, sec.axis = sec_axis(~ .)) +
+scale_x_continuous("Quarter",
+                   breaks=seq(1999, 2004.75, 0.25),
+                     labels = paste0(rep(1999:2004, each=4),
+                                     c('q1', 'q2', 'q3', 'q4')))
+
+
+  
+
+
+```
+```{r save}
+
+ggsave('../../../../../DropBox/Aplicaciones/Overleaf/manuscriptBAFA/imgs/survival_plot.pdf', plot=pSur,
+       width=210, height=(1/3)*297, units='mm')
+```
+
+# Failures based on samples
+
+```{r}
+sam <- readRDS('../../data/SAMS/descStats_A99_W99_nz_98FT03.rds')
+
+descStats_A99_W99_nz_99FT03
+failsByQ <- sam$samBanks %>%
+  group_by(exitDateQ) %>%
+  summarise(n = n())
+```
+
+```{r deg_dist_in}
+# in
+
+
+d_ec <- tibble(EC = eigen_centrality(sam$G, directed=TRUE)$vector,
+        FAILURE = vertex_attr(sam$G, 'failure'))
+
+ggplot(data = d_ec, 
+       mapping=aes(EC, FAILURE)) + geom_point()
+
+d <- tibble(IN_DEG = degree(sam$G, mode='in'),
+        FAILURE = vertex_attr(sam$G, 'failure'))
+lm(FAILURE ~ IN_DEG, 
+   data = d)
+
+ggplot(data = d, 
+       mapping=aes(IN_DEG, FAILURE)) + geom_point()
+
+dW <- tibble(IN_DEG_W = strength(sam$G, mode='in'),
+        FAILURE = vertex_attr(sam$G, 'failure'))
+lm(FAILURE ~ IN_DEG_W, 
+   data = dW)
+
+ggplot(data = dW, 
+       mapping=aes(IN_DEG_W, FAILURE)) + geom_point()
+
+
+vertex_attr_names(sam$G)
+hist(degree_distribution(sam$G))
+```
+
+```{r deg_dist_out}
+# in
+
+d <- tibble(OUT_DEG = degree(sam$G, mode='out'),
+        FAILURE = vertex_attr(sam$G, 'failure'))
+lm(FAILURE ~ OUT_DEG, 
+   data = d)
+
+ggplot(data = d, 
+       mapping=aes(OUT_DEG, FAILURE)) + geom_point()
+
+dW <- tibble(OUT_DEG_W = strength(sam$G, mode='out'),
+        FAILURE = vertex_attr(sam$G, 'failure'))
+lm(FAILURE ~ OUT_DEG_W, 
+   data = dW)
+ggplot(data = dW, 
+       mapping=aes(OUT_DEG_W, FAILURE)) + geom_point()
+
+
+
+vertex_attr_names(sam$G)
+hist(degree_distribution(sam$G))
+```
+
+```{r}
+banks <- read_dta('../../data/failures/failure_time.dta')
+allQs <- seq_Rqtr(from=1997.1, to=2004.4) 
+StataQs <- 148:length(allQs)
+
+# 1997q1: 148
+
+failsByQ <- banks %>%
+  group_by(FAIL_DATE_Q) %>%
+  summarise(n = n())
+
+failsByQ <- mutate(failsByQ, q = allQs[FAIL_DATE_Q - 148+1])
+```
+
+
+
+```{r}
+
+  
+banks <- banks %>%
+  mutate(failure = if_else(exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)) %>%
+  drop_na %>%
+  filter(FECHA_A == SS$X.FROM) %>%
+  
+# Select only entities private and alive on 1997q4
+banksAtStart <- banksDB %>%
+dplyr::group_by(IDENT) %>%
+  summarise('start' = FECHA_A,
+            'startDateQ' = min(startDateQ),
+            NOMRED = first(NOMRED),
+            GRUPO_ID_UNI = first(GRUPO_ID_UNI),
+            P_LOANS_ARS_RATE_W = first(P_LOANS_ARS_RATE_W))
+
+excBanks <- filter(banks, startDateQ>1997.4) %>% 
+   summarise(IDENT = min(IDENT), B_NAME = first(B_NAME))
+```
+

@@ -1,0 +1,248 @@
+---
+title: "Tables"
+format: html
+params:
+  PSAR_COVAR: TRUE # if TRUE std error for SAR Probit is computed from the var-cov matrix instead of the precision one
+---
+
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(lubridate)
+library(tidygraph) # Plotting graphs
+library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
+require(visNetwork)
+library(readODS)
+library(spdep)
+library(spatialreg)
+library(huxtable) # export tables (tibble) to Latex/Excel
+library(Matrix)
+library(ProbitSpatial)
+library(texreg)
+source('../../Rutils/Emi_R_utils.R')
+source('../../Rutils/texreg_extension_ProbitSpatial.R')
+source('../../Rutils/texreg_extension_sphet.R')
+source('../../BAFA_funs.R')
+
+```
+
+
+# BOOT 
+
+## Specs
+
+```{r}
+# For output tables SPATIAL MODELS
+coefNamesMap <- list("(Intercept)" = 'Intercept',
+                    'log(ActivoN)' = 'ln(Assets)',
+                     'CAR_IRR_3A6' = 'Non-performing loans',
+                     'P_LOANS_ARS_RATE_W' = 'Loans interest rate',
+                     'APRSpNF_RATE_W' = 'Govt. loans to Loans',
+                     'APR_USD_RATE' = 'USD loans to Loans',
+                     'APR_RATE_W' = 'Loans-to-Assets ratio',
+                     'C8Est_w' = 'Equity-to-Assets ratio',
+                     'P_ROA' = 'ROA',
+                     'P_DEP_ARS_RATE' = 'Deposits interest rate',
+                     'rho' = 'rho',
+                    'lambda' = 'rho')
+tabSpecs <- list('custom.coef.map' = coefNamesMap,
+                 'stars' = c(0.01, 0.05, 0.10, 0.15),
+                  'siunit' = TRUE,
+                 'digits' = 2,
+                 'booktabs' = TRUE,
+                 'groups' = list("\\textbf{Size}" = 1:2,
+                               "\\textbf{Asset-side risk}" = 3:7,
+                               "\\textbf{Funding}" = 8:10,
+                               "\\textbf{Spatial}" = 11),
+                 'useCovar' = params$PSAR_COVAR) # how std error for probtiSAR should be computed? 
+
+# For output tables NON-SPATIAL MODELS (Probit)
+coefNamesNonSp <- c(NA, 'ln(Assets)', 
+      'Non-performing loans', 'Loans interest rate', 'Govt. loans to Loans', 'USD loans to Loans', 'Loans-to-Assets ratio',
+       'Equity-asset ratio', 'ROA', 'Deposits interest rate')
+tabSpecsNonSp <- list('custom.coef.names' = coefNamesNonSp,
+                 'stars' = c(0.05, 0.10, 0.15),
+                  'siunit' = TRUE,
+                 'digits' = 2,
+                 'booktabs' = TRUE,
+                 'groups' = list("Size" = 1:2,
+                               "Asset-side risk" = 3:7,
+                               "Funding" = 8:10))
+
+```
+## Load data
+
+```{r}
+R <- readRDS('../_model.rds')
+```
+
+# BASELINE RESULTS
+
+Failure till 2001q3: LPM, SAR LPM, Probit, SAR Probit
+Probit, SAR Probit . Before and after 2001
+
+### Baseline: 4-model estimates
+
+
+```{r}
+thisSam <- 'A98_W98_B2L_nz_99FT01q3'
+tM <- list(R$probit[[thisSam]],
+          R$SARProbit[[thisSam]],
+          R$LPM[[thisSam]],
+          R$SARHet[[thisSam]])
+          
+          #extract_sphet_effects(R$SARHet$A98_W98_B2L_nz_99FT01q3$effects_direct))
+
+modNamesLong <- c('Probit',
+                  'SAR Probit',
+                  'LPM',
+                  'SAR LPM')
+do.call(texreg, c('l'= list(tM),
+                  'caption'= list("Spatial and non-spatial model. Baseline. "),
+                  'custom.model.names' = list(modNamesLong),
+                  tabSpecs)) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+### Baseline: marginal effects
+
+```{r}
+samName <- 'A98_W98_B2L_nz_99FT01q3'
+# coeficient names must be the same acorss models
+
+texRegs <- list('Probit'=NULL, 
+                'SARProbitDirect'=NULL, 'SARProbitIndirect'=NULL, 'SARProbitTotal'=NULL,
+                'LPM'=NULL, 
+                'SARLPMDirect'=NULL, 'SARLPMIndirect'=NULL, 'SARLPMTotal'=NULL)
+  
+# Probit
+texRegs$Probit <-   createTexreg(
+    coef.names = rownames(R$probitEffects[[samName]]),
+    coef = R$probitEffects[[samName]][, 1],
+    se = R$probitEffects[[samName]][, 2],
+    pvalues = R$probitEffects[[samName]][, 4]  )
+
+# SAR probit
+texRegs$SARProbitDirect <- createTexreg(coef.names = R$SARprobitMgEff[[samName]]$predictor,
+                                        coef = R$SARprobitMgEff[[samName]]$direct)
+texRegs$SARProbitIndirect <- createTexreg(coef.names = R$SARprobitMgEff[[samName]]$predictor,
+                                        coef = R$SARprobitMgEff[[samName]]$indirect)
+texRegs$SARProbitTotal <- createTexreg(coef.names = R$SARprobitMgEff[[samName]]$predictor,
+                                        coef = R$SARprobitMgEff[[samName]]$total)
+# LPM
+texRegs$LPM <- R$LPM[[samName]]
+# SAR LPM
+texRegs$SARLPMDirect <- extract_sphet_effects(R$SARHetEffects[[samName]]$direct)
+texRegs$SARLPMIndirect <- extract_sphet_effects(R$SARHetEffects[[samName]]$indirect)
+texRegs$SARLPMTotal <- extract_sphet_effects(R$SARHetEffects[[samName]]$total)
+
+
+modNamesLong <- c('Probit',
+                  'SAR Probit direct',
+                  'SAR Probit indirect',
+                  'SAR Probit total',
+                  'LPM',
+                  'SAR LPM direct',
+                  'SAR LPM indirect',
+                  'SAR LPM total')
+
+do.call(texreg, c('l'= list(texRegs),
+                  'caption'= list("Spatial and non-spatial model. Baseline. "),
+                  'custom.model.names' = list(modNamesLong),
+                  'omit.coef' = '(Intercept)',
+                  list('custom.coef.map' = coefNamesMap[-(1)],
+                 'stars' = c(0.01, 0.05, 0.10, 0.15),
+                  'siunit' = TRUE,
+                 'digits' = 2,
+                 'booktabs' = TRUE,
+                 'groups' = list("\\textbf{Size}" = 1,
+                               "\\textbf{Asset-side risk}" = 2:6,
+                               "\\textbf{Funding}" = 7:9),
+                 'useCovar' = params$PSAR_COVAR) # how std error for probtiSAR should be computed?
+                 )) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+Use http://www.listdiff.com/align-csv-text-columns-online-tool to align on "&". Get rid of title row before alignment.
+
+
+# ADITIONAL RESULTS
+
+## Failures till 2003q4
+
+Replicate the main table with 4 models including failures till 2003q4
+
+```{r}
+thisSam <- 'A98_W98_B2L_nz_99FT03q4'
+tM <- list(R$probit[[thisSam]],
+          R$SARProbit[[thisSam]],
+          R$LPM[[thisSam]],
+          R$SARHet[[thisSam]])
+          
+          #extract_sphet_effects(R$SARHet$A98_W98_B2L_nz_99FT01q3$effects_direct))
+
+modNamesLong <- c('Probit',
+                  'SAR Probit',
+                  'LPM',
+                  'SAR LPM')
+do.call(texreg, c('l'= list(tM),
+                  'caption'= list("Spatial and non-spatial model. Baseline. "),
+                  'custom.model.names' = list(modNamesLong),
+                  tabSpecs)) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+
+```
+
+## Different networks
+
+All SAR probit, 6 diferent networks: 3 directed but unweighted (U), 3 undrected and thus unweighted (UU)
+
+%& {Probit SAR A98_W98unw_B2L_nz_99FT01q3}
+ %& {Probit SAR A98_W97_B2L_nz_99FT01q3}
+ %& {Probit SAR A98_W99t01q3NoRest_B2L_nz_99FT01}
+ %& {Linear SAR A98_W98_B2L_nz_99FT01q3} 
+
+```{r}
+# Baseline is A98_W98_B2L_nz_99FT01q3
+
+tM <- list(R$SARProbit[['A98_W98_B2L_nz_99FT01q3']],
+          R$SARProbit[['A98_W98unw_B2L_nz_99FT01q3']],
+          R$SARProbit[['A98_W97_B2L_nz_99FT01q3']],
+          #R$SARProbit[['A98_W97rest_B2L_nz_99FT01q3']],
+          R$SARProbit[['A98_W99t01q3NoRest_B2L_nz_99FT01']],
+          R$SARProbit[['A98_W98und_B2L_nz_99FT01q3']],
+          R$SARProbit[['A98_W97und_B2L_nz_99FT01q3']],
+          R$SARProbit[['A98_W99t01q3und_B2L_nz_99FT01q3']])
+modNamesLong <- c('Baseline $\bar{W}_{98}$',
+                  '$\bar{W}_{98, U}$',
+                  '$\bar{W}_{97}$',
+                  '$\bar{W}_{99-01}$',
+                  '$\bar{W}_{98, UU}$',
+                  '$\bar{W}_{97, UU}$',
+                  '$\bar{W}_{99-01, UU}$')
+
+do.call(texreg, c('l'= list(tM),
+                  'caption'= list("Additional results"),
+                  'custom.model.names' = list(modNamesLong),
+                  tabSpecs)) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+#R$SARHet[['A98_W98_B2L_nz_99FT03q4']]
+# 'Linear SAR A98_W98_B2L_nz_99FT03q4'
+
+```

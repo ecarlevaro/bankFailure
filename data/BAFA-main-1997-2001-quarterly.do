@@ -5,6 +5,7 @@ BAFA-main
 The valoe for grupoIDUni for the observations with missing vale for GROUP_ID_MAX have been manually recorded using information from "entidades_eventos.xlsx" from "BasesBCRA-IEF\entidades". There are may be some error here in differentiating between foreign entities and locals.
 Based on DBbanks\failures-allEnts-1997-2004.dta
 
+// TODO: this database should be rebuilt with data till 2004 (I think). Because we consider failures till 2003q4 in the analysis
 */*/
 /* ******************************************************* */
 
@@ -108,6 +109,18 @@ save "C:\Users\emi.ABLE-22868\OneDrive\UWA PhD\bankFailure\data\BAFA-main-1997-2
 //	by IDENT: gen _MAL4 = (L1.`varName' + L2.`varName' + L3.`varName'  + L4.`varName')/4 
 //	label varName `varName'_MAL4 "Moving average last 4 previous quarters"
 //}
+
+/* ************************************************* */
+/*		GENERATE DATES FOR R
+/* ************************************************* */
+
+// R doesnt like Stata quarter date, so I generate date (YEAR-MONTH-DAY) dates
+gen F_D = dofq(FQ)
+format %tdCCYY-NN-DD F_D
+gen FAIL_DATE_D = dofq(FAIL_DATE_Q)
+format %tdCCYY-NN-DD FAIL_DATE_D
+gen FIRST_DATE_D = dofq(FIRST_DATE_Q)
+format %tdCCYY-NN-DD FIRST_DATE_D
 
 
 

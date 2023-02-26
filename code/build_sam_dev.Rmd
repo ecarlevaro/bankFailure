@@ -1,7 +1,7 @@
 ---
 author: "Emi"
 params:
-  IDSAM: "A99_W00_creWs_b97q4_s03q4"
+  IDSAM: 'A98_W98unw_B2L_nz_99FT01q3'
 output: 
   html_document:
     code_folding: hide
@@ -18,12 +18,13 @@ library(haven) # Access to Stata databases
 library(tidygraph) # Plotting graphs
 library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
 require(visNetwork)
-library(writexl)
+library(readODS)
 library(svglite) # export plots to svg
 library(rmatio) # expor to Matlab
 library(spdep)
 library(spatialreg)
 library(huxtable) # export tables (tibble) to Latex/Excel
+library(summarytools)
 source('Rutils/Emi_R_utils.R')
 source('BAFA_funs.R')
 
@@ -44,9 +45,15 @@ source('BAFA_funs.R')
 ```{r sample_specs}
 # RUN THIS BEFORE KNITTING!!!
 # Sam Specs
-SS <- read_csv('../Data/sams_specs_BAFA.csv', show_col_types = FALSE) %>% filter(IDSAM == params$IDSAM)
+SS <- read_ods('../Data/sams_specs_BAFA.ods') %>%
+  filter(IDSAM == params$IDSAM)
+#SS <- read_csv('../Data/sams_specs_BAFA.csv', show_col_types = FALSE) %>% filter(IDSAM == params$IDSAM)
 if(NROW(SS) > 1) { stop(paste0("The provided SAMID, ", IDSAM, " is NOT unique!")) }
 if(NROW(SS) == 0) { stop(paste0("The provided SAMID, ", IDSAM, " cant be found!")) }
+
+thisVars <- str_split(SS$X.VARS, ", ", simplify=TRUE)[1,] %>%
+  str_trim(., side='both')
+
 
 ```
 
@@ -55,12 +62,7 @@ if(NROW(SS) == 0) { stop(paste0("The provided SAMID, ", IDSAM, " cant be found!"
   date: `r today()`
 ---
 
-## Output
-The vector $\mathbf{a}$ which contains the failure time for each bank in the whole sample.
-`data(t).X`
-
-The covariates for each bank at each $t$
-
+## Specs
 `W`
 It is the fixed network. 
   
@@ -68,9 +70,22 @@ It is the fixed network.
 
 -   $\mathbf{y}_t$ is 1 if the bank fails between `r SS$Y.FAILURESINCE` and `r SS$Y.FAILUREHORIZON`.
 
--   $W$ is the average between the beginning of data (around 1997q3) and `r SS$W.TO`. Hence we use past information about the network. The network only contains entities that lend during the period. All lender in a directed graph.
+-   $W$ is the average between `r SS$W.FROM`  and `r SS$W.TO`. Hence we use past information about the network. The network only contains entities that lend during the period. All lender in a directed graph.
+
+-   $W$ is `r if(SS$W.DIRECTED == TRUE) { print('DIRECTED')} else { print('UNdirected')}`
+
+-   $W$ is `r if(SS$W.WEIGHTED == TRUE) { print('WEIghted') } else { print('UNweighted')}`
 
 -   $X$ is data from `r SS$X.FROM` to `r SS$X.TO`.
+
+
+## (Expected) Output
+-   The vector $\mathbf{a}$ which contains the failure time for each bank in the whole sample.
+-   Matrix $W$ which could be weighted (only 1 matrix as W)
+`data(t).X`
+
+The covariates for each bank at each $t$
+
 
 # LOAD DATA
 
@@ -85,13 +100,12 @@ banksDB <- haven::read_dta('../data/BAFAannual/failures-1997-2001-annual.dta') %
         .after = IDENT) 
   
 banks <- banksDB %>%
-  drop_na %>%
+  mutate(failure = if_else(exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)) %>%
+    drop_na(., any_of(c('failure', thisVars))) %>%
   filter(FECHA_A == SS$X.FROM) %>%
   # ONly private banks
   filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5) %>%
   filter(startDateQ<= !!SS$X.BANKBIRTHFROM & exitDateQ >= !!SS$Y.FAILURESINCE)
-  # these 3 banks have no links
-  #filter(!(IDENT %in% c(45056, 45118, 64025)))
 
 # Select only entities private and alive on 1997q4
 banksAtStart <- banksDB %>%
@@ -130,9 +144,27 @@ dbRelations <- read_dta('../data/interLoans/cen_deu_1997-06_2001_quarterly.dta')
 # W_A_PR W_D_PR
 thisRelations <- filter_index(dbRelations, SS$W.FROM ~ SS$W.TO) %>%
   # fechaQ >= 1997.4 &
-  filter(., (IDENT_ACREEDORA != IDENT_DEUDORA)) %>%
-  filter(., weight != 0 & !is.na(weight))
-       
+  filter(., (IDENT_ACREEDORA != IDENT_DEUDORA))
+```
+
+```{r net_desc_stat_b_filter}
+descr(thisRelations$weight, round.digits=4)
+hist(thisRelations$weight)
+#, breaks=seq(from=0, to=30, by=0.05))
+```
+
+```{r net_filter_0}
+thisRelations <- filter(thisRelations, weight > 0 & !is.na(weight))
+if (!is.na(SS$W.LINK.WEIGHT.MIN)) {
+  thisRelations <- filter(thisRelations, weight > SS$W.LINK.WEIGHT.MIN)
+}
+```
+
+
+```{r net_after_filter}
+descr(thisRelations$weight, round.digits = 4)
+hist(thisRelations$weight)
+#, breaks=seq(from=0, to=30, by=0.05))
 head(thisRelations)
 
 # Number of unique relations (links)
@@ -145,6 +177,8 @@ uLinksN <- select(thisRelations, IDENT_ACREEDORA, IDENT_DEUDORA) %>%
 There are `r uLinksN` unique links (edges) in the original `thisRelations` network.
 
 # BUILD OBJECTS
+
+I build the network first since it will determine which banks are included.
 
 ## Build the Average Network
 
@@ -177,62 +211,36 @@ There are `r uLinksN` unique links in the average network `avgRelations`.
 
 You dont want to have a row of zeros (an entitiy with no relationship). If the graph is **directed** based on lender that means that all entities that do not lend should not be in the graph and this in the analysis. If the graph is **undirected** it does not matter.
 
-```{r}
-thisVars <- str_split(SS$X.VARS, ", ", simplify=TRUE)[1,] %>%
-  str_trim(., side='both')
-X <- banks %>% select(all_of(thisVars))
-
-# 1: failure, 0: survival during the sample period
-y <- if_else(banks$exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)
-
-samRelations <- 
+```{r igraph_network}
+if(SS$W.DIRECTED == TRUE) {
   if(SS$W.WVAR == "W_A_PR") {
     # lender perspective
-    samRelations <- select(avgRelations, IDENT_ACREEDORA, IDENT_DEUDORA, weight)
+    #samRelations <- select(avgRelations, IDENT_ACREEDORA, IDENT_DEUDORA, weight)
+    samRelations <- select(avgRelations, IDENT_DEUDORA, IDENT_ACREEDORA, weight)
+  
   } else if (SS$W.WVAR == "W_D_PR") {
     # borrower perspective
-    samRelations <- select(avgRelations, IDENT_DEUDORA, IDENT_ACREEDORA, weight)
+    samRelations <- select(avgRelations, IDENT_ACREEDORA, IDENT_DEUDORA, weight)
   }
-
-nodes <- banks %>%
-  select(., IDENT, NOMRED, ActivoN) %>%
-  mutate(survival = y)
-
-network <- igraph::graph_from_data_frame(d = samRelations, 
-                           vertices = nodes,
-                          directed = if_else((SS$W.WVAR == ''), FALSE, TRUE))
-
-summary(network)
-# FOR DIRECTED GRAPH
-if (is.directed(network)){
-  # Delete isolated nodes
-  # I prune the graph until all nodes are connected
-  Gd <- network
-  edgeMode <- 'out' # out for directed graph
-  isolated = which(degree(Gd, mode=edgeMode)==0)
-  excBanks <- isolated
-  while (length(isolated)>0) {
-    Gd = delete.vertices(Gd, isolated)
-    excBanks <- c(excBanks, isolated)
-    
-    isolated = which(degree(Gd, mode=edgeMode)==0)
-  }
+} else {
+  # UNDIRECTED GRAPH, no weight
+  samRelations <- select(avgRelations, IDENT_DEUDORA, IDENT_ACREEDORA)
 }
 
-summary(Gd)
+nodes <- banks %>%
+  select(., IDENT, NOMRED, ActivoN, failure)
+  
+network <- igraph::graph_from_data_frame(d = samRelations, 
+                           vertices = nodes,
+                          directed = SS$W.DIRECTED)
+
 summary(network)
-
-Wstd <- create_adj_matrix(network)
-spatialRegNetwork <-  spdep::mat2listw(Wstd) 
-summary(spatialRegNetwork, zero.policy=TRUE)
-
-WdStd <- create_adj_matrix(Gd)
-spatialRegGd <-  spdep::mat2listw(WdStd) 
-summary(spatialRegGd, zero.policy=FALSE)
 
 ```
 
+
 Identify lenders and borrowers
+
 ```{r lenders_and_borrowers}
 borrowers <- unique(avgRelations$IDENT_DEUDORA)
 lenders <- unique(avgRelations$IDENT_ACREEDORA)
@@ -249,108 +257,142 @@ strictBorrowers <- filter(avgRelations,
     
 ```
 
-Filter network: restrict to only lenders, only borrowers or both. 
+```{r filter_graph}
+G <- network # G may be filtered
+excBanksID <- NA
+names(excBanksID) <- NA
 
-```{r filter_network}
-if (SS$W.WVAR == '') {
-  #
-  # UNDIRECTED GRAPH
-  #
-  print('Graph is UNDIRECTED')
-  samBanks = banks
-  samRelations = select(avgRelations, c(IDENT_DEUDORA, IDENT_ACREEDORA)) # no need to exclude banks not arleady excluded above; don't need the weight column
-  excBanks <- tibble()
+if (SS$W.ALLOW.ZERO == FALSE) {
+  # Delete isolated nodes
+  # (its only 1 iteration for undirected graph)
   
-} else 
-{
-  #
-  # DIRECTED GRAPH
-  #
-  # Retain banks that appear in the network
-  if (SS$W.WVAR == "W_A_PR") {
-    # LENDER PERSPECTIVE (banks that don't lend are excluded)
-    #All relations in the network have to have units that are both lenders
-      # The current problem is a bank (45072) that lends but only to a bank that is not in the network (45118) in included. Bank 45072 should not be included.
-    print('Graph is DIRECTED weighted from lenders perspective. Only lender banks.')
-    # borrowers that are lenders
-    if (SS$W.STRICT == TRUE) {
-      # if STRICT, I also exclude banks that dont borrow
-      print("W is strict, so banks that don't borrow are also excluded")
-      samRelations <- avgRelations %>%
-        # W can only contains entities that are in the NEW sample samBanks. 
-        # and only lenders
-        filter(., (IDENT_ACREEDORA %in% strictLenders) & (IDENT_DEUDORA %in% strictLenders)) %>%
-        select(., IDENT_ACREEDORA, IDENT_DEUDORA, weight)
-        incBanks <- unique(samRelations$IDENT_ACREEDORA) # borrowers are not needed here since we only care about lenders
-      
-      # UPdate samBanks
-      samBanks <- filter(banks,  IDENT %in% incBanks)
-      
-    } else
-    {
-      print("W is NOT strict, so borrowers don't need to be lenders themselves")
-      samBanks <- banks
-      samRelations <- avgRelations %>%
-        select(., IDENT_ACREEDORA, IDENT_DEUDORA, weight)
-    }
-  }  
-  else   
-  {
-    # DEBTOR PERSPECTIVE (banks that don't borrow are excluded)
-    print('Graph is DIRECTED weighted from borrowers perspective')
-    # if STRICT, I also exclude banks that dont borrow
-    if (SS$W.STRICT == TRUE) {
-      samRelations <- avgRelations %>%
-      # W can only contains entities that are in the NEW sample samBanks. 
-      # and only borrowers
-      filter(., (IDENT_ACREEDORA %in% strictBorrowers) & (IDENT_DEUDORA %in% strictBorrowers)) %>%
-      select(., IDENT_DEUDORA, IDENT_ACREEDORA, weight)
-      incBanks <- unique(samRelations$IDENT_DEUDORA) # lenders are not needed here since we only care about borrowers
-      
-      # UPdate samBanks
-      samBanks <- filter(banks,  IDENT %in% incBanks)
-        
-    } else {
-      print("W is NOT strict, so lenders don't need to be borrowers themselves")
-      samBanks <- banks
-      samRelations <- avgRelations %>%
-        select(., IDENT_DEUDORA, IDENT_ACREEDORA, weight)
-
-    }
+  #edgeMode <- if_else(SS$W.WVAR == 'W_A_PR', 'in', 'out') # out for lenders, in for borrowers
+  edgeMode <- 'out' # what matters is wether the node has a row of zeros in W
+  # an out mean the bank owns money to othert bank, this its failure can spread. otherwise the failure does not spread
+  print(paste0("Prune the graph until all nodes with no ", edgeMode, " edges are removed"))
+  isolated = which(degree(G, mode=edgeMode)==0)
+  excBanksID <- isolated
+  while (length(isolated)>0) {
+    G = delete.vertices(G, isolated)
+    excBanksID <- c(excBanksID, isolated)
+    
+    isolated = which(degree(G, mode=edgeMode)==0)
   }
 }
-
-samRelations
+# WEIGHTED and UNWEIGHTED W
+summary(G)
 ```
+
+```{r build_graph}
+# DIRECTED W
+if (SS$W.DIRECTED == TRUE) {
+  if(SS$W.WEIGHTED == TRUE) {
+    # DIRECTED and Weighted W
+    W <- create_adj_matrix(G, weighted=TRUE)
+    spatialRegNetwork <-  spdep::mat2listw(W) 
+    summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)
+  } else {
+    # DIRECTED and Unweighted W
+  W <- create_adj_matrix(G, weighted=FALSE)
+  spatialRegNetwork <-  spdep::mat2listw(W) 
+  summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)  
+  }
+} else {
+# UNDIRECTED W  
+  # UNDIRECTED and unweighted (only possible when W is undirected)
+  W <- create_adj_matrix(G, weighted=FALSE)
+  spatialRegNetwork <-  spdep::mat2listw(W) 
+  summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)
+
+}
+
+```
+
+#### Invertibility: eigenvalues
+
+$W$ is the row-normalised W0
+
+```{r W_eigen}
+wEigVals <- tibble('EIG_VAL' = eigen(W, symmetric=(-1)*SS$W.DIRECTED, only.values = TRUE)$values,
+                   'REAL_PART' = Re(EIG_VAL),
+                    'IM_PART' = Im(EIG_VAL))
+
+any(abs(wEigVals$REAL_PART) >= 1)
+
+wEigVals %>% 
+  datatable(.)
+```
+
+
+```{r}
+eigRealMin <- filter(wEigVals, IM_PART == 0)$REAL_PART %>%
+  min(.)
+rhoMin <- 1/eigRealMin
+
+```
+
+As shown in [p88-89]{LeSagePace2009book} shows  that the condition for invertibility only depends on the **real** eigenvalues such that $\rho$ is restricted to be in the interval ($r^{-1}_{\text{min}}, 1$) where $r^{-1}_{\text{min}}$ is the smallest-pure-real eigenvalue of $W$. The smallest-pure-real eigenvalue is ` `r eigRealMin` ` and thus ** $\rho \in ( `r rhoMin`, 1)$ **
+
+Eigenvalues and max row and column sum for $W_0$ the original W before row-normalisation
+
+```{r }
+if (SS$W.DIRECTED == TRUE) {
+  W0 <- as_adjacency_matrix(network, attr='weight', sparse=FALSE)
+} else {
+  W0 <- as_adjacency_matrix(network, sparse=FALSE)
+}
+              
+w0EigVals <- tibble('eigenVals' = eigen(W0,
+                                       symmetric=(-1)*SS$W.DIRECTED, only.values = TRUE)$values) 
+
+any(abs(w0EigVals$eigenVals) >= 1)
+
+w0EigVals %>% 
+  datatable(.)
+
+# when is (I - rhoW) non-singular for all |\rho|< 1/\alpha
+W0rowSum <- Matrix::rowSums(W0)
+W0colSum <- Matrix::colSums(W0)
+alpha = min(max(W0rowSum), max(W0colSum))
+```
+
+If W is not row-normalised, Keleijian & Piras (2017) establishes that
+$$
+(I_N - \rho W), \text{ is non-singular for all } |\rho| < 1/\alpha.
+$$
+where $\alpha = min(r, c)$ and $r$ is the maximum sum for a row, and $c$ the maximum sum for a column.
+
+The maximum row sum for $W_0$ is `r max(W0rowSum)` and the maximum colum sum for $W_0$ is `r max(W0colSum)`. 
+Then $(I_N - \rho W)$ is not-singular if $| \rho |< `r round(1/alpha, digits=3)`$.
+
+
 
 These banks are excluded because they don't borrow and/or lend.
 ```{r}
-excBanks <- anti_join(banks, samBanks, by="IDENT") %>%
-  select(NOMRED, IDENT, exitDateQ, IS_LENDER, IS_BORROWER)
+ExcBanks <- filter(banks, IDENT %in% as.integer(names(excBanksID))) %>%
+    select(IDENT, NOMRED, EXIT_DATE, failure, IS_BORROWER, IS_LENDER) 
 
-excBanks %>%
+ExcBanks %>%
   datatable(.)
 ```
 
 ```{r }
-uLinksN <- select(samRelations, IDENT_ACREEDORA, IDENT_DEUDORA) %>%  distinct() %>%  nrow()
+uLinksN <- length(E(G))
 nLenders <- samRelations %>% ungroup() %>% summarise(n=n_distinct(IDENT_ACREEDORA)) %>% .$n
 nBorrowers <- samRelations %>% ungroup() %>% summarise(n=n_distinct(IDENT_DEUDORA)) %>% .$n
-nBanks <- samBanks %>% summarise(n=n_distinct(IDENT)) %>% .$n
 
 ```
 
-I exclude `r NROW(excBanks)` because they are not debtors. Now I have a directed graph.
-
-There are `r nLenders `  lenders, `r nBorrowers`  borrowers and `r uLinksN` unique linkes (edges) in the sample network (the final one). There are `r nBanks` entities in `samBank`.
 
 ## Build X and Y
 
 Y is the failure vector, X the covariates vector
 
 ```{r X_Y}
-thisVars <- str_split(SS$X.VARS, ", ", simplify=TRUE)[1,] %>%
-  str_trim(., side='both')
+samBanks <- filter(banks, !(IDENT %in% ExcBanks$IDENT))
+nBanks <- samBanks %>% summarise(n=n_distinct(IDENT)) %>% .$n
+if(length(V(G)) != nBanks) { stop("The # of banks in samBanks is not the same as the # of vertex in the graph") }
+
 X <- samBanks %>% select(all_of(thisVars))
 
 # 1: failure, 0: survival during the sample period
@@ -358,32 +400,23 @@ y <- if_else(samBanks$exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)
 
 ```
 
-Create a network (igraph) object and the spatial matrix `W` which only contains banks that are in `samBanks`
+There are `r nLenders `  lenders, `r nBorrowers`  borrowers and `r uLinksN` unique linkes (edges) in the sample network (the final one). There are `r nBanks` entities in `samBank`.
 
-```{r }
-nodes <- samBanks %>%
-  select(., IDENT, NOMRED, ActivoN) %>%
-  mutate(survival = y)
-network <- igraph::graph_from_data_frame(d = samRelations, 
-                           vertices = nodes,
-                          directed = if_else((SS$W.WVAR == ''), FALSE, TRUE))
 
-summary(network)
-Wstd <- create_adj_matrix(network)
+I exclude `r NROW(excBanks)` because they are not debtors. Now I have a directed graph.
 
-spatialRegNetwork <-  spdep::mat2listw(Wstd) 
-```
 
-There are `r nrow(samRelations)` links in `samRelations`; `r uLinksN` of them are unique. `Wstd` is `r nrow(Wstd)` $\times$ `r ncol(Wstd)` and the number of banks in `samBanks` is `r NROW(samBanks)`. They should be equal!
+There are `r nrow(samRelations)` links in `samRelations`; `r uLinksN` of them are unique. `W` is `r nrow(W)` $\times$ `r ncol(W)` and the number of banks in `samBanks` is `r NROW(samBanks)`. They should be equal!
 
 
 The following entities appear in the network but not in the banks dataframe: NROWS: `r NROW(netExcBanks)`. Should be empty!
-Mean weight is `r mean(samRelations$weight)`
-
+Mean weight is `r if(exists('weight', where=samRelations)) { mean(samRelations$weight) } else { NA } `
 
 ## Desc stats
 
 ### Banks
+
+> The number of failures is **`r sum(y)`**
 
 ```{r descStatsBanks}
 descStatsT <- dplyr::bind_cols('y'=y, X, 'IDENT'=samBanks$IDENT) %>%
@@ -398,7 +431,7 @@ descStatsT <- dplyr::bind_cols('y'=y, X, 'IDENT'=samBanks$IDENT) %>%
 ### Network
 
 ```{r descStats_network}
-summary(spatialRegNetwork, zero.policy=FALSE)
+summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)
 ```
 
 
@@ -408,7 +441,7 @@ model <- spatialreg::lagsarlm(formula ='y ~ log(ActivoN) + C8Est_w+ CAR_IRR_3A6+
   P_LOANS_ARS_RATE_W+ APRSpNF_RATE_W+ APR_USD_RATE+ APR_RATE_W',
         data = bind_cols('y'=y, X),
         listw = spatialRegNetwork,
-        zero.policy = FALSE)
+        zero.policy = SS$W.ALLOW.ZERO)
 
 regSumm <- summary(model)
 
@@ -417,7 +450,7 @@ regSumm
 ```
 
 
-# Save
+# SAVE
 ## Sample
 ```{r sample_save}
 fileName <- paste0('../', SS$SAMSAVINGFOLDER, SS$IDSAM, '.rds')
@@ -425,9 +458,10 @@ fileName <- paste0('../', SS$SAMSAVINGFOLDER, SS$IDSAM, '.rds')
 if (file.exists(fileName)) { 
   warning('the file already exists. I dont overwrite it')
 } else {
-  saveRDS(list('y'=y, 'X'=X, 'network'=network, 'Wstd'=Wstd, 
+  saveRDS(list('y'=y, 'X'=X, 'G'=G, 'W'=W, 
                'samBanks'=samBanks, 'specs'=SS), 
         file=fileName)
 }
 
 ```
+

@@ -1,5 +1,5 @@
 ---
-title: "Standard spatial probit"
+title: "Failures 99-01 and 99-03-Different undirected Ws"
 author: "Emi"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 date-meta: 27/10/2022
@@ -8,14 +8,30 @@ format:
     code-fold: true
     code-tools: true
     toc: true
-    toc-depth: 4
-    max-width: 1800px
+    toc-depth: 5
+    max-width: 2000px
     embed-resources: true
     standalone: true
 params:
-  IDSAMS: "A99_W99_creWs_b97q4_s03q4"
-  TITLE: "W from lenders and/or borrower perspective"
-  DESC: "The desc"
+  IDSAMS: "A98_W97_B2L_nz_99FT01q3
+A98_W98_B2L_nz_99FT01q3
+A98_W99t01q3_B2L_nz_99FT01
+A98_W97rest_B2L_nz_99FT01q3
+A98_W98rest_B2L_nz_99FT01q3
+A98_W99t01q3NoRest_B2L_nz_99FT01
+A98_W97_B2L_nz_99FT03q4
+A98_W98_B2L_nz_99FT03q4
+A98_W99t01q3NoRest_B2L_nz_99FT03
+A98_W97rest_B2L_nz_99FT03q4
+A98_W98rest_B2L_nz_99FT03q4
+A98_W99t01q3_B2L_nz_99FT03
+A98_W98und_B2L_nz_99FT01q3
+A98_W98unw_B2L_nz_99FT01q3
+A98_W97und_B2L_nz_99FT01q3
+A98_W99t01q3und_B2L_nz_99FT01q3
+
+"
+  PSAR_COVAR: TRUE # ProbitSAR should std error be computed using the Var-Cov matrix?
 execute:
   cache: FALSE
   eval: TRUE
@@ -24,91 +40,88 @@ execute:
 ---
 
 ```{r setup, include=FALSE}
+library(mfx)
 library(tidyverse)
 library(lubridate)
 library(tidygraph) # Plotting graphs
 library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
 require(visNetwork)
-library(writexl)
+library(readODS)
+library(sandwich)
+library(lmtest)
 library(spdep)
 library(spatialreg)
 library(huxtable) # export tables (tibble) to Latex/Excel
 library(Matrix)
 library(ProbitSpatial)
 library(texreg)
+
+select <- dplyr::select # select() also exists in the MASS package loaded by mfx
+
 source('../Rutils/Emi_R_utils.R')
-source('../Rutils/texreg_extension_spatialProbit.R')
+source('../Rutils/texreg_extension_ProbitSpatial.R')
+source('../Rutils/texreg_extension_sphet.R')
 source('../BAFA_funs.R')
 
 ```
 
-\*\* `r params$TITLE`\*\*
-
-Using Martineeti & Geniaux (2017) approximation to the likelihood.
-
-> `r params$DESC`
-
-Here I considered failures till 2003q4, using only 2 W, from lenders strict (lender and borrower are lenders) and the undirected derived from this.
-
-# LOAD SAMPLES
-
-I reescale the following vars
-
-```{r}
-cols <- c('C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 
-'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
-```
-
-`r print(cols)` . These vars are in percentage points in the Stata DB. I divide these values by 100 giving then ratios, ie 0.08 instead of 8.
 
 ```{r}
 # TODO: convert params$IDSAMS to a character vector. Then load samples in sams
-samIDs <- str_split(params$IDSAMS, ",", simplify=TRUE)[1,] %>% str_trim(., side='both')
-samSpecs <- read_csv("../../data/sams_specs_BAFA.csv", show_col_types = FALSE) %>%
-  filter(IDSAM %in% samIDs)
+samIDs <- str_trim(params$IDSAMS, side='both') %>% str_split(., " ", simplify=TRUE) %>% .[1,]
+
+samSpecs <- read_ods("../../data/sams_specs_BAFA.ods") %>%
+  filter(IDSAM %in% samIDs) %>%
+  # how should results be ordered? useful for tables
+  mutate(order = match(.$IDSAM, samIDs)) %>%
+  arrange(., order)
+
+if(NROW(samSpecs) == 0) { stop(paste("sams: ", samIDs, " not found!"))}
+# Vars to reescale
+cols <- c('C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 
+'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
+
 Sams <- pmap(samSpecs, function(...) {
   thisSamSpec <- tibble(...)
   fileName <- paste0('../../', thisSamSpec$SAMSAVINGFOLDER, thisSamSpec$IDSAM, '.rds') 
   print(paste0("Opening ", fileName))
   thisSam <- readRDS(fileName)
-  if(!exists('Wstd', where=thisSam)) {
-    # c() outputs a list if all elements are lists
-    thisSam <- c(thisSam, 'Wstd' = list(create_adj_matrix(thisSam$network)))
-  }
   
   # Reescale certain vars
   thisSam$X <-  thisSam$X %>%
                   mutate(across(all_of(cols), ~.x/100))
 
+  
   thisSam
   
 })
 names(Sams) <- samSpecs$IDSAM
-#W <- spdep::listw2mat(network) %>%
-#  Matrix(., sparse=TRUE)
 
 ```
 
-### Rescale certain vars
 
-I reescaled vars above, thus capital ratio was in percentage (ie 8) and now is in ratio, ie 0.08.
 
-### Undirected graph with 58 banks
 
-The sam for undirected graph `A99_pastAvgW_uW_b97q4_s03q4` has **75** banks and almost no variable is significant.
+[comment]: <> (> Direction goes from borrowers to lenders: an ``in'' arrow represents an asset of the node that arros points towards, as in Gai Kapadia 2010.)
 
-Use the strict sample with `58` banks, (A99_pastAvgW_creWs_b97q4_s03q4) and build the undirected graph from there. Then you can compare these 2 samples wiht same # of banks. Thus
+> `r if_else(samSpecs$W.DIRECTED==TRUE, "**DIRECTED**", "**UN**-DIRECTED")` W.
 
-```{r}
-newSam <- Sams$A99_W99_creWs_b97q4_s03q4
-Gun <- as.undirected(newSam$network, 
-                             mode = 'collapse')
-WstdUn <- create_adj_matrix(Gun, weighted=FALSE)
-newSam$network <- Gun
-newSam$Wstd <- WstdUn
-Sams <- c(Sams, 'A99_W99_undWs_b97q4_s03q4' = list(newSam))
+> `r if_else(params$W_WEIGHTED==TRUE, "**WEIGHTED**", "**UN**-WEIGHTED")` W.
 
-```
+> Bank predictors are `r samSpecs$X.FROM`.
+
+Using Martineeti & Geniaux (2017) approximation to the likelihood.
+
+I considered failures till **`r mean(samSpecs$Y.FAILUREHORIZON)`**. 
+
+Banks with no links are included? `r samSpecs$W.ALLOW.ZERO `
+
+
+# LOAD SAMPLES
+
+I reescaled the following vars
+
+`r print(cols)` . These vars are in percentage points in the Stata DB. I divide these values by 100 giving then ratios, ie 0.08 instead of 8.
 
 Samples are:
 
@@ -118,14 +131,8 @@ datatable(samSpecs)
 
 # DESC STATS
 
-```{r}
-#| echo: false
-DT::datatable(matrix())
-```
-
 ## Bank covariates
 
-::: panel-tabset
 ```{r descStatsBankCovariates}
 #(#| results: asis)
 walk2(Sams, names(Sams), function(thisSam, idSam) {
@@ -146,15 +153,13 @@ walk2(Sams, names(Sams), function(thisSam, idSam) {
   #knitr::knit_print({DT::datatable(descStatsT) %>%
   #      formatRound(columns=c('min', 'median', 'mean', 'SD', 'max', 'CV'))})
   
-  cat('\n\n')
-  # Summary statitcis network
-  #print(summary(spdep::mat2listw(Wstd), zero.policy=FALSE))
   #cat('\n\n')
+
   
 })
 
 ```
-:::
+
 
 ## Networks
 
@@ -167,124 +172,241 @@ walk2(Sams, names(Sams), function(thisSam, idSam) {
   cat('### ', idSam, '\n\n')
   
   # Summary statitcis network
-  print(summary(spdep::mat2listw(thisSam$Wstd), zero.policy=FALSE))
+  print(summary(spdep::mat2listw(thisSam$W), 
+                zero.policy=filter(samSpecs, IDSAM == idSam)$W.ALLOW.ZERO))
   cat('\n\n')
+  
+  plot(thisSam$G, edge.label = E(thisSam$G)$weight)
   
 })
 
 ```
 :::
 
+
+
 # ESTIMATION
 
 ```{r}
+R <- list() # store results
+
 modelFormula <- y ~ log(ActivoN) + 
                        CAR_IRR_3A6 + P_LOANS_ARS_RATE_W +  APRSpNF_RATE_W + APR_USD_RATE + APR_RATE_W +
                        C8Est_w + P_ROA + P_DEP_ARS_RATE
-# For output tables
-coefNames <- c(NA, 'ln(Assets)', 
+# For output tables SPATIAL MODELS
+coefNamesMap <- list("(Intercept)" = 'Intercept',
+                    'log(ActivoN)' = 'ln(Assets)',
+                     'CAR_IRR_3A6' = 'Non-performing loans',
+                     'P_LOANS_ARS_RATE_W' = 'Loans interest rate',
+                     'APRSpNF_RATE_W' = 'Govt. loans to Loans',
+                     'APR_USD_RATE' = 'USD loans to Loans',
+                     'APR_RATE_W' = 'Loans-to-Assets ratio',
+                     'C8Est_w' = 'Equity-to-Assets ratio',
+                     'P_ROA' = 'ROA',
+                     'P_DEP_ARS_RATE' = 'Deposits interest rate',
+                     'rho' = 'rho',
+                    'lambda' = 'rho')
+tabSpecs <- list('custom.coef.map' = coefNamesMap,
+                 'stars' = c(0.01, 0.05, 0.10, 0.15),
+                  'siunit' = TRUE,
+                 'digits' = 2,
+                 'booktabs' = TRUE,
+                 'groups' = list("\\textbf{Size}" = 1:2,
+                               "\\textbf{Asset-side risk}" = 3:7,
+                               "\\textbf{Funding}" = 8:10,
+                               "\\textbf{Spatial}" = 11),
+                 'useCovar' = params$PSAR_COVAR) # how std error for probtiSAR should be computed? 
+
+# For output tables NON-SPATIAL MODELS (Probit)
+coefNamesNonSp <- c(NA, 'ln(Assets)', 
       'Non-performing loans', 'Loans interest rate', 'Govt. loans to Loans', 'USD loans to Loans', 'Loans-to-Assets ratio',
-       'Capital-asset ratio', 'ROA', 'Deposits interest rate', 'rho')
+       'Equity-asset ratio', 'ROA', 'Deposits interest rate')
+tabSpecsNonSp <- list('custom.coef.names' = coefNamesNonSp,
+                 'stars' = c(0.05, 0.10, 0.15),
+                  'siunit' = TRUE,
+                 'digits' = 2,
+                 'booktabs' = TRUE,
+                 'groups' = list("Size" = 1:2,
+                               "Asset-side risk" = 3:7,
+                               "Funding" = 8:10))
+
 ```
 
 The model is `r print(modelFormula)`
 
 
 
-## Linear SAR
+::: panel-tabset
 
-Fit a linear SAR
 
-```{r estimation_sar}
-SARres <- map(Sams, function(thisSam) {
+:::
+
+## LPM
+
+```{r LPM}
+R[['LPM']] <- map2(Sams, names(Sams), function(thisSam, samID) {
   list2env(thisSam, envir = environment())
   
   # TODO: You probably want to have all the vars in the regression
-  spatialreg::lagsarlm(formula =modelFormula ,
-    data = bind_cols('y'=y, X),
-    listw = spdep::mat2listw(Wstd) )
-
+  LPMEst <- lm(formula = modelFormula,
+    data = bind_cols('y'=y, X))
+  
+  LPMHat <- summary(LPMEst)
+  # Modify std errors
+  LPMHat$coefficients <- coeftest(LPMEst, 
+                                  vcov=vcovHC(LPMEst, omega=NULL, type='HC3'))
+  
 })
-names(SARres) <- names(Sams)
+names(R$LPM) <- names(Sams)
 
 ```
 
-### Linear SAR tables
 
+## Linear SAR robust hetero
 
+```{r estimation_sar_het}
+R[['SARHet']] <- map2(Sams, names(Sams), function(thisSam, samID) {
+  
+  list2env(thisSam, envir = environment())
+  
+  # TODO: You probably want to have all the vars in the regression
+  sphet::spreg(formula = modelFormula,
+    data = bind_cols('y'=y, X),
+    listw = Matrix(W, sparse=TRUE),
+    model = 'lag',
+    het = TRUE) 
 
-```{r}
-# screenreg(SARres)
-tabSpecs <- list('custom.coef.names' = coefNames,
-                 'stars' = c(0.01, 0.05, 0.1),
-                  'siunit' = TRUE,
-                 'digits' = 2,
-                 'booktabs' = TRUE,
-                 'groups' = list("Size" = 1:2,
-                               "Asset-side risk" = 3:7,
-                               "Funding" = 8:10,
-                               "Spatial" = 11))
-
-```
-
-#### No strict W
-
-```{r}
-#| eval: false
-# No strict W
-do.call(texreg, c('l'=list(SARres[1:2]),
-  'caption'= list("Linear SAR results"),
-                  tabSpecs))
-```
-
-
-#### Strict W
-
-Directed vs undirected. 
-
-```{r}
-#theseModels <- c('A99_pastAvgW_creWs_b97q4_s01q4')
-theseModels <- names(SARres)
-# Strict W
-do.call(texreg, c('l'=list(SARres[theseModels]),
-  'caption'= list("Linear SAR results. Failure till 2001q4. Directed vs undirected. "),
-                  tabSpecs))
+  
+})
+names(R$SARHet) <- names(Sams)
 
 ```
 
-#### Undirected graphs
-
-Baseline from creditor perspective, undirected graphs with the same banks as baseline, undirected graph with all banks. 
-
+### Marginal effects
 ```{r}
-#| eval: false
-theseModels <- c('A99_pastAvgW_creWs_b97q4_s01q4')
-do.call(texreg, c('l'=list(SARres[theseModels]),
-  'caption'= list("Linear SAR results"),
-                  tabSpecs))
+R[['SARHetEffects']] <- map2(R$SARHet, names(R$SARHet), function(tM, modID) {
+  #tM <- R$SARHet$A98_W98_B2L_nz_99FT01q3
+  effects <- sphet::impacts(tM, 
+                            listw = spdep::mat2listw(tM$listw),
+                            R=1000) %>%
+          summary(.)
+  # You need to know N on each effect to compute pvals
+  list('direct' = list('Coef' = effects$direct_sum, 'N' = length(tM$yhat)),
+      'indirect' = list('Coef'= effects$indirect_sum, 'N' = length(tM$yhat)),
+        'total' = list('Coef' = effects$total_sum, 'N' = length(tM$yhat)) )
+  
+  
+})
+names(R$SARHetEffects) <- names(R$SARHet)
+# See documentation for impacts.stsls_sphet()
 ```
 
-::: panel-tabset
-#### Marginal effects
+
+
+### Failure till 2001
+
+#### W unrestricted
 
 ```{r}
-# TODO: multiple mge and estimates by 100 correspondeingly (all vars expect log Assets)
-SARmgEff <- map2(SARres, Sams, function(thisModel, thisSam) {
-  #thisModel = SARres[[2]]
-  #thisSam <- Sams[[2]]
-  out = spatialreg::impacts(thisModel, listw=spdep::mat2listw(thisSam$Wstd))
-  t = tibble("Coefficient" = coefNames[2:(NROW(coefNames)-1)],
+#theseModels <- c('A99_W99_creWu_b97q4_s01q4','A99_W00_creWs_b97q4_s01q4', 'A99_W00_creWu_b97q4_s01q4')
+# No rest on W as in baseline
+
+theseModels <- tibble('IDSAM' = c('A98_W97_B2L_nz_99FT01q3',
+'A98_W98_B2L_nz_99FT01q3',
+'A98_W99t01q3NoRest_B2L_nz_99FT01')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+
+do.call(texreg, c('l'=list(R$SARHet[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("Linear SAR results. "),
+                  tabSpecs)) %>%
+  # You don't need math mode in siunitx
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+#### W restricted
+
+```{r}
+#theseModels <- c('A99_W99_creWu_b97q4_s01q4','A99_W00_creWs_b97q4_s01q4', 'A99_W00_creWu_b97q4_s01q4')
+
+theseModels <- tibble('IDSAM' = c('A98_W97rest_B2L_nz_99FT01q3',
+'A98_W98rest_B2L_nz_99FT01q3',
+'A98_W99t01q3_B2L_nz_99FT01')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+
+do.call(texreg, c('l'=list(R$SARHet[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("Linear SAR results. "),
+                  tabSpecs)) %>%
+  # You don't need math mode in siunitx
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+### Failure till 2003
+
+```{r}
+#| eval: true
+theseModels <- tibble('IDSAM' = c('A98_W97_B2L_nz_99FT03q4',
+'A98_W98_B2L_nz_99FT03q4',
+'A98_W99t01q3NoRest_B2L_nz_99FT03',
+'A98_W97rest_B2L_nz_99FT03q4',
+'A98_W98rest_B2L_nz_99FT03q4',
+'A98_W99t01q3_B2L_nz_99FT03')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+
+do.call(texreg, c('l'=list(R$SARHet[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("Linear SAR results. "),
+                  tabSpecs)) %>%
+  # You don't need math mode in siunitx
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+#### Marginal effects (robust hetero)
+
+```{r sar_het_mg_eff_compute}
+SARmgEffHet <- map2(R$SARHet, Sams, function(thisModel, thisSam) {
+   
+  out = sphet::impacts(thisModel, listw=spdep::mat2listw(thisSam$W))
+  t = tibble("Coefficient" = unlist(coefNamesMap)[2:(length(coefNamesMap)-2)],
            "Direct" = out$direct, 
           "Indirect" = out$indirect, 
           "Total" = out$total)
   t
   
 })
-names(SARmgEff) <- names(Sams)
+names(SARmgEffHet) <- names(Sams)
 ```
 
-```{r}
-walk2(SARmgEff, names(Sams), function(thisEff, modelName) {
+
+```{r sar_het_mg_eff_table}
+theseModels <- names(SARmgEffHet)
+modNamesLong = filter(samSpecs, IDSAM %in% theseModels) %>%
+  select(IDSAM, DESC)
+modNamesLong <- str_c(modNamesLong$IDSAM, modNamesLong$DESC, sep=" - ")
+
+walk2(SARmgEffHet, modNamesLong, function(thisEff, modelName) {
   cat(paste0("\n", modelName, "\n"))
   thisEff %>%
     mutate(across(Direct:Total, ~ round(.x, digits=3))) %>%
@@ -292,7 +414,6 @@ walk2(SARmgEff, names(Sams), function(thisEff, modelName) {
   
 })
 ```
-:::
 
 END LINEAR SAR RESULTS
 
@@ -301,142 +422,66 @@ END LINEAR SAR RESULTS
 Fit a non-spatial probit
 
 ```{r estimation_probit}
-probitRes <- map(Sams, function(thisSam) {
+
+# Estimate and compue marginal effects and their std errors
+Probits <- map2(Sams, names(Sams), function(thisSam, thisSamName) {
+  #thisSam <- 'A98_W97_B2L_nz_99FT03q4'
   list2env(thisSam, envir = environment())
   
-  glm(formula = modelFormula,
-           data = bind_cols('y'=y, X),
-             family=binomial(link='probit'), x=TRUE)
+  theEst <- probitmfx(formula = modelFormula,
+            data = bind_cols('y'=y, X),
+            atmean = FALSE)
+  
+  R[['probit']][[thisSamName]] <<- theEst$fit # the glm object
+  R[['probitEffects']][[thisSamName]] <<- theEst$mfxest # the mg effects
   
 })
-names(probitRes) <- names(Sams)
+
+coefNamesNonSp <- c(NA, 'ln(Assets)', 
+      'Non-performing loans', 'Loans interest rate', 'Govt. loans to Loans', 'USD loans to Loans', 'Loans-to-Assets ratio',
+       'Capital-asset ratio', 'ROA', 'Deposits interest rate')
+
 ```
 
-## Probit SAR
 
-```{r estimation_probit_sar}
-#| echo: false
-SARresProbit <- map(Sams, function(thisSam) {
-  list2env(thisSam, envir = environment())
-  
-  ProbitSpatial::ProbitSpatialFit(formula = modelFormula,
-    data = bind_cols('y'=y, X),
-    W = Matrix(Wstd, sparse=TRUE) )
-  
-  network <- igraph::graph_from_data_frame(d = samRelations, 
-                           vertices = nodes,
-                          directed = FALSE)
-  WstdUn <- as.undirected(network, 
-                             mode = 'collapse') %>%
-  
-  Matrix::rowSums(WstdUn)
-  map(Ws)
-  
-  thisW <-           create_adj_matrix(Gd, weighted=FALSE)
-  incBanks <- colnames(thisW) %>% as.integer()
-  thisSam <- filter(banks, IDENT %in% incBanks)
-  NROW(thisSam)
-  thisVars <- str_split(SS$X.VARS, ", ", simplify=TRUE)[1,] %>%
-  str_trim(., side='both')
-  X <- thisSam %>% select(all_of(thisVars))
-  # 1: failure, 0: survival during the sample period
-  y <- if_else(thisSam$exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)
+```{r probit_coef}
 
+theseModels <- tibble('IDSAM' = c('A98_W97_B2L_nz_99FT01q3',
+                                  'A98_W98_B2L_nz_99FT01q3',
+                                  'A98_W99t01q3NoRest_B2L_nz_99FT01')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
 
-  res <- ProbitSpatial::ProbitSpatialFit(formula = modelFormula,
-    data = bind_cols('y'=y, X),
-    W = Matrix(thisW, sparse=TRUE) )
-  
-  summary(res)
-  
-  
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+# Strict W
+do.call(screenreg, c('l'=list(R$probit[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("PROBIT SAR results. "),
+                  tabSpecsNonSp))
+```
+
+### Mg effects
+
+```{r probit_mg_eff}
+txRegs <- map(R$probitEffects[theseModels$IDSAM], function(Mfxest) {
+  createTexreg(
+    coef.names = rownames(Mfxest),
+    coef = Mfxest[, 1],
+    se = Mfxest[, 2],
+    pvalues = Mfxest[, 4]  )
 })
-names(SARresProbit) <- names(Sams)
+texreg(txRegs)
+    
+
 ```
 
-### Probit SAR tables
 
-
-#### No strict W
-
-```{r}
+```{r compute_probit_mg_effects}
 #| eval: false
-do.call(texreg, c('l'=list(SARresProbit[1:2]), 
-                  'caption'= list("Probit SAR results no strict W"),
-                  tabSpecs))
-```
-
-#### Strict W
-
-```{r}
-theseModels <- names(SARresProbit)
-do.call(texreg, c('l'=list(SARresProbit[theseModels]), 
-                  'caption'= list("Probit SAR results Strict W, directed and undirected. Failures till 2001q4."),
-                  tabSpecs))
-```
-
-
-#### Undirected graph
-
-```{r}
-#| eval: false
-do.call(texreg, c('l'=list(SARresProbit[5:6]), 
-                  'caption'= list("Probit SAR results Undirected graph"),
-                  tabSpecs))
-```
-
-::: panel-tabset
-
-#### Marginal effects
-
-```{r}
-SARprobitMgEff <- map2(SARresProbit, Sams, function(thisModel, thisSam) {
-  #thisModel = SARresProbit[[2]]
-  #thisSam <- Sams[[2]]
-  
-  ProbitSpatial::effects_ProbitSpatial(thisModel) %>%
-    as_tibble(., rownames = 'Predictor') %>%
-    rename(Direct = direct, Indirect = indirect, Total = total) %>%
-    mutate(Predictor = coefNames[2:(length(coefNames)-1)])
-  
-  
-})
-names(SARmgEff) <- names(Sams)
-```
-
-```{r}
-walk2(SARmgEff, names(Sams), function(thisEff, modelName) {
-  cat(paste0("\n", modelName, "\n"))
-  thisEff %>%
-    mutate(across(Direct:Total, ~ round(.x, digits=3))) %>%
-    df_2_latex(.)
-  
-})
-```
-:::
-
-## Probit SAR vs Probit
-
-### Estimates
-
-```{r}
-#| eval: false
-tM <- list(SARresProbit[[3]], 
-           probitRes[[3]])
-names(tM) <- c(names(SARresProbit)[3], names(probitRes)[3])
-do.call(texreg, c('l'= list(tM),
-                  'caption'= list("Probit SAR using strictWcreditors vs probit"),
-                  tabSpecs))
-```
-
-### marginal effects
-
-```{r probit_mg_effects}
-
-probitMgEff <- map2(probitRes, names(probitRes), function(r, samName) {
+R[['probitEffects']] <- map2(R$probit, names(R$probit), function(r, samName) {
   
 pMarginals <- dnorm( r$x %*% r$coefficients )
-  #r =probitRes[[3]]  
+  #r =R$probit[[3]]  
   pSummary <- summary.glm(r)
   
   # Marginal effect of the average bank
@@ -446,9 +491,7 @@ pMarginals <- dnorm( r$x %*% r$coefficients )
   pmap_dfr(as_tibble( pSummary$coefficients, rownames='var'), 
            function(var, Estimate, `Std. Error`, ...) { 
   # CAMERON TRIVEDIR p467. Avergae Marginal effect of variable j is the average (over observations) of pdf(X Beta) * \hat{\beta}_j
-    tibble('samStart' = Sams[samName]$specs$X.FROM,
-           'samEnd' = Sams[samName]$specs$X.TO,
-           'n' = NROW(r$y),
+    tibble('n' = NROW(r$y),
            'var' = var, 
            'avgEffectMean' = mean(pMarginals * Estimate),
            'avgEffectMin90' = avgEffectMean - 1.645 * (`Std. Error`)*(1/sqrt( n )), 
@@ -461,25 +504,217 @@ pMarginals <- dnorm( r$x %*% r$coefficients )
 })
 ```
 
+
+## SAR Probit
+
+```{r estimation_probit_sar}
+R$SARProbit <- map(Sams, function(thisSam) {
+  list2env(thisSam, envir = environment())
+  print(paste0(specs$IDSAM, "\n"))
+  
+  ProbitSpatial::ProbitSpatialFit(formula = modelFormula,
+    data = bind_cols('y'=y, X),
+    W = Matrix(W, sparse=TRUE),
+    method = 'full-lik')
+  
+  #PSfit2(formula = modelFormula,
+  #  data = bind_cols('y'=y, X),
+  #  W = Matrix(W, sparse=TRUE),
+  #  method = 'full-lik')
+  
+})
+names(R$SARProbit) <- names(Sams)
+```
+
+#### Failure till 2001
+
+##### W unrestricted
+
+```{r}
+#theseModels <- c('A99_W99_creWu_b97q4_s01q4','A99_W00_creWs_b97q4_s01q4', 'A99_W00_creWu_b97q4_s01q4')
+#theseModels <- samIDs
+theseModels <- tibble('IDSAM' = c('A98_W97_B2L_nz_99FT01q3',
+'A98_W98_B2L_nz_99FT01q3',
+'A98_W99t01q3NoRest_B2L_nz_99FT01')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+# Strict W
+do.call(texreg, c('l'=list(R$SARProbit[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("PROBIT SAR results. "),
+                  tabSpecs)) %>%
+  # You don't need math mode in siunitx
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+##### W restricted
+
+
+```{r}
+#theseModels <- c('A99_W99_creWu_b97q4_s01q4','A99_W00_creWs_b97q4_s01q4', 'A99_W00_creWu_b97q4_s01q4')
+#theseModels <- samIDs
+
+theseModels <- tibble('IDSAM' = c('A98_W97rest_B2L_nz_99FT01q3',
+'A98_W98rest_B2L_nz_99FT01q3',
+'A98_W99t01q3_B2L_nz_99FT01')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+# Strict W
+do.call(texreg, c('l'=list(R$SARProbit[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("PROBIT SAR results. "),
+                  tabSpecs)) %>%
+  # You don't need math mode in siunitx
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+
+<!-- #### Failure till 2003 -->
+
+<!--  ##### W unrestricted -->
+
+```{r}
+#| eval: false
+#theseModels <- samIDs
+
+theseModels <- tibble('IDSAM' = c('A98_W97_B2L_nz_99FT03q4',
+'A98_W98_B2L_nz_99FT03q4',
+'A98_W99t01q3NoRest_B2L_nz_99FT03')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+# Strict W
+do.call(texreg, c('l'=list(R$SARProbit[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("PROBIT SAR results. "),
+                  tabSpecs)) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+<!-- ##### W restricted -->
+
+```{r}
+#theseModels <- samIDs
+
+theseModels <- tibble('IDSAM' = c('A98_W97rest_B2L_nz_99FT03q4',
+'A98_W98rest_B2L_nz_99FT03q4',
+'A98_W99t01q3_B2L_nz_99FT03')) %>%
+  left_join(., samSpecs[, c('IDSAM', 'DESC')], by='IDSAM')
+
+modNamesLong <- str_c(theseModels$IDSAM, theseModels$DESC, sep=" - ")
+
+# Strict W
+do.call(texreg, c('l'=list(R$SARProbit[theseModels$IDSAM]),
+                  'custom.model.names' = list(modNamesLong),
+  'caption'= list("PROBIT SAR results. "),
+                  tabSpecs)) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+
+```
+
+::: panel-tabset
+
+
+##### W unweighted and directed (asymmetric W)
+
 ```{r}
 
-samName <- names(Sams)[1]
-bind_cols('Probit SAR AME' = select(SARprobitMgEff[[samName]], Predictor, Total),
-          'Probit mg effect' = select(probitMgEff[[samName]][2:10, ], avgEffectMean))
-cols <- c('avgEffectMean')
-walk(probitMgEff, function(thisEff) {
-  cat(paste0("\n", samName, "\n"))
-  thisEff %>%
-    select(all_of(cols)) %>%
-    mutate(across(all_of(c('avgEffectMean')), ~ round(.x, digits=3))) %>%
-    df_2_latex(.)
+tSams <- list('A98_W98unw_B2L_nz_99FT01q3' = '$\bar{W}_{98; Unw}$',
+              'A98_W97_B2L_nz_99FT01q3' =  '$\bar{W}_{97}$',
+              'A98_W99t01q3NoRest_B2L_nz_99FT01' =  '$\bar{W}_{99-01}$',
+              'A98_W98und_B2L_nz_99FT01q3' = '$\bar{W}_{98, Unw, S}$',
+              'A98_W97und_B2L_nz_99FT01q3' = '$\bar{W}_{97; Unw,S}$',
+              'A98_W99t01q3und_B2L_nz_99FT01q3' = '$\bar{W}_{99-01; Unw,S}$')
+
+# Omit the first one since it was estimated above
+map(as.list(names(tSams)[-(1)]), function(samName) {
+  list2env(Sams[[samName]], envir = environment())
+
+  
+  R$SARProbit[[samName]] <<- ProbitSpatial::ProbitSpatialFit(formula = modelFormula,
+    data = bind_cols('y'=y, X),
+    W = Matrix(W, sparse=TRUE), 
+    method = 'full-lik')
   
 })
 ```
 
-EOF
+Table
+```{r}
 
-## Results
+do.call(texreg, c('l'=list(R$SARProbit[names(tSams)]),
+                  #'custom.model.names' = flatten(tSams),
+                  'caption'= list("PROBIT SAR results. "),
+                  tabSpecs)) %>%
+  gsub("^{*", "*", ., fixed=TRUE) %>%
+  gsub("*}", "*   ", ., fixed=TRUE) %>%
+  gsub("^{\\cdot} ", "\\str{\\cdot}", ., fixed=TRUE) %>%
+  gsub("} & {", "}\n & {", ., fixed=TRUE)
+```
+
+#### Marginal effects
+
+```{r}
+R$SARprobitMgEff <- map2(R$SARProbit, Sams, function(thisModel, thisSam) {
+  #thisModel = R$SARProbit[[2]]
+  #thisSam <- Sams[[2]]
+  
+  ProbitSpatial::effects_ProbitSpatial(thisModel) %>%
+    as_tibble(., rownames = 'predictor')
+    #rename(Direct = direct, Indirect = indirect, Total = total) %>%
+    #mutate(Predictor = unlist(coefNamesMap)[2:(length(coefNamesMap)-2)])
+  
+  
+})
+names(R$SARprobitMgEff) <- names(Sams)
+```
+
+
+```{r}
+theseModels <- names(R$SARprobitMgEff)
+modNamesLong = filter(samSpecs, IDSAM %in% theseModels) %>%
+  select(IDSAM, DESC)
+modNamesLong <- str_c(modNamesLong$IDSAM, modNamesLong$DESC, sep=" - ")
+# for each model there are 3 'submodels' : direct, ind and total
+#txRegs <- map(theseModels$IDSAM, ), createTexreg(coef.names = .$predictor,
+#                                       coef = .$direct))
+#screenreg(list(createTexreg(coef.names = R$SARprobitMgEff[[theseModels$IDSAM]]$predictor,
+#                                        coef = R$SARprobitMgEff[[theseModels]]$direct)
+#texRegs$SARProbitIndirect <- createTexreg(coef.names = R$SARprobitMgEff[[samName]]$predictor,
+#                                        coef = R$SARprobitMgEff[[samName]]$indirect)
+#texRegs$SARProbitTotal <- createTexreg(coef.names = R$SARprobitMgEff[[samName]]$predictor,
+#                                        coef = R$SARprobitMgEff[[samName]]$total)
+#))
+```
+:::
+
+
+## SAVE RESULTS (WiP)
+
+```{r save_model_objs}
+#Save Results
+saveRDS(R, 
+        file=paste0('../../_model.rds'))
+```
 
 ```{r }
 #| eval: false
@@ -510,3 +745,17 @@ estimatesTibble <- as_tibble(regSumm$Coef) %>%
 write_excel_csv(estimatesTibble, file = paste0('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/output/results_main.csv'),
                 append=TRUE)
 ```
+
+## MISC
+
+```{r}
+print(samIDs)
+```
+
+**EOF**
+
+```{r}
+#| eval: false
+knitr::knit_exit()
+```
+

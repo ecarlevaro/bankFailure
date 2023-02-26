@@ -31,6 +31,72 @@ create_adj_matrix <- function(network, weighted=TRUE) {
   
 }
 
+# model is an sphet object from the sphet package.
+extract_sphet_list <- function(model, ...) {
+  co <- coefficients(model)[,1]
+  names <- names(co)
+  # Std errors
+  
+  theS <- summary(model)
+  se <- theS$CoefTable[,'Std. Error']
+  pval <- the$CoefTable[,'Pr(>|t|)']
+  rs <- NAF
+  adj <- NA
+  n <- NROW(theS$model)
+  # Goodness of fit
+  gof <- c(rs, adj, n)
+  gof.names <- c("logLik", "logLik", "Num.\\ obs.")
+  
+  tr <- createTexreg(
+    coef.names = names,
+    coef = co,
+    se = se,
+    pvalues = pval,
+    gof.names = gof.names,
+    gof = gof
+  )
+  
+  tr
+  
+}
+
+
+
+# TEXREG FOR EFFECTS FROM SPHET::SAR
+# summary.LagImpact is the output for total, indic and direct
+# and the table of coefficients is summary.mcmc
+# model is R$SARHet$A98_W97_B2L_nz_99FT01q3$effects_total
+# an specific effect column
+extract_sphet_effects <- function(model, ...) {
+  Ef <- model$Coef$statistics # A matrix
+  co <- Ef[, 'Mean']
+  names <- names(co)
+  # Std errors
+  se <- Ef[,'SD']
+  tVals <- co/se
+  pval <- 1- pt( abs(tVals),  model$N-length(co))
+  pval
+  
+  rs <- NA
+  adj <- NA
+  n <- length(co)
+  # Goodness of fit
+  #gof <- c(rs, adj, n)
+  #gof.names <- c("logLik", "logLik", "Num.\\ obs.")
+  
+  tr <- createTexreg(
+    coef.names = names,
+    coef = co,
+    se = se,
+    pvalues = pval,
+    #gof.names = gof.names,
+    #gof = gof
+  )
+  
+  tr
+  
+}
+
 # Modified varion of ProbitSpatial::ProbitSpatialFit() function that does not stop when
 # W has regions without neighbours (row of zero in W)
 PSfit2 <- function (formula, data, W, DGP = "SAR", method = "conditional", 
@@ -107,8 +173,8 @@ PSfit2 <- function (formula, data, W, DGP = "SAR", method = "conditional",
     if (con$prune == 0) 
       method_grad <- "FG"
     else method_grad <- "AG"
-    ggrad <- get(paste("grad", DGP, method_sigma, method_grad, 
-                       sep = "_"))
+    ggrad <- getFromNamespace(paste("grad", DGP, method_sigma, method_grad, 
+                       sep = "_"), ns="ProbitSpatial")
     init_FL <- Sys.time()
     out = optim(mycoef_cond, llik, ggrad, myenv, method = "BFGS", 
                 control = list(reltol = myenv$reltol))
