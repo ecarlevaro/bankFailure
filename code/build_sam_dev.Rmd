@@ -1,7 +1,7 @@
 ---
 author: "Emi"
 params:
-  IDSAM: 'A98_W98unw_B2L_nz_99FT01q3'
+  IDSAM: 'A98_W98_B2L_nz_99FT01q3'
 output: 
   html_document:
     code_folding: hide
@@ -331,7 +331,7 @@ rhoMin <- 1/eigRealMin
 
 ```
 
-As shown in [p88-89]{LeSagePace2009book} shows  that the condition for invertibility only depends on the **real** eigenvalues such that $\rho$ is restricted to be in the interval ($r^{-1}_{\text{min}}, 1$) where $r^{-1}_{\text{min}}$ is the smallest-pure-real eigenvalue of $W$. The smallest-pure-real eigenvalue is ` `r eigRealMin` ` and thus ** $\rho \in ( `r rhoMin`, 1)$ **
+As shown in [p88-89]{LeSagePace2009book} shows  that the condition for invertibility only depends on the **real** eigenvalues such that $\rho$ is restricted to be in the interval ($r^{-1}_{\text{min}}, 1$) where $r^{-1}_{\text{min}}$ is the smallest-pure-real eigenvalue of $W$. The smallest-pure-real eigenvalue is `r eigRealMin` and thus $$\rho \in ( `r rhoMin`, 1)$$
 
 Eigenvalues and max row and column sum for $W_0$ the original W before row-normalisation
 
