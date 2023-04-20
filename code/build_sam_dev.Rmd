@@ -1,7 +1,7 @@
 ---
 author: "Emi"
 params:
-  IDSAM: 'A98_W98_B2L_nz_99FT01q3'
+  IDSAM: 'A98_W98noNorm_B2L_nz_99FT01q3'
 output: 
   html_document:
     code_folding: hide
@@ -72,9 +72,11 @@ It is the fixed network.
 
 -   $W$ is the average between `r SS$W.FROM`  and `r SS$W.TO`. Hence we use past information about the network. The network only contains entities that lend during the period. All lender in a directed graph.
 
--   $W$ is `r if(SS$W.DIRECTED == TRUE) { print('DIRECTED')} else { print('UNdirected')}`
+-   Is $W$ directed? `r SS$W.DIRECTED`
 
--   $W$ is `r if(SS$W.WEIGHTED == TRUE) { print('WEIghted') } else { print('UNweighted')}`
+-   Is $W$ weighted? `r SS$W.WEIGHTED`
+
+-   Is $W$ row-normalised? `r SS$W.ROW.NORM`
 
 -   $X$ is data from `r SS$X.FROM` to `r SS$X.TO`.
 
@@ -92,7 +94,7 @@ The covariates for each bank at each $t$
 ## Bank covariates
 
 ```{r load_bank_data}
-banksDB <- haven::read_dta('../data/BAFAannual/failures-1997-2001-annual.dta') %>%
+banksDB <- haven::read_dta('../data/BAFAannual/BAFA-1997-2001-annual.dta') %>%
   dplyr::mutate(., 
         fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
         exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
@@ -288,24 +290,28 @@ summary(G)
 if (SS$W.DIRECTED == TRUE) {
   if(SS$W.WEIGHTED == TRUE) {
     # DIRECTED and Weighted W
-    W <- create_adj_matrix(G, weighted=TRUE)
+    W <- create_adj_matrix(G, weighted=TRUE, row_norm=SS$W.ROW.NORM)
     spatialRegNetwork <-  spdep::mat2listw(W) 
     summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)
   } else {
     # DIRECTED and Unweighted W
-  W <- create_adj_matrix(G, weighted=FALSE)
+  W <- create_adj_matrix(G, weighted=FALSE, row_norm=SS$W.ROW.NORM)
   spatialRegNetwork <-  spdep::mat2listw(W) 
   summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)  
   }
 } else {
 # UNDIRECTED W  
   # UNDIRECTED and unweighted (only possible when W is undirected)
-  W <- create_adj_matrix(G, weighted=FALSE)
+  W <- create_adj_matrix(G, weighted=FALSE, row_norm=SS$W.ROW.NORM)
   spatialRegNetwork <-  spdep::mat2listw(W) 
   summary(spatialRegNetwork, zero.policy=SS$W.ALLOW.ZERO)
 
 }
 
+```
+
+```{r}
+save2Excel(W, 'W', 'WnonNorm.xlsx')
 ```
 
 #### Invertibility: eigenvalues
@@ -353,6 +359,8 @@ w0EigVals %>%
 # when is (I - rhoW) non-singular for all |\rho|< 1/\alpha
 W0rowSum <- Matrix::rowSums(W0)
 W0colSum <- Matrix::colSums(W0)
+which.max(W0rowSum)
+which.max(W0colSum)
 alpha = min(max(W0rowSum), max(W0colSum))
 ```
 

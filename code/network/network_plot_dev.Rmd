@@ -1,10 +1,12 @@
 ---
-title: "Network"
+title: "Network desc stats from sample"
 author: "Emi"
 output: 
   html_document:
     code_folding: hide
     number_sections: true
+params:
+    IDSAM: "A98_W98und_B2L_nz_99FT01q3"
 ---
 
 ```{=html}
@@ -16,115 +18,115 @@ output:
   }
 </style>
 ```
+If you want to save this code together with the output, mody this file, save it and then run (call) it from 'Rutils\Rmarkdown\_dynamic_filename.R'. Path is 'code/network/network_plot_dev.Rmd'
 
-If you want to save this code together with the output, mody this file, save it and then run (call) it from 'Rutils\Rmarkdown_dynamic_filename.R'. Path is 'code/network/network_plot_dev.Rmd'
-
-# Setup 
+# Setup
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+#knitr::opts_knit$set(root.dir = 'C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
 library(readxl)
 library(tidyverse)
 library(lubridate)
 library("igraph", quietly = TRUE, warn.conflicts = FALSE, verbose = FALSE)
 library(tidygraph) # Plotting graphs
 library(ggraph)
+library(readODS)
 require(visNetwork)
 library(svglite) # export plots to svg
-source('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/code/Rutils/Emi_R_utils.R')
+source('../Rutils/Emi_R_utils.R')
 ```
 
 ---
   date: `r today()`
 ---
-# Specs
-```{r}
-specs <- list('idSample' = 'A99_pastAvgW_creW_b97q4_s03q4',
-              'savingFolder' = 'output/SAR/Annual99_pastAvgW/',
-'y' = list('failureSince' = 2000.1,
-                         'failureHorizon' = 2003.4),
-              'X' = list('freq' = 'annual',
-                         'from' = 1999,
-                         'to' = 1999,
-                         'bankBirthFrom' = 1997.4, 
-                         'vars' = c('ActivoN', 'C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE',
-                                    'P_LOANS_ARS_RATE_W', 'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')),
-              'W' = list('from' = '',
-                         'to' = '1998q4',
-                         #Weights from debtor/creditor perspective : W_D_PR/W_A_PR (Deudora / Acreeedora)
-                         'wVar' = 'W_A_PR'))
 
-plots <- list('banksLinks'=NULL, 'linksWeights'=NULL, 
-          'fullNetwork'=NULL, 'networkFailBanks'=NULL)
+# Load network data from sample
 
-```
-
-# Load network data
 ```{r load_network}
-setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
+#setwd('C:/Users/emi.ABLE-22868/OneDrive/UWA PhD/bankFailure/')
 
-banksDB <- haven::read_dta('data/BAFAannual/failures-1997-2001-annual.dta') %>%
-  dplyr::mutate(., 
-                fechaQ = quarter(as_date(FECHA_D, origin=ymd('1960-01-01')), with_year=TRUE),
-                exitDateQ = quarter(as_date(EXIT_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
-                startDateQ = quarter(as_date(FIRST_DATE, origin=ymd('1960-01-01')), with_year=TRUE),
-                .after = IDENT) 
+samID <- str_trim(params$IDSAM, side='both') %>% str_split(., " ", simplify=TRUE) %>% .[1,]
 
-banks <- banksDB %>%
-  drop_na %>%
-  filter(FECHA_A == specs$X$from) %>%
-  # ONly private banks
-  filter(GRUPO_ID_UNI != 4 & GRUPO_ID_UNI !=5) %>%
-  filter(startDateQ<= !!specs$X$bankBirthFrom & exitDateQ >= !!specs$y$failureSince)  %>%
-  mutate('FAIL' = if_else(exitDateQ<=specs$y$failureHorizon, 1, 0),
-         'NAME' = as.character(IDENT)) %>%
-  select(., NAME, NOMRED, ActivoN, FAIL)
+samSpecs <- read_ods("../../data/sams_specs_BAFA.ods") %>%
+  filter(IDSAM %in% samID) %>%
+  # how should results be ordered? useful for tables
+  mutate(order = match(.$IDSAM, samID)) %>%
+  arrange(., order)
 
-Wtb <- read_excel(paste0(specs$savingFolder,'avgRelations.xlsx'))
+if(NROW(samSpecs) == 0) { stop(paste("sams: ", samID, " not found!"))}
+# Vars to reescale
+cols <- c('C8Est_w', 'CAR_IRR_3A6', 'P_ROA', 'P_DEP_ARS_RATE', 'P_LOANS_ARS_RATE_W', 
+'APRSpNF_RATE_W', 'APR_USD_RATE', 'APR_RATE_W')
+
+Sams <- pmap(samSpecs, function(...) {
+  thisSamSpec <- tibble(...)
+  fileName <- paste0('../../', thisSamSpec$SAMSAVINGFOLDER, thisSamSpec$IDSAM, '.rds') 
+  print(paste0("Opening ", fileName))
+  thisSam <- readRDS(fileName)
+}) 
 #Wig <- readRDS(paste0(specs$savingFolder, specs$idSample, '.rds'))$network
-network <- Wtb %>%
+network <- Sams[[1]]$G %>%
   as_tbl_graph() %>%
   activate(nodes) %>%
-  rename('NAME' = 'name') %>%
-  right_join(., banks, by='NAME') %>%
-  mutate(degree = degree(.),
-         colour = if_else(FAIL==1, 'red', 'green'),
+  #rename('NAME' = 'name') %>%
+  #right_join(., banks, by='NAME') %>%
+  mutate(in_degree = degree(., mode='in'),
+         out_degree = degree(., mode='out'),
+         colour = if_else(failure==1, 'red', 'green'),
          value = ActivoN, 
          #title = str_c(label, ', $ ', (ActivoN), ' log of.'),
          'Assets' = ActivoN/1000000)
-network <- network %>%
+
+# REname weight attribute
+if (samSpecs$W.WEIGHTED) {
+  network <- network %>%
             activate(edges) %>%
-            mutate('Weight (%)' = WEIGHT)
+            mutate('Weight (%)' = weight)
+}
 
 summary(network)
 ```
 
 ## Distribution of entities (nodes)
 
-* There are 
-How many entities as lenders?
-
 ## Distribution of links
+
 ```{r}
-network %>%
+nBorrowers <- network %>%
   activate(edges) %>%
   as_tibble() %>%
   count(from) %>% NROW()
 
-network %>%
+nLenders <- network %>%
   activate(edges) %>%
   as_tibble() %>%
   count(to) %>% NROW()
 
 
-plots$banksLinks <- network %>%
+
+#if(samSpecs$W.WVAR == "W_A_PR") { 
+#  B2L = TRUE # borrower to lender
+#} else {
+#    B2L = FALSE}
+#thisXLabel = if_else(B2L, 
+#                     "", 
+#                     "Number of outgoing links by entity (out degree)")
+```
+
+-   There are `r nBorrowers` borrowers and `r nLenders` lenders. They could be the same
+
+```{r in_links}
+
+plots <- list()
+plots$inLinks <- network %>%
   activate(nodes) %>%
   as_tibble(.) %>%
-  {ggplot(., mapping=aes(x=degree)) +
-  geom_histogram(binwidth=3, fill='blue') +
-      scale_x_continuous(name='Number of links by entitiy (degree)') +
-      scale_y_continuous(name='Number of entities', breaks=0:10) +
+  {ggplot(., mapping=aes(x=in_degree)) +
+  geom_histogram(binwidth=2, fill='blue') +
+      scale_x_continuous(name='Number of incoming links by entity (in degree)', breaks=seq(from=0, to=50, by=5)) +
+      scale_y_continuous(name='Number of entities', breaks=seq(from=0, to=25, by=4)) +
+      coord_cartesian(xlim=c(0, 50), ylim=c(0, 25)) +
       theme_bw() +
       theme(panel.grid=element_line(colour='#999999', linetype='14'), 
                      panel.grid.minor=element_line(colour='white'), text=element_text(size=16), 
@@ -132,18 +134,19 @@ plots$banksLinks <- network %>%
                      axis.text.y = element_text(size=14),
                      legend.position = 'bottom', legend.key.height=unit(3.5, 'cm'))}
 
-plots$banksLinks
+plots$inLinks
 
 ```
-## Distribution of weights
-```{r}
-plots$linksWeights <- network %>%
-  activate(edges) %>%
+
+```{r out_links}
+plots$outLinks <- network %>%
+  activate(nodes) %>%
   as_tibble(.) %>%
-  { ggplot(., mapping=aes(x=`Weight (%)`)) +
-      geom_histogram(binwidth=1, colour='grey') +
-      scale_x_continuous(name='Link weight as percentage of Loans', breaks=0:20) +
-      scale_y_continuous(name='Number of links') +
+  {ggplot(., mapping=aes(x=out_degree)) +
+  geom_histogram(binwidth=2, fill='blue') +
+      scale_x_continuous(name='Number of outgoing links by entity (out degree)', breaks=seq(from=0, to=50, by=5)) +
+      scale_y_continuous(name='Number of entities', breaks=seq(from=0, to=25, by=4)) +
+      coord_cartesian(xlim=c(0, 50), ylim=c(0, 25)) +
       theme_bw() +
       theme(panel.grid=element_line(colour='#999999', linetype='14'), 
                      panel.grid.minor=element_line(colour='white'), text=element_text(size=16), 
@@ -151,18 +154,75 @@ plots$linksWeights <- network %>%
                      axis.text.y = element_text(size=14),
                      legend.position = 'bottom', legend.key.height=unit(3.5, 'cm'))}
 
-plots$linksWeights
-
-ggsave(paste0(specs$savingFolder, 'linksWeights.pdf'), plots$linksWeights,
-       width=22.5, height=15, units='cm')
+plots$outLinks
 ```
 
-
-# Network plot
-
+## Distribution of weights
 
 ```{r}
-networkFplot <- network %>%
+if (samSpecs$W.WEIGHTED) {
+  centerWeight <- network %>%
+    activate(edges) %>% as_tibble() %>% 
+    { c(mean(.$weight), median(.$weight))}
+} else {
+  centerWeight <- c(NA,NA)
+}
+```
+
+The mean of weight is **`r centerWeight[1]`** while the median weight is **`r centerWeight[2]`**
+
+```{r}
+if (samSpecs$W.WEIGHTED) {
+  
+  plots$linksWeights <- network %>%
+    activate(edges) %>%
+    as_tibble(.) %>%
+    { ggplot(., mapping=aes(x=`Weight (%)`)) +
+        geom_histogram(binwidth=0.5, colour='grey') +
+        scale_x_continuous(name='Link weight as percentage of Loans', breaks=0:20) +
+        scale_y_continuous(name='Number of links') +
+        theme_bw() +
+        theme(panel.grid=element_line(colour='#999999', linetype='14'), 
+                       panel.grid.minor=element_line(colour='white'), text=element_text(size=16), 
+                       axis.text.x = element_text(),
+                       axis.text.y = element_text(size=14),
+                       legend.position = 'bottom', legend.key.height=unit(3.5, 'cm'))}
+  
+  plots$linksWeights
+}
+
+```
+
+# Failed subnetwork
+
+```{r}
+networkF <-  network %>%
+  activate(nodes) %>%
+  filter(failure == 1)
+# Nodes
+V(networkF)
+
+# List the in-degree for each node
+E(networkF)
+```
+
+## Links between failing banks
+
+Between 1999q1 and 2001q3, 23 local-private banks failed, see file:///C:/Users/emi/OneDrive/UWA%20PhD/bankFailure/code/descStats/desc_stats_dev.html#how-many-local-private-banks-failed
+
+Count how many failed banks had an incoming link from another fail one. 
+Count in-degree (lenders)
+```{r}
+nIncLinks <- degree(networkF, mode='in')
+nIncLinks[nIncLinks > 0]
+```
+There are `r length(nIncLinks[nIncLinks > 0])` failed banks with links with another failed one. 
+Is this network DIRECTED? `r samSpecs$W.DIRECTED`
+
+## Failed subnetwork plot
+
+```{r}
+networkFplot <- networkF %>%
   activate(edges) 
   #filter(., WEIGHT>0.1)
 
@@ -170,27 +230,35 @@ networkFplot <- network %>%
 #thisLayout <- layout_with_lgl(pNetwork, options=list(fixed=))
 #thisLayout <- layout_hive(pNetwork)
 
-plots$fullNetwork <- networkFplot %>%
+plots$networkF <- networkFplot %>%
   ggraph(., layout = 'kk') +
-  geom_edge_fan2(aes(alpha = `Weight (%)`), colour='black', check_overlap=TRUE, n = 115) + 
   geom_node_point(aes(size=Assets), shape=21, fill=V(networkFplot)$colour) +
-  theme_graph() +
+  geom_node_label(aes(label=NOMRED), repel=TRUE, alpha=0.5, size=2) +
+  theme_graph(base_family = "sans") +
   theme(legend.position = 'bottom')
+if(samSpecs$W.WEIGHTED) {
+  plots$networkF <- plots$networkF +
+  geom_edge_fan2(aes(alpha = `Weight (%)`), colour='black', check_overlap=TRUE, n = 115)
+} else {
+  plots$networkF <- plots$networkF +
+  geom_edge_fan2( colour='black', check_overlap=TRUE, n = 115)
+}
 
-plots$fullNetwork
+plots$networkF
 
 ```
-
 
 ```{r }
 WigFails  <- networkFplot %>%
   activate(nodes) %>%
-  filter(., FAIL==1) 
+  filter(., failure==1) 
 
 WigFails
 
 ```
+
 Which failing banks are isolated?
+
 ```{r}
 WigFails %>% 
   activate(nodes) %>% 
@@ -198,34 +266,34 @@ WigFails %>%
 
 ```
 
-                    
-```{r plot_fail_banks_network}
+```{r plot_fail_banks_network, eval=FALSE, include=FALSE}
 
 plots$WigFails <- networkFplot %>%
   activate('edges') %>%
-  mutate(`Weight (%)` = WEIGHT * (.N()$FAIL[from] + .N()$FAIL[to] )) %>%
+  mutate(`Weight (%)` = weight * (.N()$failure[from] + .N()$failure[to] )) %>%
   ggraph(., layout = 'kk') +
   geom_edge_fan2(aes(filter=`Weight (%)`>0, alpha = `Weight (%)`),colour='black',
                  check_overlap=TRUE, n = 115) + 
   geom_node_point(aes(size=Assets), shape=21, fill=V(networkFplot)$colour) +
-  theme_graph() +
+  theme_graph(base_family = "sans") +
   theme(legend.position = 'bottom')
 
-
+plots$WigFails
 ```
 
 # Save
-```{r save, eval=FALSE, include=FALSE}
-walk2(plots, names(plots), function(plot, fileName) {
-  ggsave(paste0(specs$savingFolder, fileName, '.jpeg'),
+
+```{r save, eval=TRUE, include=TRUE}
+fileNames <- paste0('../../output/network/', samSpecs$IDSAM, '-',  names(plots), '.jpeg')
+walk2(plots, fileNames, function(plot, fileName) {
+  ggsave(fileName,
          plot, 
    width=22.5, height=15, units='cm')
 })
 
 ```
 
-
-## Interactive plot
+# INTERACTIVE PLOT
 
 Using visNetwork package. I use the same 'g' object from iGraph
 
@@ -245,39 +313,36 @@ pTblRelations <- network %>%
 visNetwork(pTblNodes, pTblRelations, width = "100%") %>%
   visLayout(randomSeed = 123, improvedLayout=TRUE) %>%
   visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visEdges(arrows = "to") %>%
   visInteraction(navigationButtons = TRUE) %>%
   visConfigure(enabled = TRUE)
 
 
 ```
 
-
 ```{r}
 #visIgraph(network)
 # Provde the initial igraph network rather than tidygraph.IDgraphs names edges with sequential IDs. Tidygraph breaks the association between IDs.
-visNetData <- toVisNetworkData(netIg)
+visNetData <- toVisNetworkData(Sams[[1]]$G)
 visNetData$nodes <- visNetData$nodes %>%
-                      mutate('value' = B_SIZE,
-                      'group' = if_else(as.logical(survival), 'survivors', 'failing'),
+                      mutate('value' = ActivoN,
+                      'group' = if_else(as.logical(failure), 'failures', 'survivors'),
                       'label' = NOMRED)
-visNetData$edges <- visNetData$edges %>%
-                      mutate('value' = WEIGHT)
+if (samSpecs$W.WEIGHTED) {
+  visNetData$edges <- visNetData$edges %>%
+                      mutate('value' = weight)
+}
 
 visNetwork(nodes=visNetData$nodes, edges=visNetData$edges, width = '100%') %>%
   visNodes(scaling = list('min'=40, 'max'=80)) %>%
-  visEdges(color = list('color'='grey', 'opacity'=0.4)) %>%
+  visEdges(color = list('color'='grey', 'opacity'=0.4), arrows='to') %>%
   visGroups(groupname = 'survivors', color=list('background'='yellow', 'border'='black')) %>%
-  visGroups(groupname = 'failing', color=list('background'='red', 'border'='black')) %>%
+  visGroups(groupname = 'failures', color=list('background'='red', 'border'='black')) %>%
   visLayout(randomSeed = 123, improvedLayout=TRUE) %>%
-  visOptions(highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
+  visOptions(height='800px', highlightNearest = TRUE, nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE) %>%
   visConfigure(enabled = TRUE) %>%
   visPhysics(solver = "forceAtlas2Based", 
             forceAtlas2Based = list(gravitationalConstant = -1000))
 
 ```
-
-
-
-
-

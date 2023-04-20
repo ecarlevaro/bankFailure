@@ -153,10 +153,12 @@ drop Activo ActivoN APRestamosARS APRestamosARS APRARSSpNFCap APRARSSFcieroCap A
 egen Activo = rowtotal(saldo111001-saldo235009), missing 
 //  It creates the (row) sum of the variables in varlist, treating missing as 0.  If missing is specified and all values in varlist are missing for an observation, newvar is set to missing.
 label var Activo "Activo en miles de pesos nominal"
+format %14.0fc Activo
 codebook Activo 
 
 gen ActivoN = Activo - A_IMP_NETEAR
 label var ActivoN "Activo neteado de A_IMP_NETEAR"
+format %14.0fc ActivoN
 replace ActivoN = Activo if missing(A_IMP_NETEAR)
 
 gen ActivoN_S = ActivoN/1000000

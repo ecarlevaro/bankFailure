@@ -1,12 +1,12 @@
 save2Excel <- function(obj, sName, file) {
-  write.xlsx2(obj, file, 
+  xlsx::write.xlsx2(obj, file, 
               sheetName=sName, append=TRUE)
 }
 
 # Export adjacency matrix from an igraph object
 # INPUT: network. An igraph object
 # OUTPUT: an standarised NxN matrix with weights if any in the input
-create_adj_matrix <- function(network, weighted=TRUE) {
+create_adj_matrix <- function(network, weighted=TRUE, row_norm) {
   #network <- Sams[[1]]$network
   if (weighted) {
     print("Weighted network")
@@ -20,14 +20,18 @@ create_adj_matrix <- function(network, weighted=TRUE) {
   }
   # Dimensions of W should equal # of banks
   # Row-normalised weight matrix
+  if (row_norm)
+  {
+    W <- apply(W, MARGIN=1, FUN=function(row) { 
+      rowSum = sum(row)
+      if (rowSum != 0) {
+        row/rowSum
+      } else {
+        row
+      }}) %>% t(.) 
+  }
   
-  apply(W, MARGIN=1, FUN=function(row) { 
-    rowSum = sum(row)
-    if (rowSum != 0) {
-      row/rowSum
-    } else {
-      row
-    }}) %>% t(.) 
+  W
   
 }
 

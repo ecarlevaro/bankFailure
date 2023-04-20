@@ -1,0 +1,49 @@
+---
+title: "Likelihood function of a probit model"
+author: "Emi"
+date: "09/04/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The observable varialbe $y_i$ is understood  to be linked to an unobservable and latent continuous variable $y^{*}_i$ such that:
+$$
+y_i =
+\begin{cases}
+1, & \text{ if } y^{*}_i > 0 \\
+0, & \text{ if } y^{*}_i \leq 0. 
+\end{cases}
+$$
+Then the goal is to find the values for all $i$, the vector $\bm{y^{*}}$ that would correctly classified most of the failing banks as failures, that is with values of $y^{*} \leq 0$.
+
+A model for the latent is:
+$$
+\begin{align}
+\bm{y^{*}} = X \bm{\beta} + \bm{\varepsilon} & \text{,  } \bm{\varepsilon} \sim \mathbb{N}(0, 1) \\
+\end{align}
+$$
+where the variance of the strcutural shocks is normalised to 1. 
+
+We observe the joint probability $f(\bm{y}, X)$.
+focusing on the distribution of the error vector $\bm{\varepsilon}}$:
+$$
+\begin{align}
+P(\bm{y^{*}} > 0 ) &= P(X\bm{\beta} + \bm{\varepsilon} > 0) \\
+                  &= P(\bm{\varepsilon} < X\bm{\beta}) \\
+                  &= \Phi(X\bm{\beta}) 
+\end{align}
+$$
+THen, the likelihood function can be built exploiting the fact that a) $y \sim \mathbb{B}\text{ernoulli}$ where the probability of success is given by $P(y{*}>0)$ and b) the observations are indepent, thus the joint probability of the sample is the product of the individual probabilities for each observation:
+$$
+\begin{align}
+P(Y_1 = y_1, Y_2 = y_2, Y_3, = y_3, \cdots, Y_N = y_n) = f(\bm{Y}) &= \prod_{i=1}^{N} (1 - p)^{1-y_i} p^{y_i} \\
+                                                                  &= \prod_{i=1}^{N} \left(1 - \Phi(X\bm{\beta} \right)^{1-y_i} \Phi(X\bm{\beta})^{y_i} \\
+                                                                  &= \prod_{i=1}^{N} \int_{-\infty}^{a_i} \phi(\varepsilon_i) d \varepsilon_i
+\end{align}
+$$
+where we conveniently define $a_i = (2 y_i - 1) \frac{x_i \beta}{\sigma_{\varepsilon_i}}$ such that for $y_i = 0 \rightarrow a_i = -\frac{\hat{y_i}}{\sigma_{\varepsilon}_i}$ and a positive value for $y_i=1$. 
+
+Every joint probability can be written as the product of conditionals. BIERENES

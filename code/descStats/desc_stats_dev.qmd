@@ -12,8 +12,10 @@ require(visNetwork)
 source('../Rutils/Emi_R_utils.R')
 source('../BAFA_funs.R')
 ```
+
 # Failures unconditional
 
+Descriptive statistics from the database, not the sample. 
 I don't filter by banks that have a relationshipo in the network.
 
 ```{r load_data_from_DB}
@@ -101,7 +103,7 @@ pData <- filter(sur, Quarter >= 1997.4) %>% select(., Quarter, N_FAIL, SUR_RATE_
 
 ## Local private banks
 
-```{r count_failures}
+```{r count_failures_private}
 bankBirthFrom = 1997.4
 failureSince = 1999.1
 X_VARS = "ActivoN, C8Est_w, CAR_IRR_3A6, P_ROA, P_DEP_ARS_RATE, P_LOANS_ARS_RATE_W, APRSpNF_RATE_W, APR_USD_RATE, APR_RATE_W"
@@ -133,9 +135,16 @@ fByQ
   
 ```
 
-Survival plot
+### How many local-private banks failed?
 
-```{r survival_plot}
+```{r}
+filter(fByQ, Quarter >= 1999.1 & Quarter <= 2001.3 & !is.na(N_FAIL))$N_FAIL %>%
+  sum
+```
+
+## Survival plot
+
+```{r survival_plot_private}
 
 #specs$X$bankBirthFrom
 # Generate a sequence of quarters
@@ -219,10 +228,12 @@ ggsave('../../../../../DropBox/Aplicaciones/Overleaf/manuscriptBAFA/imgs/surviva
 
 # Failures based on samples
 
-```{r}
-sam <- readRDS('../../data/SAMS/descStats_A99_W99_nz_98FT03.rds')
+Baseline sample is A98_W98_B2L_nz_99FT01q3.rds. Also see `code/network/network_plot_dev.Rmd`
 
-descStats_A99_W99_nz_99FT03
+```{r}
+sam <- readRDS('../../data/SAMS/A98_W98und_B2L_nz_99FT01q3.rds')
+
+
 failsByQ <- sam$samBanks %>%
   group_by(exitDateQ) %>%
   summarise(n = n())
@@ -298,25 +309,4 @@ failsByQ <- mutate(failsByQ, q = allQs[FAIL_DATE_Q - 148+1])
 ```
 
 
-
-```{r}
-
-  
-banks <- banks %>%
-  mutate(failure = if_else(exitDateQ <= SS$Y.FAILUREHORIZON, 1, 0)) %>%
-  drop_na %>%
-  filter(FECHA_A == SS$X.FROM) %>%
-  
-# Select only entities private and alive on 1997q4
-banksAtStart <- banksDB %>%
-dplyr::group_by(IDENT) %>%
-  summarise('start' = FECHA_A,
-            'startDateQ' = min(startDateQ),
-            NOMRED = first(NOMRED),
-            GRUPO_ID_UNI = first(GRUPO_ID_UNI),
-            P_LOANS_ARS_RATE_W = first(P_LOANS_ARS_RATE_W))
-
-excBanks <- filter(banks, startDateQ>1997.4) %>% 
-   summarise(IDENT = min(IDENT), B_NAME = first(B_NAME))
-```
 
